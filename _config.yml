@@ -1,1 +1,5 @@
+title: My website
+description: Alvaro Menendez website.
+show_downloads: true
+google_analytics:
 theme: jekyll-theme-hacker
