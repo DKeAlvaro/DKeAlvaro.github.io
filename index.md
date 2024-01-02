@@ -5,7 +5,7 @@ title: Alvaro Menendez - My CV
 
 # Alvaro Menendez
 
-[alvaro.mrgr@gmail.com](mailto:alvaro.mrgr@gmail.com) | [LinkedIn](https://www.linkedin.com/in/alvaro-menendez-ros-42b76424a/) | [GitHub]([https://github.com/yourusername](https://github.com/DKeAlvaro))
+[Gmail](mailto:alvaro.mrgr@gmail.com) | [LinkedIn](https://www.linkedin.com/in/alvaro-menendez-ros-42b76424a/) | [GitHub]([https://github.com/yourusername](https://github.com/DKeAlvaro))
 
 ---
 
@@ -18,7 +18,7 @@ I am a passionate and motivated individual with a strong background in `Data sci
 ## Education
 
 ### Maastricht University
-*Currently studying*, Aug 2021 - Jun 2024
+*Currently studying*, _Aug 2021_ - _Jun 2024_
 - Relevant Coursework: Machine learning, Data analysis, Data structures & algorithms...
 
 ---
@@ -26,16 +26,7 @@ I am a passionate and motivated individual with a strong background in `Data sci
 ## Skills
 
 - Technical Skills: `Java`, `Python`, `SQL`, `Matlab`
-- Soft Skills:
-    1. **Effective Communication:**
-       - Proven ability to articulate ideas clearly and concisely, fostering transparent communication within teams.
-    
-    2. **Adaptable Team Player:**
-       - Demonstrated flexibility to navigate changing work environments and a collaborative approach in achieving collective objectives.
-    
-    3. **Strategic Problem-Solver:**
-       - Adept at analyzing complex situations, identifying challenges, and implementing innovative solutions to enhance overall efficiency.
-
+- Soft Skills: I have ~~zero~~ a lot of soft skills.
 
 ---
 
