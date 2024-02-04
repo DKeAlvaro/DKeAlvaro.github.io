@@ -30,7 +30,7 @@ I am currently a third year `Data science` and `AI` student.
 ---
 
 ## Projects
-- 
+![wordcloud](Assets\Inmates_last_words\wordcloud.png)
 - 
 -
 ## Languages
