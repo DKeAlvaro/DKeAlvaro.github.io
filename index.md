@@ -17,9 +17,9 @@ I am a passionate and motivated individual with a strong background in `Data sci
 
 ## Education
 
-### Maastricht University
+### BSc Data Science & AI - Maastricht University
 *Currently studying*, _Aug 2021_ - _Jun 2024_
-- Relevant Coursework: Machine learning, Data analysis, Data structures & algorithms...
+- Relevant Coursework: Machine learning, Data analysis, Data structures & algorithms, Recommender Systems,
 
 ---
 

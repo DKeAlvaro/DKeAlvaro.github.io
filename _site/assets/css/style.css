@@ -106,3 +106,23 @@ a { color: #63c0f5; text-shadow: 0 0 5px rgba(104, 182, 255, 0.5); }
 .cf { zoom: 1; }
 
 #a-title { text-decoration: none; }
+
+.btn-download {
+    background-color: #007bff; /* Blue background */
+    color: white; /* White text */
+    padding: 10px 20px; /* Top and bottom padding, left and right padding */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-decoration: none; /* No underline */
+    font-size: 16px; /* Text size */
+    transition: background-color 0.3s, transform 0.3s; /* Smooth background and transform transition */
+  }
+  
+  .btn-download:hover, .btn-download:focus {
+    background-color: #0056b3; /* Darker blue on hover/focus */
+    transform: scale(1.05); /* Slightly increase size on hover/focus */
+    color: #fff; /* Keep text white */
+    text-decoration: none; /* No underline */
+  }
+  
