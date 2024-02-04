@@ -30,7 +30,7 @@ I am currently a third year `Data science` and `AI` student.
 ---
 
 ## Projects
-<img src="https://github.com/DKeAlvaro/DKeAlvaro.github.io/blob/main/Assets/Inmates_last_words/wordcloud.png" width="600", height = "300">
+![wordcloud](Assets\Inmates_last_words\wordcloud.png)
 - 
 -
 ## Languages
