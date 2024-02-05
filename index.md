@@ -52,7 +52,7 @@ We performed a study to analyze the Last Statements from Inmates executed in tex
 </div>
 
 We made a (non-published) paper about it and can be downloaded here:
-<a href="assets\Inmates_last_words\NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
+<a href="assets/Inmates_last_words/NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
 
 
@@ -64,4 +64,4 @@ We made a (non-published) paper about it and can be downloaded here:
 - English: Fluent
 
 Finally, a pdf version of my CV can be downloaded here:
-<a href="assets\My_CV.pdf" download="AlvaroMenendezCV.pf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
+<a href="assets/My_CV.pdf" download="AlvaroMenendezCV.pf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
