@@ -40,10 +40,36 @@ We performed a project together with Dutch company [Ans](https://ans.app/landing
   <img src="assets/ANS/screenshotOfGUI.jpg" alt="GUI" width="500">
 </div>
 
+&nbsp;
 We made a (non-published) paper about it and can be downloaded here:
 <a href="assets\ANS\Project_3_1.pdf" download="Ans_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
+We also had to present our product to an audience! Here are two pictures from the event:
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="assets\ANS\ans_presentation_1.jpg" class="d-block w-100" style="max-width: 600px; height: auto; display: block; margin-left: auto; margin-right: auto;">
+    </div>
+    <div class="carousel-item">
+      <img src="assets\ANS\ans_presentation_2.jpg" class="d-block w-100" style="max-width: 600px; height: auto; display: block; margin-left: auto; margin-right: auto;">
+    </div>
+  </div>
+  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
 
+
+&nbsp;
 - ### Sentiment Analysis of inmates Last Statements using Natural language processing (NLP)
 We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as `BERT` or N-Gram frequency analysis. The data is publicly available and can be seen [here](https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html). A wordcloud of the last statements can be seen below.
 
@@ -51,12 +77,15 @@ We performed a study to analyze the Last Statements from Inmates executed in tex
   <img src="assets/NLP/wordcloud.png" alt="wordcloud">
 </div>
 
+
 We made a (non-published) paper about it and can be downloaded here:
 <a href="assets/Inmates_last_words/NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
 
 
 - 
+
+
 -
 ## Languages
 
