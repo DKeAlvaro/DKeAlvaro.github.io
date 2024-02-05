@@ -48,7 +48,7 @@ We made a (non-published) paper about it and can be downloaded here:
 We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as `BERT` or N-Gram frequency analysis. The data is publicly available and can be seen [here](https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html). A wordcloud of the last statements can be seen below.
 
 <div style="text-align: center;">
-  <img src="/assets/Inmates_last_words/wordcloud.png" alt="wordcloud">
+  <img src="assets/Inmates_last_words/wordcloud.png" alt="wordcloud">
 </div>
 
 We made a (non-published) paper about it and can be downloaded here:
