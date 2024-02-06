@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Alvaro Menendez - My CV
+title: Álvaro Menéndez - My Portfolio
 ---
 
 # Alvaro Menendez
