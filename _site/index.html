@@ -13,7 +13,7 @@
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/assets/css/style.css?v=c601dd85bd2d9dbb2e92f463dcddb675d3acc877">
+    <link rel="stylesheet" href="/assets/css/style.css?v=818a146cbf85cb92a46fbbd381dac5464c035309">
     <!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup theme-color -->
@@ -52,6 +52,7 @@
 <!-- End Jekyll SEO tag -->
 
   </head>
+  <link rel="stylesheet" href="/assets%5Cstyles.css">
 
   <body>
 
@@ -103,9 +104,9 @@
 <h2 id="skills">Skills</h2>
 
 <ul>
-  <li>Technical Skills: <code class="language-plaintext highlighter-rouge">Java</code>, <code class="language-plaintext highlighter-rouge">Python</code>, <code class="language-plaintext highlighter-rouge">SQL</code>, <code class="language-plaintext highlighter-rouge">Matlab</code></li>
-  <li>I can use most well known python libraries such as Pandas, NumPy, SKlearn, Keras, Matplotlib</li>
-  <li>I have hands-on experience with <code class="language-plaintext highlighter-rouge">OpenAI</code> api.</li>
+  <li>Technical Skills: <a href="https://www.java.com/es/">Java</a>, <a href="https://www.python.org/">Python</a>, <a href="https://en.wikipedia.org/wiki/SQL">SQL</a>, <a href="https://www.mathworks.com/products/matlab.html">Matlab</a></li>
+  <li>I can use most well known python libraries such as <a href="https://pandas.pydata.org/">Pandas</a>, <a href="https://numpy.org/">NumPy</a>, <a href="https://scikit-learn.org/stable/">SKlearn</a>, <a href="https://keras.io/">Keras</a>, <a href="https://matplotlib.org/">Matplotlib</a></li>
+  <li>I have hands-on experience with <a href="https://openai.com/blog/openai-api">OpenAI api</a>.</li>
 </ul>
 
 <hr />
@@ -155,7 +156,7 @@ We made a (non-published) paper about it and can be downloaded here:
 <ul>
   <li>
     <h3 id="sentiment-analysis-of-inmates-last-statements-using-natural-language-processing-nlp">Sentiment Analysis of inmates Last Statements using Natural language processing (NLP)</h3>
-    <p>We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as <code class="language-plaintext highlighter-rouge">BERT</code> or N-Gram frequency analysis. The data is publicly available and can be seen <a href="https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html">here</a>. A wordcloud of the last statements can be seen below.</p>
+    <p>We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as <a href="https://huggingface.co/docs/transformers/model_doc/bert">BERT</a> or <a href="https://en.wikipedia.org/wiki/N-gram">N-Gram frequency analysis</a>. The data is publicly available and can be seen <a href="https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html">here</a>. A wordcloud of the last statements can be seen below.</p>
   </li>
 </ul>
 
@@ -163,14 +164,30 @@ We made a (non-published) paper about it and can be downloaded here:
   <img src="assets/NLP/wordcloud.png" alt="wordcloud" />
 </div>
 
-<p>We made a (non-published) paper about it and can be downloaded here:
+<p> 
+We made a (non-published) paper about it and can be downloaded here:
 <a href="assets/Inmates_last_words/NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a></p>
 
 <ul>
-  <li></li>
+  <li>
+    <h3 id="3d-golf-project-from-scratch-and-developing-a-bot-that-made-hole-in-ones">3D golf project from scratch and developing a bot that made hole in one’s!</h3>
+    <p>We developed a 3D mini-golf project using <a href="https://libgdx.com/">LibGDX</a> for the GUI, then using <a href="https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods">Runge-Kutta methods</a> to estimate the position of the ball at every moment. The problem of finding a hole in one can be seen as minimizing a 2D function where the independent variable is the final distance of the shot given the initial x and y velocities. For this we used hill climbing and gradient descent to find the global minima of this function (see image below for the function to minimize). This turned out to be very useful as it is widely used in Machine Learning.</p>
+  </li>
+</ul>
+<p align="center">
+  <img src="assets\GOLF\golf_video.gif" alt="GUI demonstration" width="48%" />
+  <img src="assets\GOLF\Distance_Graph.png" alt="Distance Graph" width="48%" />
+</p>
+<p>The github repository for this project can be accessed <a href="https://github.com/DKeAlvaro/Project-1.2">here</a></p>
+
+<h2 id="projects-under-developement">Projects Under developement</h2>
+<ul>
+  <li>
+    <h3 id="data-analysis-project-analyzing-customer-behavior-of-an-e-commerce">Data Analysis project: Analyzing customer behavior of an E-Commerce</h3>
+    <p>In my current course of <code class="language-plaintext highlighter-rouge">Data Analysis</code>, we are given the opportunity to analyze a dataset of our choice. We will find a Dataset from <a href="https://www.kaggle.com/">Kaggle</a>, use <code class="language-plaintext highlighter-rouge">Python</code> libraries such as Pandas, Matplotlib, NumPy and Sklearn. Through these tools, we aim to identify patterns and insights that can help improve business strategies.</p>
+  </li>
 </ul>
 
-<p>-</p>
 <h2 id="languages">Languages</h2>
 
 <ul>
@@ -180,6 +197,23 @@ We made a (non-published) paper about it and can be downloaded here:
 
 <p>Finally, a pdf version of my CV can be downloaded here:
 <a href="assets/My_CV.pdf" download="AlvaroMenendezCV.pf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a></p>
+
+<ul>
+  <li>
+    <h2 id="send-me-an-e-mail">Send me an E-mail</h2>
+  </li>
+</ul>
+<div class="form-container">
+  <form action="https://formspree.io/f/mdoqewgw" method="POST">
+    <label for="name">Name:</label><br />
+    <input type="text" id="name" name="name" placeholder="Your name" /><br />
+    <label for="email">Email:</label><br />
+    <input type="email" id="email" name="_replyto" placeholder="Your email" /><br />
+    <label for="message">Message:</label><br />
+    <textarea id="message" name="message" placeholder="Your message here"></textarea><br />
+    <button type="submit">Send</button>
+  </form>
+</div>
 
       </section>
     </div>

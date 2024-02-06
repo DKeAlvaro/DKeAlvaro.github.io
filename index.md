@@ -25,9 +25,9 @@ I am currently a third year `Data science` and `AI` student. Out of all the tech
 
 ## Skills
 
-- Technical Skills: `Java`, `Python`, `SQL`, `Matlab`
-- I can use most well known python libraries such as Pandas, NumPy, SKlearn, Keras, Matplotlib
-- I have hands-on experience with `OpenAI` api.
+- Technical Skills: [Java](https://www.java.com/es/), [Python](https://www.python.org/), [SQL](https://en.wikipedia.org/wiki/SQL), [Matlab](https://www.mathworks.com/products/matlab.html)
+- I can use most well known python libraries such as [Pandas](https://pandas.pydata.org/), [NumPy](https://numpy.org/), [SKlearn](https://scikit-learn.org/stable/), [Keras](https://keras.io/), [Matplotlib](https://matplotlib.org/)
+- I have hands-on experience with [OpenAI api](https://openai.com/blog/openai-api).
 
 ---
 
@@ -71,22 +71,31 @@ We also had to present our product to an audience! Here are two pictures from th
 
 &nbsp;
 - ### Sentiment Analysis of inmates Last Statements using Natural language processing (NLP)
-We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as `BERT` or N-Gram frequency analysis. The data is publicly available and can be seen [here](https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html). A wordcloud of the last statements can be seen below.
+We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as [BERT](https://huggingface.co/docs/transformers/model_doc/bert) or [N-Gram frequency analysis](https://en.wikipedia.org/wiki/N-gram). The data is publicly available and can be seen [here](https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html). A wordcloud of the last statements can be seen below.
 
 <div style="text-align: center;">
   <img src="assets/NLP/wordcloud.png" alt="wordcloud">
 </div>
 
-
+&nbsp;
 We made a (non-published) paper about it and can be downloaded here:
 <a href="assets/Inmates_last_words/NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
+- ### 3D golf project from scratch and developing a bot that made hole in one's!
+We developed a 3D mini-golf project using [LibGDX](https://libgdx.com/) for the GUI, then using [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) to estimate the position of the ball at every moment. The problem of finding a hole in one can be seen as minimizing a 2D function where the independent variable is the final distance of the shot given the initial x and y velocities. For this we used hill climbing and gradient descent to find the global minima of this function (see image below for the function to minimize). This turned out to be very useful as it is widely used in Machine Learning.
+<p align="center">
+  <img src="assets\GOLF\golf_video.gif" alt="GUI demonstration" width="48%">
+  <img src="assets\GOLF\Distance_Graph.png" alt="Distance Graph" width="48%">
+</p>
+The github repository for this project can be accessed [here](https://github.com/DKeAlvaro/Project-1.2)
 
 
-- 
+
+## Projects Under developement
+- ### Data Analysis project: Analyzing customer behavior of an E-Commerce
+In my current course of `Data Analysis`, we are given the opportunity to analyze a dataset of our choice. We will find a Dataset from [Kaggle](https://www.kaggle.com/), use `Python` libraries such as Pandas, Matplotlib, NumPy and Sklearn. Through these tools, we aim to identify patterns and insights that can help improve business strategies.
 
 
--
 ## Languages
 
 - Spanish: Native speaker
@@ -94,3 +103,16 @@ We made a (non-published) paper about it and can be downloaded here:
 
 Finally, a pdf version of my CV can be downloaded here:
 <a href="assets/My_CV.pdf" download="AlvaroMenendezCV.pf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
+
+- ## Send me an E-mail
+<div class="form-container">
+  <form action="https://formspree.io/f/mdoqewgw" method="POST">
+    <label for="name">Name:</label><br>
+    <input type="text" id="name" name="name" placeholder="Your name"><br>
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="_replyto" placeholder="Your email"><br>
+    <label for="message">Message:</label><br>
+    <textarea id="message" name="message" placeholder="Your message here"></textarea><br>
+    <button type="submit">Send</button>
+  </form>
+</div>
