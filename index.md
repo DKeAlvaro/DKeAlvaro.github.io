@@ -79,7 +79,7 @@ We performed a study to analyze the Last Statements from Inmates executed in tex
 
 &nbsp;
 We made a (non-published) paper about it and can be downloaded here:
-<a href="assets/Inmates_last_words/NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
+<a href="assets\NLP\NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
 - ### 3D golf project from scratch and developing a bot that made hole in one's!
 We developed a 3D mini-golf project using [LibGDX](https://libgdx.com/) for the GUI, then using [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) to estimate the position of the ball at every moment. The problem of finding a hole in one can be seen as minimizing a 2D function where the independent variable is the final distance of the shot given the initial x and y velocities. For this we used hill climbing and gradient descent to find the global minima of this function (see image below for the function to minimize). This turned out to be very useful as it is widely used in Machine Learning.
