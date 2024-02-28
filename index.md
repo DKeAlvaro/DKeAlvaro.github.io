@@ -70,6 +70,18 @@ We also had to present our product to an audience! Here are two pictures from th
 
 
 &nbsp;
+- ### Genetic algorithms applied to the 0-1 Knapsack problem and Travelling Salesman Problem (TSP)
+Imagine you want to travel a number of cities in the world, but have limited gas. How would you determine the path that visits all the cities and minimises the total distance traveled? This is called the Travelling Salesman Problem, and together with the Knapsack problem, we implemented a solution using Genetic Algorithms. Below you can see how our algorithm slowly finds the (near) optimal solution.
+
+<p align="center">
+  <img src="assets\GA\TSP_random.gif" alt="Random Graph" width="48%">
+  <img src="assets\GA\TSP.gif" alt="Circle Graph" width="48%">
+</p>
+We made a (non-published) paper about it and can be downloaded here:
+<a href="assets\GA\Genetic_algorithm.pdf" download="GA_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
+The colab notebook with all the code can be accessed [here](https://colab.research.google.com/drive/1EfrB5LxqBYcX6lAu41kiUujfb2cawYmm?usp=sharing)
+
+&nbsp;
 - ### Sentiment Analysis of inmates Last Statements using Natural language processing (NLP)
 We performed a study to analyze the Last Statements from Inmates executed in texas since 1984 using NLP techniques and models such as [BERT](https://huggingface.co/docs/transformers/model_doc/bert) or [N-Gram frequency analysis](https://en.wikipedia.org/wiki/N-gram). The data is publicly available and can be seen [here](https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html). A wordcloud of the last statements can be seen below.
 
