@@ -114,7 +114,7 @@ In my current course of `Data Analysis`, we are given the opportunity to analyze
 - English: Fluent
 
 Finally, a pdf version of my CV can be downloaded here:
-<a href="assets\CV\Alvaro_Menendez_CV.pdf" download="cv.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
+<a href="assets\CV\Alvaro_Menendez_CV_BLURRED.pdf" download="cv.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
 
 - ## Send me an E-mail
 <div class="form-container">
