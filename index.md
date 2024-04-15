@@ -11,7 +11,7 @@ title: Álvaro Menéndez - My Portfolio
 
 ## Summary
 
-I am currently a third year `Data science` and `AI` student. Out of all the technical abilities I have learned during my higher education, the one I value most is the ability of **tackling problems I have never seen before**. I might not find the solution, but i am definitely not going to stand by idly!
+I am currently a third year `Data science` and `AI` student. I am currently looking for an `internship` or a `job`. I will make my BSc thesis my next semester, and I am still looking for ideas. If you are interested in contributing with me, send me an email using the form at the bottom of this page.
 
 ---
 
