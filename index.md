@@ -68,10 +68,21 @@ We also had to present our product to an audience! Here are two pictures from th
   </a>
 </div>
 
+&nbsp;
+- ### Reinforcement Learning applied to Normal Form Games
+Reinforcement learning is an AI technique widely used in scenarios where agents must learn to make a sequence of decisions to maximize their rewards through trial and error, such as in games [(AlphaGo)](https://deepmind.google/technologies/alphago/) or autonomous robotics [(Boston Dynamics)](https://bostondynamics.com/blog/starting-on-the-right-foot-with-reinforcement-learning/).
+
+In this project, I learned the basics of Reinforcement Learning, like policies, rewards, or the `Q-learning` algorithm. Most importantly, we implemented and compared basic agents in simple Normal form games in `Java`.
+
+
+&nbsp;
+More detail here: <a href="assets\RL\MARL.pdf" download="MARL.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
+
+
 
 &nbsp;
 - ### Genetic algorithms applied to the 0-1 Knapsack problem and Travelling Salesman Problem (TSP)
-Imagine you want to travel a number of cities in the world, but have limited gas. How would you determine the path that visits all the cities and minimises the total distance traveled? This is called the Travelling Salesman Problem, and together with the Knapsack problem, we implemented a solution using Genetic Algorithms. Below you can see how our algorithm slowly finds the (near) optimal solution.
+Imagine you want to travel a specific set of cities in the world, but have limited gas. How would you determine the path that visits all those cities and minimises the total distance traveled so you spend as little gas as possible? This is called the Travelling Salesman Problem, and together with the Knapsack problem, we implemented a solution using Genetic Algorithms. Below you can see how our algorithm slowly finds the (near) optimal solution.
 
 <p align="center">
   <img src="assets\GA\TSP_random.gif" alt="Random Graph" width="48%">
@@ -93,8 +104,10 @@ We performed a study to analyze the Last Statements from Inmates executed in tex
 We made a (non-published) paper about it and can be downloaded here:
 <a href="assets\NLP\NLP_Project-2.pdf" download="NLP_project.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
+
+&nbsp;
 - ### 3D golf project from scratch and developing a bot that made hole in one's!
-We developed a 3D mini-golf project using [LibGDX](https://libgdx.com/) for the GUI, then using [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) to estimate the position of the ball at every moment. The problem of finding a hole in one can be seen as minimizing a 2D function where the independent variable is the final distance of the shot given the initial x and y velocities. For this we used hill climbing and gradient descent to find the global minima of this function (see image below for the function to minimize). This turned out to be very useful as it is widely used in Machine Learning.
+We developed a 3D mini-golf project using [LibGDX](https://libgdx.com/) for the GUI, then using [Runge-Kutta methods](https://en.wikipedia.org/wiki/Runge%E2%80%93Kutta_methods) to estimate the position of the ball at every moment. The problem of finding a hole in one can be seen as minimizing a 2D function where the dependent variable is the final distance of the shot given the initial x and y velocities. For this we used hill climbing and gradient descent to find the global minima of this function (see image below for the function to minimize). This turned out to be very useful as it is widely used in Machine Learning.
 <p align="center">
   <img src="assets\GOLF\golf_video.gif" alt="GUI demonstration" width="48%">
   <img src="assets\GOLF\Distance_Graph.png" alt="Distance Graph" width="48%">
@@ -102,14 +115,14 @@ We developed a 3D mini-golf project using [LibGDX](https://libgdx.com/) for the 
 The github repository for this project can be accessed [here](https://github.com/DKeAlvaro/Project-1.2)
 
 
-
+&nbsp;
 ## Projects Under developement
 - ### [JOINclusion project](https://dke.maastrichtuniversity.nl/JOINclusion/)
 I am currrenlty working on a project that aims to foster the social inclusion of ALL children primary school students (with particular attention to those with a migrant background) through the use of a collaborative mobile application group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.
 
 The project has a large group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.) and countries(Greece, Italy and the Netherlands). [See our team](https://dke.maastrichtuniversity.nl/JOINclusion/partnership/)
 
-
+&nbsp;
 ## Languages
 
 - Spanish: Native speaker
