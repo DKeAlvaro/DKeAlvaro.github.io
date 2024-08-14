@@ -11,14 +11,14 @@ title: Álvaro Menéndez - My Portfolio
 
 ## Summary
 
-I am currently a third year `Data science` and `AI` student. I am currently looking for an `internship` or a `job`. I will make my BSc thesis my next semester, and I am still looking for ideas. If you are interested in contributing with me, send me an email using the form at the bottom of this page.
+I recently gratduated with a `BSc Data Science & AI` from `Maastricht University`. I am currently looking for a `job` in the field. If you are interested in contributing with me, send me an email using the form at the bottom of this page.
 
 ---
 
 ## Education
 
 ### BSc Data Science & AI - Maastricht University
-*Currently studying*, _Aug 2021_ - _Jun 2024_
+*Currently studying*, _Aug 2021_ - _Jan 2025_
 - Relevant Coursework: Machine learning, Data analysis, Natural Language Processing, Data structures & algorithms, Recommender Systems
 
 ---
@@ -104,8 +104,10 @@ The github repository for this project can be accessed [here](https://github.com
 
 
 ## Projects Under developement
-- ### Data Analysis project: Analyzing customer behavior of an E-Commerce
-In my current course of `Data Analysis`, we are given the opportunity to analyze a dataset of our choice. We will find a Dataset from [Kaggle](https://www.kaggle.com/), use `Python` libraries such as Pandas, Matplotlib, NumPy and Sklearn. Through these tools, we aim to identify patterns and insights that can help improve business strategies.
+- ### [JOINclusion project](https://dke.maastrichtuniversity.nl/JOINclusion/)
+I am currrenlty working on a project that aims to foster the social inclusion of ALL children primary school students (with particular attention to those with a migrant background) through the use of a collaborative mobile application group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.
+
+The project has a large group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.) and countries(Greece, Italy and the Netherlands). [See our team](https://dke.maastrichtuniversity.nl/JOINclusion/partnership/)
 
 
 ## Languages
@@ -114,7 +116,7 @@ In my current course of `Data Analysis`, we are given the opportunity to analyze
 - English: Fluent
 
 Finally, a pdf version of my CV can be downloaded here:
-<a href="assets\CV\Alvaro_Menendez_CV_BLURRED.pdf" download="cv.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
+<a href="assets\CV\Alvaro_Menendez_CV.pdf" download="cv.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
 
 - ## Send me an E-mail
 <div class="form-container">
