@@ -18,7 +18,7 @@ I recently gratduated with a `BSc Data Science & AI` from `Maastricht University
 ## Education
 
 ### BSc Data Science & AI - Maastricht University
- _Aug 2021_ - _Sep 2024_
+ _Sep 2021_ - _Jun 2024_
 - Relevant Coursework: Machine learning, Data analysis, Natural Language Processing, Data structures & algorithms, Recommender Systems
 
 ---
