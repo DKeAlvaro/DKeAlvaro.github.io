@@ -186,9 +186,15 @@ body {
 
 .banner-img {
     width: 100%; /* Full width */
-    height: auto; /* Auto height to maintain aspect ratio */
-    max-height: 275px; /* Maximum height to limit size on larger screens */
+    max-height: 275px; /* Maximum height */
     border: 5px solid #333; /* Dark border */
-    object-fit: cover; /* Ensures the image covers the element while maintaining aspect ratio */
+    object-fit: cover; /* Ensures the image covers the area without distortion */
 }
 
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+    .banner-img {
+        max-height: 200px; /* Adjust height for smaller screens */
+        border-width: 3px; /* Thinner border for smaller screens */
+    }
+}
