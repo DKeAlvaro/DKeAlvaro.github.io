@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Álvaro Menéndez - My Portfolio
+title: Álvaro Menéndez - My Portfolio 
 ---
 
-# Alvaro Menendez
+# Alvaro Menendez | [My Blog](/blog/)
 
 [Gmail](mailto:alvaro.mrgr@gmail.com) | [LinkedIn](https://www.linkedin.com/in/alvaromenendezros/) | [GitHub](https://github.com/DKeAlvaro)
 
@@ -12,6 +12,9 @@ title: Álvaro Menéndez - My Portfolio
 ## Summary
 
 I recently gratduated with a `BSc Data Science & AI` from `Maastricht University`. I am currently looking for a `job` in the field. If you are interested in contributing with me, send me an email using the form at the bottom of this page.
+
+I am occasionally writing on [my Blog](/blog/)
+
 
 ---
 

@@ -106,3 +106,87 @@ a { color: #63c0f5; text-shadow: 0 0 5px rgba(104, 182, 255, 0.5); }
 .cf { zoom: 1; }
 
 #a-title { text-decoration: none; }
+
+.form-container {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    margin-bottom: 0.5rem;
+    color: #fff; /* Changed font color to white */
+    font-size: 0.9rem;
+}
+
+.form-container input,
+.form-container textarea {
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    color: #fff; /* Default font color is white */
+    transition: border-color 0.3s ease, color 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+    outline: none;
+    border-bottom-color: #666;
+    color: #fff; /* Font color stays white when typing */
+}
+
+.form-container textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-container button {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: #fff; /* Changed font color to white */
+    border: 1px solid #fff; /* Adjusted border color to white */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: flex-start;
+}
+
+.form-container button:hover {
+    background-color: #fff;
+    color: #333;
+
+}
+
+/* Optional: Add a subtle animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-container {
+    animation: fadeIn 0.5s ease-out;
+}
+#main_content {
+    margin-top: 25px; 
+  }
+
+ 
+
+body {
+    display: grid;
+    grid-template-columns: 1fr; /* One column grid */
+    grid-template-rows: 1fr;    /* One row grid */
+}
+
+.banner-img {
+    width: 100%; /* Full width */
+    height: 275px; /* Fixed height */
+    border: 5px solid #333; /* Dark border */
+}
+
