@@ -6,7 +6,7 @@ date: 2024-09-09
 ---
 Fuck! Its so hard to write things that are coherent and make sense! I have been writing for over 30 minutes and still don't know how to organize this post. I guess I will improve the more I write.
 
-At the moment I am twenty years old. I was born on October 7, 2003 in Madrid, Spain. I grew up in an upper-middle-class family with my two brothers and my parents. My parents have always been there as well as the rest of my family and I am very grateful for that, and I know that I have always been in a privileged situation for this reason. When I was 17 years old, I moved to The Netherlands to study a Bachelor's Degree in Data Science & AI. I knew no one there, no friends or family. 
+At the moment I am twenty years old. I was born on October 7, 2003 in Madrid, Spain. I grew up in an upper-middle-class family with my two brothers and my parents. My parents have always been there as well as the rest of my family and I am very grateful for that, and I know that I am very privileged for this reason. When I was 17 years old, I moved to The Netherlands to study a Bachelor's Degree in Data Science & AI. I knew no one there, no friends or family. 
 
 'Why' is a question I often get asked, but to be honest, I don't completely remember. All I know is that my parents gave me the possibility to do study abroad, I did research and found out about this specific programme that mixed some topics I enjoyed during high-school: Math and Programming. When I came here, I had no idea about my future plans. I did not think about what I wanted to do after graduating. 
 
