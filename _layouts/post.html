@@ -1,0 +1,45 @@
+---
+layout: default
+---
+
+<article class="post">
+  <h1 style="color:#b595c4;">{{ page.title }}</h1>
+  <h3 style="color:#b595c4;">{{ page.date | date: "%B %d, %Y" }}</h3>
+  
+  {{ content }}
+</article>
+
+
+<style>
+    .comments {
+      max-width: 90%;  /* Adjust width, e.g., 80% of the content width */
+      margin: 0 auto;  /* Centers the comment section */
+      margin-bottom: 20px;  /* Adds space between comments and the button */
+    }
+  
+    .comments iframe {
+      height: 400px;   /* Set the desired height of the comment iframe */
+      width: 100%;     /* Make sure it takes full width of the container */
+    }
+    a[href="{{ site.baseurl }}/blog/"] {
+    display: block;        /* Ensure it takes a full block line */
+    text-align: center;    /* Optional: Center the button link */
+  }
+
+  </style>
+  
+
+<div class="comments">
+  <h2>Comments</h2>
+  <script src="https://utteranc.es/client.js"
+        repo="DKeAlvaro/DKeAlvaro.github.io"
+        issue-term="pathname"
+        label="comment"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+  </script>
+</div>
+
+&nbsp;
+<a href="{{ site.baseurl }}/blog/">[Back to Blog]</a>
