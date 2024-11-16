@@ -10,12 +10,16 @@ title: Álvaro Menéndez - My Portfolio
 
 ---
 
-## Summary
 
-I recently gratduated with a `BSc Data Science & AI` from `Maastricht University`. I am currently looking for a `job` in the field. If you are interested in contributing with me, send me an email using the form at the bottom of this page.
+<div style="text-align: center; font-size: 1.5em; color: #b4eb54;">
+  Summary
+</div>
 
-I am occasionally writing on [my Blog](/blog/)
-  
+&nbsp;
+<div style="display: flex; align-items: center; justify-content: center;">
+  <p style="margin-right: 20px;">I recently graduated with a <code>BSc Data Science & AI</code> from <code>Maastricht University</code>. I am mostly interested in <code>Machine Learning</code> projects. I am result-oriented rather than process-driven. If you are interested in contributing with me, send me an email using the form at the bottom of this page.</p>
+  <img src="assets/Homer/homers webpage.gif" alt="homer" style="width: 5000px; height: auto;">
+</div>  
 
 ---
 
@@ -44,10 +48,7 @@ My thesis abstract:
 The project has a large group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.) and countries(Greece, Italy and the Netherlands). [See our team](https://dke.maastrichtuniversity.nl/JOINclusion/partnership/)
 
 &nbsp;
-- ### Jupyter Notebook 
-
-&nbsp;
-- ### Fair Feedback Systems for Academic Assessment using LLMs
+- ### Helping teachers grade exams using LLMs
 We performed a project together with Dutch company [Ans](https://ans.app/landing) in which we aimed to help teachers grade exams by assesing how well a student's answer matched the rubric criteria for that question. We tried several state-of-the-art Large Language Models (*LLM's*) for this task such as [BERT](https://huggingface.co/docs/transformers/model_doc/bert), [LLama2](https://huggingface.co/blog/llama2), [Gemini](https://deepmind.google/technologies/gemini/), [GPT-3.5](https://openai.com/blog/gpt-3-5-turbo-fine-tuning-and-api-updates) and evaluated them on *The Stanford Question Answering Dataset* ([SQUAD](https://rajpurkar.github.io/SQuAD-explorer/)). The final product was displayed on a simple GUI that can be seen below:
 
 <div style="text-align: center;">
@@ -83,6 +84,14 @@ We also had to present our product to an audience! Here are two pictures from th
 </div>
 
 &nbsp;
+- ### Valve Temperature Management System MVP - Sqippa
+I am in charge of developing a functional Minimum Viable Product (MVP) of a heating control system that allows users to modify valve temperatures using a calendar interface. Django was mainly used as tech stack. I am directly involved with the principal stakeholder [Sqippa](https://www.sqippa.com/en/) and I implement the functionalities they request. Below you can find a Screenshot of the main functionality:
+<div style="text-align: center;">
+  <img src="assets\Sqippa\Calendar Image.png" alt="Website screenshot" width="500">
+</div>
+
+
+&nbsp;
 - ### Reinforcement Learning applied to Normal Form Games
 Reinforcement learning is an AI technique widely used in scenarios where agents must learn to make a sequence of decisions to maximize their rewards through trial and error, such as in games [(AlphaGo)](https://deepmind.google/technologies/alphago/) or autonomous robotics [(Boston Dynamics)](https://bostondynamics.com/blog/starting-on-the-right-foot-with-reinforcement-learning/).
 
@@ -92,6 +101,14 @@ In this project, I learned the basics of Reinforcement Learning, like policies, 
 &nbsp;
 More details here: <a href="assets\RL\MARL.pdf" download="MARL.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
+&nbsp;
+- ### Jupyter Notebook Style CV generator ([jupyter-style-cv-generator.onrender.com/](jupyter-style-cv-generator.onrender.com/))
+If you liked my CV, I made a simple website that generates CV's with the same style by just filling in your details!
+This was a fun project where I learned how to create and deploy simple websites: I created a LaTex template for the CV. I also created a python script that filled and compiled the template given an input, and a small UI using Flask. Finally, I containerized everything using Docker and deployed it online via Render.
+
+<div style="text-align: center;">
+  <img src="assets\Jupyter-Style-CV\screenshot.png" alt="Website screenshot" width="500">
+</div>
 
 
 &nbsp;
@@ -134,8 +151,6 @@ The github repository for this project can be accessed [here](https://github.com
 
 - Spanish: Native speaker
 - English: Fluent
-
-Finally, a pdf version of my CV can be downloaded here:
 
 - ## Send me an E-mail
 <div class="form-container">
