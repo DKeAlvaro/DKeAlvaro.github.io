@@ -8,23 +8,19 @@ title: Álvaro Menéndez - My Portfolio
 
 [Gmail](mailto:alvaro.mrgr@gmail.com) | [LinkedIn](https://www.linkedin.com/in/alvaromenendezros/) | [GitHub](https://github.com/DKeAlvaro)
 
----
 
 
 <div style="text-align: center; font-size: 1.5em; color: #b4eb54;">
   Summary
 </div>
 
+I recently gratduated with a ``BSc Data Science & AI`` from Maastricht University. I am mostly interested in ``Machine Learning`` projects. I am ``result-oriented`` rather than process-driven. If you'd like to contribute with me, send me an email using the form at the bottom of this page.
+<div style="text-align: center;">
+  <img src="assets\Homer\homers webpage.gif" alt="homer">
+</div>
+
 &nbsp;
-<div style="display: flex; align-items: center; justify-content: center;">
-  <p style="margin-right: 20px;">I recently graduated with a <code>BSc Data Science & AI</code> from <code>Maastricht University</code>. I am mostly interested in <code>Machine Learning</code> projects. I am result-oriented rather than process-driven. If you are interested in contributing with me, send me an email using the form at the bottom of this page.</p>
-  <img src="assets/Homer/homers webpage.gif" alt="homer" style="width: 5000px; height: auto;">
-</div>  
-
----
-
 ## Education
-
 ### BSc Data Science & AI - Maastricht University
  _Sep 2021_ - _Jun 2024_
 - Relevant Coursework: Machine learning, Data analysis, Natural Language Processing, Data structures & algorithms, Recommender Systems
