@@ -3,7 +3,8 @@ layout: default
 title: Álvaro Menéndez - My Portfolio 
 ---
 
-# Alvaro Menendez | [My Blog](/blog/)
+# Alvaro Menendez |  [Download CV](assets/CV/Alvaro_Menendez_CV.pdf) | [My Blog](/blog/)
+
 
 [Gmail](mailto:alvaro.mrgr@gmail.com) | [LinkedIn](https://www.linkedin.com/in/alvaromenendezros/) | [GitHub](https://github.com/DKeAlvaro)
 
@@ -35,7 +36,17 @@ I am occasionally writing on [my Blog](/blog/)
 ---
 
 ## Projects
+- ### Bachelor's Thesis: 'Data Analysis Of Classroom Dynamics In Primary Schools Using [JOINclusion](https://dke.maastrichtuniversity.nl/JOINclusion/) Game Interactions'.
+My thesis abstract: 
 
+> *This paper aims to analyze primary student behaviour through [JOINclusion](https://dke.maastrichtuniversity.nl/JOINclusion/) data. [JOINclusion](https://dke.maastrichtuniversity.nl/JOINclusion/) is an educational mobile game designed to promote empathy amongst children. The data available, which contains more than 200 student samples across three different countries, includes information on their performance across different scenarios and levels. A clustering Analysis was made to identify different patterns of behaviour when playing the game. Explanatory AI techniques such as SHAP were used to identify which factors contributed to students belonging to certain clusters.*  
+
+The project has a large group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.) and countries(Greece, Italy and the Netherlands). [See our team](https://dke.maastrichtuniversity.nl/JOINclusion/partnership/)
+
+&nbsp;
+- ### Jupyter Notebook 
+
+&nbsp;
 - ### Fair Feedback Systems for Academic Assessment using LLMs
 We performed a project together with Dutch company [Ans](https://ans.app/landing) in which we aimed to help teachers grade exams by assesing how well a student's answer matched the rubric criteria for that question. We tried several state-of-the-art Large Language Models (*LLM's*) for this task such as [BERT](https://huggingface.co/docs/transformers/model_doc/bert), [LLama2](https://huggingface.co/blog/llama2), [Gemini](https://deepmind.google/technologies/gemini/), [GPT-3.5](https://openai.com/blog/gpt-3-5-turbo-fine-tuning-and-api-updates) and evaluated them on *The Stanford Question Answering Dataset* ([SQUAD](https://rajpurkar.github.io/SQuAD-explorer/)). The final product was displayed on a simple GUI that can be seen below:
 
@@ -79,7 +90,7 @@ In this project, I learned the basics of Reinforcement Learning, like policies, 
 
 
 &nbsp;
-More detail here: <a href="assets\RL\MARL.pdf" download="MARL.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
+More details here: <a href="assets\RL\MARL.pdf" download="MARL.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download </a>
 
 
 
@@ -119,20 +130,12 @@ The github repository for this project can be accessed [here](https://github.com
 
 
 &nbsp;
-## Projects Under developement
-- ### [JOINclusion project](https://dke.maastrichtuniversity.nl/JOINclusion/)
-I am currrenlty working on a project that aims to foster the social inclusion of ALL children primary school students (with particular attention to those with a migrant background) through the use of a collaborative mobile application group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.
-
-The project has a large group of partners from different background experiences (IT, pedagogy, psychology, artificial intelligence, etc.) and countries(Greece, Italy and the Netherlands). [See our team](https://dke.maastrichtuniversity.nl/JOINclusion/partnership/)
-
-&nbsp;
 ## Languages
 
 - Spanish: Native speaker
 - English: Fluent
 
 Finally, a pdf version of my CV can be downloaded here:
-<a href="assets\CV\Alvaro_Menendez_CV.pdf" download="cv.pdf" style="display: inline-block; text-decoration: none; color: white; background-color: #3d3787; padding: 10px 20px; border-radius: 5px; font-size: 12px;">Download CV</a>
 
 - ## Send me an E-mail
 <div class="form-container">
