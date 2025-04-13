@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7BJS149EFL');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPT Models and PyTorch - Álvaro Menéndez</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" defer></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html" class="nav-link">Home</a>
+        </nav>
+    </header>
+
+    <main class="blog-container">
+        <article>
+            <h1>Humble introduction to GPT models and PyTorch</h1>
+            
+            <p>In this article I will go through the simplest GPT implementation made by <strong>Andrej Karpathy,</strong> you can find all the code <a href="https://colab.research.google.com/drive/1JMLa53HDuA-i7ZBmqV7ZnA3c_fvtXnx-?usp=sharing">here</a>. Only prerequisite is to code more or less good in <em>python.</em></p>
+
+            <h2>Section 1. Overall structure</h2>
+
+            <p>When building a GPT model (or any other Neural model) we are going to use the nn module from pytorch library:</p>
+
+            <pre><code class="language-python">import torch.nn as nn</code></pre>
+
+            <p>The basic structure of our model will have to look like the following (Meaning you simply copy paste this and then you can add things on top. Later on you'll understand why the super.init is necessary):</p>
+
+            <pre><code class="language-python">class MyModel(nn.Module):
+    def __init__(self):
+        # Always call parent's init first
+        super().__init__()
+        # Define layers here
+        
+    def forward(self, x):
+        # Define forward pass
+        return x</code></pre>
+
+            <p>The reason why we will always inherit the nn.module is because this allows us to create many different <strong>building blocks</strong> for our model. Actually, the building blocks CAN be (and will be) more things apart from models. For example: layers, activation functions, loss functions, etc.. everything that can make up a model. Then, in our main model, we will include those when initialising it:</p>
+
+            <pre><code class="language-python">class MicroGPT(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
+        self.position_embedding_table = nn.Embedding(block_size, n_embd)
+        self.blocks = nn.Sequential(*[Block(n_embd, n_head=n_head) for _ in range(n_layer)])
+        self.ln_f = nn.LayerNorm(n_embd) # final layer norm
+        self.lm_head = nn.Linear(n_embd, vocab_size)</code></pre>
+
+            <p>Now, simply focus on the bold nn's. The fact that we are assigning to our model some components that inherit the nn module, allows us to get the overall model parameters as follows:</p>
+
+            <pre><code class="language-python">for name, module in model.named_children():
+    params = sum(p.numel() for p in module.parameters())
+    print(f"{name}: {params/1e6}M parameters")</code></pre>
+
+            <p>This will print something like:</p>
+
+            <pre><code class="language-python">token_embedding_table: 0.00416M parameters
+position_embedding_table: 0.002048M parameters
+blocks: 0.199168M parameters
+ln_f: 0.000128M parameters
+lm_head: 0.004225M parameters</code></pre>
+
+            <p>So, when they say a model has 100M parameters, they mean that the sum of all smaller components of the bigger model, sum up to that amount. Now, if you had forgotten the super().__init__(), it wouldn't track the parameters for that component.</p>
+
+            <p>Another important part about this modularization is that now you should more or less understand these scary diagrams:</p>
+
+            <figure>
+                <img src="/src/content/blogs/gpt-intro/image.png" alt="Original transformer architecture" style="max-width: 40%; height: auto;">
+                <figcaption>Original transformer architecture from '<a href="https://arxiv.org/abs/1706.03762"><strong>Attention Is All You Need</strong></a>'</figcaption>
+            </figure>
+
+            <p>As the caption says, the above diagram shows a representation of the original transformer model, that uses a encoder-decoder architecture, however, GPT models, <strong>DONT</strong> exactly use this architecture, but rather only the right part (the decoding part). Its architecture looks like this instead:</p>
+
+            <figure>
+                <img src="/src/content/blogs/gpt-intro/image 1.png" alt="GPT architecture" style="max-width: 70%; height: auto;">
+                <figcaption>Retrieved from <a href="http://ericjwang.com/2023/01/22/transformers.html">ericjwang.com/2023/01/22/transformers.html</a></figcaption>
+            </figure>
+
+            <p>Where the big block with a 'Nx' to the right is the transformer block and its repeated N times. Much better! Another thing we still need to cover is, how to interpret arrows: "What does it mean having a line from <em>Outputs</em> to <em>Output Embedding</em>" or even explaining what the diagram itself represents.</p>
+
+            <p>To answer these questions, let's go to the part in the notebook in the '<em>Full finished code, for reference</em>' block, inside the '<em>BigramLanguageModel</em>' class (which actually is now a GPT model instead!) I will copy paste the code here:</p>
+
+            <pre><code class="language-python"># Actually its a GPT model not a bigram!
+class BigramLanguageModel(nn.Module):
+
+    def __init__(self):
+        super().__init__()
+        # each token directly reads off the logits for the next token from a lookup table
+        self.token_embedding_table = nn.Embedding(vocab_size, n_embd)
+        self.position_embedding_table = nn.Embedding(block_size, n_embd)
+        self.blocks = nn.Sequential(*[Block(n_embd, n_head=n_head) for _ in range(n_layer)])
+        self.ln_f = nn.LayerNorm(n_embd) # final layer norm
+        self.lm_head = nn.Linear(n_embd, vocab_size)
+
+    def forward(self, idx, targets=None):
+        B, T = idx.shape
+
+        # idx and targets are both (B,T) tensor of integers
+        tok_emb = self.token_embedding_table(idx) # (B,T,C)
+        pos_emb = self.position_embedding_table(torch.arange(T, device=device)) # (T,C)
+        x = tok_emb + pos_emb # (B,T,C)
+        x = self.blocks(x) # (B,T,C)
+        x = self.ln_f(x) # (B,T,C)
+        logits = self.lm_head(x) # (B,T,vocab_size)
+
+        if targets is None:
+            loss = None
+        else:
+            B, T, C = logits.shape
+            logits = logits.view(B*T, C)
+            targets = targets.view(B*T)
+            loss = F.cross_entropy(logits, targets)
+
+        return logits, loss
+
+    def generate(self, idx, max_new_tokens):
+        # idx is (B, T) array of indices in the current context
+        for _ in range(max_new_tokens):
+            # crop idx to the last block_size tokens
+            idx_cond = idx[:, -block_size:]
+            # get the predictions
+            logits, loss = self(idx_cond)
+            # focus only on the last time step
+            logits = logits[:, -1, :] # becomes (B, C)
+            # apply softmax to get probabilities
+            probs = F.softmax(logits, dim=-1) # (B, C)
+            # sample from the distribution
+            idx_next = torch.multinomial(probs, num_samples=1) # (B, 1)
+            # append sampled index to the running sequence
+            idx = torch.cat((idx, idx_next), dim=1) # (B, T+1)
+        return idx</code></pre>
+
+            <p>Okay, there are many things to grasp here. But first, note how the model inhertits the nn.Module and follows the format I showed you in the beggining. The '<em>generate</em>' method is used to generate new tokens based on the current ones (More on that later).</p>
+
+            <p>The '<em>forward</em>' method is used to pass an input through our model (or component). <strong>Note:</strong> <code>self(x)</code> is the same as <code>self.forward(x)</code>. If we look at the forward method and diagram more closely, we can see that they actually represents the 'path' of the input from the beginning up until generating the logits! We still haven't covered the logits yet, but they are used to get the probabilities of the following words. Note that the code doesn't completely follow the structure but it's stil a valid implementation of the GPT architecture, just organized slightly differently for practical considerations.</p>
+            <figure>
+                <img src="/src/content/blogs/gpt-intro/image 2.png" alt="GPT implementation diagram" style="max-width: 70%; height: auto;">
+
+            </figure>
+
+            <p>In the following sections, we will go through each component of the model and better understand each part by itself, but by now it should be much easier to go through similar models by yourself!</p>
+        </article>
+    </main>
+</body>
+</html>
