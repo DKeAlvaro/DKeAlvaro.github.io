@@ -16,7 +16,6 @@ const Failures: React.FC = () => {
         const csvText = await response.text();
         
         const lines = csvText.split('\n').filter(line => line.trim());
-        const headers = lines[0].split(',').map(header => header.trim());
         
         const parsedData = lines.slice(1).map(line => {
           let inQuotes = false;
