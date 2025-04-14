@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7BJS149EFL');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agents: Not Quite There Yet - Álvaro Menéndez</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="/index.html" class="nav-link">Home</a>
+        </nav>
+    </header>
+
+    <main class="blog-container">
+        <article>
+            <h1>AI agents are not quite there yet (but they are close)</h1>
+            
+            <p>I used the new best AI web agent to apply for a LinkedIn job and here is the result - See video below. Spoiler, it couldn't complete the task.</p>
+
+            <div class="video-container" style="display: flex; justify-content: center; margin: 20px 0;">
+                <video width="100%" controls>
+                    <source src="/content/blogs/ai-agents/demo.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p>Recently, a new SOTA (State Of The Art) open source model was released, called Browser Use. Browser Use achieved an 89% success rate on the WebVoyager benchmark, which was designed to evaluate AI agents' abilities to navigate and interact with real-world websites.</p>
+
+            <p>After trying it for a simple task which is applying for a job, the results are a bit disappointing:</p>
+            <ul>
+                <li>It struggled when a scrollable element appeared on the screen, entering an infinite loop</li>
+                <li>Too slow to be useful (video is speed up x4), it took around 5 minutes to try to complete the task, and it couldn't</li>
+                <li>Too expensive, around 30 cents per task 🤯 (Although this may vary depending the task)</li>
+            </ul>
+
+            <p>The fact that the model achieved an 89% on WebVoyager but still struggled with a simple task highlights the necessity of decentralized benchmarks where everyone can upload and test their own tasks (See <a href="https://alvaromenendez.es/Agent2Bench/">Agent2Bench</a>). It is especially funny because in the Browser Use repo they show an example using the agent in Linkedin.</p>
+
+            <p>HOWEVER, this is just the beginning. Better models are being released every week, and I'm confident that computer agents will have improved drastically by the end of the year, mainly because more and more AI labs are focusing on this task. I really think this is the BIG next step in the AI field, solving autonomous computer using would have an immense impact on society.</p>
+
+            <p>Follow me for more news and real life applications from the AI world</p>
+        </article>
+    </main>
+</body>
+</html> 
