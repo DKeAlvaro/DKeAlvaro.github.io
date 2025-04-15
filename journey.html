@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Journey through Alvaro Menendez's life - From Spain to the Netherlands, university life, and professional growth">
+    <title>My Journey - Alvaro Menendez</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">About</a></li>
+                <li><a href="./journey.html">My Life</a></li>
+                <li><a href="./failures.html">Failures</a></li>
+                <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./blogs.html">Blog</a></li>
+                <li><a href="./assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaro-menendez-767b2b250/" target="_blank" aria-label="LinkedIn">
+                        <img src="assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr2@gmail.com" aria-label="Email">
+                        <img src="assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Dark Mode</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="confirmation-container" id="firstConfirmation">
+        <h2>Do you really want to know about my life?</h2>
+        <button id="firstConfirmButton" class="confirm-button">Yes</button>
+    </div>
+
+    <div class="confirmation-container" id="secondConfirmation" style="display: none;">
+        <h2>Are you sure?</h2>
+        <button id="secondConfirmButton" class="confirm-button button-delayed">Yes</button>
+    </div>
+
+    <div class="journey-container" id="journeyContent" style="display: none;">
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2025 - now</div>
+                    <h3>Hackathons and Personal Projects</h3>
+                    <p>While actively looking for a meaningful job where I can grow professionally, I am participating in various hackathons and working on personal projects to improve my skills and show my abilities.</p>
+                    <div class="timeline-images">
+                        <figure class="image-container">
+                            <img src="./images/hack2progress.jpg" alt="Hack2Progress Hackathon" class="timeline-image">
+                            <figcaption>Hack2Progress: Applying AI agents to improve urban movility with my team 'Los Cachosos'. Saw the Hackhaton online and organized a weekend trip to participate with my friends. We didn't win but had a great time so it was worth it.</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/hackathon-axa.jpg" alt="AXA Hackathon" class="timeline-image">
+                            <figcaption>AXA Hackathon: Developed a RAG chatbot to answer insurance specific questions with my team 'Axalyticos'. I was contacted and invited by Santiago Ampudia via Linkedin and I am super thankful about it! I met amazing people there</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2024</div>
+                    <h3>End of BSc & Multiple Jobs</h3>
+                    <p>Completed my Bachelor's degree while working 4 jobs: that was intense and didn't last long, but I really enjoyed and learned from it. This was the end of an era in my life in which I grew a lot as a person.</p>
+                    <div class="timeline-images">
+                        <figure class="image-container">
+                            <img src="./images/holanda-final-tesis.jpg" alt="Final thesis in Holland" class="timeline-image">
+                            <figcaption>During my Bachelor's defense. My thesis work was about clustering explainability in educational games data. To be honest, I think I could have done a better job, but I am satisfied with it.</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/cocinero.jpg" alt="Working as a cook" class="timeline-image">
+                            <figcaption>Working as a cook assistant to support my studies. Somehow made my way through to work as a kitchen assistant in the second best restaurant in the city, even though I had no real previous experience. It was an enriching experience for me to work in such a different enviroment</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/repartidor-flink.jpg" alt="Working as a delivery person" class="timeline-image">
+                            <figcaption>Delivering with Flink between classes. This is the job I spent more time during my degree, I really liked it. I would do 3 to 8h shifts and wouldn't get tired. Partly because Maastricht is a cozy city and its very bike friendly. I used to listen to many books and podcasts while biking, such as 'Atomic Habits' and 'The picture of Dorian Gray'</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/teacher.jpg" alt="Working as a teacher" class="timeline-image">
+                            <figcaption>Selfie before starting my Scratch class! An afterschool academy were looking for teachers so I got in contact with Rishat, the man behind all of it. There is a lot to learn about him, but I would highlight his attitude of believing 'everything is possible'. He created the academy and got it up and running with many schools in less than 7 months. Really inspiring. I would also highlight that during my time there, I noticed I really enjoy teaching and it is definitely a thing I will do in the future</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/mattress.jpg" alt="Living minimally" class="timeline-image">
+                            <figcaption>I lived in a mattress for 3 weeks. I had to organize everything about my flat in the Netherlands while being in Spain. It ended up working out smoothly but I arrived to an empty flat, so I lived in a mattress I borrowed from Joana for a while, lol</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/naples-thesis.jpg" alt="Presenting thesis in Naples" class="timeline-image">
+                            <figcaption>Presenting my research in Naples. Im very thankful to Enrique, my supervisor, for giving me this opportunity. He invited me to Naples to present my results to the JOINclusion team and met I my teachers from a different point of view. Just imagine having a teacher for three years, then going on a trip with them! It was surprising</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">2021 - 2023</div>
+                    <h3>University Life & Adventures</h3>
+                    <p>Having the best university life with the best people.</p>
+                    <div class="timeline-images">
+                        <figure class="image-container">
+                            <img src="./images/malta_trip.jpeg" alt="Trip to Malta" class="timeline-image">
+                            <figcaption>Week trip to Malta with my class friends: Boris, Asha, Ratix Alex, Rubén and Eden. We all had fun.</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/granada.jpg" alt="Visit to Granada" class="timeline-image">
+                            <figcaption>Visiting Granada with my friends from Madrid: Pejes, Frodo and Mikelo</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/italy-federica-alessio.jpg" alt="Italy with friends" class="timeline-image">
+                            <figcaption>Ohh, Alessio and Federica! They treated Joana and I so well inviting us to Italy. They were super nice hosts</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-item">
+                <div class="timeline-content">
+                    <div class="timeline-year">Before 2021</div>
+                    <h3>Teenage years</h3>
+                    <p>Before university, I though all forms of life were related to the neighborhood I was born.</p>
+                    <div class="timeline-images">
+                        <figure class="image-container">
+                            <img src="./images/arbitro-2.jpg" alt="Referee experience" class="timeline-image">
+                            <figcaption>Working as a Handball referee. When I was just 15 y/o I worked for a few months as a referee, and I should have stayed longer. Being a referee is completely different than being a player. When you play, you just follow rules, but when you are a referee, you are the one who decides how the game goes. And that teaches you a lot about life</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/holanda-llegar.jpg" alt="Arriving in Holland" class="timeline-image">
+                            <figcaption>First steps in The Netherlands. This actually belongs to 2021, but I feel this belongs to my teenage years. I was just 17 y/o when I arrived to study there!</figcaption>
+                        </figure>
+                        <figure class="image-container">
+                            <img src="./images/bici_luis_santiago.jpg" alt="Camino de Santiago by bike" class="timeline-image">
+                            <figcaption>Cycling the Camino de Santiago with Luis. This was a 7 day bike trip from Madrid to Santiago that really marked me</figcaption>
+                        </figure>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html> 

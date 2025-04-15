@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A transparent look at Alvaro Menendez's professional journey, including challenges and learning experiences">
+    <title>Failures - Alvaro Menendez</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">About</a></li>
+                <li><a href="./journey.html">My Life</a></li>
+                <li><a href="./failures.html">Failures</a></li>
+                <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./blogs.html">Blog</a></li>
+                <li><a href="./assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaro-menendez-767b2b250/" target="_blank" aria-label="LinkedIn">
+                        <img src="assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr2@gmail.com" aria-label="Email">
+                        <img src="assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Dark Mode</button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <h1>Unsuccessful applications</h1>
+        <div class="content">
+            <div class="intro-container">
+                <p>
+                    Websites like this one tend to show that the person who made them has their 
+                    life figured out, and that is something I wanted to avoid here.
+                </p>
+                
+                <p>
+                    At the time of this writing, it has been 4 months since I started searching for a job, 
+                    with no success, and it is an exasperating process.
+                </p>
+                
+                <p>
+                    I will leave it there, but I just want to tell you that if you are in a similar situation, 
+                    I understand what you are going through. Keep fighting.
+                </p>
+                
+                <p>
+                    Although many of the following are not rejections, below is 
+                    a (short) list of many of the hiring processes that have not gone as I was 
+                    hoping for.
+                </p>
+            </div>
+            
+            <div class="failures-table-container">
+                <table id="failures-table" class="failures-table">
+                    <thead>
+                        <tr>
+                            <th>Company / Role</th>
+                            <th>Reason</th>
+                        </tr>
+                    </thead>
+                    <tbody id="failures-tbody">
+                        <!-- Table content will be loaded from CSV -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p id="footerYear"></p>
+    </footer>
+    
+    <script src="./script.js"></script>
+    <script>
+        // Function to load and parse the CSV file
+        async function loadFailuresData() {
+            try {
+                const response = await fetch('./assets/failures.csv');
+                const data = await response.text();
+                const rows = data.split('\n');
+                
+                // Skip header row (first row)
+                const tableBody = document.getElementById('failures-tbody');
+                
+                for (let i = 1; i < rows.length; i++) {
+                    if (!rows[i].trim()) continue; // Skip empty rows
+                    
+                    // Parse CSV row, handling commas within quotes
+                    const row = parseCSVRow(rows[i]);
+                    
+                    if (row.length >= 3) {
+                        const tr = document.createElement('tr');
+                        
+                        // Merge Company and Role
+                        const tdCompanyRole = document.createElement('td');
+                        tdCompanyRole.className = 'company-role-cell';
+                        const company = row[0].trim();
+                        const role = row[1].trim();
+                        
+                        if (company && role) {
+                            tdCompanyRole.textContent = `${company} - ${role}`;
+                        } else if (company) {
+                            tdCompanyRole.textContent = company;
+                        } else if (role) {
+                            tdCompanyRole.textContent = role;
+                        } else {
+                            tdCompanyRole.textContent = "Unknown";
+                        }
+                        
+                        tr.appendChild(tdCompanyRole);
+                        
+                        // Reason
+                        const tdReason = document.createElement('td');
+                        tdReason.textContent = row[2];
+                        tr.appendChild(tdReason);
+                        
+                        tableBody.appendChild(tr);
+                    }
+                }
+            } catch (error) {
+                console.error('Error loading failures data:', error);
+            }
+        }
+        
+        // Function to parse CSV row, handling commas within quotes
+        function parseCSVRow(text) {
+            const result = [];
+            let cell = '';
+            let inQuotes = false;
+            
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                
+                if (char === '"') {
+                    inQuotes = !inQuotes;
+                } else if (char === ',' && !inQuotes) {
+                    result.push(cell);
+                    cell = '';
+                } else {
+                    cell += char;
+                }
+            }
+            
+            result.push(cell); // Push the last cell
+            return result;
+        }
+        
+        // Load the data when the page is loaded
+        document.addEventListener('DOMContentLoaded', loadFailuresData);
+    </script>
+</body>
+</html> 
