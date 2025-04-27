@@ -41,13 +41,11 @@
     </header>
 
     <div class="page-container">
-        <h2>Projects</h2>
         <div class="content">
-            <p>Below are my projects from <a href="https://github.com/DKeAlvaro" target="_blank">GitHub</a>, automatically sorted by stars. These showcase my work in Data Science, AI, and web development.</p>
-            
-            <div class="projects-container" id="projects-container">
+            <button id="loadRandomProjectBtn" class="random-project-btn">Show Another Project</button>
+            <div class="random-project-container" id="random-project-container">
                 <div class="loading-indicator">
-                    <p>Loading projects...</p>
+                    <p>Loading project...</p>
                 </div>
             </div>
         </div>
@@ -59,237 +57,123 @@
     
     <script src="./script.js"></script>
     <script>
-        // Fetch GitHub repositories
         document.addEventListener('DOMContentLoaded', function() {
             const username = 'DKeAlvaro';
-            const projectsContainer = document.getElementById('projects-container');
-            
-            fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(repos => {
-                    // Remove loading indicator
-                    projectsContainer.innerHTML = '';
-                    
-                    // Sort repositories by star count (descending)
-                    const sortedRepos = repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
-                    
-                    if (sortedRepos.length === 0) {
-                        projectsContainer.innerHTML = '<p>No repositories found.</p>';
+            const container = document.getElementById('random-project-container');
+            const btn = document.getElementById('loadRandomProjectBtn');
+            let eligibleRepos = [];
+
+            function fetchReposAndShowRandom() {
+                container.innerHTML = '<div class="loading-indicator"><p>Loading project...</p></div>';
+                fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
+                    .then(response => {
+                        if (!response.ok) throw new Error('Network response was not ok');
+                        return response.json();
+                    })
+                    .then(repos => {
+                        eligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0);
+                        if (eligibleRepos.length === 0) {
+                            container.innerHTML = '<p>No repositories with stars found.</p>';
+                            return;
+                        }
+                        showRandomProject();
+                    })
+                    .catch(error => {
+                        container.innerHTML = `<div class="error-message"><p>Failed to load projects. Please try again later.</p><p>Error: ${error.message}</p></div>`;
+                    });
+            }
+
+            function showRandomProject() {
+                if (!eligibleRepos.length) return;
+                const repo = eligibleRepos[Math.floor(Math.random() * eligibleRepos.length)];
+                container.innerHTML = '<div class="loading-indicator"><p>Loading README...</p></div>';
+                fetchReadmeAndRender(repo);
+            }
+
+            function fetchReadmeAndRender(repo) {
+                // Try main branch first, then master
+                const tryBranches = ['main', 'master'];
+                let tried = 0;
+                function tryFetch() {
+                    if (tried >= tryBranches.length) {
+                        container.innerHTML = `<div class="error-message"><p>README not found for this project.</p></div>`;
                         return;
                     }
-                    
-                    // Create projects grid
-                    sortedRepos.forEach(repo => {
-                        if (!repo.fork) { // Skip forked repositories
-                            const projectCard = document.createElement('div');
-                            projectCard.className = 'project-card';
-                            
-                            const languageColor = getLanguageColor(repo.language);
-                            const languageDisplay = repo.language ? 
-                                `<span class="project-language"><span class="language-color" style="background-color: ${languageColor}"></span>${repo.language}</span>` : 
-                                '';
-                            
-                            const starsDisplay = repo.stargazers_count > 0 ? 
-                                `<span class="project-stars">★ ${repo.stargazers_count}</span>` : 
-                                '';
-                            
-                            const forksDisplay = repo.forks_count > 0 ? 
-                                `<span class="project-forks">🍴 ${repo.forks_count}</span>` : 
-                                '';
-                            
-                            projectCard.innerHTML = `
-                                <h3 class="project-title">
-                                    <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer">${repo.name}</a>
-                                </h3>
-                                <p class="project-description">${repo.description || 'No description available'}</p>
-                                <div class="project-meta">
-                                    ${languageDisplay}
-                                    ${starsDisplay}
-                                    ${forksDisplay}
-                                </div>
-                            `;
-                            
-                            projectsContainer.appendChild(projectCard);
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching repositories:', error);
-                    projectsContainer.innerHTML = `
-                        <div class="error-message">
-                            <p>Failed to load projects. Please try again later.</p>
-                            <p>Error: ${error.message}</p>
-                        </div>
-                    `;
-                });
-        });
-        
-        // Function to get color for language display
-        function getLanguageColor(language) {
-            const colors = {
-                "JavaScript": "#f1e05a",
-                "Python": "#3572A5",
-                "HTML": "#e34c26",
-                "CSS": "#563d7c",
-                "TypeScript": "#2b7489",
-                "Jupyter Notebook": "#DA5B0B",
-                "Shell": "#89e051",
-                "C++": "#f34b7d",
-                "Java": "#b07219",
-                "R": "#198CE7"
-            };
-            
-            return colors[language] || "#858585"; // Default gray for unknown languages
-        }
-    </script>
-    
-    <style>
-        /* Project Cards Styling */
-        .projects-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 24px;
-            margin-top: 36px;
-        }
-        
-        .project-card {
-            background-color: var(--light-gray);
-            border-radius: 6px;
-            padding: 24px;
-            border: 1px solid var(--border-color);
-            transition: all 0.2s ease;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-            border-color: var(--accent-color);
-        }
-        
-        .project-title {
-            margin-top: 0;
-            margin-bottom: 12px;
-            font-size: 1.25rem;
-            font-weight: 600;
-            line-height: 1.3;
-        }
-        
-        .project-title a {
-            color: var(--primary-color);
-            text-decoration: none;
-            position: relative;
-            display: inline-block;
-        }
-        
-        .project-title a:after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background-color: var(--accent-color);
-            transition: width 0.2s ease;
-        }
-        
-        .project-title a:hover:after {
-            width: 100%;
-        }
-        
-        .project-description {
-            font-size: 0.95rem;
-            margin-bottom: 18px;
-            line-height: 1.5;
-            color: var(--text-color);
-            flex-grow: 1;
-        }
-        
-        .project-meta {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            font-size: 0.85rem;
-            color: var(--text-color);
-            opacity: 0.85;
-            margin-top: auto;
-            padding-top: 16px;
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .project-language {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        
-        .language-color {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        
-        .project-stars, .project-forks {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-        }
-        
-        .loading-indicator {
-            text-align: center;
-            padding: 60px 0;
-            color: var(--text-color);
-            opacity: 0.7;
-        }
-        
-        .loading-indicator p {
-            font-size: 1.1rem;
-        }
-        
-        .error-message {
-            text-align: center;
-            padding: 30px;
-            color: #d73a49;
-            background-color: rgba(215, 58, 73, 0.05);
-            border-radius: 6px;
-            max-width: 500px;
-            margin: 30px auto;
-        }
+                    const branch = tryBranches[tried++];
+                    const readmeUrl = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/README.md`;
+                    fetch(readmeUrl)
+                        .then(r => {
+                            if (!r.ok) throw new Error('Not found');
+                            return r.text();
+                        })
+                        .then(md => {
+                            renderProject(repo, md, branch);
+                        })
+                        .catch(tryFetch);
+                }
+                tryFetch();
+            }
 
-        /* Dark mode adjustments */
-        .dark-theme .project-card:hover {
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        @media (max-width: 768px) {
-            .projects-container {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
+            function renderProject(repo, md, branch) {
+                // Convert relative image/video links to absolute
+                const rawBase = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/`;
+                let html = marked.parse(md || '');
+                // Fix images and videos
+                html = html.replace(/<img([^>]+)src=["']([^"']+)["']/g, (match, pre, src) => {
+                    let abs = src.match(/^https?:\/\//) ? src : rawBase + src.replace(/^\.?\/?/, '');
+                    return `<img${pre}src="${abs}"`;
+                });
+                html = html.replace(/<video([^>]+)src=["']([^"']+)["']/g, (match, pre, src) => {
+                    let abs = src.match(/^https?:\/\//) ? src : rawBase + src.replace(/^\.?\/?/, '');
+                    return `<video${pre}src="${abs}"`;
+                });
+                // Embed GitHub user-attachments links as <video> or <img> tags
+                html = html.replace(/<a[^>]+href=["'](https:\/\/github.com\/user-attachments\/assets\/[^"']+)["'][^>]*>([^<]*)<\/a>/gi, function(match, url, filename) {
+                    const videoExt = /(\.mp4|\.webm|\.ogg)$/i;
+                    const imageExt = /(\.png|\.jpg|\.jpeg|\.gif|\.bmp|\.svg)$/i;
+                    if (videoExt.test(url) || videoExt.test(filename)) {
+                        return `<video controls style="max-width:100%;height:auto;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                    } else if (imageExt.test(url) || imageExt.test(filename)) {
+                        return `<img src="${url}" alt="${filename}" style="max-width:100%;height:auto;" />`;
+                    } else {
+                        // Try to guess by url ending
+                        if (/\/assets\/[a-f0-9\-]+$/.test(url)) {
+                            // Unknown, fallback to video
+                            return `<video controls style="max-width:100%;height:auto;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                        }
+                        return match;
+                    }
+                });
+                container.innerHTML = `
+                    <div class="project-readme">${html}</div>
+                `;
             }
-            
-            .project-card {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .projects-container {
-                grid-template-columns: 1fr;
-                gap: 16px;
-            }
-            
-            .project-meta {
-                gap: 12px;
-            }
-        }
+
+            btn.addEventListener('click', showRandomProject);
+            fetchReposAndShowRandom();
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+    .random-project-btn {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        z-index: 9999;
+        background: var(--accent-color, #222);
+        color: #fff;
+        border: none;
+        border-radius: 24px;
+        padding: 16px 32px;
+        font-size: 1.1rem;
+        box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+    .random-project-btn:hover {
+        background: var(--accent-hover, #444);
+    }
     </style>
 </body>
-</html> 
+</html>
