@@ -59,6 +59,8 @@ def add_blog_post(name, iframe, template_path="blog/template.html"):
 
 
 if __name__ == '__main__':
+
+    
     name = str(input('What is the name of your new post?: '))
     iframe = str(input('Paste your Linkedin iFrame here: '))
     date = str(input('Add the date of the post here ("month" day, year):  '))
