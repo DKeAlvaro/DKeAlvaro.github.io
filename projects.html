@@ -93,14 +93,20 @@
             function fetchReadmeAndRender(repo) {
                 // Try main branch first, then master
                 const tryBranches = ['main', 'master'];
-                let tried = 0;
+                const readmeFiles = ['README.md', 'readme.md'];
+                let branchIndex = 0;
+                let readmeIndex = 0;
+
                 function tryFetch() {
-                    if (tried >= tryBranches.length) {
+                    if (branchIndex >= tryBranches.length) {
                         container.innerHTML = `<div class="error-message"><p>README not found for this project.</p></div>`;
                         return;
                     }
-                    const branch = tryBranches[tried++];
-                    const readmeUrl = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/README.md`;
+
+                    const branch = tryBranches[branchIndex];
+                    const readmeFile = readmeFiles[readmeIndex];
+                    const readmeUrl = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/${readmeFile}`;
+
                     fetch(readmeUrl)
                         .then(r => {
                             if (!r.ok) throw new Error('Not found');
@@ -109,7 +115,14 @@
                         .then(md => {
                             renderProject(repo, md, branch);
                         })
-                        .catch(tryFetch);
+                        .catch(error => {
+                            readmeIndex++;
+                            if (readmeIndex >= readmeFiles.length) {
+                                readmeIndex = 0;
+                                branchIndex++;
+                            }
+                            tryFetch();
+                        });
                 }
                 tryFetch();
             }
