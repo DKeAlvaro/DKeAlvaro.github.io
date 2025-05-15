@@ -42,11 +42,13 @@
 
     <div class="page-container">
         <div class="content">
-            <button id="loadRandomProjectBtn" class="random-project-btn">Show Another Project</button>
-            <div class="random-project-container" id="random-project-container">
+            <div class="projects-overview-container" id="projects-overview-container">
                 <div class="loading-indicator">
-                    <p>Loading project...</p>
+                    <p>Loading projects...</p>
                 </div>
+            </div>
+            <div class="project-detail-container" id="project-detail-container">
+                <!-- Selected project README will be loaded here -->
             </div>
         </div>
     </div>
@@ -59,47 +61,105 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const username = 'DKeAlvaro';
-            const container = document.getElementById('random-project-container');
-            const btn = document.getElementById('loadRandomProjectBtn');
-            let eligibleRepos = [];
+            const overviewContainer = document.getElementById('projects-overview-container');
+            const detailContainer = document.getElementById('project-detail-container');
+            let allEligibleRepos = [];
 
-            function fetchReposAndShowRandom() {
-                container.innerHTML = '<div class="loading-indicator"><p>Loading project...</p></div>';
+            function loadProjects() {
+                overviewContainer.innerHTML = '<div class="loading-indicator"><p>Loading projects...</p></div>';
+                detailContainer.innerHTML = ''; // Clear detail view
                 fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
                     .then(response => {
                         if (!response.ok) throw new Error('Network response was not ok');
                         return response.json();
                     })
                     .then(repos => {
-                        eligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0);
-                        if (eligibleRepos.length === 0) {
-                            container.innerHTML = '<p>No repositories with stars found.</p>';
+                        allEligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0)
+                                               .sort((a, b) => b.stargazers_count - a.stargazers_count); // Sort by stars
+                        if (allEligibleRepos.length === 0) {
+                            overviewContainer.innerHTML = '<p>No repositories with stars found.</p>';
                             return;
                         }
-                        showRandomProject();
+                        displayProjectsOverview(allEligibleRepos);
                     })
                     .catch(error => {
-                        container.innerHTML = `<div class="error-message"><p>Failed to load projects. Please try again later.</p><p>Error: ${error.message}</p></div>`;
+                        overviewContainer.innerHTML = `<div class="error-message"><p>Failed to load projects. Please try again later.</p><p>Error: ${error.message}</p></div>`;
                     });
             }
 
-            function showRandomProject() {
-                if (!eligibleRepos.length) return;
-                const repo = eligibleRepos[Math.floor(Math.random() * eligibleRepos.length)];
-                container.innerHTML = '<div class="loading-indicator"><p>Loading README...</p></div>';
-                fetchReadmeAndRender(repo);
+            function displayProjectsOverview(repos) {
+                overviewContainer.innerHTML = ''; // Clear loading message
+                const list = document.createElement('ul');
+                list.className = 'project-list';
+                repos.forEach(repo => {
+                    const listItem = document.createElement('li');
+                    listItem.className = 'project-card';
+                    listItem.innerHTML = `
+                        <h3>${repo.name}</h3>
+                        <p>${repo.description || 'No description available.'}</p>
+                        <div class="project-meta">
+                            <span>⭐ ${repo.stargazers_count}</span>
+                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="repo-link">View on GitHub</a>
+                        </div>
+                    `;
+                    listItem.addEventListener('click', () => showProjectDetail(repo));
+                    list.appendChild(listItem);
+                });
+                overviewContainer.appendChild(list);
             }
 
-            function fetchReadmeAndRender(repo) {
+            function showProjectDetail(repo) {
+                overviewContainer.style.display = 'none'; // Hide overview
+                detailContainer.innerHTML = '<div class="loading-indicator"><p>Loading README...</p></div>';
+                detailContainer.style.display = 'block';
+
+                const backButton = document.createElement('button');
+                backButton.textContent = '← Back to Projects Overview';
+                backButton.className = 'back-button';
+                backButton.addEventListener('click', () => {
+                    detailContainer.style.display = 'none';
+                    detailContainer.innerHTML = '';
+                    overviewContainer.style.display = 'block';
+                });
+                detailContainer.appendChild(backButton);
+
+                fetchReadmeAndRender(repo, detailContainer);
+            }
+
+            function fetchReadmeAndRender(repo, targetContainer) {
                 // Try main branch first, then master
                 const tryBranches = ['main', 'master'];
                 const readmeFiles = ['README.md', 'readme.md'];
                 let branchIndex = 0;
                 let readmeIndex = 0;
+                let foundReadme = false;
+
+                const loadingMessage = targetContainer.querySelector('.loading-indicator') || document.createElement('div');
+                if (!targetContainer.querySelector('.loading-indicator')) {
+                    loadingMessage.innerHTML = '<p>Loading README...</p>';
+                    loadingMessage.className = 'loading-indicator';
+                    targetContainer.appendChild(loadingMessage); // Append if not already there (e.g. if back button was added first)
+                } else {
+                    loadingMessage.innerHTML = '<p>Loading README...</p>'; // Ensure text is correct
+                }
 
                 function tryFetch() {
                     if (branchIndex >= tryBranches.length) {
-                        container.innerHTML = `<div class="error-message"><p>README not found for this project.</p></div>`;
+                        if (!foundReadme) {
+                            const errorDiv = document.createElement('div');
+                            errorDiv.className = 'error-message';
+                            errorDiv.innerHTML = '<p>README not found for this project.</p>';
+                            // Ensure loading message is removed before showing error
+                            if (targetContainer.contains(loadingMessage)) {
+                                targetContainer.removeChild(loadingMessage);
+                            }
+                            // Prepend error message so it appears after back button if it exists
+                            if (targetContainer.firstChild && targetContainer.firstChild.isEqualNode(targetContainer.querySelector('.back-button'))) {
+                                targetContainer.insertBefore(errorDiv, targetContainer.firstChild.nextSibling);
+                            } else {
+                                targetContainer.appendChild(errorDiv);
+                            }
+                        }
                         return;
                     }
 
@@ -113,7 +173,8 @@
                             return r.text();
                         })
                         .then(md => {
-                            renderProject(repo, md, branch);
+                            foundReadme = true;
+                            renderProject(repo, md, branch, targetContainer);
                         })
                         .catch(error => {
                             readmeIndex++;
@@ -127,7 +188,10 @@
                 tryFetch();
             }
 
-            function renderProject(repo, md, branch) {
+            function renderProject(repo, md, branch, targetContainer) {
+                if (targetContainer.querySelector('.loading-indicator')) {
+                     targetContainer.removeChild(targetContainer.querySelector('.loading-indicator'));
+                }
                 // Convert relative image/video links to absolute
                 const rawBase = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/`;
                 let html = marked.parse(md || '');
@@ -157,35 +221,119 @@
                         return match;
                     }
                 });
-                container.innerHTML = `
-                    <div class="project-readme">${html}</div>
-                `;
+                
+                const readmeDiv = document.createElement('div');
+                readmeDiv.className = 'project-readme';
+                readmeDiv.innerHTML = html;
+                // Append readme content after the back button if it exists and is the first child.
+                if (targetContainer.firstChild && targetContainer.firstChild.classList && targetContainer.firstChild.classList.contains('back-button')) {
+                    targetContainer.insertBefore(readmeDiv, targetContainer.firstChild.nextSibling);
+                } else {
+                    targetContainer.appendChild(readmeDiv);
+                }
             }
 
-            btn.addEventListener('click', showRandomProject);
-            fetchReposAndShowRandom();
+            loadProjects(); // Initial load
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-    .random-project-btn {
-        position: fixed;
-        left: 50%;
-        bottom: 24px;
-        transform: translateX(-50%);
-        z-index: 9999;
+    .projects-overview-container {
+        /* Styles for the overview container - e.g., grid or flex layout */
+    }
+    .project-list {
+        list-style-type: none;
+        padding: 0;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+    }
+    .project-card {
+        border: none;
+        padding: 15px;
+        border-radius: 8px;
+        background-color: var(--background-color, #fff);
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .project-card:hover {
+        /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
+        /* transform: translateY(-5px); */
+        /* You can add other subtle hover effects here if desired, e.g., a slight background color change */
+    }
+    .project-card h3 {
+        margin-top: 0;
+        color: var(--accent-color, #333);
+    }
+    .project-card p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+        color: var(--text-color, #555);
+    }
+    .project-meta {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+    }
+    .project-meta .repo-link {
+        color: var(--accent-color, #007bff);
+        text-decoration: none;
+    }
+    .project-meta .repo-link:hover {
+        text-decoration: underline;
+    }
+    .project-detail-container {
+        margin-top: 20px;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        background-color: var(--background-color, #fff);
+    }
+    .project-readme {
+        margin-top: 15px;
+    }
+    .project-readme img,
+    .project-readme video {
+        max-width: 100%;
+        height: auto;
+        border-radius: 4px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }     
+    .back-button {
         background: var(--accent-color, #222);
         color: #fff;
         border: none;
         border-radius: 24px;
-        padding: 16px 32px;
-        font-size: 1.1rem;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.12);
+        padding: 10px 20px;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         cursor: pointer;
         transition: background 0.2s;
+        margin-bottom: 15px;
     }
-    .random-project-btn:hover {
+    .back-button:hover {
         background: var(--accent-hover, #444);
+    }
+    .loading-indicator,
+    .error-message {
+        padding: 20px;
+        text-align: center;
+        border-radius: 8px;
+        margin: 20px 0;
+    }
+    .loading-indicator p {
+        font-size: 1.1rem;
+        color: var(--text-color, #555);
+    }
+    .error-message {
+        background-color: var(--error-bg, #ffebee);
+        color: var(--error-text, #c62828);
+        border: 1px solid var(--error-border, #c62828);
+    }
+    .error-message p {
+        margin: 5px 0;
     }
     </style>
 </body>
