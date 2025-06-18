@@ -137,4 +137,51 @@ if (themeToggle) {
             themeToggle.textContent = 'Dark Mode';
         }
     });
-} 
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    const acknowledgmentsList = document.getElementById('acknowledgments-list');
+
+    if (acknowledgmentsList) {
+        fetch('./acknowledgments.csv')
+            .then(response => response.text())
+            .then(data => {
+                const rows = data.trim().split('\n');
+                const headers = rows.shift().split(',').map(header => header.trim().replace(/"/g, ''));
+                
+                const personIndex = headers.indexOf('person');
+                const whyIndex = headers.indexOf('why');
+
+                if (personIndex === -1 || whyIndex === -1) {
+                    acknowledgmentsList.innerHTML = '<p>Error: CSV file must have "person" and "why" columns.</p>';
+                    return;
+                }
+                
+                rows.forEach(row => {
+                    const columns = row.split(',').map(col => col.trim().replace(/"/g, ''));
+                    const person = columns[personIndex];
+                    const why = columns[whyIndex];
+
+                    if (person && why) {
+                        const acknowledgmentItem = document.createElement('div');
+                        acknowledgmentItem.classList.add('acknowledgment-item');
+
+                        const personElement = document.createElement('h3');
+                        personElement.textContent = person;
+
+                        const whyElement = document.createElement('p');
+                        whyElement.textContent = why;
+
+                        acknowledgmentItem.appendChild(personElement);
+                        acknowledgmentItem.appendChild(whyElement);
+
+                        acknowledgmentsList.appendChild(acknowledgmentItem);
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching acknowledgments:', error);
+                acknowledgmentsList.innerHTML = '<p>Could not load acknowledgments.</p>';
+            });
+    }
+}); 
