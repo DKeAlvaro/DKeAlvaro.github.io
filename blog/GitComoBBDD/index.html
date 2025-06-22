@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-7BJS149EFL');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaaS por 0€/Mes usando Git como Base de Datos</title>
+    <link rel="icon" href="../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../index.html">About</a></li>
+                <li><a href="../../journey.html">My Life</a></li>
+                <li><a href="../../projects.html">Projects</a></li>
+                <li><a href="../../blogs.html">Blog</a></li>
+                <li><a href="../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Dark Mode</button>
+        </nav>
+    </header>
+    
+    <style>
+        .page-title {
+			margin-top: 1.5rem;
+            font-size: 2.5rem;
+            margin-bottom: -1.0rem;
+        }
+        .page-description {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+        .page-body {
+            line-height: 1.6;
+        }
+        .image {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        .image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .failures-table th,
+        .failures-table td {
+            padding-top: 0.4rem;
+            padding-bottom: 0.4rem;
+        }
+    </style>
+        
+    <div class="page-container">
+        <article class="page sans">
+            <header>
+                <h1 class="page-title">SaaS por 0€/Mes usando Git como Base de Datos</h1>
+                <p class="page-description"></p>
+            </header>
+            <div class="page-body">
+                <p>Por un familiar me surgió la necesidad de desarrollar un (<em>Software as a Service</em>) SaaS de mensajería a clientes vía SMS.</p>
+                <p>En su día le pregunté a <em>Chatgpt</em> un stack de 2025 para hacer dicha aplicación. Su primera opción fue:</p>
+                <p><em>Next.js + Tailwind + shadcn/ui + TypeScript + Prisma + PostgreSQL + Twilio</em>.</p>
+                <p>No sé usar ni la mitad de las herramientas🤣, así que tras discutir con él y <strong>mi propio criterio</strong>, llegamos a un acuerdo del stack que usaría, el cuál es poco ortodoxo:</p>
+                
+                <div class="failures-table-container" style="max-width: 500px; margin: 0 auto; margin-bottom: 1.5rem;">
+                    <table class="failures-table">
+                        <thead>
+                            <tr>
+                                <th>Tech</th>
+                                <th>Propósito</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Html, Js, Css</td>
+                                <td>Frontend</td>
+                            </tr>
+                            <tr>
+                                <td>Python</td>
+                                <td>Lógica de la app</td>
+                            </tr>
+                            <tr>
+                                <td>Flask</td>
+                                <td>Endpoints</td>
+                            </tr>
+                            <tr>
+                                <td>Render</td>
+                                <td>Deploy</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Git</strong></td>
+                                <td><strong>BBDD, Autenticación</strong></td>
+                            </tr>
+                            <tr>
+                                <td>Twilio</td>
+                                <td>Envío de SMS</td>
+                            </tr>
+                            <tr>
+                                <td>(Extra) Strato</td>
+                                <td>Dominio (0,96€/Año)</td>
+                            </tr>
+                            <tr>
+                                <td>PythonAnywhere</td>
+                                <td>Cron Job</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>Si quieres hacer una aplicación escalable que soporte miles de usuarios concurrentes y con grandes cantidades de datos, seguramente Git no sea la mejor opción. Pero en mi caso, lo único a guardar son archivos de texto que se actualizan pocas veces al día, haciendo de Git una opción jugosa. Almaceno todo en un repositorio privado de Github (distinto al de la aplicación), por lo que además es fácil visualizar las actualizaciones de los datos.</p>
+                <p>Github dispone de una <strong>API Rest</strong> para hacer todas las operaciones que harías desde tu terminal, así que puedes hacer fácilmente métodos para subir o descargar datos.</p>
+                <p>La autenticación de usuarios también está hecha mediante git. Los usuarios pueden registrarse mediante su correo electrónico. Al hacerlo, se crea una carpeta en el repositorio en la que se guardarán todos los datos, entre ellos un archivo '<em>credentials.txt</em>' que incluirá su correo y su contraseña <strong>hasheada.</strong></p>
+                <p>Para hostear la aplicación decidí usar <strong>Render</strong> en su nivel gratuito, ya que tengo experiencia previa y es fácil de usar. Para cambiar el dominio, lo adquirí previamente en <strong>Strato</strong> (0,96€ por 1 año) y seguí los pasos de Render, bastante sencillos.</p>
+                <p>El valor de la aplicación proviene de un archivo de python que debe ejecutarse diariamente para mandar los SMS. Tras barajar opciones, decidí clonar el repositorio de Github en la plataforma de <strong>PythonAnywhere</strong> en su nivel gratuito y añadir un <strong>cron-job</strong> diario que trae los datos de la última versión de github (<em>git pull</em>) y luego ejecuta el archivo necesario. Esta parte fue bastante divertida y útil porque una vez configurado, me puedo olvidar completamente de ella. Aprendí mucho sobre <strong>Bash,</strong> cómo gestionar un servidor web, y a usar los Personal Access Tokens (<strong>PAT</strong>) para acceder a repositorios privados.</p>
+                <p>Los SMS se mandan mediante <strong>Twilio</strong>, una plataforma que dispone de API Rest para mandar los mensajes. En mi opinión, sus servicios son bastante liosos y podrían hacer las cosas mejor. Sus herramientas son poco intuitivas de usar, y aún no he sido capaz de cambiar el nombre del remitente, por lo que el destinatario recibe mensajes de un número estadounidense.</p>
+                <p>Lo único que queda por hacer es añadir pasarelas de pago para conseguir revenue, pero aún tengo que estudiarlo mejor ya que no me quiero meter en un lío con hacienda, aunque seguramente acabe usando <strong>Stripe.</strong></p>
+                <p>Podría explayarme más acerca de cómo hice cada cosa pero para quién tenga experiencia en este tema le servirá más bien poco, y quien tenga poca experiencia seguramente no esté leyendo esto, así que lo dejo por aquí. Pero si tienes cualquier duda me puedes hablar por Linkedin, Correo o similares.</p>
+                <p>Por último, si os habéis quedado con ganas de saber cúal es la aplicación, se trata de <strong>www.agendado.es,</strong> que sirve para recordar citas a clientes con notificaciones automáticas mediante SMS el día anterior. Así de simple. En los próximos días haré más hincapié en la aplicación en sí.</p>
+            </div>
+        </article>
+    </div>
+            
+    <footer>
+        <p id="footerYear"></p>
+    </footer>
+    
+    <script src="../../script.js"></script>
+</body>
+</html> 
