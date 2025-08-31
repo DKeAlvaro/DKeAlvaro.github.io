@@ -37,7 +37,7 @@
                         <img src="assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
-                <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">Dark Mode</button>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0"><img src="assets/svg/sun.svg" alt="Toggle theme" class="theme-icon"></div>
             </div>
         </nav>
     </header>
@@ -48,9 +48,6 @@
                 <div class="loading-indicator">
                     <p>Loading projects...</p>
                 </div>
-            </div>
-            <div class="project-detail-container" id="project-detail-container">
-                <!-- Selected project README will be loaded here -->
             </div>
         </div>
     </div>
@@ -64,104 +61,78 @@
         document.addEventListener('DOMContentLoaded', function() {
             const username = 'DKeAlvaro';
             const overviewContainer = document.getElementById('projects-overview-container');
-            const detailContainer = document.getElementById('project-detail-container');
-            let allEligibleRepos = [];
 
             function loadProjects() {
                 overviewContainer.innerHTML = '<div class="loading-indicator"><p>Loading projects...</p></div>';
-                detailContainer.innerHTML = ''; // Clear detail view
                 fetch(`https://api.github.com/users/${username}/repos?per_page=100`)
                     .then(response => {
                         if (!response.ok) throw new Error('Network response was not ok');
                         return response.json();
                     })
                     .then(repos => {
-                        allEligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0)
-                                               .sort((a, b) => b.stargazers_count - a.stargazers_count); // Sort by stars
-                        if (allEligibleRepos.length === 0) {
+                        const eligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0)
+                                                   .sort((a, b) => b.stargazers_count - a.stargazers_count);
+                        
+                        if (eligibleRepos.length === 0) {
                             overviewContainer.innerHTML = '<p>No repositories with stars found.</p>';
                             return;
                         }
-                        displayProjectsOverview(allEligibleRepos);
+
+                        overviewContainer.innerHTML = ''; // Clear loading message
+                        eligibleRepos.forEach(repo => {
+                            displayProjectWithReadme(repo);
+                        });
                     })
                     .catch(error => {
                         overviewContainer.innerHTML = `<div class="error-message"><p>Failed to load projects. Please try again later.</p><p>Error: ${error.message}</p></div>`;
                     });
             }
 
-            function displayProjectsOverview(repos) {
-                overviewContainer.innerHTML = ''; // Clear loading message
-                const list = document.createElement('ul');
-                list.className = 'project-list';
-                repos.forEach(repo => {
-                    const listItem = document.createElement('li');
-                    listItem.className = 'project-card';
-                    listItem.innerHTML = `
-                        <h3>${repo.name}</h3>
-                        <p>${repo.description || 'No description available.'}</p>
-                        <div class="project-meta">
-                            <span>⭐ ${repo.stargazers_count}</span>
-                            <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="repo-link">View on GitHub</a>
+            function displayProjectWithReadme(repo) {
+                const projectContainer = document.createElement('div');
+                projectContainer.className = 'project-card collapsed';
+                
+                const readmeContainerId = `readme-${repo.id}`;
+                projectContainer.innerHTML = `
+                    <div class="project-header">
+                        <div class="project-title-area" id="title-area-${repo.id}">
+                            <h3>${repo.name}</h3>
+                            <span class="collapse-icon"></span>
                         </div>
-                    `;
-                    listItem.addEventListener('click', () => showProjectDetail(repo));
-                    list.appendChild(listItem);
+                        <div class="project-subheader">
+                            <p>${repo.description || 'No description available.'}</p>
+                            <div class="project-meta">
+                                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" class="star-icon">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg> ${repo.stargazers_count}</span>
+                                <a href="${repo.html_url}" target="_blank" rel="noopener noreferrer" class="repo-link">View on GitHub</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="project-readme" id="${readmeContainerId}">
+                        <div class="loading-indicator"><p>Loading README...</p></div>
+                    </div>
+                `;
+                overviewContainer.appendChild(projectContainer);
+
+                const header = projectContainer.querySelector('.project-header');
+                header.addEventListener('click', () => {
+                    projectContainer.classList.toggle('collapsed');
                 });
-                overviewContainer.appendChild(list);
-            }
 
-            function showProjectDetail(repo) {
-                overviewContainer.style.display = 'none'; // Hide overview
-                detailContainer.innerHTML = '<div class="loading-indicator"><p>Loading README...</p></div>';
-                detailContainer.style.display = 'block';
-
-                const backButton = document.createElement('button');
-                backButton.textContent = '← Back to Projects Overview';
-                backButton.className = 'back-button';
-                backButton.addEventListener('click', () => {
-                    detailContainer.style.display = 'none';
-                    detailContainer.innerHTML = '';
-                    overviewContainer.style.display = 'block';
-                });
-                detailContainer.appendChild(backButton);
-
-                fetchReadmeAndRender(repo, detailContainer);
+                const readmeContainer = document.getElementById(readmeContainerId);
+                fetchReadmeAndRender(repo, readmeContainer);
             }
 
             function fetchReadmeAndRender(repo, targetContainer) {
-                // Try main branch first, then master
                 const tryBranches = ['main', 'master'];
                 const readmeFiles = ['README.md', 'readme.md'];
                 let branchIndex = 0;
                 let readmeIndex = 0;
-                let foundReadme = false;
-
-                const loadingMessage = targetContainer.querySelector('.loading-indicator') || document.createElement('div');
-                if (!targetContainer.querySelector('.loading-indicator')) {
-                    loadingMessage.innerHTML = '<p>Loading README...</p>';
-                    loadingMessage.className = 'loading-indicator';
-                    targetContainer.appendChild(loadingMessage); // Append if not already there (e.g. if back button was added first)
-                } else {
-                    loadingMessage.innerHTML = '<p>Loading README...</p>'; // Ensure text is correct
-                }
 
                 function tryFetch() {
                     if (branchIndex >= tryBranches.length) {
-                        if (!foundReadme) {
-                            const errorDiv = document.createElement('div');
-                            errorDiv.className = 'error-message';
-                            errorDiv.innerHTML = '<p>README not found for this project.</p>';
-                            // Ensure loading message is removed before showing error
-                            if (targetContainer.contains(loadingMessage)) {
-                                targetContainer.removeChild(loadingMessage);
-                            }
-                            // Prepend error message so it appears after back button if it exists
-                            if (targetContainer.firstChild && targetContainer.firstChild.isEqualNode(targetContainer.querySelector('.back-button'))) {
-                                targetContainer.insertBefore(errorDiv, targetContainer.firstChild.nextSibling);
-                            } else {
-                                targetContainer.appendChild(errorDiv);
-                            }
-                        }
+                        targetContainer.innerHTML = '<div class="error-message"><p>README not found for this project.</p></div>';
                         return;
                     }
 
@@ -175,8 +146,7 @@
                             return r.text();
                         })
                         .then(md => {
-                            foundReadme = true;
-                            renderProject(repo, md, branch, targetContainer);
+                            renderReadme(repo, md, branch, targetContainer);
                         })
                         .catch(error => {
                             readmeIndex++;
@@ -190,14 +160,46 @@
                 tryFetch();
             }
 
-            function renderProject(repo, md, branch, targetContainer) {
-                if (targetContainer.querySelector('.loading-indicator')) {
-                     targetContainer.removeChild(targetContainer.querySelector('.loading-indicator'));
-                }
-                // Convert relative image/video links to absolute
+            function renderReadme(repo, md, branch, targetContainer) {
+                // Find and insert project image from README
+                try {
+                    const markdownImageRegex = /!\[.*?\]\((.*?)\)/;
+                    const htmlImageRegex = /<img[^>]+src=["']([^"']+)["']/;
+                    const mdMatch = (md || '').match(markdownImageRegex);
+                    const htmlMatch = (md || '').match(htmlImageRegex);
+
+                    let imageUrl = null;
+                    if (mdMatch && mdMatch[1]) {
+                        imageUrl = mdMatch[1];
+                    } else if (htmlMatch && htmlMatch[1]) {
+                        imageUrl = htmlMatch[1];
+                    }
+
+                    if (imageUrl) {
+                        const rawBase = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/`;
+                        let absImageUrl = imageUrl.match(/^https?:\/\//) ? imageUrl : rawBase + imageUrl.replace(/^\.?\/?/, '');
+
+                        const titleArea = document.getElementById(`title-area-${repo.id}`);
+                        if (titleArea && !titleArea.querySelector('.project-image')) {
+                            const projectImage = document.createElement('img');
+                            projectImage.src = absImageUrl;
+                            projectImage.className = 'project-image';
+                            const titleH3 = titleArea.querySelector('h3');
+                            if (titleH3) {
+                                titleArea.insertBefore(projectImage, titleH3);
+                            } else {
+                                titleArea.prepend(projectImage);
+                            }
+                        }
+                    }
+                } catch(e) { console.error("Error finding project image:", e); }
+
+                targetContainer.innerHTML = ''; // Clear loading indicator
+
                 const rawBase = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/`;
                 let html = marked.parse(md || '');
-                // Fix images and videos
+                
+                // Fix relative image/video links
                 html = html.replace(/<img([^>]+)src=["']([^"']+)["']/g, (match, pre, src) => {
                     let abs = src.match(/^https?:\/\//) ? src : rawBase + src.replace(/^\.?\/?/, '');
                     return `<img${pre}src="${abs}"`;
@@ -206,7 +208,8 @@
                     let abs = src.match(/^https?:\/\//) ? src : rawBase + src.replace(/^\.?\/?/, '');
                     return `<video${pre}src="${abs}"`;
                 });
-                // Embed GitHub user-attachments links as <video> or <img> tags
+                
+                // Embed GitHub user-attachments links as <video> or <img>
                 html = html.replace(/<a[^>]+href=["'](https:\/\/github.com\/user-attachments\/assets\/[^"']+)["'][^>]*>([^<]*)<\/a>/gi, function(match, url, filename) {
                     const videoExt = /(\.mp4|\.webm|\.ogg)$/i;
                     const imageExt = /(\.png|\.jpg|\.jpeg|\.gif|\.bmp|\.svg)$/i;
@@ -215,68 +218,93 @@
                     } else if (imageExt.test(url) || imageExt.test(filename)) {
                         return `<img src="${url}" alt="${filename}" style="max-width:100%;height:auto;" />`;
                     } else {
-                        // Try to guess by url ending
                         if (/\/assets\/[a-f0-9\-]+$/.test(url)) {
-                            // Unknown, fallback to video
-                            return `<video controls style="max-width:100%;height:auto;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                           return `<video controls style="max-width:100%;height:auto;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
                         }
                         return match;
                     }
                 });
                 
-                const readmeDiv = document.createElement('div');
-                readmeDiv.className = 'project-readme';
-                readmeDiv.innerHTML = html;
-                // Append readme content after the back button if it exists and is the first child.
-                if (targetContainer.firstChild && targetContainer.firstChild.classList && targetContainer.firstChild.classList.contains('back-button')) {
-                    targetContainer.insertBefore(readmeDiv, targetContainer.firstChild.nextSibling);
-                } else {
-                    targetContainer.appendChild(readmeDiv);
-                }
+                targetContainer.innerHTML = `<div class="readme-content">${html}</div>`;
             }
 
-            loadProjects(); // Initial load
+            loadProjects();
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
     .projects-overview-container {
-        /* Styles for the overview container - e.g., grid or flex layout */
-    }
-    .project-list {
-        list-style-type: none;
-        padding: 0;
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px; /* Increased separation */
     }
     .project-card {
         border: none;
-        padding: 15px;
+        padding: 20px;
         border-radius: 8px;
         background-color: var(--background-color, #fff);
-        cursor: pointer;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Enhanced shadow for better separation */
+        overflow: hidden; /* To contain readme content */
+        transition: all 0.3s ease-in-out;
     }
-    .project-card:hover {
-        /* box-shadow: 0 4px 8px rgba(0,0,0,0.1); */
-        /* transform: translateY(-5px); */
-        /* You can add other subtle hover effects here if desired, e.g., a slight background color change */
+    .project-header {
+        cursor: pointer;
+        padding: 10px;
+        border-radius: 6px;
+        transition: background-color 0.2s ease-in-out;
+    }
+    .project-header:hover {
+        background-color: var(--hover-bg, #f0f0f0);
+    }
+    .project-title-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .project-image {
+        width: 60px;
+        height: 60px;
+        border-radius: 6px;
+        margin-right: 15px;
+        object-fit: contain;
+    }
+    .collapse-icon {
+        width: 16px;
+        height: 16px;
+        border-right: 2px solid var(--accent-color);
+        border-bottom: 2px solid var(--accent-color);
+        transform: rotate(45deg);
+        transition: transform 0.3s ease-in-out;
+    }
+    .project-card.collapsed .collapse-icon {
+        transform: rotate(-45deg);
+    }
+    .project-subheader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 5px;
     }
     .project-card h3 {
         margin-top: 0;
         color: var(--accent-color, #333);
+        font-size: 2.2em;
+        margin-bottom: 0;
     }
-    .project-card p {
-        font-size: 0.9rem;
-        margin-bottom: 10px;
+    .project-header p {
+        font-style: italic;
+        font-size: 1rem;
+        opacity: 0.8;
         color: var(--text-color, #555);
+        margin-bottom: 0;
+        margin-right: 20px;
     }
     .project-meta {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        font-size: 0.8rem;
+        gap: 15px;
+        font-size: 0.9rem;
+        white-space: nowrap;
     }
     .project-meta .repo-link {
         color: var(--accent-color, #007bff);
@@ -285,38 +313,115 @@
     .project-meta .repo-link:hover {
         text-decoration: underline;
     }
-    .project-detail-container {
-        margin-top: 20px;
-        padding: 15px;
-        border: none;
-        border-radius: 8px;
-        background-color: var(--background-color, #fff);
-    }
     .project-readme {
         margin-top: 15px;
+        border-top: none; /* Removed horizontal line */
+        padding-top: 0;
+        max-height: 2000px; /* Adjust as needed, for transition */
+        overflow: hidden;
+        transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out, opacity 0.3s ease-in-out;
+        opacity: 1;
+    }
+    .project-card.collapsed .project-readme {
+        max-height: 0;
+        margin-top: 0;
+        opacity: 0;
     }
     .project-readme img,
     .project-readme video {
-        max-width: 100%;
+        max-width: 80%;
         height: auto;
         border-radius: 4px;
         margin-top: 10px;
         margin-bottom: 10px;
-    }     
-    .back-button {
-        background: var(--accent-color, #222);
-        color: #fff;
-        border: none;
-        border-radius: 24px;
-        padding: 10px 20px;
-        font-size: 0.9rem;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        cursor: pointer;
-        transition: background 0.2s;
-        margin-bottom: 15px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
-    .back-button:hover {
-        background: var(--accent-hover, #444);
+    .readme-content {
+        line-height: 1.6;
+    }
+    .readme-content hr {
+        display: none; /* Removed horizontal lines from READMEs */
+    }
+    .readme-content h1,
+    .readme-content h2,
+    .readme-content h3,
+    .readme-content h4,
+    .readme-content h5,
+    .readme-content h6 {
+        margin-top: 24px;
+        margin-bottom: 16px;
+        font-weight: 600;
+        line-height: 1.25;
+        color: var(--accent-color);
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+    .readme-content h1 {
+        font-size: 1.8em;
+        border-bottom: 2px solid var(--border-color, #eee);
+        padding-bottom: .3em;
+    }
+    .readme-content h2 {
+        font-size: 1.5em;
+        border-bottom: 1px solid var(--border-color, #eee);
+        padding-bottom: .3em;
+    }
+    .readme-content h3 { font-size: 1.2em; font-weight: bold; }
+    .readme-content p {
+        margin-bottom: 16px;
+    }
+    .readme-content ul,
+    .readme-content ol {
+        padding-left: 20px;
+        margin-bottom: 16px;
+    }
+    .readme-content li {
+        margin-bottom: 8px;
+    }
+    .readme-content pre {
+        background-color: var(--code-bg, #f6f8fa);
+        border-radius: 6px;
+        padding: 16px;
+        overflow: auto;
+        line-height: 1.45;
+    }
+    .readme-content code {
+        background-color: var(--code-bg, #f6f8fa);
+        border-radius: 6px;
+        padding: .2em .4em;
+        margin: 0;
+        font-size: 85%;
+    }
+    .readme-content pre code {
+        padding: 0;
+        margin: 0;
+        font-size: 100%;
+        background-color: transparent;
+        border: none;
+    }
+    .readme-content blockquote {
+        padding: 0 1em;
+        color: var(--text-color, #555);
+        border-left: .25em solid var(--border-color, #dfe2e5);
+        margin-left: 0;
+        margin-right: 0;
+        margin-bottom: 16px;
+    }
+    .readme-content table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 16px;
+    }
+    .readme-content th,
+    .readme-content td {
+        border: 1px solid var(--border-color, #dfe2e5);
+        padding: 8px 12px;
+    }
+    .readme-content th {
+        font-weight: 600;
+        background-color: var(--table-header-bg, #f6f8fa);
     }
     .loading-indicator,
     .error-message {
@@ -337,6 +442,47 @@
     .error-message p {
         margin: 5px 0;
     }
+
+    @media (max-width: 768px) {
+        .project-card {
+            padding: 15px;
+        }
+
+        .project-card h3 {
+            font-size: 1.8em;
+        }
+        
+        .project-image {
+            width: 40px;
+            height: 40px;
+        }
+        
+        .project-subheader {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .project-header p {
+            font-size: 0.9rem;
+            margin-right: 0;
+        }
+
+        .project-meta {
+            white-space: normal;
+            font-size: 0.8rem;
+        }
+        
+        .readme-content h1 { font-size: 1.6em; }
+        .readme-content h2 { font-size: 1.3em; }
+        .readme-content h3 { font-size: 1.1em; }
+        
+        .project-readme img,
+        .project-readme video {
+            max-width: 100%;
+        }
+    }
     </style>
 </body>
 </html>
+
