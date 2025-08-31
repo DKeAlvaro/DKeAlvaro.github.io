@@ -114,15 +114,21 @@ if (firstConfirmButton && secondConfirmButton && journeyContent) {
 
 // Theme toggle
 if (themeToggle) {
+    const themeIcon = themeToggle.querySelector('.theme-icon');
+    
+    // Dynamically determine the correct path to assets based on current location
+    const currentPath = window.location.pathname;
+    const assetsPath = currentPath.includes('/blog/') ? '../../assets/svg/' : 'assets/svg/';
+    
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
     
     // Apply saved theme or default based on user preference
     if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
         document.body.classList.add('dark-theme');
-        themeToggle.textContent = 'Light Mode';
+        themeIcon.src = assetsPath + 'sun.svg'; // Show sun icon in dark mode
     } else {
-        themeToggle.textContent = 'Dark Mode';
+        themeIcon.src = assetsPath + 'moon.svg'; // Show moon icon in light mode
     }
 
     // Theme toggle click handler
@@ -131,36 +137,50 @@ if (themeToggle) {
         
         if (document.body.classList.contains('dark-theme')) {
             localStorage.setItem('theme', 'dark');
-            themeToggle.textContent = 'Light Mode';
+            themeIcon.src = assetsPath + 'sun.svg'; // Show sun icon in dark mode
         } else {
             localStorage.setItem('theme', 'light');
-            themeToggle.textContent = 'Dark Mode';
+            themeIcon.src = assetsPath + 'moon.svg'; // Show moon icon in light mode
         }
     });
 }
-
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM Content Loaded - checking for acknowledgments list');
     const acknowledgmentsList = document.getElementById('acknowledgments-list');
+    console.log('Acknowledgments list element:', acknowledgmentsList);
 
     if (acknowledgmentsList) {
+        console.log('Starting to fetch acknowledgments.csv');
         fetch('./acknowledgments.csv')
-            .then(response => response.text())
+            .then(response => {
+                console.log('Fetch response:', response);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.text();
+            })
             .then(data => {
+                console.log('CSV data received:', data);
                 const rows = data.trim().split('\n');
-                const headers = rows.shift().split(',').map(header => header.trim().replace(/"/g, ''));
+                console.log('Rows after split:', rows);
+                const headers = rows.shift().split(';').map(header => header.trim().replace(/"/g, ''));
+                console.log('Headers:', headers);
                 
                 const personIndex = headers.indexOf('person');
                 const whyIndex = headers.indexOf('why');
+                console.log('Person index:', personIndex, 'Why index:', whyIndex);
 
                 if (personIndex === -1 || whyIndex === -1) {
                     acknowledgmentsList.innerHTML = '<p>Error: CSV file must have "person" and "why" columns.</p>';
                     return;
                 }
                 
-                rows.forEach(row => {
-                    const columns = row.split(',').map(col => col.trim().replace(/"/g, ''));
+                rows.forEach((row, index) => {
+                    console.log(`Processing row ${index}:`, row);
+                    const columns = row.split(';').map(col => col.trim().replace(/"/g, ''));
                     const person = columns[personIndex];
                     const why = columns[whyIndex];
+                    console.log(`Person: ${person}, Why: ${why}`);
 
                     if (person && why) {
                         const acknowledgmentItem = document.createElement('div');
@@ -176,12 +196,16 @@ document.addEventListener('DOMContentLoaded', function() {
                         acknowledgmentItem.appendChild(whyElement);
 
                         acknowledgmentsList.appendChild(acknowledgmentItem);
+                        console.log('Added acknowledgment item for:', person);
                     }
                 });
+                console.log('Finished processing all acknowledgments');
             })
             .catch(error => {
                 console.error('Error fetching acknowledgments:', error);
-                acknowledgmentsList.innerHTML = '<p>Could not load acknowledgments.</p>';
+                acknowledgmentsList.innerHTML = '<p>Could not load acknowledgments. Error: ' + error.message + '</p>';
             });
+    } else {
+        console.log('Acknowledgments list element not found!');
     }
-}); 
+});

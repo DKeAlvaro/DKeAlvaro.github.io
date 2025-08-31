@@ -177,14 +177,14 @@ body > header {
 
 /* Theme Toggle */
 .theme-toggle {
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--primary-color);
     cursor: pointer;
-    font-size: 0.9rem;
-    padding: calc(var(--spacing-unit) * 0.4) calc(var(--spacing-unit) * 0.7);
+    padding: calc(var(--spacing-unit) * 0.4);
     border-radius: 4px;
-    transition: background-color 0.2s, color 0.2s;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* margin-right: 2rem; Uncomment and increase this value */
 }
 
 .theme-toggle:hover {
@@ -196,12 +196,24 @@ body > header {
     outline-offset: 2px;
 }
 
+.theme-icon {
+    width: 20px;
+    height: 20px;
+    filter: invert(var(--icon-invert));
+    transition: transform 0.2s ease;
+}
+
+.theme-toggle:hover .theme-icon {
+    transform: rotate(12deg);
+}
+
 /* Social Links */
 .social-links {
     display: flex;
     align-items: center;
     gap: 0.8rem;
-    margin-right: 1rem;
+    /* Remove or reduce margin-right to bring everything closer */
+    margin-right: 0.5rem;
 }
 
 .social-icon {
@@ -361,6 +373,24 @@ body.menu-open .menu-overlay {
     margin-top: calc(var(--spacing-unit) * 1.5);
 }
 
+/* Acknowledgments intro text */
+.acknowledgments-intro {
+    margin-top: 0;
+    margin-bottom: calc(var(--spacing-unit) * 2);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    text-align: center;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Reduce top margin for acknowledgments page content */
+.content:has(.acknowledgments-intro) {
+    margin-top: 0;
+}
+
 /*  Section */
 
 .skills h2 {
@@ -384,7 +414,7 @@ body.menu-open .menu-overlay {
 
 /* Timeline */
 .timeline {
-    margin-top: calc(var(--spacing-unit) * 2);
+    margin-top: 0;
     position: relative;
 }
 
@@ -747,7 +777,7 @@ footer {
 /* Acknowledgments Page */
 .acknowledgment-item {
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
     margin-bottom: 1.5rem;
 }
 
@@ -765,4 +795,16 @@ footer {
 
 .acknowledgment-item p {
     margin-bottom: 0;
+}
+
+.star-icon {
+    vertical-align: middle;
+    margin-right: 4px;
+    color: #ffd700; /* Gold color for the star */
+    transform: translateY(-2px); /* Move the star up by 1px */
+}
+
+/* Dark theme support */
+.dark-theme .star-icon {
+    color: #ffd700;
 }
