@@ -808,3 +808,66 @@ footer {
 .dark-theme .star-icon {
     color: #ffd700;
 }
+
+/* About Me Page Styles */
+.about-content-wrapper {
+    display: flex;
+    gap: calc(var(--spacing-unit) * 3);
+    align-items: flex-start;
+    margin-top: calc(var(--spacing-unit) * 1.5);
+}
+
+.about-content-wrapper .content {
+    flex: 2;
+    margin-top: 0;
+}
+
+.about-image-desktop {
+    flex: 1;
+    max-width: 300px;
+    min-width: 250px;
+}
+
+.about-image-mobile {
+    display: none;
+}
+
+.profile-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark theme adjustments */
+.dark-theme .profile-image {
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .profile-image:hover {
+    box-shadow: 0 6px 20px rgba(255, 255, 255, 0.15);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .about-content-wrapper {
+        flex-direction: column;
+        gap: calc(var(--spacing-unit) * 2);
+    }
+    
+    .about-image-desktop {
+        display: none;
+    }
+    
+    .about-image-mobile {
+        display: block;
+        max-width: 280px;
+        margin: calc(var(--spacing-unit) * 1.5) auto;
+        align-self: center;
+    }
+    
+    .profile-image {
+        margin: 0 auto;
+        display: block;
+    }
+}
