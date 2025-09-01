@@ -169,7 +169,7 @@ def generate_complete_html(title, content):
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../assets/svg/sun.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
