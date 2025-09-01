@@ -118,7 +118,7 @@ if (themeToggle) {
     
     // Dynamically determine the correct path to assets based on current location
     const currentPath = window.location.pathname;
-    const assetsPath = currentPath.includes('/blog/') ? '../../assets/svg/' : 'assets/svg/';
+    const assetsPath = (currentPath.includes('/blog/') || currentPath.includes('/notes/')) ? '../../assets/svg/' : 'assets/svg/';
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
