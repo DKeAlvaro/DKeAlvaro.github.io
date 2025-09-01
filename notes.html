@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Alvaro Menendez's MSc AI & Engineering Systems notes and study materials">
+    <title>MSc AIES - Alvaro Menendez</title>
+    <link rel="icon" href="./assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .notes-index {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .notes-chapter {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+        }
+        .notes-chapter:last-child {
+            border-bottom: none;
+        }
+        .chapter-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+        .chapter-meta {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-bottom: 0.8rem;
+        }
+        .chapter-description {
+            color: var(--text-color);
+            line-height: 1.6;
+            margin-bottom: 0;
+        }
+        .notes-header {
+            text-align: center;
+            margin-top: 4rem;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .notes-header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .notes-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-color);
+            opacity: 0.8;
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">About</a></li>
+                <li><a href="./journey.html">My Life</a></li>
+                <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./blogs.html">Blog</a></li>
+                <li><a href="./notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="./acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="./assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr2@gmail.com" aria-label="Email">
+                        <img src="assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0"><img src="assets/svg/sun.svg" alt="Toggle theme" class="theme-icon"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="notes-header">
+                <h1>MSc AI & Engineering Systems</h1>
+                <p class="notes-subtitle">Study Notes & Materials • TU/e</p>
+            </div>
+            
+            <div class="notes-index">
+                <div class="notes-chapter">
+                    <h2 class="chapter-title"><a href="notes/Q1_Guide/Q1_Guide.html">Q1 Guide</a></h2>
+                    <div class="chapter-meta">1 Sep 2025</div>
+                    <p class="chapter-description">Baby steps for the first quartile of the MSc AI & Eng Systems at TU/e. Deciphers which courses to enrol and the structure of the program</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footerYear"></p>
+    </footer>
+
+    <script src="./script.js"></script>
+</body>
+</html>
