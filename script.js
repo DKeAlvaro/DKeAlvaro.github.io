@@ -118,7 +118,15 @@ if (themeToggle) {
     
     // Dynamically determine the correct path to assets based on current location
     const currentPath = window.location.pathname;
-    const assetsPath = (currentPath.includes('/blog/') || currentPath.includes('/notes/')) ? '../../assets/svg/' : 'assets/svg/';
+    // Count directory depth to calculate correct relative path
+    const pathSegments = currentPath.split('/').filter(segment => segment && segment !== 'index.html');
+    let assetsPath = 'assets/svg/';
+    
+    if (currentPath.includes('/blog/') || currentPath.includes('/notes/')) {
+        // Calculate how many levels deep we are
+        const depth = pathSegments.length - 1; // Subtract 1 for the root
+        assetsPath = '../'.repeat(depth) + 'assets/svg/';
+    }
     
     // Check for saved theme preference
     const savedTheme = localStorage.getItem('theme');
@@ -281,3 +289,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+// Q&A Toggle Function
+function toggleQA(qaId) {
+    const answer = document.getElementById(qaId);
+    const question = answer.previousElementSibling;
+    
+    if (answer.classList.contains('active')) {
+        answer.classList.remove('active');
+        question.classList.remove('active');
+    } else {
+        answer.classList.add('active');
+        question.classList.add('active');
+    }
+}

@@ -87,6 +87,60 @@
             margin-bottom: 0.5rem;
         }
         
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
         /* Mobile responsive styles */
         @media (max-width: 768px) {
             .note-container {
@@ -198,16 +252,55 @@
 <p><strong>Exam date:</strong> <em>5 November 2025, 13:30 -16:30</em></p>
 </blockquote>
 <h2>Lecture content</h2>
-<p>Q: Whats the difference between <em>Data Science &amp; AI</em> and <em>AI &amp; Eng. Systems</em> Masters?
-A: This is the answer</p>
-<p>Q: What is data?
-A: This is the answer</p>
-<p>Q: What is Machine Learning?
-A: This is the answer</p>
-<p>Q: What types of learning are there?
-A: This is the answer</p>
-<p>Q: What are the differences of each type?
-A: This is the answer</p>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9422')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">Whats the difference between *Data Science & AI* and *AI & Eng. Systems* Masters?</span>
+    </div>
+    <div class="qa-answer" id="qa-9422">
+        This is the answer
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9821')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is data?</span>
+    </div>
+    <div class="qa-answer" id="qa-9821">
+        This is the answer
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4604')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is Machine Learning?</span>
+    </div>
+    <div class="qa-answer" id="qa-4604">
+        This is the answer
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5020')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What types of learning are there?</span>
+    </div>
+    <div class="qa-answer" id="qa-5020">
+        This is the answer
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2058')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the differences of each type?</span>
+    </div>
+    <div class="qa-answer" id="qa-2058">
+        This is the answer
+    </div>
+</div>
                 </div>
             </div>
         </div>
