@@ -253,3 +253,31 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Acknowledgments list element not found!');
     }
 });
+document.addEventListener('DOMContentLoaded', () => {
+    const folderElements = document.querySelectorAll('.tree-folder');
+
+    folderElements.forEach(folder => {
+        // // Initially collapse all folders
+        // const nestedUl = folder.querySelector('ul');
+        // if (nestedUl) {
+        //     folder.classList.add('collapsed');
+        //     nestedUl.classList.add('collapsed');
+        // }
+
+        folder.addEventListener('click', (e) => {
+            // Prevent toggling if a link inside the folder is clicked
+            if (e.target.tagName === 'A') {
+                return;
+            }
+
+            // Stop the event from bubbling up to parent folders
+            e.stopPropagation();
+
+            const nestedUl = folder.querySelector('ul');
+            if (nestedUl) {
+                folder.classList.toggle('collapsed');
+                nestedUl.classList.toggle('collapsed');
+            }
+        });
+    });
+});
