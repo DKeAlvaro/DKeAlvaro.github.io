@@ -144,6 +144,50 @@ if (themeToggle) {
         }
     });
 }
+// Example JavaScript for a simple carousel
+document.addEventListener('DOMContentLoaded', () => {
+  const carouselItems = document.querySelectorAll('.carousel-item');
+  let currentIndex = 0;
+
+  function showCarouselItem(index) {
+    carouselItems.forEach((item, i) => {
+      if (i === index) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+  }
+
+  // Show the first item initially
+  if (carouselItems.length > 0) {
+    showCarouselItem(currentIndex);
+  }
+
+  // Example: Add navigation buttons (you'd need to add these buttons in your HTML)
+  // const nextButton = document.getElementById('next-button');
+  // const prevButton = document.getElementById('prev-button');
+
+  // if (nextButton) {
+  //   nextButton.addEventListener('click', () => {
+  //     currentIndex = (currentIndex + 1) % carouselItems.length;
+  //     showCarouselItem(currentIndex);
+  //   });
+  // }
+
+  // if (prevButton) {
+  //   prevButton.addEventListener('click', () => {
+  //     currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+  //     showCarouselItem(currentIndex);
+  //   });
+  // }
+
+  // Example: Auto-play (optional)
+  // setInterval(() => {
+  //   currentIndex = (currentIndex + 1) % carouselItems.length;
+  //   showCarouselItem(currentIndex);
+  // }, 5000); // Change image every 5 seconds
+});
 document.addEventListener('DOMContentLoaded', function() {
     console.log('DOM Content Loaded - checking for acknowledgments list');
     const acknowledgmentsList = document.getElementById('acknowledgments-list');
