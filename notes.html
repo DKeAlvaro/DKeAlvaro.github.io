@@ -12,31 +12,6 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        .notes-chapter {
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }
-        .notes-chapter:last-child {
-            border-bottom: none;
-        }
-        .chapter-title {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-        .chapter-meta {
-            font-size: 0.9rem;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 0.8rem;
-        }
-        .chapter-description {
-            color: var(--text-color);
-            line-height: 1.6;
-            margin-bottom: 0;
-        }
         .notes-header {
             text-align: center;
             margin-top: 4rem;
@@ -53,6 +28,56 @@
             color: var(--text-color);
             opacity: 0.8;
             font-weight: 400;
+        }
+        .notes-tree-level {
+            list-style: none;
+            padding-left: 0;
+        }
+        .notes-tree-level ul {
+            padding-left: 20px;
+            border-left: 1px solid var(--border-color);
+            margin-left: 10px;
+        }
+        .tree-folder > span {
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            display: block;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .tree-file {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .tree-file:last-child {
+            border-bottom: none;
+        }
+        .tree-file-content a {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 500;
+            text-decoration: none;
+        }
+        .tree-file-content a:hover {
+            text-decoration: underline;
+        }
+        .tree-file-description {
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.9;
+            margin-top: 0.3rem;
+            margin-bottom: 0;
+        }
+        .tree-file-meta {
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            white-space: nowrap;
+            padding-left: 1rem;
         }
     </style>
 </head>
@@ -101,11 +126,38 @@
             </div>
             
             <div class="notes-index">
-                <div class="notes-chapter">
-                    <h2 class="chapter-title"><a href="notes/Q1_Guide/Q1_Guide.html">Q1 Guide</a></h2>
-                    <div class="chapter-meta">1 Sep 2025</div>
-                    <p class="chapter-description">Baby steps for the first quartile of the MSc AI & Eng Systems at TU/e. Deciphers which courses to enrol and the structure of the program</p>
-                </div>
+<ul class="notes-tree-level">
+<li class="tree-folder"><span>Year 1</span>
+<ul class="notes-tree-level">
+<li class="tree-folder"><span>Q1</span>
+<ul class="notes-tree-level">
+<li class="tree-folder"><span>Data Analysis & Learning Methods</span>
+<ul class="notes-tree-level">
+<li class="tree-file">
+<div class="tree-file-content">
+    <a href="notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture.html">first lecture</a>
+    <p class="tree-file-description">First lecture recap</p>
+</div>
+<div class="tree-file-meta">2 Sep 2025</div>
+</li>
+</ul>
+</li>
+<li class="tree-folder"><span>Q1 Guide</span>
+<ul class="notes-tree-level">
+<li class="tree-file">
+<div class="tree-file-content">
+    <a href="notes/Year_1/Q1/Q1_Guide/Q1_Guide.html">Q1 Guide</a>
+    <p class="tree-file-description">Baby steps for the first quartile of the MSc AI & Eng Systems at TU/e. Deciphers which courses to enrol and the structure of the program</p>
+</div>
+<div class="tree-file-meta">1 Sep 2025</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
             </div>
         </div>
     </div>

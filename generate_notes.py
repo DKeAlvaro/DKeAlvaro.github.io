@@ -5,36 +5,15 @@ import sys
 from pathlib import Path
 from datetime import datetime
 
-def extract_overview_and_keywords(md_file_path):
-    """Extract the overview text and keywords from a markdown file."""
-    try:
-        with open(md_file_path, 'r', encoding='utf-8') as file:
-            content = file.read()
-            
-            # Look for 'Overview:' followed by text
-            overview_match = re.search(r'Overview:\s*(.+?)(?=\n\n|\n#|\nKeywords:|$)', content, re.DOTALL)
-            overview = overview_match.group(1).strip() if overview_match else None
-            
-            # Look for 'Keywords:' followed by text
-            keywords_match = re.search(r'Keywords:\s*(.+?)(?=\n\n|\n#|$)', content, re.DOTALL)
-            keywords = keywords_match.group(1).strip() if keywords_match else None
-            
-            return overview, keywords
-    except Exception as e:
-        print(f"Error reading {md_file_path}: {e}")
-    return None, None
-
 def extract_overview_and_date(md_file_path):
     """Extract the overview text and date from a markdown file."""
     try:
         with open(md_file_path, 'r', encoding='utf-8') as file:
             content = file.read()
             
-            # Look for 'Overview:' followed by text
             overview_match = re.search(r'Overview:\s*(.+?)(?=\n\n|\n#|\nDate:|$)', content, re.DOTALL)
             overview = overview_match.group(1).strip() if overview_match else None
             
-            # Look for 'Date:' followed by text
             date_match = re.search(r'Date:\s*(.+?)(?=\n\n|\n#|$)', content, re.DOTALL)
             date = date_match.group(1).strip() if date_match else None
             
@@ -45,35 +24,32 @@ def extract_overview_and_date(md_file_path):
 
 def run_html_generator():
     """Run the generate_html.py script in the notes directory."""
-    print("\n🔄 Running HTML generator...")
+    print("\nRunning HTML generator...")
     
     notes_dir = Path('./notes')
     html_generator = notes_dir / 'generate_html.py'
     
     if not html_generator.exists():
-        print(f"❌ HTML generator not found at {html_generator}")
+        print(f"HTML generator not found at {html_generator}")
         return False
     
     try:
-        # Change to notes directory and run the script
         original_cwd = Path.cwd()
         os.chdir(notes_dir)
         
-        # Run the HTML generator script
         result = subprocess.run([sys.executable, 'generate_html.py'], 
                               capture_output=True, text=True, check=True)
         
-        print("✅ HTML generation completed successfully!")
+        print("HTML generation completed successfully!")
         if result.stdout:
             print("HTML Generator Output:")
             print(result.stdout)
         
-        # Change back to original directory
         os.chdir(original_cwd)
         return True
         
     except subprocess.CalledProcessError as e:
-        print(f"❌ HTML generation failed: {e}")
+        print(f"HTML generation failed: {e}")
         if e.stdout:
             print("STDOUT:", e.stdout)
         if e.stderr:
@@ -81,63 +57,65 @@ def run_html_generator():
         os.chdir(original_cwd)
         return False
     except Exception as e:
-        print(f"❌ Error running HTML generator: {e}")
+        print(f"Error running HTML generator: {e}")
         os.chdir(original_cwd)
         return False
 
-def get_notes_entries():
-    """Scan the notes directory and collect all note entries."""
-    notes_dir = Path('./notes')
-    entries = []
-    
-    if not notes_dir.exists():
-        print("Notes directory not found!")
-        return entries
-    
-    # Scan each subdirectory in notes
-    for subdir in notes_dir.iterdir():
-        if subdir.is_dir() and subdir.name != '__pycache__':
-            # Look for .md files in the subdirectory
-            md_files = list(subdir.glob('*.md'))
-            if md_files:
-                # Use the first .md file found
-                md_file = md_files[0]
-                overview, date = extract_overview_and_date(md_file)
-                
-                if overview:
-                    # Create relative path for the HTML link (not markdown)
-                    html_filename = md_file.stem + '.html'
-                    relative_path = f"notes/{subdir.name}/{html_filename}"
-                    
-                    entries.append({
-                        'title': subdir.name.replace('_', ' '),
-                        'path': relative_path,
-                        'overview': overview,
-                        'date': date,
-                        'folder': subdir.name
-                    })
-    
-    # Sort entries alphabetically by title
-    entries.sort(key=lambda x: x['title'])
-    return entries
+def get_all_md_files(directory):
+    """Scan a directory recursively and return a list of all markdown files."""
+    md_files = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.md'):
+                md_files.append(Path(root) / file)
+    return md_files
 
-def generate_notes_html(entries):
-    """Generate the complete notes.html content."""
-    # Generate entries HTML first
-    entries_html = ""
-    for entry in entries:
-        # Use date if available, otherwise fall back to folder name
-        meta_text = entry['date'] if entry['date'] else f"{entry['folder']} • Study Notes"
+def build_tree_from_files(files):
+    """Build a nested dictionary from a list of markdown files."""
+    tree = {'files': [], 'folders': {}}
+    for file in files:
+        parts = file.relative_to('notes').parts
+        current_level = tree
+        for part in parts[:-1]:
+            current_level = current_level['folders'].setdefault(part, {'files': [], 'folders': {}})
         
-        entries_html += f'''                <div class="notes-chapter">
-                    <h2 class="chapter-title"><a href="{entry['path']}">{entry['title']}</a></h2>
-                    <div class="chapter-meta">{meta_text}</div>
-                    <p class="chapter-description">{entry['overview']}</p>
-                </div>
+        overview, date = extract_overview_and_date(file)
+        if overview:
+            html_filename = file.stem + '.html'
+            absolute_file_path = file.resolve()
+            relative_path = absolute_file_path.relative_to(Path.cwd()).with_suffix('.html')
+            current_level['files'].append({
+                'title': file.stem.replace('_', ' '),
+                'path': str(relative_path).replace('\\', '/'),
+                'overview': overview,
+                'date': date
+            })
+    return tree
 
+def generate_tree_html(tree):
+    """Generate HTML for the notes tree."""
+    html = '<ul class="notes-tree-level">\n'
+    for file in tree['files']:
+        meta_text = file['date'] if file['date'] else ""
+        html += f'''<li class="tree-file">
+<div class="tree-file-content">
+    <a href="{file['path']}">{file['title']}</a>
+    <p class="tree-file-description">{file['overview']}</p>
+</div>
+<div class="tree-file-meta">{meta_text}</div>
+</li>
 '''
+    for folder_name, folder_content in tree['folders'].items():
+        html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
+        html += generate_tree_html(folder_content)
+        html += '</li>\n'
+    html += '</ul>\n'
+    return html
+
+def generate_notes_html(tree):
+    """Generate the complete notes.html content."""
+    entries_html = generate_tree_html(tree)
     
-    # HTML template with entries already inserted
     html_content = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -151,31 +129,6 @@ def generate_notes_html(entries):
         .notes-index {{
             max-width: 800px;
             margin: 0 auto;
-        }}
-        .notes-chapter {{
-            margin-bottom: 2rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-        }}
-        .notes-chapter:last-child {{
-            border-bottom: none;
-        }}
-        .chapter-title {{
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary-color);
-            font-weight: 500;
-        }}
-        .chapter-meta {{
-            font-size: 0.9rem;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-bottom: 0.8rem;
-        }}
-        .chapter-description {{
-            color: var(--text-color);
-            line-height: 1.6;
-            margin-bottom: 0;
         }}
         .notes-header {{
             text-align: center;
@@ -193,6 +146,56 @@ def generate_notes_html(entries):
             color: var(--text-color);
             opacity: 0.8;
             font-weight: 400;
+        }}
+        .notes-tree-level {{
+            list-style: none;
+            padding-left: 0;
+        }}
+        .notes-tree-level ul {{
+            padding-left: 20px;
+            border-left: 1px solid var(--border-color);
+            margin-left: 10px;
+        }}
+        .tree-folder > span {{
+            font-weight: 500;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            display: block;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }}
+        .tree-file {{
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }}
+        .tree-file:last-child {{
+            border-bottom: none;
+        }}
+        .tree-file-content a {{
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            font-weight: 500;
+            text-decoration: none;
+        }}
+        .tree-file-content a:hover {{
+            text-decoration: underline;
+        }}
+        .tree-file-description {{
+            font-size: 0.9rem;
+            color: var(--text-color);
+            opacity: 0.9;
+            margin-top: 0.3rem;
+            margin-bottom: 0;
+        }}
+        .tree-file-meta {{
+            font-size: 0.85rem;
+            color: var(--text-color);
+            opacity: 0.7;
+            white-space: nowrap;
+            padding-left: 1rem;
         }}
     </style>
 </head>
@@ -258,52 +261,46 @@ def generate_notes_html(entries):
 
 def main():
     """Main function to generate notes.html and run HTML generator."""
-    print("🚀 Starting notes generation process...")
+    print("Starting notes generation process...")
     
-    # Step 1: Run HTML generator first
     html_success = run_html_generator()
     
     if not html_success:
-        print("⚠️  HTML generation failed, but continuing with notes.html generation...")
+        print("HTML generation failed, but continuing with notes.html generation...")
     
-    # Step 2: Generate notes.html with correct links
-    print("\n📝 Scanning notes directory...")
-    entries = get_notes_entries()
+    print("\nScanning notes directory...")
+    md_files = get_all_md_files('./notes')
+    notes_tree = build_tree_from_files(md_files)
     
-    if not entries:
-        print("❌ No notes found with 'Overview:' text!")
+    if not notes_tree:
+        print("No notes found!")
         return 1
     
-    print(f"Found {len(entries)} note entries:")
-    for entry in entries:
-        date_info = f" (Date: {entry['date']})" if entry['date'] else " (No date found)"
-        print(f"  - {entry['title']}{date_info}")
-        print(f"    → Links to: {entry['path']}")
+    print(f"Found notes and folders. Building tree structure.")
     
-    print("\n🔨 Generating notes.html...")
-    html_content = generate_notes_html(entries)
+    print("\nGenerating notes.html...")
+    html_content = generate_notes_html(notes_tree)
     
-    # Write the HTML file
     try:
         with open('notes.html', 'w', encoding='utf-8') as file:
             file.write(html_content)
         
-        print("✅ notes.html generated successfully!")
-        print(f"🕒 Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print("notes.html generated successfully!")
+        print(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         
         if html_success:
-            print("\n🎉 Complete process finished successfully!")
+            print("\nComplete process finished successfully!")
             print("   - HTML files generated from Markdown")
             print("   - notes.html updated with correct HTML links")
         else:
-            print("\n⚠️  Process completed with warnings:")
+            print("\nProcess completed with warnings:")
             print("   - notes.html generated successfully")
             print("   - HTML generation had issues (check above)")
         
         return 0
         
     except Exception as e:
-        print(f"❌ Error writing notes.html: {e}")
+        print(f"Error writing notes.html: {e}")
         return 1
 
 if __name__ == "__main__":
