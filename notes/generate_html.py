@@ -4,30 +4,24 @@ from pathlib import Path
 from datetime import datetime
 import markdown
 
-def convert_md_to_html(md_file_path, output_dir):
+def convert_md_to_html(md_file_path, output_dir, path_prefix):
     """Convert a markdown file to HTML with proper styling and navigation."""
     try:
         with open(md_file_path, 'r', encoding='utf-8') as file:
             md_content = file.read()
         
-        # Extract title from filename or first heading
-        title = md_file_path.stem.replace('_', ' ')
+        # Extract title from filename
+        title = md_file_path.stem.replace('_', ' ').replace('-', ' ').title()
         
         # Remove overview and date lines from content
         md_content = re.sub(r'^Overview:.*$', '', md_content, flags=re.MULTILINE)
         md_content = re.sub(r'^Date:.*$', '', md_content, flags=re.MULTILINE)
         
-        # Convert markdown to HTML with HTML preservation
-        html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite'], extension_configs={
-            'extra': {
-                'markdown.extensions.extra': {
-                    'safe_mode': False
-                }
-            }
-        })
+        # Convert markdown to HTML with extensions
+        html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'fenced_code', 'tables'])
         
-        # Generate complete HTML page
-        full_html = generate_complete_html(title, html_content)
+        # Generate complete HTML page using the calculated path prefix
+        full_html = generate_complete_html(title, html_content, path_prefix)
         
         # Create output file path
         output_file = output_dir / f"{md_file_path.stem}.html"
@@ -36,16 +30,17 @@ def convert_md_to_html(md_file_path, output_dir):
         with open(output_file, 'w', encoding='utf-8') as file:
             file.write(full_html)
         
-        print(f"Generated: {output_file}")
         return True
         
     except Exception as e:
-        print(f"Error converting {md_file_path}: {e}")
+        print(f"    -> Error converting {md_file_path.name}: {e}")
         return False
 
-def generate_complete_html(title, content):
-    """Generate a complete HTML page with navigation and styling."""
+def generate_complete_html(title, content, path_prefix):
+    """Generate a complete HTML page with dynamic paths for navigation and styling."""
     
+    # The HTML template now uses 'path_prefix' to dynamically set the correct relative paths
+    # for assets, stylesheets, and navigation links.
     html_template = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,8 +48,8 @@ def generate_complete_html(title, content):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{title} - MSc AI & Engineering Systems Notes">
     <title>{title} - MSc AIES</title>
-    <link rel="icon" href="../../assets/svg/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../../styles.css">
+    <link rel="icon" href="{path_prefix}assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="{path_prefix}styles.css">
     <style>
         .note-container {{
             max-width: 900px;
@@ -190,30 +185,30 @@ def generate_complete_html(title, content):
                 <span></span>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="../../index.html">About</a></li>
-                <li><a href="../../journey.html">My Life</a></li>
-                <li><a href="../../projects.html">Projects</a></li>
-                <li><a href="../../blogs.html">Blog</a></li>
-                <li><a href="../../notes.html">MSc AIES</a></li>
+                <li><a href="{path_prefix}index.html">About</a></li>
+                <li><a href="{path_prefix}journey.html">My Life</a></li>
+                <li><a href="{path_prefix}projects.html">Projects</a></li>
+                <li><a href="{path_prefix}blogs.html">Blog</a></li>
+                <li><a href="{path_prefix}notes.html">MSc AIES</a></li>
                 <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
                 <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="{path_prefix}acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="{path_prefix}assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
                     <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
-                        <img src="../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                        <img src="{path_prefix}assets/svg/github.svg" alt="GitHub" class="social-icon">
                     </a>
                     <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
-                        <img src="../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                        <img src="{path_prefix}assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
                     </a>
                     <a href="mailto:alvaro.mrgr2@gmail.com" aria-label="Email">
-                        <img src="../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                        <img src="{path_prefix}assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="{path_prefix}assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -222,8 +217,8 @@ def generate_complete_html(title, content):
     <div class="page-container">
         <div class="content">
             <div class="note-container">
-                <a href="../../notes.html" class="back-link">← Back to Notes</a>
-                                
+                <a href="{path_prefix}notes.html" class="back-link">← Back to Notes</a>
+                
                 <div class="note-content">
                     {content}
                 </div>
@@ -235,40 +230,53 @@ def generate_complete_html(title, content):
         <p id="footerYear"></p>
     </footer>
 
-    <script src="../../script.js"></script>
+    <script src="{path_prefix}script.js"></script>
 </body>
 </html>'''
     
     return html_template
 
 def process_notes_directory():
-    """Process all markdown files in the notes directory structure."""
+    """Process all markdown files in the notes directory structure recursively."""
     notes_dir = Path('.')
     processed_files = 0
     failed_files = 0
     
-    print("Scanning notes directory for Markdown files...")
+    print("Recursively scanning notes directory for Markdown files...")
     
-    # Process each subdirectory
-    for subdir in notes_dir.iterdir():
-        if subdir.is_dir() and subdir.name != '__pycache__':
-            print(f"\nProcessing folder: {subdir.name}")
-            
-            # Find all .md files in the subdirectory
-            md_files = list(subdir.glob('*.md'))
-            
-            if not md_files:
-                print(f"   No Markdown files found in {subdir.name}")
-                continue
-            
-            # Process each markdown file
-            for md_file in md_files:
-                print(f"   Converting: {md_file.name}")
-                
-                if convert_md_to_html(md_file, subdir):
-                    processed_files += 1
-                else:
-                    failed_files += 1
+    # Use glob('**/*.md') to find all markdown files in the current directory and all subdirectories
+    md_files = list(notes_dir.glob('**/*.md'))
+    
+    if not md_files:
+        print("No Markdown files found.")
+        return
+
+    for md_file in md_files:
+        # Skip files in directories that should be ignored
+        if any(part.startswith('.') or part == '__pycache__' for part in md_file.parts):
+            continue
+
+        # Determine the depth of the file to create the correct relative path prefix.
+        # The number of parent directories in its relative path determines the depth.
+        relative_path = md_file.relative_to(notes_dir)
+        depth = len(relative_path.parent.parts)
+        
+        # The path prefix needs to go up 'depth' levels for the subdirectories,
+        # plus one more level to get out of the 'notes' directory to the site root.
+        path_prefix = '../' * (depth + 1)
+        
+        # The output directory is the same as the input file's directory
+        output_dir = md_file.parent
+        
+        print(f"Processing: {relative_path}")
+        
+        # Pass the calculated prefix to the conversion function
+        if convert_md_to_html(md_file, output_dir, path_prefix):
+            processed_files += 1
+            print(f" -> Generated: {output_dir / f'{md_file.stem}.html'}")
+        else:
+            failed_files += 1
+            print(f" -> Failed: {relative_path}")
     
     # Summary
     print(f"\n{'='*50}")
@@ -276,7 +284,7 @@ def process_notes_directory():
     print(f"{'='*50}")
     print(f"Successfully converted: {processed_files} files")
     if failed_files > 0:
-        print(f"Failed conversions: {failed_files} files")
+        print(f"Failed conversions:   {failed_files} files")
     print(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print(f"{'='*50}")
 
@@ -287,18 +295,18 @@ def main():
     
     # Check if we're in the notes directory
     if not Path.cwd().name == 'notes':
-        print("Warning: This script should be run from the 'notes' directory")
-        print("   Current directory:", Path.cwd())
-        response = input("   Continue anyway? (y/N): ")
+        print("\nWarning: This script is designed to be run from the 'notes' directory.")
+        print(f"         Current directory: {Path.cwd()}")
+        response = input("         Continue anyway? (y/N): ")
         if response.lower() != 'y':
-            print("Aborted by user")
+            print("Aborted by user.")
             return 1
     
     try:
         process_notes_directory()
-        print("\nHTML generation completed successfully!")
+        print("\nHTML generation completed!")
     except Exception as e:
-        print(f"\nFatal error: {e}")
+        print(f"\nAn unexpected error occurred: {e}")
         return 1
     
     return 0
