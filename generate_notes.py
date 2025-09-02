@@ -106,9 +106,21 @@ def generate_tree_html(tree):
 </li>
 '''
     for folder_name, folder_content in tree['folders'].items():
-        html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
-        html += generate_tree_html(folder_content)
-        html += '</li>\n'
+        if not folder_content['folders']:
+            for file in folder_content['files']:
+                meta_text = file['date'] if file['date'] else ""
+                html += f'''<li class="tree-file">
+<div class="tree-file-content">
+    <a href="{file['path']}">{file['title']}</a>
+    <p class="tree-file-description">{file['overview']}</p>
+</div>
+<div class="tree-file-meta">{meta_text}</div>
+</li>
+'''
+        else:
+            html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
+            html += generate_tree_html(folder_content)
+            html += '</li>\n'
     html += '</ul>\n'
     return html
 
