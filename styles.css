@@ -871,3 +871,28 @@ footer {
         display: block;
     }
 }
+
+.image-carousel {
+  position: relative;
+  width: 100%; /* Adjust as needed */
+  overflow: hidden;
+}
+
+.carousel-item {
+  display: none; /* Hide all by default */
+  text-align: center;
+}
+
+.carousel-item.active {
+  display: block; /* Show the active item */
+}
+
+.carousel-item img {
+  max-width: 100%;
+  height: auto;
+}
+
+.carousel-description {
+  margin-top: 10px;
+  font-style: italic;
+}
