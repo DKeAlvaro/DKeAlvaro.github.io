@@ -4,6 +4,33 @@ from pathlib import Path
 from datetime import datetime
 import markdown
 
+def process_qa_content(md_content):
+    """Process Q&A patterns in markdown content and convert them to collapsible HTML."""
+    # Pattern to match Q: ... followed by A: ... (each on their own lines)
+    qa_pattern = r'^Q:\s*(.+?)\n^A:\s*(.+?)(?=\n\n|\n^Q:|\n^[^A]|$)'
+    
+    def replace_qa(match):
+        question = match.group(1).strip()
+        answer = match.group(2).strip()
+        
+        # Generate unique ID for each Q&A pair
+        qa_id = f"qa-{hash(question) % 10000}"
+        
+        return f'''<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('{qa_id}')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">{question}</span>
+    </div>
+    <div class="qa-answer" id="{qa_id}">
+        {answer}
+    </div>
+</div>'''
+    
+    # Replace Q&A patterns with HTML
+    processed_content = re.sub(qa_pattern, replace_qa, md_content, flags=re.MULTILINE | re.DOTALL)
+    
+    return processed_content
+
 def convert_md_to_html(md_file_path, output_dir, path_prefix):
     """Convert a markdown file to HTML with proper styling and navigation."""
     try:
@@ -16,6 +43,9 @@ def convert_md_to_html(md_file_path, output_dir, path_prefix):
         # Remove overview and date lines from content
         md_content = re.sub(r'^Overview:.*$', '', md_content, flags=re.MULTILINE)
         md_content = re.sub(r'^Date:.*$', '', md_content, flags=re.MULTILINE)
+        
+        # Process Q&A patterns before markdown conversion
+        md_content = process_qa_content(md_content)
         
         # Convert markdown to HTML with extensions
         html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'fenced_code', 'tables'])
@@ -128,6 +158,60 @@ def generate_complete_html(title, content, path_prefix):
         }}
         .note-content li {{
             margin-bottom: 0.5rem;
+        }}
+        
+        /* Q&A Styles */
+        .qa-item {{
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }}
+        
+        .qa-question {{
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }}
+        
+        .qa-question:hover {{
+            background: var(--hover-bg, #e9ecef);
+        }}
+        
+        .qa-icon {{
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }}
+        
+        .qa-question.active .qa-icon {{
+            transform: rotate(90deg);
+        }}
+        
+        .qa-text {{
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }}
+        
+        .qa-answer {{
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }}
+        
+        .qa-answer.active {{
+            display: block;
         }}
         
         /* Mobile responsive styles */

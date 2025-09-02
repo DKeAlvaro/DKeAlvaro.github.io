@@ -19,6 +19,10 @@
     --spacing-unit: 1rem;
     --accent-color-rgb: 0, 102, 204;
     --icon-invert: 0;  /* for light theme icons */
+    --bg-color: #fff;
+    --secondary-bg: #f8f9fa;
+    --hover-bg: #e9ecef;
+    --code-bg: #f6f8fa;
 }
 
 /* Dark Theme */
@@ -31,6 +35,10 @@
     --border-color: #333;
     --accent-color-rgb: 77, 138, 230;
     --icon-invert: 1;  /* for dark theme icons */
+    --bg-color: #121212;
+    --secondary-bg: #1e1e1e;
+    --hover-bg: #2a2a2a;
+    --code-bg: #1a1a1a;
 }
 
 /* Base Styles */
