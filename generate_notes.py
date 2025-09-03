@@ -164,30 +164,58 @@ def generate_notes_html(tree):
             padding-left: 0;
         }}
         .notes-tree-level ul {{
-            padding-left: 20px;
-            border-left: 1px solid var(--border-color);
-            margin-left: 10px;
+            padding-left: 1rem;
+            margin-left: 0;
+            border-left: 2px solid var(--border-color);
+            margin-top: 0.5rem;
+        }}
+        .tree-folder {{
+            cursor: pointer;
         }}
         .tree-folder > span {{
-            font-weight: 500;
-            font-size: 1.2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
             color: var(--primary-color);
             display: block;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-top: 1.2rem;
+            margin-bottom: 0.8rem;
+            padding: 0.3rem 0;
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
         }}
-        .tree-file {{
+        .tree-folder > span:hover {{
+            background-color: var(--light-gray);
+            padding-left: 0.5rem;
+        }}
+        .tree-folder > span::before {{
+            content: '▼';
+            margin-right: 8px;
+            display: inline-block;
+            width: 12px;
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+        }}
+        .tree-folder.collapsed > span::before {{
+             content: '▶';
+             transform: none;
+         }}
+         .tree-folder.collapsed > ul,
+         .notes-tree-level ul.collapsed {{
+             display: none;
+         }}
+         .tree-file {{
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            padding: 1rem 0;
+            padding: 0.8rem 0;
             border-bottom: 1px solid var(--border-color);
+            margin-left: 0.5rem;
         }}
         .tree-file:last-child {{
             border-bottom: none;
         }}
         .tree-file-content a {{
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: var(--accent-color);
             font-weight: 500;
             text-decoration: none;
@@ -196,16 +224,16 @@ def generate_notes_html(tree):
             text-decoration: underline;
         }}
         .tree-file-description {{
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-color);
-            opacity: 0.9;
-            margin-top: 0.3rem;
+            opacity: 0.8;
+            margin-top: 0.2rem;
             margin-bottom: 0;
         }}
         .tree-file-meta {{
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--text-color);
-            opacity: 0.7;
+            opacity: 0.6;
             white-space: nowrap;
             padding-left: 1rem;
         }}
