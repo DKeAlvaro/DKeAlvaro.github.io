@@ -2,6 +2,7 @@ import os
 import re
 import subprocess
 import sys
+import json
 from pathlib import Path
 from datetime import datetime
 
@@ -91,6 +92,31 @@ def build_tree_from_files(files):
                 'date': date
             })
     return tree
+
+def get_bfs_note_order(tree):
+    """Generate a BFS-ordered list of all notes for navigation."""
+    notes_list = []
+    queue = [tree]
+    
+    while queue:
+        current = queue.pop(0)
+        
+        # Add files at current level first
+        for file in current['files']:
+            notes_list.append(file)
+        
+        # Add files from leaf folders (folders without subfolders)
+        for folder_name, folder_content in current['folders'].items():
+            if not folder_content['folders']:  # Leaf folder
+                for file in folder_content['files']:
+                    notes_list.append(file)
+        
+        # Add folders with subfolders to queue for next level
+        for folder_name, folder_content in current['folders'].items():
+            if folder_content['folders']:  # Has subfolders
+                queue.append(folder_content)
+    
+    return notes_list
 
 def generate_tree_html(tree):
     """Generate HTML for the notes tree."""
@@ -326,6 +352,22 @@ def main():
     
     print(f"Found notes and folders. Building tree structure.")
     
+    print("\nGenerating BFS navigation order...")
+    bfs_notes = get_bfs_note_order(notes_tree)
+    
+    # Create navigation mapping
+    navigation_data = {}
+    for i, note in enumerate(bfs_notes):
+        nav_info = {
+            'current_index': i,
+            'total_notes': len(bfs_notes),
+            'previous': bfs_notes[i-1]['path'] if i > 0 else None,
+            'next': bfs_notes[i+1]['path'] if i < len(bfs_notes) - 1 else None,
+            'previous_title': bfs_notes[i-1]['title'] if i > 0 else None,
+            'next_title': bfs_notes[i+1]['title'] if i < len(bfs_notes) - 1 else None
+        }
+        navigation_data[note['path']] = nav_info
+    
     print("\nGenerating notes.html...")
     html_content = generate_notes_html(notes_tree)
     
@@ -333,22 +375,30 @@ def main():
         with open('notes.html', 'w', encoding='utf-8') as file:
             file.write(html_content)
         
+        # Save navigation data as JSON
+        with open('notes_navigation.json', 'w', encoding='utf-8') as file:
+            json.dump(navigation_data, file, indent=2)
+        
         print("notes.html generated successfully!")
+        print("notes_navigation.json generated successfully!")
         print(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Total notes in BFS order: {len(bfs_notes)}")
         
         if html_success:
             print("\nComplete process finished successfully!")
             print("   - HTML files generated from Markdown")
             print("   - notes.html updated with correct HTML links")
+            print("   - Navigation data generated for BFS traversal")
         else:
             print("\nProcess completed with warnings:")
             print("   - notes.html generated successfully")
+            print("   - Navigation data generated successfully")
             print("   - HTML generation had issues (check above)")
         
         return 0
         
     except Exception as e:
-        print(f"Error writing notes.html: {e}")
+        print(f"Error writing files: {e}")
         return 1
 
 if __name__ == "__main__":

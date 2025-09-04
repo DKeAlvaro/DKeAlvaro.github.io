@@ -16,7 +16,7 @@
 > **Exam date:** *5 November 2025, 13:30 -16:30*
 
 ## Lecture content
-Q: Whats the difference between *Data Science & AI* and *AI & Eng. Systems* Masters?
+Q: Whats the difference between the *Data Science & AI and AI & Eng. Systems Masters?
 A: This is the answer
 
 Q: What is data?
