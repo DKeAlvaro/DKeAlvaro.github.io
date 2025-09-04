@@ -18,4 +18,5 @@ The course will be graded as follows:
 
 
 Date: 3 Sep 2025
+
 Overview: Discuss how the assessment will be graded
