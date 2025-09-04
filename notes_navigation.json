@@ -1,0 +1,42 @@
+{
+  "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html": {
+    "current_index": 0,
+    "total_notes": 5,
+    "previous": null,
+    "next": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
+    "previous_title": null,
+    "next_title": "Q1 Guide"
+  },
+  "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html": {
+    "current_index": 1,
+    "total_notes": 5,
+    "previous": "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html",
+    "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html",
+    "previous_title": "Meentor meeting",
+    "next_title": "First lecture"
+  },
+  "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html": {
+    "current_index": 2,
+    "total_notes": 5,
+    "previous": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
+    "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html",
+    "previous_title": "Q1 Guide",
+    "next_title": "First lecture"
+  },
+  "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html": {
+    "current_index": 3,
+    "total_notes": 5,
+    "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html",
+    "next": "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html",
+    "previous_title": "First lecture",
+    "next_title": "Assesment"
+  },
+  "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html": {
+    "current_index": 4,
+    "total_notes": 5,
+    "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html",
+    "next": null,
+    "previous_title": "First lecture",
+    "next_title": null
+  }
+}
