@@ -235,6 +235,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     return;
                 }
                 
+                // Parse all rows into objects
+                const acknowledgments = [];
                 rows.forEach((row, index) => {
                     console.log(`Processing row ${index}:`, row);
                     const columns = row.split(';').map(col => col.trim().replace(/"/g, ''));
@@ -243,21 +245,39 @@ document.addEventListener('DOMContentLoaded', function() {
                     console.log(`Person: ${person}, Why: ${why}`);
 
                     if (person && why) {
-                        const acknowledgmentItem = document.createElement('div');
-                        acknowledgmentItem.classList.add('acknowledgment-item');
-
-                        const personElement = document.createElement('h3');
-                        personElement.textContent = person;
-
-                        const whyElement = document.createElement('p');
-                        whyElement.textContent = why;
-
-                        acknowledgmentItem.appendChild(personElement);
-                        acknowledgmentItem.appendChild(whyElement);
-
-                        acknowledgmentsList.appendChild(acknowledgmentItem);
-                        console.log('Added acknowledgment item for:', person);
+                        acknowledgments.push({ person, why });
                     }
+                });
+                
+                // Keep first 2 entries fixed, randomize the rest
+                const fixedEntries = acknowledgments.slice(0, 2);
+                const randomEntries = acknowledgments.slice(2);
+                
+                // Shuffle the remaining entries using Fisher-Yates algorithm
+                for (let i = randomEntries.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [randomEntries[i], randomEntries[j]] = [randomEntries[j], randomEntries[i]];
+                }
+                
+                // Combine fixed and randomized entries
+                const finalOrder = [...fixedEntries, ...randomEntries];
+                
+                // Create and append DOM elements
+                finalOrder.forEach((acknowledgment) => {
+                    const acknowledgmentItem = document.createElement('div');
+                    acknowledgmentItem.classList.add('acknowledgment-item');
+
+                    const personElement = document.createElement('h3');
+                    personElement.textContent = acknowledgment.person;
+
+                    const whyElement = document.createElement('p');
+                    whyElement.textContent = acknowledgment.why;
+
+                    acknowledgmentItem.appendChild(personElement);
+                    acknowledgmentItem.appendChild(whyElement);
+
+                    acknowledgmentsList.appendChild(acknowledgmentItem);
+                    console.log('Added acknowledgment item for:', acknowledgment.person);
                 });
                 console.log('Finished processing all acknowledgments');
             })
