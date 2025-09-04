@@ -95,6 +95,8 @@ def build_tree_from_files(files):
 def generate_tree_html(tree):
     """Generate HTML for the notes tree."""
     html = '<ul class="notes-tree-level">\n'
+    
+    # First, show files at the current level
     for file in tree['files']:
         meta_text = file['date'] if file['date'] else ""
         html += f'''<li class="tree-file">
@@ -105,8 +107,10 @@ def generate_tree_html(tree):
 <div class="tree-file-meta">{meta_text}</div>
 </li>
 '''
+    
+    # Then, show files from folders without subfolders (leaf folders)
     for folder_name, folder_content in tree['folders'].items():
-        if not folder_content['folders']:
+        if not folder_content['folders']:  # Leaf folders - show their files directly
             for file in folder_content['files']:
                 meta_text = file['date'] if file['date'] else ""
                 html += f'''<li class="tree-file">
@@ -117,10 +121,14 @@ def generate_tree_html(tree):
 <div class="tree-file-meta">{meta_text}</div>
 </li>
 '''
-        else:
+    
+    # Finally, show folders that have subfolders
+    for folder_name, folder_content in tree['folders'].items():
+        if folder_content['folders']:  # Only show folders that have subfolders
             html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
             html += generate_tree_html(folder_content)
             html += '</li>\n'
+    
     html += '</ul>\n'
     return html
 
