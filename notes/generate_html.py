@@ -155,9 +155,24 @@ def generate_complete_html(title, content, path_prefix):
         }}
         .note-content ul, .note-content ol {{
             padding-left: 2rem;
+            margin: 1rem 0;
+        }}
+        .note-content ul {{
+            list-style-type: disc;
         }}
         .note-content li {{
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }}
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {{
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }}
+        .note-content ul li::marker {{
+            color: var(--primary-color);
+            font-size: 1.2em;
         }}
         
         /* Q&A Styles */
