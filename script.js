@@ -116,15 +116,23 @@ if (firstConfirmButton && secondConfirmButton && journeyContent) {
 if (themeToggle) {
     const themeIcon = themeToggle.querySelector('.theme-icon');
     
-    // Dynamically determine the correct path to assets based on current location
+    // Determine the correct assets path based on current location
     const currentPath = window.location.pathname;
-    // Count directory depth to calculate correct relative path
-    const pathSegments = currentPath.split('/').filter(segment => segment && segment !== 'index.html');
     let assetsPath = 'assets/svg/';
     
-    if (currentPath.includes('/blog/') || currentPath.includes('/notes/')) {
-        // Calculate how many levels deep we are
-        const depth = pathSegments.length - 1; // Subtract 1 for the root
+    // Count the depth of the current path to calculate correct relative path
+    if (currentPath.includes('/notes/') || currentPath.includes('/blog/')) {
+        // For notes: /notes/Year_1/Q1/Mentor_meeting/file.html needs ../../../../
+        // For blog: /blog/folder/file.html needs ../../
+        const pathSegments = currentPath.split('/').filter(part => part !== '');
+        
+        // Remove the HTML filename if present
+        if (pathSegments[pathSegments.length - 1].endsWith('.html')) {
+            pathSegments.pop();
+        }
+        
+        // Calculate depth: number of directory levels from root
+        const depth = pathSegments.length;
         assetsPath = '../'.repeat(depth) + 'assets/svg/';
     }
     
