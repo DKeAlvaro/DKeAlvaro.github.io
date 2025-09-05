@@ -48,7 +48,7 @@ def convert_md_to_html(md_file_path, output_dir, path_prefix, folder_path=None):
         md_content = process_qa_content(md_content)
         
         # Convert markdown to HTML with extensions
-        html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'fenced_code', 'tables'])
+        html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'fenced_code', 'tables', 'mdx_math'])
         
         # Generate complete HTML page using the calculated path prefix
         full_html = generate_complete_html(title, html_content, path_prefix, folder_path)
@@ -93,6 +93,19 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
     <title>{title} - MSc AIES</title>
     <link rel="icon" href="{path_prefix}assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="{path_prefix}styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {{
+            renderMathInElement(document.body, {{
+                delimiters: [
+                    {{left: "$$", right: "$$", display: true}},
+                    {{left: "$", right: "$", display: false}}
+                ]
+            }});
+        }});
+    </script>
     <style>
         .note-container {{
             max-width: 900px;

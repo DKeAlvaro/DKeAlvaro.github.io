@@ -18,7 +18,7 @@ As a first step, you should become comfortable with thinking in terms of Git tre
 
 Navigate to [this Git simulator](https://git-school.github.io/visualizing-git/#free) and re-create the branching structure below, using `git` commands. You can restart the simulation using the `clear` command. Make a screenshot of your tree _including the commands_ you used to obtain your tree, and save the screenshot for later.  
 
-<img src="figures/git_tree.png" alt="Git tree to re-create" width="250"/>
+<img src="git_tree.png" alt="Git tree to re-create" width="250"/>
 
 
 ## Commit Messages
