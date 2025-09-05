@@ -7,6 +7,19 @@
     <title>First Assignment - MSc AIES</title>
     <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+        });
+    </script>
     <style>
         .note-container {
             max-width: 900px;
@@ -485,7 +498,7 @@
 <h2>Branching and Committing</h2>
 <p>As a first step, you should become comfortable with thinking in terms of Git trees. There are numerous Git simulators on the internet that allow you to practice your skills.</p>
 <p>Navigate to <a href="https://git-school.github.io/visualizing-git/#free">this Git simulator</a> and re-create the branching structure below, using <code>git</code> commands. You can restart the simulation using the <code>clear</code> command. Make a screenshot of your tree <em>including the commands</em> you used to obtain your tree, and save the screenshot for later.  </p>
-<p><img src="figures/git_tree.png" alt="Git tree to re-create" width="250"/></p>
+<p><img src="git_tree.png" alt="Git tree to re-create" width="250"/></p>
 <h2>Commit Messages</h2>
 <p>Upon a <code>git commit</code>, you have the option to specify a short commit message using the <code>-m</code> flag. A commit message describes the contents of your contribution. A commit message should be short (a few words to at most a sentence) and to-the-point. Throughout the course, mind the following points when writing commit messages:</p>
 <ul>
