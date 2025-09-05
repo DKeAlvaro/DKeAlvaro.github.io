@@ -71,8 +71,17 @@ def get_all_md_files(directory):
                 md_files.append(Path(root) / file)
     return md_files
 
+def get_all_note_files(directory):
+    """Scan a directory recursively and return a list of all note files (markdown and PDF)."""
+    note_files = []
+    for root, _, files in os.walk(directory):
+        for file in files:
+            if file.endswith('.md') or file.endswith('.pdf'):
+                note_files.append(Path(root) / file)
+    return note_files
+
 def build_tree_from_files(files):
-    """Build a nested dictionary from a list of markdown files."""
+    """Build a nested dictionary from a list of note files (markdown and PDF)."""
     tree = {'files': [], 'folders': {}}
     for file in files:
         parts = file.relative_to('notes').parts
@@ -80,16 +89,30 @@ def build_tree_from_files(files):
         for part in parts[:-1]:
             current_level = current_level['folders'].setdefault(part, {'files': [], 'folders': {}})
         
-        overview, date = extract_overview_and_date(file)
-        if overview:
-            html_filename = file.stem + '.html'
+        if file.suffix == '.md':
+            # Handle markdown files
+            overview, date = extract_overview_and_date(file)
+            if overview:
+                html_filename = file.stem + '.html'
+                absolute_file_path = file.resolve()
+                relative_path = absolute_file_path.relative_to(Path.cwd()).with_suffix('.html')
+                current_level['files'].append({
+                    'title': file.stem.replace('_', ' '),
+                    'path': str(relative_path).replace('\\', '/'),
+                    'overview': overview,
+                    'date': date,
+                    'type': 'markdown'
+                })
+        elif file.suffix == '.pdf':
+            # Handle PDF files
             absolute_file_path = file.resolve()
-            relative_path = absolute_file_path.relative_to(Path.cwd()).with_suffix('.html')
+            relative_path = absolute_file_path.relative_to(Path.cwd())
             current_level['files'].append({
                 'title': file.stem.replace('_', ' '),
                 'path': str(relative_path).replace('\\', '/'),
-                'overview': overview,
-                'date': date
+                'overview': 'PDF Document',
+                'date': None,
+                'type': 'pdf'
             })
     return tree
 
@@ -125,7 +148,21 @@ def generate_tree_html(tree):
     # First, show files at the current level
     for file in tree['files']:
         meta_text = file['date'] if file['date'] else ""
-        html += f'''<li class="tree-file">
+        file_type = file.get('type', 'markdown')
+        
+        if file_type == 'pdf':
+            # PDF files open in new tab with PDF icon
+            html += f'''<li class="tree-file">
+<div class="tree-file-content">
+    <a href="{file['path']}" target="_blank">{file['title']}</a>
+    <p class="tree-file-description">{file['overview']}</p>
+</div>
+<div class="tree-file-meta">{meta_text}</div>
+</li>
+'''
+        else:
+            # Markdown files (converted to HTML)
+            html += f'''<li class="tree-file">
 <div class="tree-file-content">
     <a href="{file['path']}">{file['title']}</a>
     <p class="tree-file-description">{file['overview']}</p>
@@ -139,7 +176,21 @@ def generate_tree_html(tree):
         if not folder_content['folders']:  # Leaf folders - show their files directly
             for file in folder_content['files']:
                 meta_text = file['date'] if file['date'] else ""
-                html += f'''<li class="tree-file">
+                file_type = file.get('type', 'markdown')
+                
+                if file_type == 'pdf':
+                    # PDF files open in new tab with PDF icon
+                    html += f'''<li class="tree-file">
+<div class="tree-file-content">
+    <a href="{file['path']}" target="_blank">📄 {file['title']}</a>
+    <p class="tree-file-description">{file['overview']}</p>
+</div>
+<div class="tree-file-meta">{meta_text}</div>
+</li>
+'''
+                else:
+                    # Markdown files (converted to HTML)
+                    html += f'''<li class="tree-file">
 <div class="tree-file-content">
     <a href="{file['path']}">{file['title']}</a>
     <p class="tree-file-description">{file['overview']}</p>
@@ -343,8 +394,8 @@ def main():
         print("HTML generation failed, but continuing with notes.html generation...")
     
     print("\nScanning notes directory...")
-    md_files = get_all_md_files('./notes')
-    notes_tree = build_tree_from_files(md_files)
+    note_files = get_all_note_files('./notes')
+    notes_tree = build_tree_from_files(note_files)
     
     if not notes_tree:
         print("No notes found!")
