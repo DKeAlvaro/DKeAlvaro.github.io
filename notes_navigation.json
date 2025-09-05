@@ -1,55 +1,79 @@
 {
-  "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html": {
+  "notes/Year_1/Main focus and Learning Outcomes per Track 2025-2026 .pdf": {
     "current_index": 0,
-    "total_notes": 7,
+    "total_notes": 10,
     "previous": null,
-    "next": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
+    "next": "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html",
     "previous_title": null,
+    "next_title": "Meentor meeting"
+  },
+  "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html": {
+    "current_index": 1,
+    "total_notes": 10,
+    "previous": "notes/Year_1/Main focus and Learning Outcomes per Track 2025-2026 .pdf",
+    "next": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
+    "previous_title": "Main focus and Learning Outcomes per Track 2025-2026 ",
     "next_title": "Q1 Guide"
   },
   "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html": {
-    "current_index": 1,
-    "total_notes": 7,
+    "current_index": 2,
+    "total_notes": 10,
     "previous": "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html",
-    "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html",
+    "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Assignment1.pdf",
     "previous_title": "Meentor meeting",
+    "next_title": "Assignment1"
+  },
+  "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Assignment1.pdf": {
+    "current_index": 3,
+    "total_notes": 10,
+    "previous": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
+    "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html",
+    "previous_title": "Q1 Guide",
     "next_title": "First lecture"
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html": {
-    "current_index": 2,
-    "total_notes": 7,
-    "previous": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
+    "current_index": 4,
+    "total_notes": 10,
+    "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Assignment1.pdf",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Second_lecture/Second_lecture.html",
-    "previous_title": "Q1 Guide",
+    "previous_title": "Assignment1",
     "next_title": "Second lecture"
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Second_lecture/Second_lecture.html": {
-    "current_index": 3,
-    "total_notes": 7,
+    "current_index": 5,
+    "total_notes": 10,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/first_lecture/First_lecture.html",
-    "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html",
+    "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/5ARC0 Case Descriptions 2025 Aug.pdf",
     "previous_title": "First lecture",
+    "next_title": "5ARC0 Case Descriptions 2025 Aug"
+  },
+  "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/5ARC0 Case Descriptions 2025 Aug.pdf": {
+    "current_index": 6,
+    "total_notes": 10,
+    "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Second_lecture/Second_lecture.html",
+    "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html",
+    "previous_title": "Second lecture",
     "next_title": "First lecture"
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html": {
-    "current_index": 4,
-    "total_notes": 7,
-    "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Second_lecture/Second_lecture.html",
+    "current_index": 7,
+    "total_notes": 10,
+    "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/5ARC0 Case Descriptions 2025 Aug.pdf",
     "next": "notes/Year_1/Q1/Software_Engineering_for_AI/Assignment_1/First_assignment.html",
-    "previous_title": "Second lecture",
+    "previous_title": "5ARC0 Case Descriptions 2025 Aug",
     "next_title": "First assignment"
   },
   "notes/Year_1/Q1/Software_Engineering_for_AI/Assignment_1/First_assignment.html": {
-    "current_index": 5,
-    "total_notes": 7,
+    "current_index": 8,
+    "total_notes": 10,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/first_lecture/First_lecture.html",
     "next": "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html",
     "previous_title": "First lecture",
     "next_title": "Assesment"
   },
   "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html": {
-    "current_index": 6,
-    "total_notes": 7,
+    "current_index": 9,
+    "total_notes": 10,
     "previous": "notes/Year_1/Q1/Software_Engineering_for_AI/Assignment_1/First_assignment.html",
     "next": null,
     "previous_title": "First assignment",
