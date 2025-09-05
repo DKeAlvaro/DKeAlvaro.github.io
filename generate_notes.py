@@ -117,22 +117,24 @@ def build_tree_from_files(files):
     return tree
 
 def get_bfs_note_order(tree):
-    """Generate a BFS-ordered list of all notes for navigation."""
+    """Generate a BFS-ordered list of markdown notes for navigation (excludes PDFs)."""
     notes_list = []
     queue = [tree]
     
     while queue:
         current = queue.pop(0)
         
-        # Add files at current level first
+        # Add markdown files at current level first (skip PDFs)
         for file in current['files']:
-            notes_list.append(file)
+            if file.get('type', 'markdown') == 'markdown':
+                notes_list.append(file)
         
-        # Add files from leaf folders (folders without subfolders)
+        # Add markdown files from leaf folders (folders without subfolders)
         for folder_name, folder_content in current['folders'].items():
             if not folder_content['folders']:  # Leaf folder
                 for file in folder_content['files']:
-                    notes_list.append(file)
+                    if file.get('type', 'markdown') == 'markdown':
+                        notes_list.append(file)
         
         # Add folders with subfolders to queue for next level
         for folder_name, folder_content in current['folders'].items():
