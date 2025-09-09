@@ -1,4 +1,4 @@
-# Second Lecture
+# Data Analysis & Learning Methods - Lecture 2
 
 Q: What is the key distinction between primary and secondary data collection, and which one is typically preferred in engineering systems?
 A: Primary data collection involves gathering data directly from the source with control over the collection process, while secondary data collection uses existing data. Engineering systems typically focus on primary data collection because it offers better control over data quality and relevance.
@@ -91,6 +91,6 @@ Q: What is the relationship between bandwidth and the Nyquist rate, and why does
 A: Nyquist rate $= 2 \times \text{bandwidth}$. This relationship defines the minimum sampling frequency to avoid aliasing and accurately reconstruct signals. Understanding this prevents information loss and ensures proper digital representation of analog signals.
 
 
-Overview: Introduction to data collection and processing, covering basic signal analysis and data handling. Features case studies on tremor analysis and data storage systems.
+Overview: Second lecture
 
 Date: 5 Sep 2025

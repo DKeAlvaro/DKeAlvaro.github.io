@@ -1,4 +1,4 @@
-# First lecture
+# Data Analysis & Learning Methods - Lecture 1
 - It is a *technical* course with a *high* pace
 - Learning objectives arent nothing I havent seen in the Bachelor (in principle)
 - Ask questions to Q.Khalhed Abo Shama via Canvas
@@ -33,7 +33,7 @@ A: This is the answer
 
 
 
-Overview: First lecture recap
+Overview: First lecture
 
 Date: 2 Sep 2025
 
