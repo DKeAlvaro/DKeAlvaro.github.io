@@ -1,4 +1,4 @@
-# Software Engineering for AI
+# Software Engineering for AI - Lecture 1
 The course will be graded as follows:
 
 - **Git tutorial (10%):**
@@ -19,4 +19,4 @@ The course will be graded as follows:
 
 Date: 3 Sep 2025
 
-Overview: Discuss how the assessment will be graded
+Overview: Course assesment

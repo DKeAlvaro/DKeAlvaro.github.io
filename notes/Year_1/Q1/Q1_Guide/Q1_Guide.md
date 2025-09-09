@@ -17,7 +17,7 @@ Out of the 6 core courses, the first three **are mandatory in Q1**
 
 For core courses courses 4, 5 and 6 you can pick between two options, *a* and *b*.
 
-Overview: Baby steps for the first quartile of the MSc AI & Eng Systems at TU/e. Deciphers which courses to enrol and the structure of the program
+Overview: Course registration Q1
 
 Date: 1 Sep 2025
 

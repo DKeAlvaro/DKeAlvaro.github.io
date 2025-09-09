@@ -1,4 +1,5 @@
-# Git and GitHub Tutorial (Week 1)
+# Software Engineering for AI - Assignment 1
+## Git and GitHub Tutorial (Week 1)
 
 This week you'll become familiar with Git and GitHub. Git allows you to version text-based files, and share changes with your collaborators. Before you start the tutorial, you will need to have Git and GitHub properly setup. If not, please follow the getting started guide under the 5ARA0 GitHub organization. 
 
