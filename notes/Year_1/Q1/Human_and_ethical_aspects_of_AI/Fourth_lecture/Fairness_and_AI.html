@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Second Lecture - MSc AI & Engineering Systems Notes">
-    <title>Second Lecture - MSc AIES</title>
+    <meta name="description" content="Fairness And Ai - MSc AI & Engineering Systems Notes">
+    <title>Fairness And Ai - MSc AIES</title>
     <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
@@ -38,28 +38,47 @@
             color: var(--primary-color);
         }
         .back-link {
-            display: inline-block;
-            margin-bottom: 0rem;
-            padding: 0.3rem 0.6rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
             color: var(--text-color);
             text-decoration: none;
             font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
             border: 1px solid var(--border-color);
             border-radius: 4px;
-            transition: color 0.2s ease;
+            transition: all 0.2s ease;
         }
         .back-link:hover {
             color: var(--primary-color);
+            border-color: var(--primary-color);
         }
         .nav-left {
             display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.75rem;
+            flex-wrap: wrap;
         }
         .folder-path {
              font-size: 0.8rem;
              color: var(--text-color-secondary);
              opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
          }
         .note-content {
             line-height: 1.8;
@@ -185,17 +204,21 @@
                 padding: 0.5rem;
             }
             .navigation-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 0rem;
-                padding: 0rem;
-                margin-bottom: 0rem;
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
             }
             .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 gap: 0.5rem;
-                width: 100%;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
             }
             .back-link {
                 font-size: 0.9rem;
@@ -293,13 +316,14 @@
         /* Navigation header styles */
          .navigation-header {
              display: flex;
-             justify-content: space-between;
-             align-items: center;
+             flex-direction: column;
+             gap: 1.25rem;
              margin-bottom: 2rem;
-             padding-bottom: 1rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
              border-bottom: 1px solid var(--border-color);
-             flex-wrap: wrap;
-             gap: 1rem;
          }
          
          /* Navigation buttons styles */
@@ -313,20 +337,23 @@
          .nav-button {
              display: inline-flex;
              align-items: center;
-             gap: 0.5rem;
-             padding: 0.3rem 0.6rem;
+             justify-content: center;
+             padding: 0.6rem;
              background: transparent;
              border: 1px solid var(--border-color);
              border-radius: 4px;
              color: var(--text-color);
              text-decoration: none;
-             font-size: 0.9rem;
-             transition: color 0.2s ease;
-             min-width: 100px;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
          }
          
          .nav-button:hover {
              color: var(--primary-color);
+             border-color: var(--primary-color);
          }
          
          .nav-button:disabled {
@@ -374,22 +401,24 @@
          
          .nav-progress-text {
              font-size: 0.8rem;
+             font-weight: 400;
              color: var(--text-color);
              opacity: 0.7;
+             text-align: center;
          }
          
          .nav-progress-bar {
              width: 100%;
              max-width: 200px;
              height: 4px;
-             background: var(--border-color);
+             background: #f0f0f0;
              border-radius: 2px;
              overflow: hidden;
          }
          
          .nav-progress-fill {
              height: 100%;
-             background: var(--primary-color);
+             background: #007acc;
              transition: width 0.3s ease;
          }
          
@@ -464,14 +493,19 @@
             <div class="note-container">
                 <div class="navigation-header">
                     <div class="nav-left">
-                        <a href="../../../../../notes.html" class="back-link">← Back to Notes</a>
-                        <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods</span>
+                        <div class="breadcrumb-section">
+                            <a href="../../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q1 / Human_and_ethical_aspects_of_AI</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
                     
                     <div class="note-navigation" id="noteNavigation">
-                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
                             <span class="nav-icon">←</span>
-                            <span id="prevTitle">Previous</span>
                         </a>
                         
                         <div class="nav-progress">
@@ -481,314 +515,15 @@
                             </div>
                         </div>
                         
-                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;">
-                            <span id="nextTitle">Next</span>
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
                             <span class="nav-icon">→</span>
                         </a>
                     </div>
                 </div>
                 
                 <div class="note-content">
-                    <h1>Second Lecture</h1>
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3360')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the key distinction between primary and secondary data collection, and which one is typically preferred in engineering systems?</span>
-    </div>
-    <div class="qa-answer" id="qa-3360">
-        Primary data collection involves gathering data directly from the source with control over the collection process, while secondary data collection uses existing data. Engineering systems typically focus on primary data collection because it offers better control over data quality and relevance.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3578')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is capturing context information considered very relevant in data collection?</span>
-    </div>
-    <div class="qa-answer" id="qa-3578">
-        Context information helps understand the conditions and circumstances under which data was collected, enabling better interpretation, validation, and appropriate use of the data in decision-making and analysis.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8960')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Name the four main categories of data mentioned in the lecture and provide a brief description of each.</span>
-    </div>
-    <div class="qa-answer" id="qa-8960">
-        1) Attribute-value pairs (fields in records, matrix/table representation), 2) Unstructured data (text), 3) Sequence data (time series, event logs), 4) Graph data (non-linear data represented as nodes and vertices).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5193')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does graph data differ from traditional tabular data, and what advantage does it offer?</span>
-    </div>
-    <div class="qa-answer" id="qa-5193">
-        Graph data represents information as nodes, vertices, and attributes on nodes/vertices rather than rows and columns. It captures structural elements better, making it ideal for problems with natural network representations like water distribution systems.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9533')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the main components of a simplified data acquisition system?</span>
-    </div>
-    <div class="qa-answer" id="qa-9533">
-        The main components include transducers/sensors (to observe the analog world), signal conditioning circuits, ADC (Analog-to-Digital Converter), processing unit, DAC (Digital-to-Analog Converter), and data storage.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1618')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a transducer and what are its five key properties?</span>
-    </div>
-    <div class="qa-answer" id="qa-1618">
-        A transducer converts a physical quantity into another (usually electrical signal). Key properties are: 1) Sensitivity (response to input changes), 2) Stability (consistent performance over time), 3) Noise (unwanted signal interference), 4) Dynamic range (operating range), 5) Linearity (proportional input-output relationship).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3670')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Explain the difference between signal conditioning and data conditioning.</span>
-    </div>
-    <div class="qa-answer" id="qa-3670">
-        Signal conditioning modifies the analog signal before digitization (amplification, filtering, isolation), while data conditioning modifies digitized data for analysis (decomposition, aggregation, smoothing, normalization).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4033')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the four common filter types used in signal conditioning?</span>
-    </div>
-    <div class="qa-answer" id="qa-4033">
-        Low-pass filter (allows low frequencies), High-pass filter (allows high frequencies), Band-pass filter (allows specific frequency range), Band-stop/Notch filter (blocks specific frequency range).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-6877')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is it important to store raw data rather than only processed or aggregated data?</span>
-    </div>
-    <div class="qa-answer" id="qa-6877">
-        Raw data represents actual measurements and is often atomic/transactional. Storing raw data allows flexibility to derive different features for various analyses later, preserving all original information for future processing needs.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5943')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the Nyquist rate and why is it important for sampling?</span>
-    </div>
-    <div class="qa-answer" id="qa-5943">
-        The Nyquist rate equals 2 times the signal bandwidth. It's the minimum sampling frequency needed to accurately reconstruct a bandwidth-limited signal without aliasing, ensuring no information loss during digitization.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5365')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In system excitation for data collection, what is a pseudo-random binary sequence (PRBS) and why is it useful?</span>
-    </div>
-    <div class="qa-answer" id="qa-5365">
-        PRBS is a signal that contains all frequencies, making it ideal for exciting linear systems during testing. It ensures the system experiences sufficient relevant examples across all frequency ranges for comprehensive characterization.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4279')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Name at least four data conditioning techniques and explain what each accomplishes.</span>
-    </div>
-    <div class="qa-answer" id="qa-4279">
-        1) Decomposition - represents signals as superposition of parts (Fourier transform, wavelets), 2) Aggregation - replaces multiple values with single value (mean, median), 3) Smoothing - reduces noise using filters like moving averages, 4) Interpolation - estimates values between known data points.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4894')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the exponentially weighted moving average formula and what parameter controls the smoothing?</span>
-    </div>
-    <div class="qa-answer" id="qa-4894">
-        Formula: $y'(t) = a\cdot y(t) + (1-a)\cdot y'(t-1)$, where $0 < a < 1$. Parameter $a$ controls smoothing: smaller $a$ means more smoothing (more weight on history), larger $a$ means less smoothing (more weight on current value).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3275')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a significant drawback of using moving average filters for smoothing?</span>
-    </div>
-    <div class="qa-answer" id="qa-3275">
-        Moving average filters introduce a phase shift (lag) in the signal, which can be problematic for real-time applications or when timing relationships are important.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8672')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Explain the three types of missing data: MCAR, MAR, and MNAR.</span>
-    </div>
-    <div class="qa-answer" id="qa-8672">
-        MCAR (Missing Completely at Random): No systematic differences between missing and non-missing data. MAR (Missing at Random): Differences can be explained by other non-missing features. MNAR (Missing Not at Random): Missing with bias, where the value itself explains why it's missing.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7322')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the main approaches for handling missing values in datasets?</span>
-    </div>
-    <div class="qa-answer" id="qa-7322">
-        Main approaches include: deletion (removing records with missing values), imputation (filling with estimates like mean, median, or predicted values), and using algorithms that can handle missing data directly.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7856')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Describe the CRISP-DM process model and explain why it's considered non-sequential.</span>
-    </div>
-    <div class="qa-answer" id="qa-7856">
-        CRISP-DM (Cross-Industry Standard Process for Data Mining) includes: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment. It's non-sequential because it's iterative - you can return to previous phases based on findings, and it's a never-ending circle of improvements.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9965')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In CRISP-DM, what guides the Data Preparation phase and when can models be deployed?</span>
-    </div>
-    <div class="qa-answer" id="qa-9965">
-        Data Preparation is guided by the conceptual model developed in earlier phases. Models can only be deployed after receiving positive evaluation, ensuring they meet business requirements and perform adequately.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-6196')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the differences between Essential Tremor and Parkinson's disease tremor in terms of type, frequency, and prevalence?</span>
-    </div>
-    <div class="qa-answer" id="qa-6196">
-        Essential Tremor: postural/kinetic type, $7\text{-}12$ Hz frequency, 95% presence in hands. Parkinson's: resting type, $4\text{-}6$ Hz frequency, >70% presence in hands. Essential Tremor affects 10 million in US vs 1 million for Parkinson's.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3444')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why might computerized tremor analysis be preferred over traditional rating scales like QUEST and ETRS?</span>
-    </div>
-    <div class="qa-answer" id="qa-3444">
-        Computerized analysis provides objective measurements, while rating scales are subjective and biased. Rating scales depend on patient/clinician interpretation, whereas computerized analysis uses sensors for precise, reproducible measurements.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2863')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In the TREMOR12 application, what sensors are used and at what sampling rate?</span>
-    </div>
-    <div class="qa-answer" id="qa-2863">
-        TREMOR12 uses accelerometer (measuring acceleration in $\text{g}$) and gyroscope (measuring rotation speed in $\text{rad}/\text{s}$), both sampling at $100$ Hz.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3006')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why were the first and last 50 samples omitted in the TREMOR12 data processing?</span>
-    </div>
-    <div class="qa-answer" id="qa-3006">
-        These samples contained noise from tapping the start and stop buttons, which would interfere with tremor analysis. Removing them ensures only relevant tremor data is analyzed.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7645')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What frequency range was used for the FIR filter in TREMOR12 and why?</span>
-    </div>
-    <div class="qa-answer" id="qa-7645">
-        The Equiripple FIR filter used 7-12 Hz range, which corresponds to the typical frequency range of Essential Tremor, helping isolate tremor from voluntary movements and other noise.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-248')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What signal features were extracted in the TREMOR12 analysis?</span>
-    </div>
-    <div class="qa-answer" id="qa-248">
-        Features included: signal strength (root-mean-square), signal period, dominant magnitude (using Welch and Daubechies 8 wavelet methods), and dominant frequency (using same methods).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5586')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is sequential forward feature selection and why is it used?</span>
-    </div>
-    <div class="qa-answer" id="qa-5586">
-        Sequential forward feature selection is an iterative method that starts with no features and adds the most relevant feature at each step. It's used to identify the most informative features while avoiding redundancy and overfitting.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8287')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Based on the lecture, why should primary data collection be preferred whenever possible?</span>
-    </div>
-    <div class="qa-answer" id="qa-8287">
-        Primary data collection should be preferred because it provides control over what data is collected, how it's collected, ensures data quality, allows proper experimental design, and enables collection of all necessary context information.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8171')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does a data warehouse differ from operational databases in terms of purpose and structure?</span>
-    </div>
-    <div class="qa-answer" id="qa-8171">
-        Data warehouses are designed for analysis, querying, and reporting with integrated, historical data from multiple sources (ETL process), while operational databases handle day-to-day transactions. Data warehouses support OLAP (analytical processing) vs OLTP (transactional processing).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8852')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What role do data marts play in a data warehouse architecture?</span>
-    </div>
-    <div class="qa-answer" id="qa-8852">
-        Data marts are subsets of data warehouses focused on specific business areas or departments. They provide targeted, simplified access to relevant data for specific user groups, improving query performance and usability.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4512')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is experiment design crucial for both cross-sectional and longitudinal data collection?</span>
-    </div>
-    <div class="qa-answer" id="qa-4512">
-        Experiment design determines which data to collect and how. For cross-sectional data, it involves population sampling and active learning strategies. For longitudinal data, it requires planning system excitation and sampling frequency to capture dynamic behavior properly.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4656')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the relationship between bandwidth and the Nyquist rate, and why does this matter for data acquisition?</span>
-    </div>
-    <div class="qa-answer" id="qa-4656">
-        Nyquist rate $= 2 \times \text{bandwidth}$. This relationship defines the minimum sampling frequency to avoid aliasing and accurately reconstruct signals. Understanding this prevents information loss and ensures proper digital representation of analog signals.
-    </div>
-</div>
+                    <h1>Human and ethical aspects of AI - Lecture 4</h1>
+<p>Idk</p>
                 </div>
             </div>
         </div>
@@ -822,6 +557,9 @@
                     relativePath = 'notes/' + fileName;
                 }
                 
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
                 // Load navigation data
                 const response = await fetch('../../../../../notes_navigation.json');
                 if (!response.ok) {
@@ -845,13 +583,17 @@
                 progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
                 progressFill.style.width = `${progress}%`;
                 
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
                 // Update previous button
                 const prevButton = document.getElementById('prevButton');
-                const prevTitle = document.getElementById('prevTitle');
                 
                 if (currentNav.previous) {
                     prevButton.href = '../../../../../' + currentNav.previous;
-                    prevTitle.textContent = currentNav.previous_title;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
                     prevButton.style.visibility = 'visible';
                 } else {
                     prevButton.style.visibility = 'hidden';
@@ -859,11 +601,10 @@
                 
                 // Update next button
                 const nextButton = document.getElementById('nextButton');
-                const nextTitle = document.getElementById('nextTitle');
                 
                 if (currentNav.next) {
                     nextButton.href = '../../../../../' + currentNav.next;
-                    nextTitle.textContent = currentNav.next_title;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
                     nextButton.style.visibility = 'visible';
                 } else {
                     nextButton.style.visibility = 'hidden';

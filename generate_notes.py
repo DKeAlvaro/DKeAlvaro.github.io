@@ -184,7 +184,7 @@ def generate_tree_html(tree):
                     # PDF files open in new tab with PDF icon
                     html += f'''<li class="tree-file">
 <div class="tree-file-content">
-    <a href="{file['path']}" target="_blank">📄 {file['title']}</a>
+    <a href="{file['path']}" target="_blank">{file['title']}</a>
     <p class="tree-file-description">{file['overview']}</p>
 </div>
 <div class="tree-file-meta">{meta_text}</div>
