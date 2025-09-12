@@ -20,4 +20,3 @@ For core courses courses 4, 5 and 6 you can pick between two options, *a* and *b
 Overview: Course registration Q1
 
 Date: 1 Sep 2025
-
