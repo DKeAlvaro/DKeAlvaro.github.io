@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Basic Data Collection, Data Representation, Pre Processing - MSc AI & Engineering Systems Notes">
-    <title>Basic Data Collection, Data Representation, Pre Processing - MSc AIES</title>
+    <meta name="description" content="Unsupervised Learning, Clustering Techniques - MSc AI & Engineering Systems Notes">
+    <title>Unsupervised Learning, Clustering Techniques - MSc AIES</title>
     <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
@@ -522,304 +522,184 @@
                 </div>
                 
                 <div class="note-content">
-                    <h1>Data Analysis &amp; Learning Methods - Lecture 2</h1>
+                    <h1>Data Analysis &amp; Learning Methods - Lecture 4</h1>
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2728')">
+    <div class="qa-question" onclick="toggleQA('qa-4336')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the key distinction between primary and secondary data collection, and which one is typically preferred in engineering systems?</span>
+        <span class="qa-text">What is the primary goal of clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-2728">
-        Primary data collection involves gathering data directly from the source with control over the collection process, while secondary data collection uses existing data. Engineering systems typically focus on primary data collection because it offers better control over data quality and relevance.
+    <div class="qa-answer" id="qa-4336">
+        To group data points into clusters based on similarity, such that points within a group are more similar to each other than to those in other groups (page 4).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4106')">
+    <div class="qa-question" onclick="toggleQA('qa-2156')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is capturing context information considered very relevant in data collection?</span>
+        <span class="qa-text">List three practical applications of clustering.</span>
     </div>
-    <div class="qa-answer" id="qa-4106">
-        Context information helps understand the conditions and circumstances under which data was collected, enabling better interpretation, validation, and appropriate use of the data in decision-making and analysis.
+    <div class="qa-answer" id="qa-2156">
+        Data compression (replacing groups with representatives), visualization (creating high-level overviews), and subgraph detection (finding communities in networks) (pages 5-7).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-6621')">
+    <div class="qa-question" onclick="toggleQA('qa-6859')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Name the four main categories of data mentioned in the lecture and provide a brief description of each.</span>
+        <span class="qa-text">What is the main difference between agglomerative and divisive hierarchical clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-6621">
-        1) Attribute-value pairs (fields in records, matrix/table representation), 2) Unstructured data (text), 3) Sequence data (time series, event logs), 4) Graph data (non-linear data represented as nodes and vertices).
+    <div class="qa-answer" id="qa-6859">
+        Agglomerative clustering is a "bottom-up" approach that starts with individual points and merges them, while divisive clustering is a "top-down" approach that starts with one cluster and splits it (page 9).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3231')">
+    <div class="qa-question" onclick="toggleQA('qa-1921')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">How does graph data differ from traditional tabular data, and what advantage does it offer?</span>
+        <span class="qa-text">What does the "single-linkage" distance metric refer to in agglomerative clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-3231">
-        Graph data represents information as nodes, vertices, and attributes on nodes/vertices rather than rows and columns. It captures structural elements better, making it ideal for problems with natural network representations like water distribution systems.
+    <div class="qa-answer" id="qa-1921">
+        It defines the distance between two clusters as the minimum distance between any two points in the respective clusters (page 10).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2077')">
+    <div class="qa-question" onclick="toggleQA('qa-8842')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the main components of a simplified data acquisition system?</span>
+        <span class="qa-text">What are two significant limitations of hierarchical clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-2077">
-        The main components include transducers/sensors (to observe the analog world), signal conditioning circuits, ADC (Analog-to-Digital Converter), processing unit, DAC (Digital-to-Analog Converter), and data storage.
+    <div class="qa-answer" id="qa-8842">
+        It has a high computational cost ($O(N^2)$) due to the need for all pairwise distances, and you cannot pre-specify the number of clusters to speed up the process (page 18).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8845')">
+    <div class="qa-question" onclick="toggleQA('qa-2037')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a transducer and what are its five key properties?</span>
+        <span class="qa-text">What is a "centroid" in the context of K-means clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-8845">
-        A transducer converts a physical quantity into another (usually electrical signal). Key properties are: 1) Sensitivity (response to input changes), 2) Stability (consistent performance over time), 3) Noise (unwanted signal interference), 4) Dynamic range (operating range), 5) Linearity (proportional input-output relationship).
+    <div class="qa-answer" id="qa-2037">
+        A centroid is the multidimensional average of all points within a cluster; it acts as the cluster's representative center but is not part of the original dataset (page 20).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-609')">
+    <div class="qa-question" onclick="toggleQA('qa-4505')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Explain the difference between signal conditioning and data conditioning.</span>
+        <span class="qa-text">Briefly describe the two main steps of the iterative K-means algorithm.</span>
     </div>
-    <div class="qa-answer" id="qa-609">
-        Signal conditioning modifies the analog signal before digitization (amplification, filtering, isolation), while data conditioning modifies digitized data for analysis (decomposition, aggregation, smoothing, normalization).
+    <div class="qa-answer" id="qa-4505">
+        1. Assignment step: Assign each data point to the nearest centroid. 2. Update step: Recalculate the centroids as the mean of all points assigned to them (page 20).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8469')">
+    <div class="qa-question" onclick="toggleQA('qa-1471')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the four common filter types used in signal conditioning?</span>
+        <span class="qa-text">What is a major drawback of the K-means algorithm when dealing with non-globular or unevenly sized clusters?</span>
     </div>
-    <div class="qa-answer" id="qa-8469">
-        Low-pass filter (allows low frequencies), High-pass filter (allows high frequencies), Band-pass filter (allows specific frequency range), Band-stop/Notch filter (blocks specific frequency range).
+    <div class="qa-answer" id="qa-1471">
+        K-means is blind to the natural size and shape of clusters and can get stuck in unintuitive solutions, such as splitting a large cluster or merging two distinct small ones (page 31).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7875')">
+    <div class="qa-question" onclick="toggleQA('qa-8864')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is it important to store raw data rather than only processed or aggregated data?</span>
+        <span class="qa-text">How does fuzzy clustering differ from crisp (or hard) clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-7875">
-        Raw data represents actual measurements and is often atomic/transactional. Storing raw data allows flexibility to derive different features for various analyses later, preserving all original information for future processing needs.
+    <div class="qa-answer" id="qa-8864">
+        In crisp clustering, each data point belongs to exactly one cluster, while in fuzzy clustering, each point can belong to multiple clusters with a varying degree of membership (page 32).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-920')">
+    <div class="qa-question" onclick="toggleQA('qa-9860')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the Nyquist rate and why is it important for sampling?</span>
+        <span class="qa-text">What is the role of the "fuzziness parameter" (m) in the Fuzzy c-means (FCM) algorithm?</span>
     </div>
-    <div class="qa-answer" id="qa-920">
-        The Nyquist rate equals 2 times the signal bandwidth. It's the minimum sampling frequency needed to accurately reconstruct a bandwidth-limited signal without aliasing, ensuring no information loss during digitization.
+    <div class="qa-answer" id="qa-9860">
+        The parameter $m \in (1, \infty)$ controls the degree of fuzziness or overlap between clusters; a higher 'm' results in fuzzier clusters (page 34, 54).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2659')">
+    <div class="qa-question" onclick="toggleQA('qa-4089')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">In system excitation for data collection, what is a pseudo-random binary sequence (PRBS) and why is it useful?</span>
+        <span class="qa-text">What constraint is imposed on the membership values ($\mu_{ik}$) for any given data point in FCM?</span>
     </div>
-    <div class="qa-answer" id="qa-2659">
-        PRBS is a signal that contains all frequencies, making it ideal for exciting linear systems during testing. It ensures the system experiences sufficient relevant examples across all frequency ranges for comprehensive characterization.
+    <div class="qa-answer" id="qa-4089">
+        The sum of a data point's membership values across all clusters must equal 1, which is known as the probabilistic constraint: $\sum_{i=1}^{C} \mu_{ik} = 1$ (page 34, 51).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-513')">
+    <div class="qa-question" onclick="toggleQA('qa-3050')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Name at least four data conditioning techniques and explain what each accomplishes.</span>
+        <span class="qa-text">How are the cluster centers ($v_i$) updated in the FCM algorithm?</span>
     </div>
-    <div class="qa-answer" id="qa-513">
-        1) Decomposition - represents signals as superposition of parts (Fourier transform, wavelets), 2) Aggregation - replaces multiple values with single value (mean, median), 3) Smoothing - reduces noise using filters like moving averages, 4) Interpolation - estimates values between known data points.
+    <div class="qa-answer" id="qa-3050">
+        The cluster centers are calculated as the weighted mean of all data points, where the weight of each point is its membership value raised to the power of m: $v_i = \frac{\sum_{k=1}^{N} \mu_{ik}^m x_k}{\sum_{k=1}^{N} \mu_{ik}^m}$ (page 35).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3715')">
+    <div class="qa-question" onclick="toggleQA('qa-675')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the exponentially weighted moving average formula and what parameter controls the smoothing?</span>
+        <span class="qa-text">What is the main advantage of the Gustafson-Kessel (GK) algorithm compared to FCM?</span>
     </div>
-    <div class="qa-answer" id="qa-3715">
-        Formula: $y'(t) = a\cdot y(t) + (1-a)\cdot y'(t-1)$, where $0 < a < 1$. Parameter $a$ controls smoothing: smaller $a$ means more smoothing (more weight on history), larger $a$ means less smoothing (more weight on current value).
+    <div class="qa-answer" id="qa-675">
+        The GK algorithm uses an adaptive distance metric based on a fuzzy covariance matrix, allowing it to find clusters of different shapes and orientations, not just spherical ones (page 39).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4167')">
+    <div class="qa-question" onclick="toggleQA('qa-3100')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a significant drawback of using moving average filters for smoothing?</span>
+        <span class="qa-text">Why is data normalization often a necessary pre-processing step for clustering?</span>
     </div>
-    <div class="qa-answer" id="qa-4167">
-        Moving average filters introduce a phase shift (lag) in the signal, which can be problematic for real-time applications or when timing relationships are important.
+    <div class="qa-answer" id="qa-3100">
+        To ensure that features measured on different scales contribute equally to the distance calculation; without it, features with larger ranges can dominate the clustering process (page 43).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7544')">
+    <div class="qa-question" onclick="toggleQA('qa-9431')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Explain the three types of missing data: MCAR, MAR, and MNAR.</span>
+        <span class="qa-text">What is the purpose of using cluster validity measures?</span>
     </div>
-    <div class="qa-answer" id="qa-7544">
-        MCAR (Missing Completely at Random): No systematic differences between missing and non-missing data. MAR (Missing at Random): Differences can be explained by other non-missing features. MNAR (Missing Not at Random): Missing with bias, where the value itself explains why it's missing.
+    <div class="qa-answer" id="qa-9431">
+        They are used to quantitatively evaluate the quality of clustering results and can help determine the optimal number of clusters for a given dataset (page 46).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1373')">
+    <div class="qa-question" onclick="toggleQA('qa-2275')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the main approaches for handling missing values in datasets?</span>
+        <span class="qa-text">What is a significant problem caused by the probabilistic constraint in FCM, especially concerning outliers?</span>
     </div>
-    <div class="qa-answer" id="qa-1373">
-        Main approaches include: deletion (removing records with missing values), imputation (filling with estimates like mean, median, or predicted values), and using algorithms that can handle missing data directly.
+    <div class="qa-answer" id="qa-2275">
+        Outliers far from all cluster centers are still forced to have memberships summing to 1, which can pull cluster centers away from their true locations and distort the results (page 51).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-564')">
+    <div class="qa-question" onclick="toggleQA('qa-8524')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">Describe the CRISP-DM process model and explain why it's considered non-sequential.</span>
+        <span class="qa-text">How does Possibilistic c-means (PCM) address the outlier problem of FCM?</span>
     </div>
-    <div class="qa-answer" id="qa-564">
-        CRISP-DM (Cross-Industry Standard Process for Data Mining) includes: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, and Deployment. It's non-sequential because it's iterative - you can return to previous phases based on findings, and it's a never-ending circle of improvements.
+    <div class="qa-answer" id="qa-8524">
+        PCM relaxes the probabilistic constraint, allowing a data point's membership in a cluster to be independent of its membership in other clusters. Outliers can thus have low membership in all clusters (page 52-53).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8111')">
+    <div class="qa-question" onclick="toggleQA('qa-2797')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">In CRISP-DM, what guides the Data Preparation phase and when can models be deployed?</span>
+        <span class="qa-text">In Possibilistic c-means (PCM), how is the membership value $\mu_{ik}$ calculated?</span>
     </div>
-    <div class="qa-answer" id="qa-8111">
-        Data Preparation is guided by the conceptual model developed in earlier phases. Models can only be deployed after receiving positive evaluation, ensuring they meet business requirements and perform adequately.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2294')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the differences between Essential Tremor and Parkinson's disease tremor in terms of type, frequency, and prevalence?</span>
-    </div>
-    <div class="qa-answer" id="qa-2294">
-        Essential Tremor: postural/kinetic type, $7\text{-}12$ Hz frequency, 95% presence in hands. Parkinson's: resting type, $4\text{-}6$ Hz frequency, >70% presence in hands. Essential Tremor affects 10 million in US vs 1 million for Parkinson's.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1545')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why might computerized tremor analysis be preferred over traditional rating scales like QUEST and ETRS?</span>
-    </div>
-    <div class="qa-answer" id="qa-1545">
-        Computerized analysis provides objective measurements, while rating scales are subjective and biased. Rating scales depend on patient/clinician interpretation, whereas computerized analysis uses sensors for precise, reproducible measurements.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1594')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In the TREMOR12 application, what sensors are used and at what sampling rate?</span>
-    </div>
-    <div class="qa-answer" id="qa-1594">
-        TREMOR12 uses accelerometer (measuring acceleration in $\text{g}$) and gyroscope (measuring rotation speed in $\text{rad}/\text{s}$), both sampling at $100$ Hz.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-448')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why were the first and last 50 samples omitted in the TREMOR12 data processing?</span>
-    </div>
-    <div class="qa-answer" id="qa-448">
-        These samples contained noise from tapping the start and stop buttons, which would interfere with tremor analysis. Removing them ensures only relevant tremor data is analyzed.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4639')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What frequency range was used for the FIR filter in TREMOR12 and why?</span>
-    </div>
-    <div class="qa-answer" id="qa-4639">
-        The Equiripple FIR filter used 7-12 Hz range, which corresponds to the typical frequency range of Essential Tremor, helping isolate tremor from voluntary movements and other noise.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8570')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What signal features were extracted in the TREMOR12 analysis?</span>
-    </div>
-    <div class="qa-answer" id="qa-8570">
-        Features included: signal strength (root-mean-square), signal period, dominant magnitude (using Welch and Daubechies 8 wavelet methods), and dominant frequency (using same methods).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-731')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is sequential forward feature selection and why is it used?</span>
-    </div>
-    <div class="qa-answer" id="qa-731">
-        Sequential forward feature selection is an iterative method that starts with no features and adds the most relevant feature at each step. It's used to identify the most informative features while avoiding redundancy and overfitting.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2631')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Based on the lecture, why should primary data collection be preferred whenever possible?</span>
-    </div>
-    <div class="qa-answer" id="qa-2631">
-        Primary data collection should be preferred because it provides control over what data is collected, how it's collected, ensures data quality, allows proper experimental design, and enables collection of all necessary context information.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2402')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does a data warehouse differ from operational databases in terms of purpose and structure?</span>
-    </div>
-    <div class="qa-answer" id="qa-2402">
-        Data warehouses are designed for analysis, querying, and reporting with integrated, historical data from multiple sources (ETL process), while operational databases handle day-to-day transactions. Data warehouses support OLAP (analytical processing) vs OLTP (transactional processing).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7716')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What role do data marts play in a data warehouse architecture?</span>
-    </div>
-    <div class="qa-answer" id="qa-7716">
-        Data marts are subsets of data warehouses focused on specific business areas or departments. They provide targeted, simplified access to relevant data for specific user groups, improving query performance and usability.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9988')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is experiment design crucial for both cross-sectional and longitudinal data collection?</span>
-    </div>
-    <div class="qa-answer" id="qa-9988">
-        Experiment design determines which data to collect and how. For cross-sectional data, it involves population sampling and active learning strategies. For longitudinal data, it requires planning system excitation and sampling frequency to capture dynamic behavior properly.
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1428')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the relationship between bandwidth and the Nyquist rate, and why does this matter for data acquisition?</span>
-    </div>
-    <div class="qa-answer" id="qa-1428">
-        Nyquist rate $= 2 \times \text{bandwidth}$. This relationship defines the minimum sampling frequency to avoid aliasing and accurately reconstruct signals. Understanding this prevents information loss and ensures proper digital representation of analog signals.
+    <div class="qa-answer" id="qa-2797">
+        It is calculated using the formula $\mu_{ik} = \frac{1}{1 + (\frac{d_{ik}^2}{\eta_i})^{1/(m-1)}}$, which depends only on the distance to its own cluster center and a cluster-specific parameter $\eta_i$ (page 53).
     </div>
 </div>
                 </div>
