@@ -6,6 +6,48 @@ import json
 from pathlib import Path
 from datetime import datetime
 
+def parse_date_string(date_str):
+    """Parse a date string and return a datetime object for sorting."""
+    if not date_str:
+        return datetime.max  # Return maximum date for files without dates (put them at the end)
+    
+    # Common date formats to try
+    date_formats = [
+        '%d %b %Y',      # 2 Sep 2025
+        '%d %B %Y',      # 2 September 2025
+        '%Y-%m-%d',      # 2025-09-02
+        '%d/%m/%Y',      # 02/09/2025
+        '%m/%d/%Y',      # 09/02/2025
+        '%d-%m-%Y',      # 02-09-2025
+        '%B %d, %Y',     # September 2, 2025
+        '%b %d, %Y',     # Sep 2, 2025
+        '%d %b %Y',      # Handle lowercase month abbreviations
+    ]
+    
+    # Clean the date string and handle case variations
+    date_str = date_str.strip()
+    
+    for fmt in date_formats:
+        try:
+            return datetime.strptime(date_str, fmt)
+        except ValueError:
+            # Try with different case
+            try:
+                return datetime.strptime(date_str.title(), fmt)
+            except ValueError:
+                continue
+    
+    # If no format matches, try to extract year at least for basic sorting
+    year_match = re.search(r'\b(20\d{2})\b', date_str)
+    if year_match:
+        try:
+            return datetime(int(year_match.group(1)), 1, 1)
+        except ValueError:
+            pass
+    
+    # Return maximum date if parsing fails (put at the end)
+    return datetime.max
+
 def extract_overview_and_date(md_file_path):
     """Extract the overview text and date from a markdown file."""
     try:
@@ -21,6 +63,38 @@ def extract_overview_and_date(md_file_path):
             return overview, date
     except Exception as e:
         print(f"Error reading {md_file_path}: {e}")
+    return None, None
+
+def extract_overview_and_date_from_ipynb(ipynb_file_path):
+    """Extract the overview text and date from a Jupyter notebook file."""
+    try:
+        with open(ipynb_file_path, 'r', encoding='utf-8') as file:
+            notebook_data = json.load(file)
+            
+            # Look for overview and date in the first few cells
+            overview = None
+            date = None
+            
+            for cell in notebook_data.get('cells', [])[:5]:  # Check first 5 cells
+                if cell.get('cell_type') == 'markdown':
+                    source = ''.join(cell.get('source', []))
+                    
+                    if not overview:
+                        overview_match = re.search(r'Overview:\s*(.+?)(?=\n\n|\n#|\nDate:|$)', source, re.DOTALL)
+                        if overview_match:
+                            overview = overview_match.group(1).strip()
+                    
+                    if not date:
+                        date_match = re.search(r'Date:\s*(.+?)(?=\n\n|\n#|$)', source, re.DOTALL)
+                        if date_match:
+                            date = date_match.group(1).strip()
+                    
+                    if overview and date:
+                        break
+            
+            return overview, date
+    except Exception as e:
+        print(f"Error reading {ipynb_file_path}: {e}")
     return None, None
 
 def run_html_generator():
@@ -72,16 +146,16 @@ def get_all_md_files(directory):
     return md_files
 
 def get_all_note_files(directory):
-    """Scan a directory recursively and return a list of all note files (markdown and PDF)."""
+    """Scan a directory recursively and return a list of all note files (markdown, PDF, and Jupyter notebooks)."""
     note_files = []
     for root, _, files in os.walk(directory):
         for file in files:
-            if file.endswith('.md') or file.endswith('.pdf'):
+            if file.endswith('.md') or file.endswith('.pdf') or file.endswith('.ipynb'):
                 note_files.append(Path(root) / file)
     return note_files
 
 def build_tree_from_files(files):
-    """Build a nested dictionary from a list of note files (markdown and PDF)."""
+    """Build a nested dictionary from a list of note files (markdown, PDF, and Jupyter notebooks)."""
     tree = {'files': [], 'folders': {}}
     for file in files:
         parts = file.relative_to('notes').parts
@@ -101,7 +175,36 @@ def build_tree_from_files(files):
                     'path': str(relative_path).replace('\\', '/'),
                     'overview': overview,
                     'date': date,
-                    'type': 'markdown'
+                    'type': 'markdown',
+                    'parsed_date': parse_date_string(date)
+                })
+        elif file.suffix == '.ipynb':
+            # Handle Jupyter notebook files
+            overview, date = extract_overview_and_date_from_ipynb(file)
+            if overview:
+                html_filename = file.stem + '.html'
+                absolute_file_path = file.resolve()
+                relative_path = absolute_file_path.relative_to(Path.cwd()).with_suffix('.html')
+                current_level['files'].append({
+                    'title': file.stem.replace('_', ' '),
+                    'path': str(relative_path).replace('\\', '/'),
+                    'overview': overview,
+                    'date': date,
+                    'type': 'jupyter',
+                    'parsed_date': parse_date_string(date)
+                })
+            else:
+                # Even if no overview is found, still include the notebook
+                html_filename = file.stem + '.html'
+                absolute_file_path = file.resolve()
+                relative_path = absolute_file_path.relative_to(Path.cwd()).with_suffix('.html')
+                current_level['files'].append({
+                    'title': file.stem.replace('_', ' '),
+                    'path': str(relative_path).replace('\\', '/'),
+                    'overview': 'Jupyter Notebook',
+                    'date': date,
+                    'type': 'jupyter',
+                    'parsed_date': parse_date_string(date)
                 })
         elif file.suffix == '.pdf':
             # Handle PDF files
@@ -112,28 +215,41 @@ def build_tree_from_files(files):
                 'path': str(relative_path).replace('\\', '/'),
                 'overview': 'PDF Document',
                 'date': None,
-                'type': 'pdf'
+                'type': 'pdf',
+                'parsed_date': parse_date_string(None)
             })
+    
+    # Sort files by date within each folder (recursively)
+    def sort_files_by_date(node):
+        # Sort files in current level by parsed date
+        if node['files']:
+            node['files'].sort(key=lambda x: x['parsed_date'])
+        
+        # Recursively sort files in subfolders
+        for folder_content in node['folders'].values():
+            sort_files_by_date(folder_content)
+    
+    sort_files_by_date(tree)
     return tree
 
 def get_bfs_note_order(tree):
-    """Generate a BFS-ordered list of markdown notes for navigation (excludes PDFs)."""
+    """Generate a BFS-ordered list of markdown and Jupyter notebook notes for navigation (excludes PDFs)."""
     notes_list = []
     queue = [tree]
     
     while queue:
         current = queue.pop(0)
         
-        # Add markdown files at current level first (skip PDFs)
+        # Add markdown and Jupyter notebook files at current level first (skip PDFs)
         for file in current['files']:
-            if file.get('type', 'markdown') == 'markdown':
+            if file.get('type', 'markdown') in ['markdown', 'jupyter']:
                 notes_list.append(file)
         
-        # Add markdown files from leaf folders (folders without subfolders)
+        # Add markdown and Jupyter notebook files from leaf folders (folders without subfolders)
         for folder_name, folder_content in current['folders'].items():
             if not folder_content['folders']:  # Leaf folder
                 for file in folder_content['files']:
-                    if file.get('type', 'markdown') == 'markdown':
+                    if file.get('type', 'markdown') in ['markdown', 'jupyter']:
                         notes_list.append(file)
         
         # Add folders with subfolders to queue for next level
@@ -174,15 +290,23 @@ def generate_tree_html(tree):
 '''
     
     # Then, show files from folders without subfolders (leaf folders)
+    # Collect all files from leaf folders and sort them by date
+    leaf_files = []
     for folder_name, folder_content in tree['folders'].items():
-        if not folder_content['folders']:  # Leaf folders - show their files directly
-            for file in folder_content['files']:
-                meta_text = file['date'] if file['date'] else ""
-                file_type = file.get('type', 'markdown')
-                
-                if file_type == 'pdf':
-                    # PDF files open in new tab with PDF icon
-                    html += f'''<li class="tree-file">
+        if not folder_content['folders']:  # Leaf folders - collect their files
+            leaf_files.extend(folder_content['files'])
+    
+    # Sort leaf files by parsed date
+    leaf_files.sort(key=lambda x: x['parsed_date'])
+    
+    # Display sorted leaf files
+    for file in leaf_files:
+        meta_text = file['date'] if file['date'] else ""
+        file_type = file.get('type', 'markdown')
+        
+        if file_type == 'pdf':
+            # PDF files open in new tab with PDF icon
+            html += f'''<li class="tree-file">
 <div class="tree-file-content">
     <a href="{file['path']}" target="_blank">{file['title']}</a>
     <p class="tree-file-description">{file['overview']}</p>
@@ -190,9 +314,9 @@ def generate_tree_html(tree):
 <div class="tree-file-meta">{meta_text}</div>
 </li>
 '''
-                else:
-                    # Markdown files (converted to HTML)
-                    html += f'''<li class="tree-file">
+        else:
+            # Markdown files (converted to HTML)
+            html += f'''<li class="tree-file">
 <div class="tree-file-content">
     <a href="{file['path']}">{file['title']}</a>
     <p class="tree-file-description">{file['overview']}</p>

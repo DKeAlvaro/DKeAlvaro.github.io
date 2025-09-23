@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Unsupervised Learning, Clustering Techniques - MSc AI & Engineering Systems Notes">
-    <title>Unsupervised Learning, Clustering Techniques - MSc AIES</title>
-    <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../../../../../styles.css">
+    <meta name="description" content="Instructionmodule7 - MSc AI & Engineering Systems Notes">
+    <title>Instructionmodule7 - MSc AIES</title>
+    <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -576,30 +576,30 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="../../../../../index.html">About</a></li>
-                <li><a href="../../../../../journey.html">My Life</a></li>
-                <li><a href="../../../../../projects.html">Projects</a></li>
-                <li><a href="../../../../../blogs.html">Blog</a></li>
-                <li><a href="../../../../../notes.html">MSc AIES</a></li>
+                <li><a href="../../../../../../index.html">About</a></li>
+                <li><a href="../../../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../../../notes.html">MSc AIES</a></li>
                 <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
                 <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../../../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../../../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="../../../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
                     <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
-                        <img src="../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                        <img src="../../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
                     </a>
                     <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
-                        <img src="../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                        <img src="../../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
                     </a>
                     <a href="mailto:alvaro.mrgr2@gmail.com" aria-label="Email">
-                        <img src="../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                        <img src="../../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -611,11 +611,11 @@
                 <div class="navigation-header">
                     <div class="nav-left">
                         <div class="breadcrumb-section">
-                            <a href="../../../../../notes.html" class="back-link">
+                            <a href="../../../../../../notes.html" class="back-link">
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods</span>
+                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Instructions</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -639,185 +639,141 @@
                 </div>
                 
                 <div class="note-content">
-                    <h1>Data Analysis &amp; Learning Methods - Lecture 4</h1>
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4125')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the primary goal of clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-4125">
-        To group data points into clusters based on similarity, such that points within a group are more similar to each other than to those in other groups (page 4).
-    </div>
+                    <div class="markdown-cell">
+<h1>Lab instruction: linearRegression</h1>
+<h3>First exercise</h3>
+<h5>Objective</h5>
+<p>To understand the effects of regularization in linear regression and the bias-variance tradeoff</p>
+<h5>Instructions</h5>
+<ol>
+<li>
+<p><strong>Dataset</strong>
+   In this notebook it is provided a function that generates points that come from  polynomial. The parameters for the polynomial  $$x^4 - 10x^3 + 35x^2 - 50x + 2$$
+   Afterwards, we generate samples should be contaminated with zero mean white Gaussian noise with customizable standard deviation. This funcrion has as input the range of variable x. Hint: Use the polyval function of numpy.
+   Generate 30 points in the range of x = [1.0, 4.25].</p>
+</li>
+<li>
+<p><strong>Make the design matrix</strong>
+   We are implementing a polynomial regression. This is non-linear. However, as we saw in the lecture we can consider that each non-linear component of the polynomial. As a hint. To build your design matrix use the  PolynomialFeatures routine from  sklearn.preprocessing. You need to add an extra dimension to your x array by x.reshape(-1, 1). </p>
+</li>
+<li>
+<p><strong>Learning algorithms</strong>
+   Use scipy's LinearRegression, Lasso, ridge_regression from sklearn.linear_model to estimate the parameters of the model that generates the data. Make a regression of 15th degree order. For each model </p>
+</li>
+<li>For LASSO use , tol=0, max_iter=10000.</li>
+<li>
+<p>For Ridge use the as solver "cholesky". What happens if you set the alpha value to zero?</p>
+</li>
+<li>
+<p><strong>Evaluate results</strong>
+   How are each of the regressions? Can you say something about their complexity with respect to the data? make a plot which displays the coefficients of each model? Which one has more non-zero elements? try different values of alpha for the LASSO and Ridge regressions.</p>
+</li>
+</ol>
+<p>Reflect upon the following questions
+   * Why does Ridge regression does not perform parameter selection and LASSO does?
+   * What is the difference between Ridge regression and LASSO?
+   * What is the difference between Ridge regression with alpha set to zero and regular linear regression?
+   * What happens with the models  if we have more samples (e.g. 300 samples)?
+   * What happens if you reduce the compolexity of the model? For example, we know that the data comes from a 4th order polynomial, but our model is order 15.</p>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+import numpy as np
+import matplotlib.pyplot as plt
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7940')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">List three practical applications of clustering.</span>
-    </div>
-    <div class="qa-answer" id="qa-7940">
-        Data compression (replacing groups with representatives), visualization (creating high-level overviews), and subgraph detection (finding communities in networks) (pages 5-7).
-    </div>
+def generate_noisy_polynomial_data(coeffs, num_points=100, noise_std=1.0, x_range=(-10, 10)):
+    """
+    Generates data points from a polynomial of arbitrary degree with Gaussian noise.
+
+    Parameters:
+    - coeffs: list or array of coefficients [a_n, ..., a_1, a_0] for a_n*x^n + ... + a_1*x + a_0
+    - num_points: number of data points to generate
+    - noise_std: standard deviation of Gaussian noise
+    - x_range: tuple (min_x, max_x) defining the range of x values
+
+    Returns:
+    - x: numpy array of x values
+    - y_noisy: numpy array of noisy y values
+
+    # During the preparation of this work, Luis A.Zavala Mondragon used MS. Copilot  in order to 
+    # generate this function.  After using this tool/service, Luis A.Zavala Mondrago evaluated 
+    # the validity of the tool’s outputs, including the sources that generative AI tools have used,
+    # and edited the content as needed. As a consequence, Luis A.Zavala Mondragon takes full 
+    # responsibility for the content of their work.
+    """
+    x = np.linspace(x_range[0], x_range[1], num_points)
+    y = np.polyval(coeffs, x)
+    noise = np.random.normal(0, noise_std, size=num_points)
+    y_noisy = y + noise
+    return x, y_noisy
+
+
+def plot_regression(x, y_inp, y_true,  y_est=[], showEstimate=False, estimateName=""):
+    """
+    Generates plots to visualize the generated points, true line and estimated curve
+
+    Parameters:
+    - x: list or array of coefficients [a_n, ..., a_1, a_0] for a_n*x^n + ... + a_1*x + a_0
+    - y_inp: The noisy y values
+    - y_true: The noiseless y values
+    - y_est: The estimated values of y with one of the regression methods
+    - showEstimate: True when you want to display y_est
+    - estimateName: Name for display of the line y_est
+
+    Returns:
+    - None
+
+    # During the preparation of this work, Luis A.Zavala Mondragon used MS. Copilot  in order to 
+    # generate part of this function.  After using this tool/service, Luis A.Zavala Mondrago evaluated 
+    # the validity of the tool’s outputs, including the sources that generative AI tools have used,
+    # and edited the content as needed. As a consequence, Luis A.Zavala Mondragon takes full 
+    # responsibility for the content of their work.
+    """
+    # Plotting
+    plt.scatter(x, y_inp, label='Noisy Data', alpha=0.6)
+    plt.plot(x, y_true, color='red', label='True Polynomial')
+    if showEstimate:
+        plt.plot(x, y_est, color="green", label=estimateName)
+    plt.legend()
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title('Noisy Polynomial Data (4$^\mathrm{th}$ Degree)')
+    plt.grid(True)
+    plt.show()
+
+
+
+# These are the coefficientts of the polynomial
+coeffs = [1, -10, 35,-50, 24] 
+x, y = generate_noisy_polynomial_data(coeffs, num_points=30, noise_std=1.5, x_range=(1.0, 4.25))
+y_true = np.polyval(coeffs, x)
+
+plot_regression(x, y_inp=y, y_true=y_true)
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8099')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the main difference between agglomerative and divisive hierarchical clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-8099">
-        Agglomerative clustering is a "bottom-up" approach that starts with individual points and merges them, while divisive clustering is a "top-down" approach that starts with one cluster and splits it (page 9).
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import Lasso
+from sklearn.linear_model import Ridge
+from sklearn.preprocessing import PolynomialFeatures
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8003')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What does the "single-linkage" distance metric refer to in agglomerative clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-8003">
-        It defines the distance between two clusters as the minimum distance between any two points in the respective clusters (page 10).
-    </div>
+# Add your code here to implement the regressions
+
+
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4411')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are two significant limitations of hierarchical clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-4411">
-        It has a high computational cost ($O(N^2)$) due to the need for all pairwise distances, and you cannot pre-specify the number of clusters to speed up the process (page 18).
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3375')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a "centroid" in the context of K-means clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-3375">
-        A centroid is the multidimensional average of all points within a cluster; it acts as the cluster's representative center but is not part of the original dataset (page 20).
-    </div>
+
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3877')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Briefly describe the two main steps of the iterative K-means algorithm.</span>
-    </div>
-    <div class="qa-answer" id="qa-3877">
-        1. Assignment step: Assign each data point to the nearest centroid. 2. Update step: Recalculate the centroids as the mean of all points assigned to them (page 20).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8634')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a major drawback of the K-means algorithm when dealing with non-globular or unevenly sized clusters?</span>
-    </div>
-    <div class="qa-answer" id="qa-8634">
-        K-means is blind to the natural size and shape of clusters and can get stuck in unintuitive solutions, such as splitting a large cluster or merging two distinct small ones (page 31).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-862')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does fuzzy clustering differ from crisp (or hard) clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-862">
-        In crisp clustering, each data point belongs to exactly one cluster, while in fuzzy clustering, each point can belong to multiple clusters with a varying degree of membership (page 32).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4998')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the role of the "fuzziness parameter" (m) in the Fuzzy c-means (FCM) algorithm?</span>
-    </div>
-    <div class="qa-answer" id="qa-4998">
-        The parameter $m \in (1, \infty)$ controls the degree of fuzziness or overlap between clusters; a higher 'm' results in fuzzier clusters (page 34, 54).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4603')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What constraint is imposed on the membership values ($\mu_{ik}$) for any given data point in FCM?</span>
-    </div>
-    <div class="qa-answer" id="qa-4603">
-        The sum of a data point's membership values across all clusters must equal 1, which is known as the probabilistic constraint: $\sum_{i=1}^{C} \mu_{ik} = 1$ (page 34, 51).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5620')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How are the cluster centers ($v_i$) updated in the FCM algorithm?</span>
-    </div>
-    <div class="qa-answer" id="qa-5620">
-        The cluster centers are calculated as the weighted mean of all data points, where the weight of each point is its membership value raised to the power of m: $v_i = \frac{\sum_{k=1}^{N} \mu_{ik}^m x_k}{\sum_{k=1}^{N} \mu_{ik}^m}$ (page 35).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5543')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the main advantage of the Gustafson-Kessel (GK) algorithm compared to FCM?</span>
-    </div>
-    <div class="qa-answer" id="qa-5543">
-        The GK algorithm uses an adaptive distance metric based on a fuzzy covariance matrix, allowing it to find clusters of different shapes and orientations, not just spherical ones (page 39).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8361')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is data normalization often a necessary pre-processing step for clustering?</span>
-    </div>
-    <div class="qa-answer" id="qa-8361">
-        To ensure that features measured on different scales contribute equally to the distance calculation; without it, features with larger ranges can dominate the clustering process (page 43).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9439')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the purpose of using cluster validity measures?</span>
-    </div>
-    <div class="qa-answer" id="qa-9439">
-        They are used to quantitatively evaluate the quality of clustering results and can help determine the optimal number of clusters for a given dataset (page 46).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2457')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a significant problem caused by the probabilistic constraint in FCM, especially concerning outliers?</span>
-    </div>
-    <div class="qa-answer" id="qa-2457">
-        Outliers far from all cluster centers are still forced to have memberships summing to 1, which can pull cluster centers away from their true locations and distort the results (page 51).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2666')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does Possibilistic c-means (PCM) address the outlier problem of FCM?</span>
-    </div>
-    <div class="qa-answer" id="qa-2666">
-        PCM relaxes the probabilistic constraint, allowing a data point's membership in a cluster to be independent of its membership in other clusters. Outliers can thus have low membership in all clusters (page 52-53).
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-715')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In Possibilistic c-means (PCM), how is the membership value $\mu_{ik}$ calculated?</span>
-    </div>
-    <div class="qa-answer" id="qa-715">
-        It is calculated using the formula $\mu_{ik} = \frac{1}{1 + (\frac{d_{ik}^2}{\eta_i})^{1/(m-1)}}$, which depends only on the distance to its own cluster center and a cluster-specific parameter $\eta_i$ (page 53).
-    </div>
 </div>
                 </div>
             </div>
@@ -828,7 +784,7 @@
         <p id="footerYear"></p>
     </footer>
 
-    <script src="../../../../../script.js"></script>
+    <script src="../../../../../../script.js"></script>
 
     <script>
         // Note navigation functionality
@@ -856,7 +812,7 @@
                 relativePath = decodeURIComponent(relativePath);
                 
                 // Load navigation data
-                const response = await fetch('../../../../../notes_navigation.json');
+                const response = await fetch('../../../../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
@@ -887,7 +843,7 @@
                 const prevButton = document.getElementById('prevButton');
                 
                 if (currentNav.previous) {
-                    prevButton.href = '../../../../../' + currentNav.previous;
+                    prevButton.href = '../../../../../../' + currentNav.previous;
                     prevButton.title = 'Previous: ' + currentNav.previous_title;
                     prevButton.style.visibility = 'visible';
                 } else {
@@ -898,7 +854,7 @@
                 const nextButton = document.getElementById('nextButton');
                 
                 if (currentNav.next) {
-                    nextButton.href = '../../../../../' + currentNav.next;
+                    nextButton.href = '../../../../../../' + currentNav.next;
                     nextButton.title = 'Next: ' + currentNav.next_title;
                     nextButton.style.visibility = 'visible';
                 } else {
@@ -910,9 +866,9 @@
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
                     
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
-                        window.location.href = '../../../../../' + currentNav.previous;
+                        window.location.href = '../../../../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
-                        window.location.href = '../../../../../' + currentNav.next;
+                        window.location.href = '../../../../../../' + currentNav.next;
                     }
                 });
                 
