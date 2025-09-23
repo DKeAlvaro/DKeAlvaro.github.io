@@ -232,31 +232,35 @@ def build_tree_from_files(files):
     sort_files_by_date(tree)
     return tree
 
-def get_bfs_note_order(tree):
-    """Generate a BFS-ordered list of markdown and Jupyter notebook notes for navigation (excludes PDFs)."""
+def get_dfs_note_order(tree):
+    """Generate a DFS-ordered list of markdown and Jupyter notebook notes for navigation (excludes PDFs).
+    Files within folders are sorted chronologically by date."""
     notes_list = []
-    queue = [tree]
     
-    while queue:
-        current = queue.pop(0)
-        
+    def dfs_traverse(node):
         # Add markdown and Jupyter notebook files at current level first (skip PDFs)
-        for file in current['files']:
-            if file.get('type', 'markdown') in ['markdown', 'jupyter']:
-                notes_list.append(file)
+        # Sort files by parsed date before adding them
+        current_files = [file for file in node['files'] if file.get('type', 'markdown') in ['markdown', 'jupyter']]
+        current_files.sort(key=lambda x: x['parsed_date'])
+        notes_list.extend(current_files)
         
-        # Add markdown and Jupyter notebook files from leaf folders (folders without subfolders)
-        for folder_name, folder_content in current['folders'].items():
+        # Collect files from leaf folders (folders without subfolders) and sort them chronologically
+        leaf_files = []
+        for folder_name, folder_content in node['folders'].items():
             if not folder_content['folders']:  # Leaf folder
-                for file in folder_content['files']:
-                    if file.get('type', 'markdown') in ['markdown', 'jupyter']:
-                        notes_list.append(file)
+                folder_files = [file for file in folder_content['files'] if file.get('type', 'markdown') in ['markdown', 'jupyter']]
+                leaf_files.extend(folder_files)
         
-        # Add folders with subfolders to queue for next level
-        for folder_name, folder_content in current['folders'].items():
+        # Sort all leaf files by date and add them
+        leaf_files.sort(key=lambda x: x['parsed_date'])
+        notes_list.extend(leaf_files)
+        
+        # Recursively traverse folders with subfolders (DFS)
+        for folder_name, folder_content in node['folders'].items():
             if folder_content['folders']:  # Has subfolders
-                queue.append(folder_content)
+                dfs_traverse(folder_content)
     
+    dfs_traverse(tree)
     return notes_list
 
 def generate_tree_html(tree):
@@ -529,19 +533,19 @@ def main():
     
     print(f"Found notes and folders. Building tree structure.")
     
-    print("\nGenerating BFS navigation order...")
-    bfs_notes = get_bfs_note_order(notes_tree)
+    print("\nGenerating DFS navigation order...")
+    dfs_notes = get_dfs_note_order(notes_tree)
     
     # Create navigation mapping
     navigation_data = {}
-    for i, note in enumerate(bfs_notes):
+    for i, note in enumerate(dfs_notes):
         nav_info = {
             'current_index': i,
-            'total_notes': len(bfs_notes),
-            'previous': bfs_notes[i-1]['path'] if i > 0 else None,
-            'next': bfs_notes[i+1]['path'] if i < len(bfs_notes) - 1 else None,
-            'previous_title': bfs_notes[i-1]['title'] if i > 0 else None,
-            'next_title': bfs_notes[i+1]['title'] if i < len(bfs_notes) - 1 else None
+            'total_notes': len(dfs_notes),
+            'previous': dfs_notes[i-1]['path'] if i > 0 else None,
+            'next': dfs_notes[i+1]['path'] if i < len(dfs_notes) - 1 else None,
+            'previous_title': dfs_notes[i-1]['title'] if i > 0 else None,
+            'next_title': dfs_notes[i+1]['title'] if i < len(dfs_notes) - 1 else None
         }
         navigation_data[note['path']] = nav_info
     
@@ -559,13 +563,13 @@ def main():
         print("notes.html generated successfully!")
         print("notes_navigation.json generated successfully!")
         print(f"Generated on: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print(f"Total notes in BFS order: {len(bfs_notes)}")
+        print(f"Total notes in DFS order: {len(dfs_notes)}")
         
         if html_success:
             print("\nComplete process finished successfully!")
             print("   - HTML files generated from Markdown")
             print("   - notes.html updated with correct HTML links")
-            print("   - Navigation data generated for BFS traversal")
+            print("   - Navigation data generated for DFS traversal")
         else:
             print("\nProcess completed with warnings:")
             print("   - notes.html generated successfully")
