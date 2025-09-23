@@ -8,15 +8,54 @@
     <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
             renderMathInElement(document.body, {
                 delimiters: [
                     {left: "$$", right: "$$", display: true},
                     {left: "$", right: "$", display: false}
                 ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
             });
         });
     </script>
@@ -447,6 +486,84 @@
                   max-width: none;
               }
           }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
     </style>
 </head>
 <body>
@@ -524,51 +641,51 @@
                 <div class="note-content">
                     <h1>Data Analysis &amp; Learning Methods - Lecture 3</h1>
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3756')">
+    <div class="qa-question" onclick="toggleQA('qa-1434')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What kind of feature selection methods are there?</span>
     </div>
-    <div class="qa-answer" id="qa-3756">
+    <div class="qa-answer" id="qa-1434">
         Filter methods, wrapper methods, embedded methods.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-6062')">
+    <div class="qa-question" onclick="toggleQA('qa-4438')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's feature selection?</span>
     </div>
-    <div class="qa-answer" id="qa-6062">
+    <div class="qa-answer" id="qa-4438">
         Feature selection is the process of selecting a subset of features from the original set of features.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4325')">
+    <div class="qa-question" onclick="toggleQA('qa-5978')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's an example of feature selection?</span>
     </div>
-    <div class="qa-answer" id="qa-4325">
+    <div class="qa-answer" id="qa-5978">
         Selecting the most relevant features for a given task.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1068')">
+    <div class="qa-question" onclick="toggleQA('qa-8752')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's feature extraction?</span>
     </div>
-    <div class="qa-answer" id="qa-1068">
+    <div class="qa-answer" id="qa-8752">
         Constructing new features from existing features.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3504')">
+    <div class="qa-question" onclick="toggleQA('qa-7114')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's an example of feature extraction?</span>
     </div>
-    <div class="qa-answer" id="qa-3504">
+    <div class="qa-answer" id="qa-7114">
         Instead of using millions of raw pixels to recognize an image, we compute features such as: Edges, Color histograms, Texture features, etc...
     </div>
 </div>

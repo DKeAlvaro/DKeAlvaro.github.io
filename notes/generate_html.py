@@ -1,8 +1,11 @@
 import os
 import re
+import json
 from pathlib import Path
 from datetime import datetime
 import markdown
+import subprocess
+import sys
 
 def process_qa_content(md_content):
     """Process Q&A patterns in markdown content and convert them to collapsible HTML."""
@@ -66,6 +69,113 @@ def convert_md_to_html(md_file_path, output_dir, path_prefix, folder_path=None):
         print(f"    -> Error converting {md_file_path.name}: {e}")
         return False
 
+def convert_ipynb_to_html(ipynb_file_path, output_dir, path_prefix, folder_path=None):
+    """Convert a Jupyter notebook file to HTML with proper styling and navigation."""
+    try:
+        # Try to use nbconvert to convert the notebook
+        try:
+            # First, try using nbconvert command line tool
+            result = subprocess.run([
+                sys.executable, '-m', 'nbconvert', 
+                '--to', 'html',
+                '--template', 'basic',
+                '--stdout',
+                str(ipynb_file_path)
+            ], capture_output=True, text=True, check=True)
+            
+            notebook_html = result.stdout
+            
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            # If nbconvert is not available, try manual conversion
+            print(f"    -> nbconvert not available, attempting manual conversion for {ipynb_file_path.name}")
+            notebook_html = convert_ipynb_manually(ipynb_file_path)
+        
+        # Extract title from filename
+        title = ipynb_file_path.stem.replace('_', ' ').replace('-', ' ').title()
+        
+        # Clean up the HTML content (remove HTML, HEAD, BODY tags if present)
+        # Keep only the content inside the body
+        body_match = re.search(r'<body[^>]*>(.*?)</body>', notebook_html, re.DOTALL | re.IGNORECASE)
+        if body_match:
+            content = body_match.group(1)
+        else:
+            content = notebook_html
+        
+        # Generate complete HTML page using the calculated path prefix
+        full_html = generate_complete_html(title, content, path_prefix, folder_path)
+        
+        # Create output file path
+        output_file = output_dir / f"{ipynb_file_path.stem}.html"
+        
+        # Write HTML file
+        with open(output_file, 'w', encoding='utf-8') as file:
+            file.write(full_html)
+        
+        return True
+        
+    except Exception as e:
+        print(f"    -> Error converting {ipynb_file_path.name}: {e}")
+        return False
+
+def convert_ipynb_manually(ipynb_file_path):
+    """Manually convert a Jupyter notebook to basic HTML when nbconvert is not available."""
+    try:
+        with open(ipynb_file_path, 'r', encoding='utf-8') as file:
+            notebook_data = json.load(file)
+        
+        html_content = []
+        
+        for cell in notebook_data.get('cells', []):
+            cell_type = cell.get('cell_type', '')
+            source = cell.get('source', [])
+            
+            if isinstance(source, list):
+                source_text = ''.join(source)
+            else:
+                source_text = source
+            
+            if cell_type == 'markdown':
+                # Convert markdown to HTML
+                html_content.append('<div class="markdown-cell">')
+                html_content.append(markdown.markdown(source_text, extensions=['extra', 'codehilite', 'fenced_code', 'tables']))
+                html_content.append('</div>')
+                
+            elif cell_type == 'code':
+                # Add code cell
+                html_content.append('<div class="code-cell">')
+                html_content.append('<div class="input-area">')
+                html_content.append('<pre><code class="language-python">')
+                html_content.append(source_text)
+                html_content.append('</code></pre>')
+                html_content.append('</div>')
+                
+                # Add output if present
+                outputs = cell.get('outputs', [])
+                if outputs:
+                    html_content.append('<div class="output-area">')
+                    for output in outputs:
+                        if output.get('output_type') == 'stream':
+                            text = ''.join(output.get('text', []))
+                            html_content.append('<pre class="output-stream">')
+                            html_content.append(text)
+                            html_content.append('</pre>')
+                        elif output.get('output_type') in ['execute_result', 'display_data']:
+                            data = output.get('data', {})
+                            if 'text/plain' in data:
+                                text = ''.join(data['text/plain'])
+                                html_content.append('<pre class="output-result">')
+                                html_content.append(text)
+                                html_content.append('</pre>')
+                    html_content.append('</div>')
+                
+                html_content.append('</div>')
+        
+        return '\n'.join(html_content)
+        
+    except Exception as e:
+        print(f"    -> Error in manual conversion: {e}")
+        return f"<p>Error converting notebook: {e}</p>"
+
 def generate_complete_html(title, content, path_prefix, folder_path=None):
     """Generate a complete HTML page with dynamic paths for navigation and styling."""
     
@@ -94,15 +204,54 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
     <link rel="icon" href="{path_prefix}assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="{path_prefix}styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {{
+            // Initialize KaTeX
             renderMathInElement(document.body, {{
                 delimiters: [
                     {{left: "$$", right: "$$", display: true}},
                     {{left: "$", right: "$", display: false}}
                 ]
+            }});
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {{
+                Prism.highlightAll();
+            }}
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {{
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {{
+                    if (isDark) {{
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    }} else {{
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }}
+                }}
+            }}
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {{
+                mutations.forEach(function(mutation) {{
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {{
+                        updatePrismTheme();
+                    }}
+                }});
+            }});
+            
+            observer.observe(document.body, {{
+                attributes: true,
+                attributeFilter: ['class']
             }});
         }});
     </script>
@@ -533,6 +682,84 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
                   max-width: none;
               }}
           }}
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {{
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }}
+          
+          .markdown-cell {{
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }}
+          
+          .input-area {{
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }}
+          
+          .input-area pre {{
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }}
+          
+          .input-area code {{
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }}
+          
+          .output-area {{
+              background: var(--bg-color);
+              padding: 1rem;
+          }}
+          
+          .output-stream {{
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }}
+          
+          .output-result {{
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }}
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {{
+              .input-area {{
+                  background: var(--code-bg, #2d3748);
+              }}
+              
+              .output-stream {{
+                  background: var(--secondary-bg, #4a5568);
+              }}
+          }}
     </style>
 </head>
 <body>
@@ -725,43 +952,61 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
     return html_template
 
 def process_notes_directory():
-    """Process all markdown files in the notes directory structure recursively."""
+    """Process all markdown and Jupyter notebook files in the notes directory structure recursively."""
     notes_dir = Path('.')
     processed_files = 0
     failed_files = 0
     
-    print("Recursively scanning notes directory for Markdown files...")
+    print("Recursively scanning notes directory for Markdown and Jupyter notebook files...")
     
-    # Use glob('**/*.md') to find all markdown files in the current directory and all subdirectories
+    # Find all markdown and notebook files in the current directory and all subdirectories
     md_files = list(notes_dir.glob('**/*.md'))
+    ipynb_files = list(notes_dir.glob('**/*.ipynb'))
     
-    if not md_files:
-        print("No Markdown files found.")
+    all_files = md_files + ipynb_files
+    
+    if not all_files:
+        print("No Markdown or Jupyter notebook files found.")
         return
 
+    # Process markdown files
     for md_file in md_files:
         # Skip files in directories that should be ignored
         if any(part.startswith('.') or part == '__pycache__' for part in md_file.parts):
             continue
 
         # Determine the depth of the file to create the correct relative path prefix.
-        # The number of parent directories in its relative path determines the depth.
         relative_path = md_file.relative_to(notes_dir)
         depth = len(relative_path.parent.parts)
-        
-        # The path prefix needs to go up 'depth' levels for the subdirectories,
-        # plus one more level to get out of the 'notes' directory to the site root.
         path_prefix = '../' * (depth + 1)
-        
-        # The output directory is the same as the input file's directory
         output_dir = md_file.parent
         
-        print(f"Processing: {relative_path}")
+        print(f"Processing Markdown: {relative_path}")
         
-        # Pass the calculated prefix and folder path to the conversion function
         if convert_md_to_html(md_file, output_dir, path_prefix, relative_path.parent):
             processed_files += 1
             print(f" -> Generated: {output_dir / f'{md_file.stem}.html'}")
+        else:
+            failed_files += 1
+            print(f" -> Failed: {relative_path}")
+
+    # Process Jupyter notebook files
+    for ipynb_file in ipynb_files:
+        # Skip files in directories that should be ignored
+        if any(part.startswith('.') or part == '__pycache__' for part in ipynb_file.parts):
+            continue
+
+        # Determine the depth of the file to create the correct relative path prefix.
+        relative_path = ipynb_file.relative_to(notes_dir)
+        depth = len(relative_path.parent.parts)
+        path_prefix = '../' * (depth + 1)
+        output_dir = ipynb_file.parent
+        
+        print(f"Processing Jupyter Notebook: {relative_path}")
+        
+        if convert_ipynb_to_html(ipynb_file, output_dir, path_prefix, relative_path.parent):
+            processed_files += 1
+            print(f" -> Generated: {output_dir / f'{ipynb_file.stem}.html'}")
         else:
             failed_files += 1
             print(f" -> Failed: {relative_path}")
