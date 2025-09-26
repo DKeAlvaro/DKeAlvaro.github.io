@@ -790,7 +790,7 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
                     <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
                         <img src="{path_prefix}assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
                     </a>
-                    <a href="mailto:alvaro.mrgr2@gmail.com" aria-label="Email">
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
                         <img src="{path_prefix}assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
