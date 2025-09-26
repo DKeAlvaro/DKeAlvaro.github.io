@@ -102,6 +102,16 @@ img {
     border-radius: 2px;
 }
 
+figure {
+    margin: calc(var(--spacing-unit) * 1.5) auto;
+    text-align: center;
+    max-width: 100%;
+}
+
+figure img {
+    margin: 0 auto;
+}
+
 strong {
     font-weight: 600;
 }
