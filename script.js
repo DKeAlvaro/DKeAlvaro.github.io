@@ -12,7 +12,7 @@ const menuOverlay = document.querySelector('.menu-overlay');
 
 // Set current year in footer
 if (footerYear) {
-    footerYear.textContent = `Alvaro Menendez - alvaro.mrgr2@gmail.com`;
+    footerYear.textContent = `Álvaro Menéndez Ros - alvaro.mrgr@gmail.com`;
 }
 
 // Mobile menu toggle
