@@ -1081,9 +1081,20 @@ footer {
 /* Responsive: vertical layout on small screens with months on the left */
 @media (max-width: 640px) {
   .months-row { display: none; }
-  .calendar-heatmap { align-items: stretch; }
+  .months-col { 
+    display: flex; 
+    flex-direction: column;
+    margin-right: 8px;
+    justify-content: space-around;
+    min-height: 100%;
+  }
+  .calendar-heatmap { 
+    align-items: stretch; 
+    flex-direction: row;
+    width: auto;
+    margin-left: -15px;
+  }
   .calendar-heatmap-section { display: flex; flex-direction: column; align-items: center; }
-  .calendar-heatmap { width: auto; }
   .heatmap { flex-direction: column; align-items: center; }
   .week { flex-direction: row; justify-content: center; }
   .day { --cal-day-size: 19px; }
