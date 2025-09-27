@@ -217,8 +217,30 @@
             const rect = target.getBoundingClientRect();
             const scrollX = window.scrollX || window.pageXOffset;
             const scrollY = window.scrollY || window.pageYOffset;
-            const x = rect.left + scrollX + rect.width + 8;
-            const y = rect.top + scrollY - 6;
+            
+            // Check if we're on mobile (screen width <= 640px)
+            const isMobile = window.innerWidth <= 640;
+            
+            let x, y;
+            
+            if (isMobile) {
+                // On mobile, check if the target is on the right half of the screen
+                const screenCenter = window.innerWidth / 2;
+                const targetCenter = rect.left + rect.width / 2;
+                
+                if (targetCenter > screenCenter) {
+                    // Target is on right side, position tooltip to the left
+                    x = rect.left + scrollX - 200; // Position so tooltip right edge reaches screen edge
+                } else {
+                    // Target is on left side, position tooltip to the right
+                    x = rect.left + scrollX + rect.width + 8;
+                }
+            } else {
+                // Desktop: position to the right as before
+                x = rect.left + scrollX + rect.width + 8;
+            }
+            
+            y = rect.top + scrollY - 6;
             tooltip.style.left = x + 'px';
             tooltip.style.top = y + 'px';
         }
