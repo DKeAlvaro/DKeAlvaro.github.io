@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);} 
+        gtag('js', new Date());
+        gtag('config', 'G-7BJS149EFL');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Minimalist contribution-style calendar - Álvaro Menéndez Ros">
+    <title>Calendar - Álvaro Menéndez Ros</title>
+    <link rel="icon" href="./assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        .notes-header {
+            margin-top: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="./index.html">About</a></li>
+                <li><a href="./journey.html">My Life</a></li>
+                <li><a href="./projects.html">Projects</a></li>
+                <li><a href="./blogs.html">Blog</a></li>
+                <li><a href="./notes.html">MSc AIES</a></li>
+                <li><a href="./calendar.html">Calendar</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="./acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="./assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="assets/svg/sun.svg" alt="Toggle theme" class="theme-icon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="app-container">
+        <div class="page-container">
+            <div class="content">
+                <div class="notes-header">
+                    <h1>Calendar</h1>
+                    <p class="notes-subtitle">Activity Tracker • Daily Progress</p>
+                </div>
+                
+                <section class="calendar-heatmap-section">
+                <div class="calendar-controls">
+                    <button class="year-btn" id="prevYear" aria-label="Previous year" type="button">&#8249;</button>
+                    <span class="year-label" id="yearLabel"></span>
+                    <button class="year-btn" id="nextYear" aria-label="Next year" type="button">&#8250;</button>
+                </div>
+                <div class="calendar-heatmap" id="calendarHeatmap">
+                    <div class="months-row" id="monthsRow" aria-hidden="true"></div>
+                    <div class="months-col" id="monthsCol" aria-hidden="true"></div>
+                    <div class="heatmap" id="heatmap" role="grid" aria-label="Contribution calendar"></div>
+                    <div class="heatmap-tooltip" id="heatmapTooltip" role="tooltip" aria-hidden="true"></div>
+                </div>
+                <div class="calendar-legend" aria-hidden="true">
+                    <span class="legend-label">Less</span>
+                    <span class="legend-swatch level-0" aria-hidden="true"></span>
+                    <span class="legend-swatch level-1" aria-hidden="true"></span>
+                    <span class="legend-swatch level-2" aria-hidden="true"></span>
+                    <span class="legend-swatch level-3" aria-hidden="true"></span>
+                    <span class="legend-swatch level-4" aria-hidden="true"></span>
+                    <span class="legend-label">More</span>
+                </div>
+            </section>
+            </div>
+        </div>
+
+        <footer>
+            <p id="footerYear"></p>
+        </footer>
+    </div>
+
+    <script src="./script.js"></script>
+    <script>
+    (function() {
+        const heatmapEl = document.getElementById('heatmap');
+        const monthsRowEl = document.getElementById('monthsRow');
+        const monthsColEl = document.getElementById('monthsCol');
+        const tooltipEl = document.getElementById('heatmapTooltip');
+        const yearLabelEl = document.getElementById('yearLabel');
+        const prevBtn = document.getElementById('prevYear');
+        const nextBtn = document.getElementById('nextYear');
+
+        const monthShort = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        const monthIndex = { january:0,february:1,march:2,april:3,may:4,june:5,july:6,august:7,september:8,october:9,november:10,december:11 };
+        const GOALS_TXT_URL = './goals.txt';
+        let goalsMap = new Map(); // key: YYYY-MM-DD -> { goals:string, achieved:string, score:number }
+
+        let currentYear = new Date().getFullYear();
+
+        function startOfCalendar(year) {
+            const jan1 = new Date(year, 0, 1);
+            const start = new Date(jan1);
+            start.setDate(jan1.getDate() - ((jan1.getDay() + 7) % 7));
+            return start;
+        }
+
+        function endOfCalendar(year) {
+            return new Date(year, 11, 31);
+        }
+
+        function keyFromDate(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        function quantizeScoreToLevel(score) {
+            // Map 0..10 -> levels 0..4
+            if (score >= 8) return 4;
+            if (score >= 5) return 3;
+            if (score >= 3) return 2;
+            if (score >= 1) return 1;
+            return 0;
+        }
+
+        function buildWeeksForYear(year) {
+            const weeks = [];
+            let cursor = startOfCalendar(year);
+            const end = endOfCalendar(year);
+            while (cursor <= end) {
+                const week = [];
+                for (let d = 0; d < 7; d++) {
+                    const date = new Date(cursor);
+                    const inYear = date.getFullYear() === year;
+                    let score = 0;
+                    let goals = '';
+                    let achieved = '';
+                    if (inYear) {
+                        const key = keyFromDate(date);
+                        const entry = goalsMap.get(key);
+                        if (entry) {
+                            score = entry.score ?? 0;
+                            goals = entry.goals ?? '';
+                            achieved = entry.achieved ?? '';
+                        }
+                    }
+                    const level = quantizeScoreToLevel(score);
+                    week.push({ date, value: score, level, inYear, goals, achieved });
+                    cursor.setDate(cursor.getDate() + 1);
+                }
+                weeks.push(week);
+            }
+            return weeks;
+        }
+
+        function monthLabelsForWeeks(weeks) {
+            const labels = new Array(weeks.length).fill('');
+            const labeledMonths = new Set();
+            weeks.forEach((week, i) => {
+                for (const day of week) {
+                    if (day.inYear && day.date.getDate() === 1) {
+                        const m = day.date.getMonth();
+                        if (!labeledMonths.has(m)) {
+                            labels[i] = monthShort[m];
+                            labeledMonths.add(m);
+                        }
+                        break;
+                    }
+                }
+            });
+            return labels;
+        }
+
+        function renderMonthsRow(labels) {
+            monthsRowEl.innerHTML = '';
+            labels.forEach(label => {
+                const span = document.createElement('span');
+                span.className = 'month-label';
+                span.textContent = label;
+                monthsRowEl.appendChild(span);
+            });
+        }
+
+        function renderMonthsCol(labels) {
+            if (!monthsColEl) return;
+            monthsColEl.innerHTML = '';
+            labels.forEach(label => {
+                const span = document.createElement('span');
+                span.className = 'month-row-label';
+                span.textContent = label;
+                monthsColEl.appendChild(span);
+            });
+        }
+
+        function positionTooltip(target, tooltip) {
+            const rect = target.getBoundingClientRect();
+            const scrollX = window.scrollX || window.pageXOffset;
+            const scrollY = window.scrollY || window.pageYOffset;
+            const x = rect.left + scrollX + rect.width + 8;
+            const y = rect.top + scrollY - 6;
+            tooltip.style.left = x + 'px';
+            tooltip.style.top = y + 'px';
+        }
+
+        function showTooltip(target, text) {
+            tooltipEl.textContent = text;
+            tooltipEl.style.display = 'block';
+            tooltipEl.setAttribute('aria-hidden', 'false');
+            positionTooltip(target, tooltipEl);
+        }
+        function showTooltipHTML(target, html) {
+            tooltipEl.innerHTML = html;
+            tooltipEl.style.display = 'block';
+            tooltipEl.setAttribute('aria-hidden', 'false');
+            positionTooltip(target, tooltipEl);
+        }
+        function hideTooltip() {
+            tooltipEl.style.display = 'none';
+            tooltipEl.setAttribute('aria-hidden', 'true');
+        }
+
+        function renderHeatmap(weeks) {
+            heatmapEl.innerHTML = '';
+            weeks.forEach((week) => {
+                const weekEl = document.createElement('div');
+                weekEl.className = 'week';
+                weekEl.setAttribute('role', 'row');
+
+                week.forEach((day) => {
+                    const cell = document.createElement('button');
+                    cell.type = 'button';
+                    cell.className = 'day level-' + (day ? day.level : 0);
+                    cell.setAttribute('role', 'gridcell');
+                    cell.setAttribute('tabindex', '-1');
+
+                    if (!day.inYear) {
+                        cell.style.opacity = '0.25';
+                        cell.setAttribute('aria-hidden', 'true');
+                    } else {
+                        const dateStr = day.date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
+                        const aria = `Achieved: ${day.value}/10 on ${dateStr}`;
+                        cell.setAttribute('aria-label', aria);
+
+                        cell.addEventListener('mouseenter', (e) => {
+                            showTooltip(e.currentTarget, aria);
+                        });
+                        cell.addEventListener('mousemove', (e) => {
+                            positionTooltip(e.currentTarget, tooltipEl);
+                        });
+                        const clearTip = () => hideTooltip();
+                        cell.addEventListener('mouseleave', clearTip);
+                        cell.addEventListener('blur', clearTip);
+
+                        cell.addEventListener('click', (e) => {
+                            const g = (day.goals && day.goals.trim().length) ? day.goals.trim() : 'No goals for this day.';
+                            const achieved = day.achieved ? day.achieved : `${day.value}/10`;
+                            const html = `<strong>${dateStr}</strong><br>Goals: ${escapeHtml(g)}<br>Achieved: ${escapeHtml(achieved)}`;
+                            showTooltipHTML(e.currentTarget, html);
+                        });
+                    }
+
+                    weekEl.appendChild(cell);
+                });
+
+                heatmapEl.appendChild(weekEl);
+            });
+        }
+
+        function render(year) {
+            const weeks = buildWeeksForYear(year);
+            const labels = monthLabelsForWeeks(weeks);
+            renderMonthsRow(labels);
+            renderMonthsCol(labels);
+            renderHeatmap(weeks);
+            yearLabelEl.textContent = year;
+        }
+
+        prevBtn.addEventListener('click', () => {
+            currentYear -= 1;
+            render(currentYear);
+        });
+        nextBtn.addEventListener('click', () => {
+            currentYear += 1;
+            render(currentYear);
+        });
+
+        function escapeHtml(str) {
+            return str.replace(/[&<>"]+/g, (c) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+        }
+
+        async function loadGoals() {
+            try {
+                const res = await fetch(GOALS_TXT_URL, { cache: 'no-cache' });
+                if (!res.ok) throw new Error('Failed to load goals.txt');
+                const text = await res.text();
+                goalsMap = parseGoalsText(text);
+            } catch (err) {
+                console.warn('Goals file not found or failed to parse. Proceeding with empty data.', err);
+                goalsMap = new Map();
+            }
+        }
+
+        function parseGoalsText(text) {
+            const map = new Map();
+            const lines = text.split(/\r?\n/);
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (!line) continue;
+                // Match date line: e.g., "1 september 2025"
+                const m = line.match(/^(\d{1,2})\s+([A-Za-z]+)\s+(\d{4})$/);
+                if (m) {
+                    const day = parseInt(m[1], 10);
+                    const monName = m[2].toLowerCase();
+                    const year = parseInt(m[3], 10);
+                    if (!(monName in monthIndex)) continue;
+                    const mon = monthIndex[monName];
+                    const date = new Date(year, mon, day);
+                    const key = keyFromDate(date);
+
+                    // Expect next lines: Goals: ... and Achieved: ...
+                    let goalsLine = '';
+                    let achievedLine = '';
+                    if (i + 1 < lines.length && lines[i+1].trim().toLowerCase().startsWith('goals')) {
+                        goalsLine = lines[i+1].replace(/^Goals:\s*/i, '').trim();
+                        i++;
+                    }
+                    if (i + 1 < lines.length && lines[i+1].trim().toLowerCase().startsWith('achieved')) {
+                        achievedLine = lines[i+1].replace(/^Achieved:\s*/i, '').trim();
+                        i++;
+                    }
+
+                    let score = 0;
+                    const achMatch = achievedLine.match(/^(\d{1,2})\s*\/\s*(10)$/); // e.g., 5/10
+                    if (achMatch) {
+                        score = Math.max(0, Math.min(10, parseInt(achMatch[1], 10)));
+                    } else if (/^\d{1,2}$/.test(achievedLine)) {
+                        score = Math.max(0, Math.min(10, parseInt(achievedLine, 10)));
+                    }
+
+                    map.set(key, { goals: goalsLine, achieved: achievedLine, score });
+                }
+            }
+            return map;
+        }
+
+        // Initialize: load goals then render
+        (async function init(){
+            await loadGoals();
+            render(currentYear);
+        })();
+    })();
+    </script>
+</body>
+</html>
