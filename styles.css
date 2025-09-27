@@ -1013,3 +1013,97 @@ footer {
     white-space: nowrap;
     padding-left: 1rem;
 }
+/* Calendar Heatmap (GitHub-like) */
+.calendar-heatmap-section {
+    margin-top: calc(var(--spacing-unit) * 2);
+}
+
+.calendar-heatmap {
+    width: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Year navigation controls */
+.calendar-controls { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; color: var(--text-color); }
+.year-btn { border: 1px solid var(--border-color); background: var(--background-color); color: var(--text-color); padding: 4px 10px; border-radius: 4px; cursor: pointer; line-height: 1; }
+.year-btn:hover { background: var(--hover-bg); }
+.year-label { font-weight: 600; min-width: 80px; text-align: center; }
+
+/* Month labels row (desktop only) */
+.months-row {
+    display: flex;
+    align-items: center;
+    gap: 3px; /* match heatmap column gap */
+    margin: 0 0 8px 0; /* remove left offset for alignment */
+    color: var(--text-color);
+    font-size: 0.85rem;
+    min-height: 18px;
+}
+.month-label { width: var(--cal-day-size); min-width: var(--cal-day-size); text-align: left; opacity: 0.8; }
+
+/* Heatmap grid */
+.heatmap {
+    display: flex;
+    gap: 3px;
+}
+.week {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+/* Mobile months column to the left */
+.months-col { display: none; }
+.month-row-label { display: block; height: var(--cal-day-size); line-height: var(--cal-day-size); font-size: 0.8rem; color: var(--text-color); opacity: 0.8; }
+
+:root { --cal-level-0: #ebedf0; --cal-level-1: #c6e48b; --cal-level-2: #7bc96f; --cal-level-3: #239a3b; --cal-level-4: #196127; --cal-day-size: 15px; --cal-day-radius: 2px; }
+.dark-theme { --cal-level-0: #22272e; --cal-level-1: #113417; --cal-level-2: #11582c; --cal-level-3: #1f7a3e; --cal-level-4: #2ea043; }
+.day { width: var(--cal-day-size); height: var(--cal-day-size); border-radius: var(--cal-day-radius); border: 1px solid rgba(0,0,0,0.04); background-color: var(--cal-level-0); cursor: default; padding: 0; outline: none; }
+.day.level-0 { background-color: var(--cal-level-0); }
+.day.level-1 { background-color: var(--cal-level-1); }
+.day.level-2 { background-color: var(--cal-level-2); }
+.day.level-3 { background-color: var(--cal-level-3); }
+.day.level-4 { background-color: var(--cal-level-4); }
+.day:focus-visible { outline: 2px solid var(--accent-color); outline-offset: 1px; }
+
+.calendar-legend { display: flex; align-items: center; gap: 6px; margin-top: 10px; font-size: 0.85rem; color: var(--text-color); }
+.calendar-legend .legend-label { opacity: 0.8; }
+.calendar-legend .legend-swatch { display: inline-block; width: var(--cal-day-size); height: var(--cal-day-size); border-radius: var(--cal-day-radius); border: 1px solid rgba(0,0,0,0.04); }
+.calendar-legend .level-0 { background-color: var(--cal-level-0); }
+.calendar-legend .level-1 { background-color: var(--cal-level-1); }
+.calendar-legend .level-2 { background-color: var(--cal-level-2); }
+.calendar-legend .level-3 { background-color: var(--cal-level-3); }
+.calendar-legend .level-4 { background-color: var(--cal-level-4); }
+
+/* Responsive: vertical layout on small screens with months on the left */
+@media (max-width: 640px) {
+  .months-row { display: none; }
+  .calendar-heatmap { align-items: stretch; }
+  .calendar-heatmap-section { display: flex; flex-direction: column; align-items: center; }
+  .calendar-heatmap { width: auto; }
+  .heatmap { flex-direction: column; align-items: center; }
+  .week { flex-direction: row; justify-content: center; }
+  .day { --cal-day-size: 19px; }
+  .calendar-legend { justify-content: center; }
+  /* Bigger and slightly higher year controls on mobile */
+  .calendar-controls { margin-top: -6px; margin-bottom: 6px; }
+  .year-btn { font-size: 1.05rem; padding: 6px 12px; }
+  .year-label { font-size: 1.05rem; }
+}
+.heatmap-tooltip {
+    position: absolute;
+    background: var(--background-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 6px 8px;
+    font-size: 0.85rem;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: none;
+    pointer-events: none;
+    z-index: 1000;
+    white-space: nowrap;
+}
