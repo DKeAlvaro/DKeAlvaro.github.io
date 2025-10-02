@@ -19,7 +19,7 @@ Goals:
 Achieved:
 
 02 October 2025
-Goals:
+Goals: Complete Data analysis HAR project, Poker bot
 Achieved:
 
 03 October 2025
