@@ -80,6 +80,8 @@ def convert_ipynb_to_html(ipynb_file_path, output_dir, path_prefix, folder_path=
                 '--to', 'html',
                 '--template', 'basic',
                 '--stdout',
+                '--embed-images',  # Embed images as base64 in HTML
+                '--no-prompt',     # Remove input prompts for cleaner output
                 str(ipynb_file_path)
             ], capture_output=True, text=True, check=True)
             
@@ -161,11 +163,60 @@ def convert_ipynb_manually(ipynb_file_path):
                             html_content.append('</pre>')
                         elif output.get('output_type') in ['execute_result', 'display_data']:
                             data = output.get('data', {})
-                            if 'text/plain' in data:
-                                text = ''.join(data['text/plain'])
+                            
+                            # Handle image outputs (PNG, JPEG, SVG)
+                            if 'image/png' in data:
+                                img_data = data['image/png']
+                                if isinstance(img_data, list):
+                                    img_data = ''.join(img_data)
+                                html_content.append(f'<div class="output-image">')
+                                html_content.append(f'<img src="data:image/png;base64,{img_data}" alt="Plot output" style="max-width: 100%; height: auto;" />')
+                                html_content.append('</div>')
+                            elif 'image/jpeg' in data:
+                                img_data = data['image/jpeg']
+                                if isinstance(img_data, list):
+                                    img_data = ''.join(img_data)
+                                html_content.append(f'<div class="output-image">')
+                                html_content.append(f'<img src="data:image/jpeg;base64,{img_data}" alt="Plot output" style="max-width: 100%; height: auto;" />')
+                                html_content.append('</div>')
+                            elif 'image/svg+xml' in data:
+                                svg_data = data['image/svg+xml']
+                                if isinstance(svg_data, list):
+                                    svg_data = ''.join(svg_data)
+                                html_content.append(f'<div class="output-image">')
+                                html_content.append(svg_data)
+                                html_content.append('</div>')
+                            elif 'text/html' in data:
+                                # Handle HTML output (like pandas DataFrames)
+                                html_data = data['text/html']
+                                if isinstance(html_data, list):
+                                    html_data = ''.join(html_data)
+                                html_content.append('<div class="output-html">')
+                                html_content.append(html_data)
+                                html_content.append('</div>')
+                            elif 'text/plain' in data:
+                                text = data['text/plain']
+                                if isinstance(text, list):
+                                    text = ''.join(text)
                                 html_content.append('<pre class="output-result">')
                                 html_content.append(text)
                                 html_content.append('</pre>')
+                        elif output.get('output_type') == 'error':
+                            # Handle error outputs
+                            error_name = output.get('ename', 'Error')
+                            error_value = output.get('evalue', '')
+                            traceback = output.get('traceback', [])
+                            
+                            html_content.append('<div class="output-error">')
+                            html_content.append(f'<pre class="error-name">{error_name}: {error_value}</pre>')
+                            if traceback:
+                                html_content.append('<pre class="error-traceback">')
+                                for line in traceback:
+                                    # Remove ANSI escape codes
+                                    clean_line = re.sub(r'\x1b\[[0-9;]*m', '', line)
+                                    html_content.append(clean_line)
+                                html_content.append('</pre>')
+                            html_content.append('</div>')
                     html_content.append('</div>')
                 
                 html_content.append('</div>')
@@ -748,6 +799,92 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
               line-height: 1.4;
               color: var(--text-color);
               border: 1px solid var(--border-color);
+          }}
+          
+          .output-image {{
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }}
+          
+          .output-image img {{
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }}
+          
+          .output-html {{
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }}
+          
+          .output-html table {{
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }}
+          
+          .output-html th,
+          .output-html td {{
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }}
+          
+          .output-html th {{
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }}
+          
+          .output-error {{
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }}
+          
+          .error-name {{
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }}
+          
+          .error-traceback {{
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }}
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {{
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }}
+          
+          .dark-theme .error-name {{
+              color: #f87171;
+          }}
+          
+          .dark-theme .error-traceback {{
+              color: #fca5a5;
+              background: #1f1515;
           }}
           
           /* Dark mode adjustments for Jupyter cells */

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Supervised Learning - MSc AI & Engineering Systems Notes">
-    <title>Supervised Learning - MSc AIES</title>
+    <meta name="description" content="Instructionmodule9 - MSc AI & Engineering Systems Notes">
+    <title>Instructionmodule9 - MSc AIES</title>
     <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
@@ -701,7 +701,7 @@
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Notes</span>
+                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Instructions</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -725,285 +725,132 @@
                 </div>
                 
                 <div class="note-content">
-                    <h1>Data Analysis &amp; Learning Methods - Lecture 5</h1>
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3262')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is supervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-3262">
-        It is a type of machine learning where the model learns from data that includes labels or targets. (Page 4)
-    </div>
+                    <div class="markdown-cell">
+<h1>Lab instruction: Perceprons and neural networks</h1>
+<h3>First exercise</h3>
+<p>To make a basic test of an a perceptron in a dataset that can be classified with a linear classifier. 
+* Discuss with your classmates what is the main difference between a percepron and a logistic classfier.</p>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+from sklearn.inspection import DecisionBoundaryDisplay
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5589')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the difference between classification and regression in supervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-5589">
-        Classification predicts a categorical label (e.g., 'lemon' or 'orange'), while regression predicts a continuous, real value (e.g., the price of a house). (Page 4)
-    </div>
+def showDecisionBoundary(X_train, y_train, classif):
+    feature_1, feature_2 = np.meshgrid(
+        np.linspace(X_train[:,0].min(), X_train[:,0].max()),
+        np.linspace(X_train[:,1].min(), X_train[:,1].max()))
+
+    grid = np.vstack([feature_1.ravel(), feature_2.ravel()]).T
+
+    y_pred = classif.predict( grid )
+    y_pred = np.reshape(y_pred, feature_1.shape)
+
+    display = DecisionBoundaryDisplay(
+        xx0=feature_1, xx1=feature_2, response=y_pred)
+
+    display.plot()
+    display.ax_.scatter(
+        X_train[:, 0], X_train[:, 1], c=y_train, edgecolor="black")
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8434')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is unsupervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-8434">
-        It's a type of machine learning that works with data that has no labels, aiming to find patterns like clusters or simpler representations. (Page 4)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Loading and splitting the data
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-287')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why might a simple heuristic (rule-based) approach fail for complex tasks?</span>
-    </div>
-    <div class="qa-answer" id="qa-287">
-        Because the variation in data can be enormous, and patterns are often too complex or exist in high-dimensional spaces for humans to define effective rules. (Page 6)
-    </div>
+import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+
+# Code from https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_gpc_xor.html
+xx, yy = np.meshgrid(np.linspace(-3, 3, 50), np.linspace(-3, 3, 50))
+rng = np.random.RandomState(1)
+X = rng.randn(200, 2)
+y = X[:, 0] > 0 
+
+c1 = X[y==1,:]
+c2 = X[y<1,:]
+
+#showing the data
+import matplotlib.pyplot as plt
+plt.scatter(c1[:,0], c1[:,1], c="b", marker="o")
+plt.scatter(c2[:,0], c2[:,1], c="r", marker="+")
+plt.show()
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2831')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the difference between a model-driven and a data-driven approach?</span>
-    </div>
-    <div class="qa-answer" id="qa-2831">
-        A model-driven approach uses a physical understanding of a problem to create a model (e.g., physics), whereas a data-driven approach uses the data itself as the primary source to construct a model (e.g., machine learning). (Page 7)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2870')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the three components of the expected mean squared error in the bias-variance decomposition?</span>
-    </div>
-    <div class="qa-answer" id="qa-2870">
-        Bias, variance, and irreducible error. (Page 8)
-    </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Add your code to train and visualize the provided dataset here.
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4219')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the main takeaway from the "garbage in, garbage out" principle in machine learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-4219">
-        The quality and choice of features in your dataset are crucial; machine learning models cannot fix a dataset with uninformative or "crappy" data. (Page 12)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3420')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a parametric approach in machine learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-3420">
-        It is an approach where the model is defined by a set of trainable parameters $\theta$, commonly written as $f_{\theta}(x)$. (Page 13)
-    </div>
+<div class="markdown-cell">
+<h3>Second exercise</h3>
+<p>The dataset below solves the classic XOR problem, which requires a non-linear classifier. To perform this, we first train a perceptron which shows that this problem cannot be solved by a linear classifier. Afterwards use a neural network with one hidden with the following parameters
+* 1 hidden layer with 4 neurons.
+* ReLU activations
+* Optimized with the lbfgs solver
+* train for 1000 ierations</p>
+<p>Plot the decision boundary of this MLP and compare it with a single-layer perceptron. Discuss why multiple layers are needed.</p>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Loading and splitting the data
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3428')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does the K-Nearest Neighbours (KNN) algorithm classify a new data point?</span>
-    </div>
-    <div class="qa-answer" id="qa-3428">
-        It looks at the 'k' closest data points (neighbours) in the training set and assigns the new point the majority class of those neighbours. (Page 15)
-    </div>
+import numpy as np
+from sklearn.datasets import load_digits
+from sklearn.model_selection import train_test_split
+
+# Code from https://scikit-learn.org/stable/auto_examples/gaussian_process/plot_gpc_xor.html
+xx, yy = np.meshgrid(np.linspace(-3, 3, 50), np.linspace(-3, 3, 50))
+rng = np.random.RandomState(1)
+X = rng.randn(200, 2)
+y = np.logical_xor(X[:, 0] > 0, X[:, 1] > 0)
+
+c1 = X[y==1,:]
+c2 = X[y<1,:]
+
+#showing the data
+import matplotlib.pyplot as plt
+plt.scatter(c1[:,0], c1[:,1], c="b", marker="o")
+plt.scatter(c2[:,0], c2[:,1], c="r", marker="+")
+plt.show()
+
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9558')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is KNN considered a "memory-based" or "non-parametric" method?</span>
-    </div>
-    <div class="qa-answer" id="qa-9558">
-        Because it does not learn an explicit model with parameters; instead, it stores all training instances in memory to make predictions. (Page 16)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1437')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a hyperparameter?</span>
-    </div>
-    <div class="qa-answer" id="qa-1437">
-        A hyperparameter is a configuration parameter that is set before the training process begins and is not learned from the data (e.g., the value of 'k' in KNN). (Page 17)
-    </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Add your code for showing the fitting of the perceptron and the decision boundary here
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1203')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the effect of increasing the value of 'k' in KNN?</span>
-    </div>
-    <div class="qa-answer" id="qa-1203">
-        Increasing 'k' generally leads to a smoother decision boundary, which makes the model more robust to noise but potentially less able to capture local patterns. (Page 18)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7421')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the mathematical formula for a simple linear classifier?</span>
-    </div>
-    <div class="qa-answer" id="qa-7421">
-        The classifier calculates a score using the function $f(x, w) = wx + b$. (Page 20)
-    </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Add your code for showing the fitting of the MLP and the decision boundary here
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2296')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In logistic regression, what function is used to map the linear output score to a probability between 0 and 1?</span>
-    </div>
-    <div class="qa-answer" id="qa-2296">
-        The logistic function, also known as the sigmoid function: $\sigma(z) = \frac{1}{1 + e^{-z}}$. (Page 22)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7579')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the binary cross-entropy loss function used for?</span>
-    </div>
-    <div class="qa-answer" id="qa-7579">
-        It measures the error in a binary classification model, penalizing it for making wrong predictions with high confidence. (Page 22)
-    </div>
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-827')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What defines the decision boundary in a logistic regression classifier?</span>
-    </div>
-    <div class="qa-answer" id="qa-827">
-        The decision boundary is the line or hyperplane where the input to the sigmoid function is zero ($w^{*}x + b = 0$), corresponding to a predicted probability of 0.5. (Page 23)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5225')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">For multi-class classification, what function generalizes the sigmoid and what does it do?</span>
-    </div>
-    <div class="qa-answer" id="qa-5225">
-        The softmax function. It takes a vector of raw scores (logits) and transforms them into a probability distribution where all values are between 0 and 1 and sum to 1. (Page 24)
-    </div>
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1533')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the three main types of nodes in a decision tree?</span>
-    </div>
-    <div class="qa-answer" id="qa-1533">
-        The root node (the starting point), internal (split) nodes (where decisions are made), and terminal (leaf) nodes (the final predictions). (Page 29)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7655')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is randomized node optimization in the context of training decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-7655">
-        It is a technique where, for each node, a random subset of possible split parameters is evaluated, and the best one is chosen, rather than searching through all possibilities. (Page 34)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8418')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is Information Gain and how is it used in decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-8418">
-        Information Gain is a metric used to choose the best split at a node. It measures the reduction in entropy (or increase in purity) achieved by splitting the data. The split with the highest information gain is chosen. (Page 35)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4749')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the formula for Shannon's entropy?</span>
-    </div>
-    <div class="qa-answer" id="qa-4749">
-        The entropy of a set $S$ is calculated as $H(S) = -\sum_{c \in \mathcal{C}} p_c \log p_c$, where $p_c$ is the fraction of items in class $c$. (Page 35)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2862')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the common stopping criteria for growing a decision tree?</span>
-    </div>
-    <div class="qa-answer" id="qa-2862">
-        The process stops when a branch reaches a predefined maximum depth, a total node limit is reached, or a node contains samples from only one class. (Page 44)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8680')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are two pros and two cons of decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-8680">
-        Pros: They are easy to interpret and fast. Cons: They have relatively low predictive power and high variance (tendency to overfit). (Page 51)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9923')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the core idea behind a Random Forest?</span>
-    </div>
-    <div class="qa-answer" id="qa-9923">
-        A Random Forest combines a large number of diverse, "weak" decision trees into a single, "strong" learner to improve predictive accuracy and control overfitting. (Page 54)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2597')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the two primary methods for introducing randomness into a Random Forest?</span>
-    </div>
-    <div class="qa-answer" id="qa-2597">
-        Bagging (training each tree on a random subset of data) and Randomized Node Optimization (considering only a random subset of features/splits at each node). (Page 55)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3620')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does a Random Forest make a final prediction for classification?</span>
-    </div>
-    <div class="qa-answer" id="qa-3620">
-        It averages the probabilistic predictions from all individual trees in the forest. (Page 59)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-734')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In a Random Forest, what is the effect of increasing tree depth (D) and decreasing the randomness parameter ($\rho$)?</span>
-    </div>
-    <div class="qa-answer" id="qa-734">
-        Increasing depth allows for more complex models that can overfit. Decreasing $\rho$ increases randomness, making trees more diverse, which typically reduces overfitting and creates smoother decision boundaries. (Pages 61, 63)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7323')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is it beneficial for a model's prediction confidence to correlate with its accuracy?</span>
-    </div>
-    <div class="qa-answer" id="qa-7323">
-        It makes the model's output more reliable. High-confidence predictions can be trusted more, while low-confidence ones can be flagged for human review. (Page 67)
-    </div>
 </div>
                 </div>
             </div>
