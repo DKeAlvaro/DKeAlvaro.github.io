@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Supervised Learning - MSc AI & Engineering Systems Notes">
-    <title>Supervised Learning - MSc AIES</title>
+    <meta name="description" content="Instructionmodule3 - MSc AI & Engineering Systems Notes">
+    <title>Instructionmodule3 - MSc AIES</title>
     <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
@@ -701,7 +701,7 @@
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Notes</span>
+                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Instructions</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -725,285 +725,502 @@
                 </div>
                 
                 <div class="note-content">
-                    <h1>Data Analysis &amp; Learning Methods - Lecture 5</h1>
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3262')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is supervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-3262">
-        It is a type of machine learning where the model learns from data that includes labels or targets. (Page 4)
-    </div>
+                    <div class="markdown-cell">
+<h1>Instruction Session 3</h1>
+<h2>Feature Selection</h2>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# this cell imports the libraries or packages that you can use during this session
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5589')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the difference between classification and regression in supervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-5589">
-        Classification predicts a categorical label (e.g., 'lemon' or 'orange'), while regression predicts a continuous, real value (e.g., the price of a house). (Page 4)
-    </div>
+from helpers import *
+
+import numpy as np
+
+# Machine Learning and Decomposition
+from sklearn.decomposition import PCA, FastICA
+from sklearn.cluster import KMeans
+
+
+# Statistical tools
+from scipy.stats import multivariate_normal
+from scipy import linalg
+
+# Visualization
+import matplotlib.pyplot as plt
+from matplotlib.patches import Ellipse
+from matplotlib.colors import ListedColormap, LogNorm
+
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8434')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is unsupervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-8434">
-        It's a type of machine learning that works with data that has no labels, aiming to find patterns like clusters or simpler representations. (Page 4)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-287')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why might a simple heuristic (rule-based) approach fail for complex tasks?</span>
-    </div>
-    <div class="qa-answer" id="qa-287">
-        Because the variation in data can be enormous, and patterns are often too complex or exist in high-dimensional spaces for humans to define effective rules. (Page 6)
-    </div>
+<div class="markdown-cell">
+<h2>Part 3.1: Principal Component Analysis (PCA)</h2>
+<p>In data science, we often deal with datasets that have many features (high-dimensional data). While having more features can provide richer information, it also makes computation slower, models harder to interpret, and sometimes even hurts performance because of noise and redundancy.  </p>
+<p>Principal Component Analysis (PCA) is one of the most common techniques to reduce dimensionality while keeping as much of the data’s “essence” as possible — specifically, its variance. In simple terms, PCA finds a new coordinate system for the data that makes it easier to describe using fewer dimensions.</p>
+<p>Here’s the step-by-step intuition for how PCA works:</p>
+<ol>
+<li>
+<p><strong>Compute the covariance matrix</strong><br />
+   We start by computing the covariance matrix of the dataset. This matrix tells us how features vary together — high covariance means two features increase or decrease together.</p>
+</li>
+<li>
+<p><strong>Perform eigendecomposition</strong><br />
+   Next, we use linear algebra to decompose the covariance matrix into <strong>eigenvalues</strong> and <strong>eigenvectors</strong>.  </p>
+</li>
+<li>The <strong>eigenvectors</strong> define new directions (axes) in which the data varies the most.  </li>
+<li>
+<p>The <strong>eigenvalues</strong> tell us how much variance lies along each of these directions.</p>
+</li>
+<li>
+<p><strong>Transform the data (center + rotate)</strong><br />
+   Once we have the eigenvectors, we transform the dataset.  </p>
+</li>
+<li>First, we <strong>center</strong> the data by subtracting its mean (so it is positioned around the origin).  </li>
+<li>
+<p>Then, we <strong>rotate</strong> the data into the new coordinate system defined by the eigenvectors.<br />
+   After this step, the covariance matrix of the transformed data becomes diagonal, meaning the new features are uncorrelated.</p>
+</li>
+<li>
+<p><strong>Select principal components</strong><br />
+   Finally, we can choose just the top few components (those corresponding to the largest eigenvalues), effectively compressing the data while preserving most of its variance.</p>
+</li>
+</ol>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2831')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the difference between a model-driven and a data-driven approach?</span>
-    </div>
-    <div class="qa-answer" id="qa-2831">
-        A model-driven approach uses a physical understanding of a problem to create a model (e.g., physics), whereas a data-driven approach uses the data itself as the primary source to construct a model (e.g., machine learning). (Page 7)
-    </div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.1.1: Compute eigenvalues and eigenvectors</h3>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2870')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the three components of the expected mean squared error in the bias-variance decomposition?</span>
-    </div>
-    <div class="qa-answer" id="qa-2870">
-        Bias, variance, and irreducible error. (Page 8)
-    </div>
+<div class="markdown-cell">
+<p>Write a function <code>compute_eigen(X)</code> which computes the eigenvalues and eigenvectors of the covariance matrix of some toy dataset <code>X</code>. The dataset is a matrix of shape ($N\times M$), where $N$ denotes the number of data samples and $M$ the dimensionality of the features. The function should return a vector of length $M$ containing the eigenvalues and a matrix of shape ($M\times M$) containing the corresponding eigenvectors.</p>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4219')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the main takeaway from the "garbage in, garbage out" principle in machine learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-4219">
-        The quality and choice of features in your dataset are crucial; machine learning models cannot fix a dataset with uninformative or "crappy" data. (Page 12)
-    </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# enter your code here
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3420')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a parametric approach in machine learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-3420">
-        It is an approach where the model is defined by a set of trainable parameters $\theta$, commonly written as $f_{\theta}(x)$. (Page 13)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# generate data
+X = ex11_generate_data()
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3428')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does the K-Nearest Neighbours (KNN) algorithm classify a new data point?</span>
-    </div>
-    <div class="qa-answer" id="qa-3428">
-        It looks at the 'k' closest data points (neighbours) in the training set and assigns the new point the majority class of those neighbours. (Page 15)
-    </div>
+# compute eigenvalues and eigenvectors
+eigvals, eigvecs = compute_eigen(X)
+
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9558')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is KNN considered a "memory-based" or "non-parametric" method?</span>
-    </div>
-    <div class="qa-answer" id="qa-9558">
-        Because it does not learn an explicit model with parameters; instead, it stores all training instances in memory to make predictions. (Page 16)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1437')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a hyperparameter?</span>
-    </div>
-    <div class="qa-answer" id="qa-1437">
-        A hyperparameter is a configuration parameter that is set before the training process begins and is not learned from the data (e.g., the value of 'k' in KNN). (Page 17)
-    </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+eigvals
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1203')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the effect of increasing the value of 'k' in KNN?</span>
-    </div>
-    <div class="qa-answer" id="qa-1203">
-        Increasing 'k' generally leads to a smoother decision boundary, which makes the model more robust to noise but potentially less able to capture local patterns. (Page 18)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7421')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the mathematical formula for a simple linear classifier?</span>
-    </div>
-    <div class="qa-answer" id="qa-7421">
-        The classifier calculates a score using the function $f(x, w) = wx + b$. (Page 20)
-    </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+eigvecs
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2296')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In logistic regression, what function is used to map the linear output score to a probability between 0 and 1?</span>
-    </div>
-    <div class="qa-answer" id="qa-2296">
-        The logistic function, also known as the sigmoid function: $\sigma(z) = \frac{1}{1 + e^{-z}}$. (Page 22)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Run this code
+X = ex11_generate_data()
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7579')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the binary cross-entropy loss function used for?</span>
-    </div>
-    <div class="qa-answer" id="qa-7579">
-        It measures the error in a binary classification model, penalizing it for making wrong predictions with high confidence. (Page 22)
-    </div>
+# compute eigenvalues and eigenvectors
+eigvals, eigvecs = compute_eigen(X)
+
+# plot data
+plt.figure(figsize=(5,5))
+plt.scatter(X[:,0], X[:,1], alpha=0.2)
+plot_eigen(np.mean(X, axis=0), eigvals, eigvecs, plt.gca(), width=0.1, color="r")
+plt.axis("equal")
+plt.grid()
+
+# print eigenvalues and eigenvectors
+eigvals, eigvecs
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-827')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What defines the decision boundary in a logistic regression classifier?</span>
-    </div>
-    <div class="qa-answer" id="qa-827">
-        The decision boundary is the line or hyperplane where the input to the sigmoid function is zero ($w^{*}x + b = 0$), corresponding to a predicted probability of 0.5. (Page 23)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5225')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">For multi-class classification, what function generalizes the sigmoid and what does it do?</span>
-    </div>
-    <div class="qa-answer" id="qa-5225">
-        The softmax function. It takes a vector of raw scores (logits) and transforms them into a probability distribution where all values are between 0 and 1 and sum to 1. (Page 24)
-    </div>
+<div class="markdown-cell">
+<p>Have a look at the computed eigenvalues, eigenvectors and the visualization and answer the questions below:
+- In what direction does the first eigenvector point?
+- How can the eigenvalue be interpreted?</p>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1533')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the three main types of nodes in a decision tree?</span>
-    </div>
-    <div class="qa-answer" id="qa-1533">
-        The root node (the starting point), internal (split) nodes (where decisions are made), and terminal (leaf) nodes (the final predictions). (Page 29)
-    </div>
+<div class="markdown-cell">
+<p>Answer: The first eigenvector points in the direction of largest variance. The eigenvalues correspond to the variances along the directions of the eigenvectors</p>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7655')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is randomized node optimization in the context of training decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-7655">
-        It is a technique where, for each node, a random subset of possible split parameters is evaluated, and the best one is chosen, rather than searching through all possibilities. (Page 34)
-    </div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.1.2: Data transformation</h3>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8418')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is Information Gain and how is it used in decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-8418">
-        Information Gain is a metric used to choose the best split at a node. It measures the reduction in entropy (or increase in purity) achieved by splitting the data. The split with the highest information gain is chosen. (Page 35)
-    </div>
+<div class="markdown-cell">
+<p>Write a function <code>transform_PCA(X, mean, eigvecs)</code> which translates some dataset <code>X</code> to be centered in the origin, and rotates it, such that its new covariance matrix is diagonal. $X$ is of shape ($N\times M$), where $N$ denotes the number of data samples and $M$ the dimensionality of the features. The function should return the transformed dataset of shape ($N\times M$). Also create the function <code>inversetransform_PCA(X, mean, eigvecs)</code> which performs the inverse transform.</p>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+#// BEGIN_TODO Transform data to PCA space
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4749')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the formula for Shannon's entropy?</span>
-    </div>
-    <div class="qa-answer" id="qa-4749">
-        The entropy of a set $S$ is calculated as $H(S) = -\sum_{c \in \mathcal{C}} p_c \log p_c$, where $p_c$ is the fraction of items in class $c$. (Page 35)
-    </div>
+
+
+#// END_TODO 
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2862')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the common stopping criteria for growing a decision tree?</span>
-    </div>
-    <div class="qa-answer" id="qa-2862">
-        The process stops when a branch reaches a predefined maximum depth, a total node limit is reached, or a node contains samples from only one class. (Page 44)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+#// BEGIN_TODO Transform data back from PCA space
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8680')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are two pros and two cons of decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-8680">
-        Pros: They are easy to interpret and fast. Cons: They have relatively low predictive power and high variance (tendency to overfit). (Page 51)
-    </div>
+
+    
+#// END_TODO
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9923')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the core idea behind a Random Forest?</span>
-    </div>
-    <div class="qa-answer" id="qa-9923">
-        A Random Forest combines a large number of diverse, "weak" decision trees into a single, "strong" learner to improve predictive accuracy and control overfitting. (Page 54)
-    </div>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Run this code
+m = np.mean(X, axis=0)
+eigvals, eigvecs = compute_eigen(X)
+Y = transform_PCA(X, m, eigvecs)
+Z = inversetransform_PCA(Y, m, eigvecs)
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2597')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the two primary methods for introducing randomness into a Random Forest?</span>
-    </div>
-    <div class="qa-answer" id="qa-2597">
-        Bagging (training each tree on a random subset of data) and Randomized Node Optimization (considering only a random subset of features/splits at each node). (Page 55)
-    </div>
+# plot transformed data
+fig, ax = plt.subplots(ncols=2, figsize=(10,5))
+ax[0].scatter(Y[:,0], Y[:,1], alpha=0.2)
+eigvalsY, eigvecsY = compute_eigen(Y)
+plot_eigen(np.mean(Y, axis=0), eigvalsY, eigvecsY, ax[0], width=0.1, color="r")
+ax[1].scatter(Z[:,0], Z[:,1], alpha=0.2)
+eigvalsZ, eigvecsZ = compute_eigen(Z)
+plot_eigen(np.mean(Z, axis=0), eigvalsZ, eigvecsZ, ax[1], width=0.1, color="r")
+ax[0].axis("equal"), ax[1].axis("equal")
+ax[0].grid(), ax[1].grid();
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3620')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does a Random Forest make a final prediction for classification?</span>
-    </div>
-    <div class="qa-answer" id="qa-3620">
-        It averages the probabilistic predictions from all individual trees in the forest. (Page 59)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-734')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In a Random Forest, what is the effect of increasing tree depth (D) and decreasing the randomness parameter ($\rho$)?</span>
-    </div>
-    <div class="qa-answer" id="qa-734">
-        Increasing depth allows for more complex models that can overfit. Decreasing $\rho$ increases randomness, making trees more diverse, which typically reduces overfitting and creates smoother decision boundaries. (Pages 61, 63)
-    </div>
+<div class="markdown-cell">
+<p>So far PCA has only been discussed for a toy example. Let's now apply it to high-dimensional data. We will load a dataset containing 400 images of faces. These grayscale images are of size (64 $\times$ 64) and therefore contain 4096 pixels. In order to process the images, they have been flattened into vectors, which are appended to create a matrix containing 400 images. Below we have plotted the first 100 images:</p>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# run this code
+X = ex13_generate_data()
+plot_faces(X)
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.1.3: Principal components analysis</h3>
+<p>Compute the eigenvalues and vectors of the faces dataset. Plot the first 350 eigenvalues with both a normal as log-scaling on the y-axis.</p>
+<blockquote>
+<p>Note: Since the dataset only contains 400 images, the covariance matrix of size (4096 $\times$ 4096) is not positive definite (although it should be in theory). Therefore the eigenvalues &gt; 400 are basically useless, however, they are still computed as imaginary quantities. You can plot the real or absolute values of the eigenvalues.</p>
+</blockquote>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+#// BEGIN_TODO Plot eigenvalues
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7323')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is it beneficial for a model's prediction confidence to correlate with its accuracy?</span>
-    </div>
-    <div class="qa-answer" id="qa-7323">
-        It makes the model's output more reliable. High-confidence predictions can be trusted more, while low-confidence ones can be flagged for human review. (Page 67)
-    </div>
+
+
+#// END_TODO 
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<p>Based on the created plots, what do you observe? How could this be useful for data compression?</p>
+</div>
+<div class="markdown-cell">
+<p><code>#// BEGIN_TODO  What do you observe?</code></p>
+<p><code>#// END_TODO</code></p>
+</div>
+<div class="markdown-cell">
+<p>Now we will use PCA for data compression. Instead of performing the transform to the PCA space with the entire eigenvector matrix with shape (4096 $\times$ 4096), we only use the $K$ eigenvectors corresponding with the $K$ largest eigenvalues. </p>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.1.4: Data compression</h3>
+<p>Compress the faces dataset using PCA in a matrix of shape (400 $\times$ $K$) and then decompress the data and plot the faces using the <code>plot_faces()</code> function. </p>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+#// BEGIN_TODO Data compression
+
+
+
+#// END_TODO
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<p>Analyze the results. What do you observe if you change $K$?</p>
+</div>
+<div class="markdown-cell">
+<p><code>What do you observe?</code></p>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.1.5: PCA with Sklearn</h3>
+<p>Compress the faces dataset using PCA class from sklearn library</p>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+</div>
+<div class="markdown-cell">
+<h2>Part 3.2: Independent component analysis</h2>
+</div>
+<div class="markdown-cell">
+<p>Another approach of finding the most important components in a dataset is independent component analysis (ICA). Below you will use it to analyze a toy data set.</p>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.2.1: Limitations PCA</h3>
+<p>Have a look at the dataset below. Would PCA be a good approach for finding the components of highest variance? Please motivate your answer.</p>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+X = ex21_generate_data()
+plt.scatter(X[:,0], X[:,1], alpha=0.1)
+plt.grid(True)
+plt.axis("equal");
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<p><code>#// BEGIN_TODO Limitations PCA</code></p>
+<p><code>#// END_TODO</code></p>
+</div>
+<div class="markdown-cell">
+<blockquote>
+<p>Note: From this moment onwards you can use the <code>FastICA</code> functions from <code>sklearn</code>.</p>
+</blockquote>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.2.2: PCA versus ICA</h3>
+<p>Use the <code>PCA</code> and <code>FastICA</code> functions from <code>sklearn</code> to create the objects <code>pca_object</code> and <code>ica_object</code>, each with two components. Fit these objects to the dataset and transform the dataset. Save the transformed dataset into the variables <code>data_transformed_pca</code> and <code>data_transformed_ica</code>.</p>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+#// BEGIN_TODO PCA and ICA
+# create objects
+
+
+# fit and transform data
+
+#// END_TODO
+</code></pre>
+</div>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# run this code
+_, ax = plt.subplots(ncols=3, figsize=(15,5))
+ax[0].scatter(X[:,0], X[:,1], alpha=0.1)
+ax[1].scatter(data_transformed_pca[:,0], data_transformed_pca[:,1], alpha=0.1)
+ax[2].scatter(data_transformed_ica[:,0], data_transformed_ica[:,1], alpha=0.1)
+plot_pca(ax[0], pca_object, np.mean(X, axis=0))
+plot_ica(ax[0], ica_object, np.mean(X, axis=0))
+ax[0].grid(True), ax[1].grid(True), ax[2].grid(True)
+ax[0].axis('equal'), ax[1].axis('equal'), ax[2].axis('equal')
+ax[0].set_title("original data"), ax[1].set_title("transformed data (PCA)"), ax[2].set_title("transformed data (ICA)");
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<p>Run your code a couple of times. What do you observe? Which method works best for this data set?</p>
+</div>
+<div class="markdown-cell">
+<p><code>#// BEGIN_TODO PCA versus ICA</code></p>
+<p><code>#// END_TODO</code></p>
+</div>
+<div class="markdown-cell">
+<h1>Wrapper and Filter feature selection methods</h1>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
+<h3>Exercise 3.3.1: MI feature selection</h3>
+<p><strong>run the code and investigate the optimal number of features needed for you the model, what is an optimal trade off? is this method model dependent or model independent, is it filter method or wrapper method</strong></p>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+from sklearn.feature_selection import mutual_info_classif
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+
+# ----------------------------------------------------------------------------
+# Step 0: Load Breast Cancer Dataset
+# ----------------------------------------------------------------------------
+data = load_breast_cancer()
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = pd.Series(data.target)
+
+# Train/Test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+
+# ----------------------------------------------------------------------------
+# Step 0.5: Scale Features (Very Important for Logistic Regression)
+# ----------------------------------------------------------------------------
+scaler = StandardScaler()
+X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train), columns=X_train.columns)
+X_test_scaled = pd.DataFrame(scaler.transform(X_test), columns=X_test.columns)
+
+# ----------------------------------------------------------------------------
+# Step 1: Compute Mutual Information Scores
+# ----------------------------------------------------------------------------
+mi_scores = mutual_info_classif(X_train_scaled, y_train, random_state=42)
+feature_ranking = np.argsort(mi_scores)[::-1]
+
+# ----------------------------------------------------------------------------
+# Step 2: Evaluate Logistic Regression with Top-k Features
+# ----------------------------------------------------------------------------
+total_features = X_train.shape[1]
+accuracy_list = []
+
+for k in range(1, total_features + 1):
+    top_k_features = X_train_scaled.columns[feature_ranking[:k]]
+    model = LogisticRegression(max_iter=5000, random_state=42)
+    model.fit(X_train_scaled[top_k_features], y_train)
+    y_pred = model.predict(X_test_scaled[top_k_features])
+    accuracy_list.append(accuracy_score(y_test, y_pred))
+
+# ----------------------------------------------------------------------------
+# Step 3: Plot Accuracy vs. Number of Features
+# ----------------------------------------------------------------------------
+plt.figure(figsize=(8,5))
+sns.lineplot(
+    x=range(1, total_features + 1),
+    y=accuracy_list,
+    marker="o",
+    color="purple"
+)
+plt.xlabel("Number of Top-k Features (ranked by MI)")
+plt.ylabel("Accuracy")
+plt.title("Logistic Regression Accuracy vs. Top-k Features (Breast Cancer Dataset)")
+plt.xticks(range(1, total_features + 1, 5))
+plt.grid(True)
+plt.show()
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<h3>Exercise 3.3.2: Recursive feature elimination feature selection</h3>
+<p><strong>run the following code using the same dataset but with RFE techniuqes for feature selection, how many features would you select, how is it different from MI feature selection, is it model dependent or model independent, is it filter or wrapper method?</strong></p>
+</div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+from sklearn.datasets import load_breast_cancer
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.feature_selection import RFE
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score
+import pandas as pd
+
+# ----------------------------------------------------------------------------
+# Step 0: Load Breast Cancer Dataset
+# ----------------------------------------------------------------------------
+data = load_breast_cancer()
+X = pd.DataFrame(data.data, columns=data.feature_names)
+y = pd.Series(data.target)
+
+# Train/Test split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42, stratify=y
+)
+
+# ----------------------------------------------------------------------------
+# Step 0.5: Scale Features (Important for Logistic Regression)
+# ----------------------------------------------------------------------------
+scaler = StandardScaler()
+X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train), columns=X_train.columns)
+X_test_scaled = pd.DataFrame(scaler.transform(X_test), columns=X_test.columns)
+
+# ----------------------------------------------------------------------------
+# Step 1: Recursive Feature Elimination (RFE)
+# ----------------------------------------------------------------------------
+total_features = X_train_scaled.shape[1]
+rfe_accuracy_list = []
+
+for k in range(1, total_features + 1):
+    # Base estimator: Logistic Regression
+    base_model = LogisticRegression(max_iter=5000, random_state=42)
+    
+    # Perform RFE to select top-k features
+    selector = RFE(estimator=base_model, n_features_to_select=k, step=1)
+    selector.fit(X_train_scaled, y_train)
+    
+    # Select features chosen by RFE
+    selected_features = X_train_scaled.columns[selector.support_]
+    
+    # Retrain logistic regression only on the selected features
+    base_model.fit(X_train_scaled[selected_features], y_train)
+    
+    # Evaluate accuracy on the test set
+    y_pred = base_model.predict(X_test_scaled[selected_features])
+    rfe_accuracy_list.append(accuracy_score(y_test, y_pred))
+
+# ----------------------------------------------------------------------------
+# Step 2: Plot Accuracy vs. Number of Selected Features
+# ----------------------------------------------------------------------------
+plt.figure(figsize=(8,5))
+sns.lineplot(
+    x=range(1, total_features + 1),
+    y=rfe_accuracy_list,
+    marker="o",
+    color="green"
+)
+plt.xlabel("Number of Selected Features (RFE)")
+plt.ylabel("Accuracy")
+plt.title("Logistic Regression Accuracy vs. Selected Features (RFE)")
+plt.xticks(range(1, total_features + 1, 5))
+plt.grid(True)
+plt.show()
+</code></pre>
+</div>
+</div>
+<div class="markdown-cell">
+<h1>the end</h1>
+</div>
+<div class="markdown-cell">
+<h2>---</h2>
 </div>
                 </div>
             </div>

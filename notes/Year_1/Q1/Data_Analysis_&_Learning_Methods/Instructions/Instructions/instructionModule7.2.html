@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Supervised Learning - MSc AI & Engineering Systems Notes">
-    <title>Supervised Learning - MSc AIES</title>
+    <meta name="description" content="Instructionmodule7.2 - MSc AI & Engineering Systems Notes">
+    <title>Instructionmodule7.2 - MSc AIES</title>
     <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
@@ -701,7 +701,7 @@
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Notes</span>
+                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Instructions</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -725,285 +725,284 @@
                 </div>
                 
                 <div class="note-content">
-                    <h1>Data Analysis &amp; Learning Methods - Lecture 5</h1>
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3262')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is supervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-3262">
-        It is a type of machine learning where the model learns from data that includes labels or targets. (Page 4)
-    </div>
+                    <div class="markdown-cell">
+<h1>Naive Bayes Classification</h1>
+<h2>Theory</h2>
+<p>Naive Bayes is a <strong>probabilistic classifier</strong> based on <strong>Bayes' theorem</strong> with a strong assumption that features are <strong>conditionally independent</strong> given the class. Despite this "naive" assumption, it often performs surprisingly well in practice.</p>
+<p>Bayes' theorem is given by:</p>
+<p>$P(C|X) = \frac{P(X|C) \cdot P(C)}{P(X)}$</p>
+<p>Where:<br />
+- $P(C|X)$ is the <strong>posterior probability</strong> of class $C$ given features $X$.<br />
+- $P(X|C)$ is the <strong>likelihood</strong> of observing features $X$ given class $C$.<br />
+- $P(C)$ is the <strong>prior probability</strong> of class $C$.<br />
+- $P(X)$ is the <strong>evidence</strong>, i.e., probability of observing $X$ (constant across classes).</p>
+<h3>Gaussian Naive Bayes</h3>
+<p>When features are continuous, we assume each feature follows a <strong>Gaussian (Normal) distribution</strong> for each class. The probability density function is:</p>
+<p>$P(x_i | C) = \frac{1}{\sqrt{2 \pi \sigma_C^2}} \exp\left( - \frac{(x_i - \mu_C)^2}{2 \sigma_C^2} \right)$</p>
+<p>Where:<br />
+- $x_i$ is the feature value.<br />
+- $\mu_C$ is the mean of the feature for class $C$.<br />
+- $\sigma_C^2$ is the variance of the feature for class $C$.</p>
+<p>The <strong>class with the highest posterior probability</strong> is assigned to the sample:</p>
+<p>$\hat{C} = \arg\max_C P(C|X) = \arg\max_C P(C) \prod_i P(x_i|C)$</p>
+<h3>Steps in Gaussian Naive Bayes:</h3>
+<ol>
+<li><strong>Separate the training data</strong> by class.  </li>
+<li><strong>Compute mean and variance</strong> for each feature per class.  </li>
+<li><strong>Calculate likelihoods</strong> using the Gaussian formula.  </li>
+<li><strong>Multiply likelihoods with class prior</strong> to get class probabilities.  </li>
+<li><strong>Predict the class</strong> with the highest posterior probability.</li>
+</ol>
+<p><strong>Key Assumption:</strong> Features are conditionally independent given the class.  </p>
+<p><strong>Advantages:</strong><br />
+- Simple, fast, and effective.<br />
+- Works well even with small datasets.  </p>
+<p><strong>Limitations:</strong><br />
+- Independence assumption may not hold in real data.<br />
+- Sensitive to irrelevant features.</p>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5589')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the difference between classification and regression in supervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-5589">
-        Classification predicts a categorical label (e.g., 'lemon' or 'orange'), while regression predicts a continuous, real value (e.g., the price of a house). (Page 4)
-    </div>
+<div class="markdown-cell">
+<h2>----</h2>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8434')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is unsupervised learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-8434">
-        It's a type of machine learning that works with data that has no labels, aiming to find patterns like clusters or simpler representations. (Page 4)
-    </div>
+<div class="markdown-cell">
+<h1>Gaussian Naive Bayes Step-by-Step Example</h1>
+<p>We illustrate <strong>Gaussian Naive Bayes</strong> on a toy dataset with <strong>continuous features</strong> and <strong>binary classes</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Feature 1 (X1)</th>
+<th>Feature 2 (X2)</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.0</td>
+<td>2.0</td>
+<td>A</td>
+</tr>
+<tr>
+<td>1.2</td>
+<td>1.8</td>
+<td>A</td>
+</tr>
+<tr>
+<td>2.0</td>
+<td>3.0</td>
+<td>B</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>3.2</td>
+<td>B</td>
+</tr>
+</tbody>
+</table>
+<p>We want to <strong>predict the class</strong> for a new sample:<br />
+<strong>X = [1.1, 2.1]</strong></p>
+<hr />
+<h2>Step 0: Outline</h2>
+<ol>
+<li>Compute <strong>prior probabilities</strong> for each class.  </li>
+<li>Compute <strong>likelihoods</strong> for each feature (for Gaussian, use mean &amp; variance).  </li>
+<li>Multiply likelihoods and prior to get <strong>unnormalized posterior</strong>.  </li>
+<li><strong>Normalize</strong> posteriors so they sum to 1.  </li>
+<li>Choose the class with the <strong>highest posterior probability</strong>.</li>
+</ol>
+<hr />
+<h2>Step 1: Compute class priors</h2>
+<p>Count of each class:</p>
+<ul>
+<li>Class A: 2  </li>
+<li>Class B: 2  </li>
+<li>Total: 4  </li>
+</ul>
+<p>$$
+P(A) = \frac{2}{4} = 0.5, \quad P(B) = \frac{2}{4} = 0.5
+$$</p>
+<hr />
+<h2>Step 2: Compute mean and variance for each feature per class</h2>
+<p><strong>Class A:</strong><br />
+- Feature 1: $\mu_1 = 1.1$, $\sigma_1^2 = 0.01$<br />
+- Feature 2: $\mu_2 = 1.9$, $\sigma_2^2 = 0.01$  </p>
+<p><strong>Class B:</strong><br />
+- Feature 1: $\mu_1 = 2.1$, $\sigma_1^2 = 0.01$<br />
+- Feature 2: $\mu_2 = 3.1$, $\sigma_2^2 = 0.01$  </p>
+<hr />
+<h2>Step 3: Compute Gaussian probability density for each feature</h2>
+<p>Gaussian PDF formula:  </p>
+<p>$$
+P(x_i \mid C) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(x_i - \mu)^2}{2\sigma^2}\right)
+$$</p>
+<h3>Class A</h3>
+<ul>
+<li>Feature 1: $P(X_1=1.1 \mid A) \approx 3.989$  </li>
+<li>Feature 2: $P(X_2=2.1 \mid A) \approx 0.054$  </li>
+</ul>
+<h3>Class B</h3>
+<ul>
+<li>Feature 1: $P(X_1=1.1 \mid B) \approx 1.87 \cdot 10^{-11}$  </li>
+<li>Feature 2: $P(X_2=2.1 \mid B) \approx 1.87 \cdot 10^{-11}$  </li>
+</ul>
+<hr />
+<h2>Step 4: Compute unnormalized posterior (likelihood × prior)</h2>
+<p>$$
+\tilde{P}(A \mid X) = P(A) \cdot P(X_1 \mid A) \cdot P(X_2 \mid A) \approx 0.5 \cdot 3.989 \cdot 0.054 \approx 0.108
+$$</p>
+<p>$$
+\tilde{P}(B \mid X) = P(B) \cdot P(X_1 \mid B) \cdot P(X_2 \mid B) \approx 0.5 \cdot (1.87 \cdot 10^{-11})^2 \approx 1.75 \cdot 10^{-22}
+$$</p>
+<hr />
+<h2>Step 5: Normalize to get actual posterior probabilities</h2>
+<p>Normalization ensures the probabilities sum to 1:</p>
+<p>$$
+P(A \mid X) = \frac{\tilde{P}(A \mid X)}{\tilde{P}(A \mid X) + \tilde{P}(B \mid X)} \approx \frac{0.108}{0.108 + 1.75 \cdot 10^{-22}} \approx 1.0
+$$</p>
+<p>$$
+P(B \mid X) = \frac{\tilde{P}(B \mid X)}{\tilde{P}(A \mid X) + \tilde{P}(B \mid X)} \approx \frac{1.75 \cdot 10^{-22}}{0.108 + 1.75 \cdot 10^{-22}} \approx 0.0
+$$</p>
+<hr />
+<h2>Step 6: Predict class</h2>
+<p>Since $P(A \mid X) &gt; P(B \mid X)$, we <strong>predict class = A</strong> for the sample $X=[1.1,2.1]$.</p>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-287')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why might a simple heuristic (rule-based) approach fail for complex tasks?</span>
-    </div>
-    <div class="qa-answer" id="qa-287">
-        Because the variation in data can be enormous, and patterns are often too complex or exist in high-dimensional spaces for humans to define effective rules. (Page 6)
-    </div>
+<div class="markdown-cell">
+<h2>-----</h2>
 </div>
+<div class="markdown-cell">
+<h2>Exercise: Implement Gaussian Naive Bayes for the Iris Dataset</h2>
+<p>In this exercise, you will manually implement Gaussian Naive Bayes using the Iris dataset. You will <strong>NOT</strong> use sklearn's Naive Bayes classifier; instead, you will follow the step-by-step process of computing probabilities, likelihoods, and predictions.</p>
+<p>You can use the following Python modules:</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
+</code></pre></div>
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2831')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the difference between a model-driven and a data-driven approach?</span>
-    </div>
-    <div class="qa-answer" id="qa-2831">
-        A model-driven approach uses a physical understanding of a problem to create a model (e.g., physics), whereas a data-driven approach uses the data itself as the primary source to construct a model (e.g., machine learning). (Page 7)
-    </div>
+<hr />
+<h2>Step 0: Load the dataset</h2>
+<ol>
+<li>Load the Iris dataset using <code>load_iris()</code></li>
+<li>Store the features in <code>X</code> and the target labels in <code>y</code>  </li>
+<li>Split the dataset into train and test sets using <code>train_test_split()</code> (use <code>test_size=0.3</code> and <code>random_state=42</code>)</li>
+</ol>
+<p><strong>Hint:</strong> Use <code>iris.data</code> for features and <code>iris.target</code> for labels</p>
+<hr />
+<h2>Step 1: Create the training function</h2>
+<p>Create a function <code>train_naive_bayes(X_train, y_train)</code> that:
+- Gets unique classes using <code>np.unique(y_train)</code>
+- For each class, finds all samples belonging to that class
+- Calculates and stores: mean, variance, and prior probability</p>
+<p><strong>Hints:</strong>
+- Use <code>X_train[y_train == cls]</code> to get samples for a specific class
+- Use <code>np.mean(class_data, axis=0)</code> for mean of each feature
+- Use <code>np.var(class_data, axis=0)</code> for variance of each feature
+- Prior = number of samples in class / total samples</p>
+<p><strong>Return:</strong> A dictionary {} with statistics for each class</p>
+<hr />
+<h2>Step 2: Create the prediction function</h2>
+<p>Create a function <code>predict_sample(x, stats)</code> that:
+- Loops through each class in the statistics
+- Calculates likelihood using the Gaussian formula
+- Multiplies likelihood by prior probability
+- Returns the class with highest probability</p>
+<p><strong>Gaussian Formula:</strong></p>
+<div class="codehilite"><pre><span></span><code><span class="n">likelihood</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">variance</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Hints:</strong>
+- Use <code>np.prod()</code> to multiply likelihoods of all features
+- Keep track of best probability and best class
+- Return the class with the highest probability</p>
+<hr />
+<h2>Step 3: Train your model</h2>
+<ul>
+<li>Call <code>train_naive_bayes(X_train, y_train)</code> to get model statistics</li>
+<li>Store the result in a variable called <code>model</code></li>
+</ul>
+<hr />
+<h2>Step 4: Make predictions</h2>
+<ul>
+<li>Use list comprehension to predict each sample in the test set</li>
+<li><code>predictions = [predict_sample(x, model) for x in X_test]</code></li>
+</ul>
+<hr />
+<h2>Step 5: Calculate accuracy</h2>
+<ul>
+<li>Use <code>np.mean(predictions == y_test)</code> to calculate accuracy</li>
+<li>Print the result</li>
+</ul>
+<hr />
+<h2>Step 6: Print model details</h2>
+<p>Print the statistics for each class to understand what the model learned:
+- Prior probability
+- Mean of each feature<br />
+- Variance of each feature</p>
+<hr />
+<h2>Expected Output Structure:</h2>
+<div class="codehilite"><pre><span></span><code><span class="n">Accuracy</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XX</span>
+
+<span class="n">Model</span><span class="w"> </span><span class="n">Statistics</span><span class="o">:</span>
+<span class="n">Class</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"> </span><span class="n">Prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XXX</span>
+<span class="w">  </span><span class="n">Mean</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
+<span class="w">  </span><span class="n">Variance</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
+
+<span class="n">Class</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="w"> </span><span class="n">Prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XXX</span>
+<span class="w">  </span><span class="n">Mean</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span><span class="w">  </span>
+<span class="w">  </span><span class="n">Variance</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
+
+<span class="n">Class</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"> </span><span class="n">Prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XXX</span>
+<span class="w">  </span><span class="n">Mean</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
+<span class="w">  </span><span class="n">Variance</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
+</code></pre></div>
+
+<hr />
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2870')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the three components of the expected mean squared error in the bias-variance decomposition?</span>
-    </div>
-    <div class="qa-answer" id="qa-2870">
-        Bias, variance, and irreducible error. (Page 8)
-    </div>
+
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4219')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the main takeaway from the "garbage in, garbage out" principle in machine learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-4219">
-        The quality and choice of features in your dataset are crucial; machine learning models cannot fix a dataset with uninformative or "crappy" data. (Page 12)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3420')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a parametric approach in machine learning?</span>
-    </div>
-    <div class="qa-answer" id="qa-3420">
-        It is an approach where the model is defined by a set of trainable parameters $\theta$, commonly written as $f_{\theta}(x)$. (Page 13)
-    </div>
+<div class="markdown-cell">
+<h1>A simplified NV implementation using Sklearn</h1>
 </div>
+<div class="code-cell">
+<div class="input-area">
+<pre><code class="language-python">
+# Import libraries
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.naive_bayes import GaussianNB
+from sklearn.metrics import accuracy_score, classification_report
 
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3428')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does the K-Nearest Neighbours (KNN) algorithm classify a new data point?</span>
-    </div>
-    <div class="qa-answer" id="qa-3428">
-        It looks at the 'k' closest data points (neighbours) in the training set and assigns the new point the majority class of those neighbours. (Page 15)
-    </div>
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data  # features
+y = iris.target  # target labels
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Create a Gaussian Naive Bayes classifier
+nb_model = GaussianNB()
+
+# Train the model
+nb_model.fit(X_train, y_train)
+
+# Make predictions
+y_pred = nb_model.predict(X_test)
+
+# Evaluate the model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy:.2f}")
+print("Classification Report:")
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+</code></pre>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9558')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is KNN considered a "memory-based" or "non-parametric" method?</span>
-    </div>
-    <div class="qa-answer" id="qa-9558">
-        Because it does not learn an explicit model with parameters; instead, it stores all training instances in memory to make predictions. (Page 16)
-    </div>
 </div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1437')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is a hyperparameter?</span>
-    </div>
-    <div class="qa-answer" id="qa-1437">
-        A hyperparameter is a configuration parameter that is set before the training process begins and is not learned from the data (e.g., the value of 'k' in KNN). (Page 17)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1203')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the effect of increasing the value of 'k' in KNN?</span>
-    </div>
-    <div class="qa-answer" id="qa-1203">
-        Increasing 'k' generally leads to a smoother decision boundary, which makes the model more robust to noise but potentially less able to capture local patterns. (Page 18)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7421')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the mathematical formula for a simple linear classifier?</span>
-    </div>
-    <div class="qa-answer" id="qa-7421">
-        The classifier calculates a score using the function $f(x, w) = wx + b$. (Page 20)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2296')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In logistic regression, what function is used to map the linear output score to a probability between 0 and 1?</span>
-    </div>
-    <div class="qa-answer" id="qa-2296">
-        The logistic function, also known as the sigmoid function: $\sigma(z) = \frac{1}{1 + e^{-z}}$. (Page 22)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7579')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the binary cross-entropy loss function used for?</span>
-    </div>
-    <div class="qa-answer" id="qa-7579">
-        It measures the error in a binary classification model, penalizing it for making wrong predictions with high confidence. (Page 22)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-827')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What defines the decision boundary in a logistic regression classifier?</span>
-    </div>
-    <div class="qa-answer" id="qa-827">
-        The decision boundary is the line or hyperplane where the input to the sigmoid function is zero ($w^{*}x + b = 0$), corresponding to a predicted probability of 0.5. (Page 23)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-5225')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">For multi-class classification, what function generalizes the sigmoid and what does it do?</span>
-    </div>
-    <div class="qa-answer" id="qa-5225">
-        The softmax function. It takes a vector of raw scores (logits) and transforms them into a probability distribution where all values are between 0 and 1 and sum to 1. (Page 24)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1533')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the three main types of nodes in a decision tree?</span>
-    </div>
-    <div class="qa-answer" id="qa-1533">
-        The root node (the starting point), internal (split) nodes (where decisions are made), and terminal (leaf) nodes (the final predictions). (Page 29)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7655')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is randomized node optimization in the context of training decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-7655">
-        It is a technique where, for each node, a random subset of possible split parameters is evaluated, and the best one is chosen, rather than searching through all possibilities. (Page 34)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8418')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is Information Gain and how is it used in decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-8418">
-        Information Gain is a metric used to choose the best split at a node. It measures the reduction in entropy (or increase in purity) achieved by splitting the data. The split with the highest information gain is chosen. (Page 35)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4749')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the formula for Shannon's entropy?</span>
-    </div>
-    <div class="qa-answer" id="qa-4749">
-        The entropy of a set $S$ is calculated as $H(S) = -\sum_{c \in \mathcal{C}} p_c \log p_c$, where $p_c$ is the fraction of items in class $c$. (Page 35)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2862')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the common stopping criteria for growing a decision tree?</span>
-    </div>
-    <div class="qa-answer" id="qa-2862">
-        The process stops when a branch reaches a predefined maximum depth, a total node limit is reached, or a node contains samples from only one class. (Page 44)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-8680')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are two pros and two cons of decision trees?</span>
-    </div>
-    <div class="qa-answer" id="qa-8680">
-        Pros: They are easy to interpret and fast. Cons: They have relatively low predictive power and high variance (tendency to overfit). (Page 51)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-9923')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What is the core idea behind a Random Forest?</span>
-    </div>
-    <div class="qa-answer" id="qa-9923">
-        A Random Forest combines a large number of diverse, "weak" decision trees into a single, "strong" learner to improve predictive accuracy and control overfitting. (Page 54)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-2597')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">What are the two primary methods for introducing randomness into a Random Forest?</span>
-    </div>
-    <div class="qa-answer" id="qa-2597">
-        Bagging (training each tree on a random subset of data) and Randomized Node Optimization (considering only a random subset of features/splits at each node). (Page 55)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-3620')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">How does a Random Forest make a final prediction for classification?</span>
-    </div>
-    <div class="qa-answer" id="qa-3620">
-        It averages the probabilistic predictions from all individual trees in the forest. (Page 59)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-734')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">In a Random Forest, what is the effect of increasing tree depth (D) and decreasing the randomness parameter ($\rho$)?</span>
-    </div>
-    <div class="qa-answer" id="qa-734">
-        Increasing depth allows for more complex models that can overfit. Decreasing $\rho$ increases randomness, making trees more diverse, which typically reduces overfitting and creates smoother decision boundaries. (Pages 61, 63)
-    </div>
-</div>
-
-<div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-7323')">
-        <span class="qa-icon">▶</span>
-        <span class="qa-text">Why is it beneficial for a model's prediction confidence to correlate with its accuracy?</span>
-    </div>
-    <div class="qa-answer" id="qa-7323">
-        It makes the model's output more reliable. High-confidence predictions can be trusted more, while low-confidence ones can be flagged for human review. (Page 67)
-    </div>
+<div class="markdown-cell">
+<h1>The end</h1>
 </div>
                 </div>
             </div>

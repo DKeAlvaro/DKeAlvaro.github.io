@@ -1,14 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-7BJS149EFL');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Feature Engineering, Feature Selection, Feature Extraction - MSc AI & Engineering Systems Notes">
@@ -562,6 +554,92 @@
               border: 1px solid var(--border-color);
           }
           
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
           /* Dark mode adjustments for Jupyter cells */
           @media (prefers-color-scheme: dark) {
               .input-area {
@@ -649,51 +727,51 @@
                 <div class="note-content">
                     <h1>Data Analysis &amp; Learning Methods - Lecture 3</h1>
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4716')">
+    <div class="qa-question" onclick="toggleQA('qa-5696')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What kind of feature selection methods are there?</span>
     </div>
-    <div class="qa-answer" id="qa-4716">
+    <div class="qa-answer" id="qa-5696">
         Filter methods, wrapper methods, embedded methods.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1917')">
+    <div class="qa-question" onclick="toggleQA('qa-3766')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's feature selection?</span>
     </div>
-    <div class="qa-answer" id="qa-1917">
+    <div class="qa-answer" id="qa-3766">
         Feature selection is the process of selecting a subset of features from the original set of features.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4298')">
+    <div class="qa-question" onclick="toggleQA('qa-1562')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's an example of feature selection?</span>
     </div>
-    <div class="qa-answer" id="qa-4298">
+    <div class="qa-answer" id="qa-1562">
         Selecting the most relevant features for a given task.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-6792')">
+    <div class="qa-question" onclick="toggleQA('qa-7087')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's feature extraction?</span>
     </div>
-    <div class="qa-answer" id="qa-6792">
+    <div class="qa-answer" id="qa-7087">
         Constructing new features from existing features.
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1496')">
+    <div class="qa-question" onclick="toggleQA('qa-9542')">
         <span class="qa-icon">▶</span>
         <span class="qa-text">What's an example of feature extraction?</span>
     </div>
-    <div class="qa-answer" id="qa-1496">
+    <div class="qa-answer" id="qa-9542">
         Instead of using millions of raw pixels to recognize an image, we compute features such as: Edges, Color histograms, Texture features, etc...
     </div>
 </div>
