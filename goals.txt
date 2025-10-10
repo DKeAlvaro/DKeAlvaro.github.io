@@ -20,7 +20,7 @@ Achieved:
 
 02 October 2025
 Goals: Complete Data analysis HAR project, Poker bot
-Achieved:
+Achieved: 5/10
 
 03 October 2025
 Goals:
@@ -51,7 +51,7 @@ Goals:
 Achieved:
 
 10 October 2025
-Goals:
+Goals: Send class schedule to ASML, organize Data Analysis project, Read Pokerbot
 Achieved:
 
 11 October 2025
