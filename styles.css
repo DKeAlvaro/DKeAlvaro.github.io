@@ -1116,5 +1116,7 @@ footer {
     display: none;
     pointer-events: none;
     z-index: 1000;
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 300px;
+    word-wrap: break-word;
 }
