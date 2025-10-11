@@ -297,7 +297,14 @@
                         cell.addEventListener('click', (e) => {
                             const g = (day.goals && day.goals.trim().length) ? day.goals.trim() : 'No goals for this day.';
                             const achieved = day.achieved ? day.achieved : `${day.value}/10`;
-                            const html = `<strong>${dateStr}</strong><br>Goals: ${escapeHtml(g)}<br>Achieved: ${escapeHtml(achieved)}`;
+                            let goalsDisplay;
+                            if (g === 'No goals for this day.') {
+                                goalsDisplay = ' ' + escapeHtml(g);
+                            } else {
+                                const goalsList = g.split(',').map(goal => `<li>${escapeHtml(goal.trim())}</li>`).join('');
+                                goalsDisplay = `<ul style="margin-top: 4px; margin-bottom: 4px; padding-left: 20px;">${goalsList}</ul>`;
+                            }
+                            const html = `<strong>${dateStr}</strong><br>Goals:${goalsDisplay}Achieved: ${escapeHtml(achieved)}`;
                             showTooltipHTML(e.currentTarget, html);
                         });
                     }
