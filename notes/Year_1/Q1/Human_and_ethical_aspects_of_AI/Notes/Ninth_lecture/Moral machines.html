@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Moral Machines - MSc AI & Engineering Systems Notes">
+    <title>Moral Machines - MSc AIES</title>
+    <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../../../index.html">About</a></li>
+                <li><a href="../../../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q1 / Human_and_ethical_aspects_of_AI / Notes</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Moral machines - Lecture 9</h1>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9526')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the two main value paradigms for human-technology interaction discussed in the review?</span>
+    </div>
+    <div class="qa-answer" id="qa-9526">
+        Meaningful Human Control (MHC) and Human-Centered AI (HCAI) (Page 3).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3728')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What ideal are MHC and HCAI contrasted with?</span>
+    </div>
+    <div class="qa-answer" id="qa-3728">
+        The Technological Autonomy Ideal (TAI) (Page 3).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2220')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Technological Autonomy Ideal" (TAI) as a normative ideal?</span>
+    </div>
+    <div class="qa-answer" id="qa-2220">
+        We should strive for maximal technological autonomy in technology design (Page 5).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-908')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Human Centered AI" (HCAI) ideal, according to Shneiderman (2020)?</span>
+    </div>
+    <div class="qa-answer" id="qa-908">
+        We should strive for high automation together with high human control in technology design (Page 5).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8478')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">How does the lecture compare TAI and HCAI in terms of adaptation?</span>
+    </div>
+    <div class="qa-answer" id="qa-8478">
+        TAI is comparable to adapting human nature to AI, while HCAI is comparable to adapting AI and robots to human nature (Page 5).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1330')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Shneiderman's 2x2 framework, what are the two axes?</span>
+    </div>
+    <div class="qa-answer" id="qa-1330">
+        Human Control (High/Low) and Computer Automation (High/Low) (Page 4).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3084')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In Shneiderman's framework, what quadrant do "Pacemaker" and "Airbag" fall into?</span>
+    </div>
+    <div class="qa-answer" id="qa-3084">
+        Low Human Control and High Computer Automation, labeled "Computer Control" (Page 4).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4887')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In Shneiderman's framework, what quadrant do "Bicycle" and "Piano" fall into?</span>
+    </div>
+    <div class="qa-answer" id="qa-4887">
+        High Human Control and Low Computer Automation, labeled "Human Mastery" (Page 4).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3992')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In Shneiderman's framework, what is the ideal quadrant, labeled "Reliable, Safe & Trustworthy"?</span>
+    </div>
+    <div class="qa-answer" id="qa-3992">
+        High Human Control and High Computer Automation (Page 4).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7302')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a key practical argument against TAI mentioned by Goldenfein et al. (2020)?</span>
+    </div>
+    <div class="qa-answer" id="qa-7302">
+        TAI will require remote operators to monitor and take back tasks, creating invisible, exploitative work (Page 6).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9697')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a key practical problem with the HCAI ideal?</span>
+    </div>
+    <div class="qa-answer" id="qa-9697">
+        HCAI entails technology "handoffs," which raise questions about responsibility and liability (Page 6).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6764')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a "handoff" in human-AI interaction?</span>
+    </div>
+    <div class="qa-answer" id="qa-6764">
+        A moment at which primary control transfers from one entity to another, such as from a human to automation or vice versa (Page 6, Page 22).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4977')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Schneiderman, what three values does HCAI promote?</span>
+    </div>
+    <div class="qa-answer" id="qa-4977">
+        Reliability, Safety, and Trustworthiness (RST) (Page 7).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1410')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the lecture's critique of Schneiderman's claim that HCAI promotes RST?</span>
+    </div>
+    <div class="qa-answer" id="qa-1410">
+        It is an empirical claim that needs a clear baseline of fully automated systems for comparison; isolated cases are not sufficient proof (Page 7).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9778')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Schneiderman, what three characteristics of a system lead to human "Self-efficacy, mastery, and responsibility"?</span>
+    </div>
+    <div class="qa-answer" id="qa-9778">
+        Comprehensible, predictable, and controllable (Page 7).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6696')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What apparent counterexample to HCAI is provided using the AlphaFold program?</span>
+    </div>
+    <div class="qa-answer" id="qa-6696">
+        It generates significant risks for scientists' ability to exercise their full capacities and utilize skills they invested years in developing (Page 8).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-767')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What core value is the "Meaningful Human Control" (MHC) paradigm focused on achieving?</span>
+    </div>
+    <div class="qa-answer" id="qa-767">
+        Responsibility (Page 10).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8680')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What core value is the "Human-Centered AI" (HCAI) paradigm focused on achieving?</span>
+    </div>
+    <div class="qa-answer" id="qa-8680">
+        Trustworthiness (Page 10).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6669')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the main conclusion of Sven Nyholm's (2020) argument?</span>
+    </div>
+    <div class="qa-answer" id="qa-6669">
+        We should adapt AI and robots to human nature, or we should adapt human nature to AI and robots (Page 12).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8625')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is an example of adapting AI to human nature in "mixed traffic"?</span>
+    </div>
+    <div class="qa-answer" id="qa-8625">
+        Make self-driving cars drive like humans (Page 18).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9704')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is an example of adapting human nature to AI in "mixed traffic"?</span>
+    </div>
+    <div class="qa-answer" id="qa-9704">
+        Seek means of making humans drive more like self-driving cars (Page 18).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-269')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to van de Poel & Royakkers, what are the 4 conditions on acceptable risk?</span>
+    </div>
+    <div class="qa-answer" id="qa-269">
+        1. Do the benefits outweigh the costs? 2. Availability of alternatives 3. Fair distribution of risks and benefits 4. Informed consent (Page 16).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5175')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "task displacement" in automation?</span>
+    </div>
+    <div class="qa-answer" id="qa-5175">
+        When a mechanical system takes over a task from a human, like a laundry machine (Page 22).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9017')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">Why is it difficult to determine responsibility during handoffs?</span>
+    </div>
+    <div class="qa-answer" id="qa-9017">
+        Because it is difficult to determine who or what is in control, and responsibility depends on an attribution of control (Page 23).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9437')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Level 3 automation" in assisted driving, according to Goodall (2014)?</span>
+    </div>
+    <div class="qa-answer" id="qa-9437">
+        The driver is not required to remain attentive but must be available to take control within a certain amount of time after an alert (Page 21).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-38')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Machine ethics" as defined by Anderson and Anderson (2007)?</span>
+    </div>
+    <div class="qa-answer" id="qa-38">
+        Ensuring that the behavior of machines toward human users, and perhaps other machines as well, is ethically acceptable (Page 25).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3671')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the concept of "ALIGNMENT" in recent AI discussions?</span>
+    </div>
+    <div class="qa-answer" id="qa-3671">
+        AI reasoning should be able to take into account societal values, moral and ethical considerations (Page 25, Page 26).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7278')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is Asimov's First Law of Robotics?</span>
+    </div>
+    <div class="qa-answer" id="qa-7278">
+        A robot may not injure a human being or, through inaction, allow a human being to come to harm (Page 27).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7106')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What was a key conclusion from Goodall (2014) regarding AI ethics?</span>
+    </div>
+    <div class="qa-answer" id="qa-7106">
+        "There was no obvious way to encode complex human morals effectively in software" (Page 28).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3015')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the three phases Goodall (2014) proposed for developing ethical algorithms?</span>
+    </div>
+    <div class="qa-answer" id="qa-3015">
+        1. Rational approach, 2. AI approach, 3. Natural language requirement (XAI) (Page 28).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-517')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What did Goodall identify as the problem with a "Rational" (Phase 1) approach?</span>
+    </div>
+    <div class="qa-answer" id="qa-517">
+        Rule-based ethics is too minimal, while outcome-based ethics recommends some morally bad decisions (Page 29).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7614')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What did Goodall identify as the problem with an "AI-based" (Phase 2) approach?</span>
+    </div>
+    <div class="qa-answer" id="qa-7614">
+        It would reproduce human shortcomings and lack explainability (Page 29).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8359')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Awad et al. (2020), why is it challenging to simply regulate AI?</span>
+    </div>
+    <div class="qa-answer" id="qa-8359">
+        The "Black Box" problem, technology changes faster than regulation, and the source of errors is hard to trace (Page 31).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2518')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "SITL" as argued for by Awad et al. (2020)?</span>
+    </div>
+    <div class="qa-answer" id="qa-2518">
+        "Society in the loop," which is necessary for a dynamic consensus on the ethics of intelligent machines (Page 32).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1658')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are some of the global preferences identified by the "Moral Machines" project?</span>
+    </div>
+    <div class="qa-answer" id="qa-1658">
+        Sparing the lawful, sparing humans over pets, sparing the greater number, and sparing younger humans over older ones (Page 33).
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footerYear"></p>
+    </footer>
+
+    <script src="../../../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

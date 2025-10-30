@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Superintelligence And Risks Of Ai - MSc AI & Engineering Systems Notes">
+    <title>Superintelligence And Risks Of Ai - MSc AIES</title>
+    <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../../../index.html">About</a></li>
+                <li><a href="../../../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q1 / Human_and_ethical_aspects_of_AI / Notes</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Superintelligence and risks of AI - Lecture 10</h1>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8841')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Goodall, what are the three phases in programming moral machines?</span>
+    </div>
+    <div class="qa-answer" id="qa-8841">
+        1. Rational (rule-based or outcome-based), 2. AI-based (using training data), and 3. Natural language feedback (XAI). (Page 3)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-785')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are Goodall's critiques of the "Rational" phase approaches?</span>
+    </div>
+    <div class="qa-answer" id="qa-785">
+        Rule-based ethics is too minimal for unclassified cases, while outcome-based ethics recommends some morally bad decisions. (Page 3)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4740')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the problems with the "AI-based" phase (using training data) according to Goodall?</span>
+    </div>
+    <div class="qa-answer" id="qa-4740">
+        It would reproduce human shortcomings and lack explainability. (Page 3)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2819')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Awad et al., why is ethics preferred over direct regulation for AI?</span>
+    </div>
+    <div class="qa-answer" id="qa-2819">
+        Black Box ML makes principles opaque, technology changes faster than regulation, and the source of errors is hard to trace. (Page 5)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7227')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "SITL" and why do Awad et al. argue for it?</span>
+    </div>
+    <div class="qa-answer" id="qa-7227">
+        "Society in the loop"; it's considered necessary for a dynamic consensus on AI ethics, which is needed to adopt the benefits of automation. (Page 6)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5756')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What general preferences did the Moral Machines project identify?</span>
+    </div>
+    <div class="qa-answer" id="qa-5756">
+        People prefer sparing the lawful (over unlawful), humans (over pets), the greater number, and younger humans (over older). (Page 7)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2903')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the superficial definition of risk?</span>
+    </div>
+    <div class="qa-answer" id="qa-2903">
+        risk = probability $\times$ consequence. (Page 12)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6505')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the difference between risk, uncertainty, and ignorance?</span>
+    </div>
+    <div class="qa-answer" id="qa-6505">
+        Risk has a known probability, uncertainty means we cannot attribute a probability, and ignorance means we don't even know the scenarios ('we don't know what we don't know'). (Page 13)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4642')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the general problem with AI bias found in training data?</span>
+    </div>
+    <div class="qa-answer" id="qa-4642">
+        The data reflects existing underlying inequalities in society. (Page 16)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9834')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a "dual-use technology"?</span>
+    </div>
+    <div class="qa-answer" id="qa-9834">
+        A technology that can be used for both civil and military purposes. (Page 17)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3458')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">How does AI enhance the threat of disinformation?</span>
+    </div>
+    <div class="qa-answer" id="qa-3458">
+        AI reduces the cost of generating mis/disinformation at scale. (Page 19)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4651')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">How is the job displacement risk from AI different this time?</span>
+    </div>
+    <div class="qa-answer" id="qa-4651">
+        AI targets cognitive tasks (like coding, creativity, and decision-making), not just manual labor. (Page 20)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1738')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "enfeeblement and de-skilling" risk described by Stuart Russell?</span>
+    </div>
+    <div class="qa-answer" id="qa-1738">
+        If everyone stops learning skills that machines already have, the human race will collectively lose its autonomy. (Page 22)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8573')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Singularity"?</span>
+    </div>
+    <div class="qa-answer" id="qa-8573">
+        A theoretical point where artificial intelligence surpasses human intelligence, becomes uncontrollable, and leads to societal change. (Page 23)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-931')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Superintelligence" as defined by Bostrom?</span>
+    </div>
+    <div class="qa-answer" id="qa-931">
+        "any intellect that greatly exceeds the cognitive performance of humans in virtually all domains of interest". (Page 24)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6315')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Orthogonality Thesis"?</span>
+    </div>
+    <div class="qa-answer" id="qa-6315">
+        The idea that intelligence and final goals are separate (orthogonal), meaning any level of intelligence can be combined with any final goal (e.g., paperclip-maximizing). (Page 25)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2515')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Instrumental Convergence Thesis"?</span>
+    </div>
+    <div class="qa-answer" id="qa-2515">
+        The idea that intelligent agents with varied final goals will still pursue similar intermediate goals, such as self-preservation and acquiring resources. (Page 26)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-332')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is Chalmers' 3-step argument for the arrival of $AI++$ (superintelligence)?</span>
+    </div>
+    <div class="qa-answer" id="qa-332">
+        1. There will soon be AI. 2. If there is AI, there will be $AI+$ (human-level) soon after. 3. If there is $AI+$, there will be $AI++$ soon after. (Page 30)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1011')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Value alignment"?</span>
+    </div>
+    <div class="qa-answer" id="qa-1011">
+        The idea that AI's values will align with human values. (Page 31)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3657')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Long-termism"?</span>
+    </div>
+    <div class="qa-answer" id="qa-3657">
+        The idea that the existence of sentient beings in the distant future should strongly influence our decisions now. (Page 31)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2089')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is an "Existential Risk"?</span>
+    </div>
+    <div class="qa-answer" id="qa-2089">
+        A risk that threatens the extinction of humanity, civilizational collapse, or the permanent loss of our potential for desirable future development. (Page 32)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3276')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a "catastrophic risk"?</span>
+    </div>
+    <div class="qa-answer" id="qa-3276">
+        A non-zero probability of a catastrophic outcome, usually involving harm on a large scale like a pandemic, nuclear war, or climate change. (Page 33)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5916')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a Type-I error in risk assessment?</span>
+    </div>
+    <div class="qa-answer" id="qa-5916">
+        A mistake of assuming a statement is true while it is false (a false positive). (Page 35)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6776')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a Type-II error in risk assessment?</span>
+    </div>
+    <div class="qa-answer" id="qa-6776">
+        A mistake of assuming a statement is false while it is true (a false negative). (Page 35)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6723')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are four key considerations in the "ethics of risk" (i.e., when is it permissible to impose risks)?</span>
+    </div>
+    <div class="qa-answer" id="qa-6723">
+        Do benefits outweigh costs? Are risks fairly distributed? Would people agree to the risks? What are the alternatives? (Page 37)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5663')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to McKinsey (2023), which job sectors will see the largest *decrease* in labor demand by 2030 due to AI?</span>
+    </div>
+    <div class="qa-answer" id="qa-5663">
+        Office support (–18%) and Customer service and sales (–13%). (Page 38)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2990')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to McKinsey (2023), which job sectors will see the largest *increase* in labor demand?</span>
+    </div>
+    <div class="qa-answer" id="qa-2990">
+        Health professionals (+30%), Health aides/technicians (+30%), and STEM professionals (+23%). (Page 38)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4616')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Prioritarianism"?</span>
+    </div>
+    <div class="qa-answer" id="qa-4616">
+        A principle of justice that gives priority to the worse off over the better off. (Page 39)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3734')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the four risk categories in the EU AI Act?</span>
+    </div>
+    <div class="qa-answer" id="qa-3734">
+        Unacceptable Risk, High Risk, Limited Risk, and Minimal Risk. (Page 40)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8404')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "deep uncertainty"?</span>
+    </div>
+    <div class="qa-answer" id="qa-8404">
+        A situation where it is impossible to predict a full range of realistic possible outcomes. (Page 43)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5650')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Precautionary Principle" (from the Rio Declaration)?</span>
+    </div>
+    <div class="qa-answer" id="qa-5650">
+        Where there are threats of serious or irreversible damage, lack of full scientific certainty shall not be used as a reason for postponing cost-effective measures. (Page 42, 44)
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8445')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What did the "Pause Giant AI Experiments" open letter call for?</span>
+    </div>
+    <div class="qa-answer" id="qa-8445">
+        A pause of at least 6 months on the training of AI systems more powerful than GPT-4. (Page 45)
+    </div>
+</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="footerYear"></p>
+    </footer>
+
+    <script src="../../../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

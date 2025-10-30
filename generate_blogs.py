@@ -23,25 +23,28 @@ def find_md_files_in_blog_folders():
     return md_files
 
 def extract_metadata_from_md(md_file_path):
-    """Extract Date and Overview from markdown file and return cleaned content"""
+    """Extract Date, Overview, and Private from markdown file and return cleaned content"""
     with open(md_file_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Extract Date and Overview
+    # Extract Date, Overview, and Private
     date_match = re.search(r'^Date:\s*(.+)$', content, re.MULTILINE)
     overview_match = re.search(r'^Overview:\s*(.+)$', content, re.MULTILINE)
+    private_match = re.search(r'^Private:\s*(.+)$', content, re.MULTILINE)
     
     date = date_match.group(1).strip() if date_match else "Unknown Date"
     overview = overview_match.group(1).strip() if overview_match else "No description available"
+    is_private = private_match.group(1).strip().lower() == 'true' if private_match else False
     
-    # Remove Date and Overview lines from content
+    # Remove Date, Overview, and Private lines from content
     content = re.sub(r'^Date:\s*.+$', '', content, flags=re.MULTILINE)
     content = re.sub(r'^Overview:\s*.+$', '', content, flags=re.MULTILINE)
+    content = re.sub(r'^Private:\s*.+$', '', content, flags=re.MULTILINE)
     
     # Clean up extra newlines
     content = re.sub(r'\n\s*\n\s*\n', '\n\n', content)
     
-    return date, overview, content.strip()
+    return date, overview, is_private, content.strip()
 
 def convert_md_to_html(md_content, title):
     """Convert markdown content to HTML"""
@@ -49,7 +52,7 @@ def convert_md_to_html(md_content, title):
     html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite'])
     return html_content
 
-def create_html_from_template(title, html_content, folder_name):
+def create_html_from_template(title, html_content, folder_name, is_private=False):
     """Create HTML file using template"""
     # Read template
     with open('blog/template.html', 'r', encoding='utf-8') as f:
@@ -58,18 +61,62 @@ def create_html_from_template(title, html_content, folder_name):
     # Replace placeholders
     html_output = template.replace('Add your title here', title)
     
-    # Create the proper blog structure matching existing blogs
-    blog_structure = f'''<div class="page-container">
-        <article class="page sans">
-            <header>
-                <h1 class="page-title">{title}</h1>
-                <p class="page-description"></p>
-            </header>
-            <div class="page-body">
-{html_content}
+    # Create password protection if private
+    if is_private:
+        blog_structure = f'''<div class="page-container">
+            <div id="password-prompt" class="password-container">
+                <h2>This is a private post</h2>
+                <p>Please enter the password to view this content:</p>
+                <input type="password" id="password-input" placeholder="Enter password">
+                <button onclick="checkPassword()">Submit</button>
+                <div id="error-message" style="color: red; margin-top: 10px; display: none;">Incorrect password. Please try again.</div>
             </div>
-        </article>
-    </div>'''
+            <div id="protected-content" style="display: none;">
+                <article class="page sans">
+                    <header>
+                        <h1 class="page-title">{title}</h1>
+                        <p class="page-description"></p>
+                    </header>
+                    <div class="page-body">
+{html_content}
+                    </div>
+                </article>
+            </div>
+        </div>
+        <script>
+            function checkPassword() {{
+                const password = document.getElementById('password-input').value;
+                const correctPassword = 'alvaro';
+                
+                if (password === correctPassword) {{
+                    document.getElementById('password-prompt').style.display = 'none';
+                    document.getElementById('protected-content').style.display = 'block';
+                }} else {{
+                    document.getElementById('error-message').style.display = 'block';
+                    document.getElementById('password-input').value = '';
+                }}
+            }}
+            
+            // Allow Enter key to submit password
+            document.getElementById('password-input').addEventListener('keypress', function(e) {{
+                if (e.key === 'Enter') {{
+                    checkPassword();
+                }}
+            }});
+        </script>'''
+    else:
+        # Create the proper blog structure matching existing blogs
+        blog_structure = f'''<div class="page-container">
+            <article class="page sans">
+                <header>
+                    <h1 class="page-title">{title}</h1>
+                    <p class="page-description"></p>
+                </header>
+                <div class="page-body">
+{html_content}
+                </div>
+            </article>
+        </div>'''
     
     html_output = html_output.replace('your_iframe_here', blog_structure)
     
@@ -98,6 +145,68 @@ def create_html_from_template(title, html_content, folder_name):
             display: block;
             margin-left: auto;
             margin-right: auto;
+        }
+        
+        /* Password protection styles */
+        .password-container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+        }
+        
+        .password-container h2 {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 600;
+        }
+        
+        .password-container p {
+            margin-bottom: 1.5rem;
+            color: var(--text-color);
+            opacity: 0.8;
+        }
+        
+        .password-container input {
+            padding: 0.75rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 200px;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .password-container input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+        
+        .password-container button {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--accent-color);
+            color: var(--bg-color);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-weight: 500;
+        }
+        
+        .password-container button:hover {
+            opacity: 0.9;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            margin-top: 1rem;
+            font-size: 0.9rem;
         }
         
         /* Override the existing carousel styles to show all images in a grid */
@@ -206,7 +315,7 @@ def main():
         print(f"Processing {md_file}...")
         
         # Extract metadata and clean content
-        date, overview, cleaned_content = extract_metadata_from_md(md_file)
+        date, overview, is_private, cleaned_content = extract_metadata_from_md(md_file)
         
         # Get title from first line (assuming it's # Title)
         title_match = re.search(r'^#\s*(.+)$', cleaned_content, re.MULTILINE)
@@ -221,7 +330,7 @@ def main():
         html_content = convert_md_to_html(cleaned_content, title)
         
         # Create HTML file using template
-        html_output = create_html_from_template(title, html_content, md_file.parent.name)
+        html_output = create_html_from_template(title, html_content, md_file.parent.name, is_private)
         
         # Write HTML file
         output_path = md_file.parent / 'index.html'
