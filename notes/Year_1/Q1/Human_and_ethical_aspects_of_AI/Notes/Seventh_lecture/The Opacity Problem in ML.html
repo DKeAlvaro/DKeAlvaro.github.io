@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Feature Engineering, Feature Selection, Feature Extraction - MSc AI & Engineering Systems Notes">
-    <title>Feature Engineering, Feature Selection, Feature Extraction - MSc AIES</title>
+    <meta name="description" content="The Opacity Problem In Ml - MSc AI & Engineering Systems Notes">
+    <title>The Opacity Problem In Ml - MSc AIES</title>
     <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
@@ -701,7 +701,7 @@
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Notes</span>
+                            <span class="folder-path">Year_1 / Q1 / Human_and_ethical_aspects_of_AI / Notes</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -725,54 +725,424 @@
                 </div>
                 
                 <div class="note-content">
-                    <h1>Data Analysis &amp; Learning Methods - Lecture 3</h1>
+                    <h1>The Opacity Problem in ML - Lecture 7</h1>
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4711')">
+    <div class="qa-question" onclick="toggleQA('qa-6284')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What kind of feature selection methods are there?</span>
+        <span class="qa-text">What are the three main questions the lecture on "The Opacity Problem in ML" addresses?</span>
     </div>
-    <div class="qa-answer" id="qa-4711">
-        Filter methods, wrapper methods, embedded methods.
+    <div class="qa-answer" id="qa-6284">
+        1. Why is opacity a problem? 2. What does the opacity problem look like in AI? 3. How to achieve transparency? (Page 2)
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-4733')">
+    <div class="qa-question" onclick="toggleQA('qa-9523')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What's feature selection?</span>
+        <span class="qa-text">What does "XAI" stand for?</span>
     </div>
-    <div class="qa-answer" id="qa-4733">
-        Feature selection is the process of selecting a subset of features from the original set of features.
+    <div class="qa-answer" id="qa-9523">
+        eXplainable Artificial Intelligence (Page 4).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-1384')">
+    <div class="qa-question" onclick="toggleQA('qa-9352')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What's an example of feature selection?</span>
+        <span class="qa-text">Why is there an increasing interest in XAI?</span>
     </div>
-    <div class="qa-answer" id="qa-1384">
-        Selecting the most relevant features for a given task.
+    <div class="qa-answer" id="qa-9352">
+        AI is omnipresent, it is used in high-stakes contexts (like health care), and people have "automation bias" (Page 4, Page 5, Page 6).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-257')">
+    <div class="qa-question" onclick="toggleQA('qa-7607')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What's feature extraction?</span>
+        <span class="qa-text">What is "automation bias"?</span>
     </div>
-    <div class="qa-answer" id="qa-257">
-        Constructing new features from existing features.
+    <div class="qa-answer" id="qa-7607">
+        People tend to over-rely on automated systems, even when they know it's faulty (Page 6).
     </div>
 </div>
 
 <div class="qa-item">
-    <div class="qa-question" onclick="toggleQA('qa-458')">
+    <div class="qa-question" onclick="toggleQA('qa-9400')">
         <span class="qa-icon">▶</span>
-        <span class="qa-text">What's an example of feature extraction?</span>
+        <span class="qa-text">What is "opacity" in the context of AI?</span>
     </div>
-    <div class="qa-answer" id="qa-458">
-        Instead of using millions of raw pixels to recognize an image, we compute features such as: Edges, Color histograms, Texture features, etc...
+    <div class="qa-answer" id="qa-9400">
+        Humans often don't understand the model's decision logic (Page 7).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1808')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What was the Dutch benefits fraud scandal used as an example of opacity?</span>
+    </div>
+    <div class="qa-answer" id="qa-1808">
+        The Dutch tax authorities falsely accused thousands of families of fraud, based on an opaque "risk assessment" tool (Page 8).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9368')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What was the issue with Amazon's AI recruiting tool?</span>
+    </div>
+    <div class="qa-answer" id="qa-9368">
+        It taught itself that male candidates were preferable, penalizing resumes with words like "women's" or from all-women's colleges (Page 10).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6549')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">Why is opacity a problem (i.e., why is interpretability needed)?</span>
+    </div>
+    <div class="qa-answer" id="qa-6549">
+        For Model Validation, Knowledge Discovery, User Acceptance, Justification, Assessing Fairness, and Assessing Trustworthiness (Page 11).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2195')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the central consequence of opacity?</span>
+    </div>
+    <div class="qa-answer" id="qa-2195">
+        If we don't know how a system works, we cannot trust, challenge, improve, or intervene on its outputs and we have no control / oversight (Page 12).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3705')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are some of the harms opacity can cause in high-stakes contexts?</span>
+    </div>
+    <div class="qa-answer" id="qa-3705">
+        Injustices, lack of recourse/contestability/accountability, and unsafety (Page 12).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6080')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In the ML lifecycle diagram, what component is typically considered the "black box"?</span>
+    </div>
+    <div class="qa-answer" id="qa-6080">
+        The "Model" (Page 17).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5728')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "technical explainability problem"?</span>
+    </div>
+    <div class="qa-answer" id="qa-5728">
+        The challenge of using XAI methods to understand the "black box" model (Page 18).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7428')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a saliency map or "heatmap" in XAI?</span>
+    </div>
+    <div class="qa-answer" id="qa-7428">
+        A visualization showing which parts of an input (like an image) are most important for the model's decision-making process (Page 19).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9796')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a "feature importance ranking"?</span>
+    </div>
+    <div class="qa-answer" id="qa-9796">
+        A method that identifies and ranks the significance of individual input variables in influencing a model's predictions (Page 20).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6831')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a "counterfactual explanation" in ML?</span>
+    </div>
+    <div class="qa-answer" id="qa-6831">
+        It describes the smallest change to the feature values that changes the prediction to a predefined output (Page 21).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-632')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is an example of a counterfactual explanation for a rejected loan application?</span>
+    </div>
+    <div class="qa-answer" id="qa-632">
+        "If the applicant's income was €45.000, the loan would be approved." (Page 22).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1890')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are "interpretable models" as a type of XAI?</span>
+    </div>
+    <div class="qa-answer" id="qa-1890">
+        Models where you can directly interpret the model's decision logic (Page 23).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-28')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are "post-hoc explanations" as a type of XAI?</span>
+    </div>
+    <div class="qa-answer" id="qa-28">
+        Methods that estimate the decision logic of an existing model (Page 23).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7833')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the difference between "global" and "local" explanations?</span>
+    </div>
+    <div class="qa-answer" id="qa-7833">
+        Global explanations cover the model's overall logic, while local explanations cover a single prediction (Page 23).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9470')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the difference between "model-specific" and "model-agnostic" explanations?</span>
+    </div>
+    <div class="qa-answer" id="qa-9470">
+        Model-specific methods leverage characteristics of a specific model class, while model-agnostic methods can work on any model (Page 23).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7449')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What does Cynthia Rudin argue regarding high-stakes decisions?</span>
+    </div>
+    <div class="qa-answer" id="qa-7449">
+        Stop explaining black box models and use interpretable models instead (Page 23).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3608')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">Is the opacity problem limited to just the "black box" algorithm?</span>
+    </div>
+    <div class="qa-answer" id="qa-3608">
+        No, the lecture states it is much larger and is a sociotechnical problem that occurs in the entire AI ecosystem (Page 25, Page 43).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-111')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the different stakeholders in the "real-world context of application" for an ML model?</span>
+    </div>
+    <div class="qa-answer" id="qa-111">
+        Creators, Data subjects, Operators, Executors, Decision subjects / users, and Auditors (Page 28).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2103')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In the credit scoring example, who is the "Operator"?</span>
+    </div>
+    <div class="qa-answer" id="qa-2103">
+        The front-office bank teller who enters the data (Page 29, Page 30).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4779')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In the credit scoring example, who is the "Executor"?</span>
+    </div>
+    <div class="qa-answer" id="qa-4779">
+        The back-office analyst who uses the score to make a decision (Page 29, Page 30).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7174')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">In the generative AI (e.g., DALLE) example, who are the "data subjects"?</span>
+    </div>
+    <div class="qa-answer" id="qa-7174">
+        Artists, photographers, and designers whose images and designs are in the datasets (Page 31).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7814')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Burrell (2016), what are the three sources of opacity?</span>
+    </div>
+    <div class="qa-answer" id="qa-7814">
+        Technical illiteracy, Intentional secrecy, and System complexity (Page 32).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8579')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is opacity from "technical illiteracy"?</span>
+    </div>
+    <div class="qa-answer" id="qa-8579">
+        A system is opaque because the stakeholder does not have enough technical skills to understand it (Page 33).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1490')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is opacity from "intentional secrecy"?</span>
+    </div>
+    <div class="qa-answer" id="qa-1490">
+        A system is opaque because a third party (like a developer) deliberately holds back information (Page 34).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4773')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is opacity from "system complexity"?</span>
+    </div>
+    <div class="qa-answer" id="qa-4773">
+        A system is opaque to all stakeholders simply because of its characteristics (size, complexity) (Page 35).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5568')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">How can data collection methods be opaque due to "intentional secrecy"?</span>
+    </div>
+    <div class="qa-answer" id="qa-5568">
+        Through the "non-disclosure of data collection methods" (Page 36).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5101')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What did the lawyer who used ChatGPT for a court filing discover?</span>
+    </div>
+    <div class="qa-answer" id="qa-5101">
+        That ChatGPT had invented everything (the cases were false), and it even falsely claimed the cases were real when asked to verify (Page 40, Page 41).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-690')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "algorithmic divide"?</span>
+    </div>
+    <div class="qa-answer" id="qa-690">
+        Inequalities in AI knowledge and understanding that exacerbate existing social inequalities (Page 42).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3773')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">Are XAI methods a "silver bullet" for opacity?</span>
+    </div>
+    <div class="qa-answer" id="qa-3773">
+        No, the lecture states they are not (yet?) a silver bullet (Page 45).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1727')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "fidelity" problem with post-hoc XAI methods?</span>
+    </div>
+    <div class="qa-answer" id="qa-1727">
+        They might not perfectly represent the model's true decision process, leading to misleading explanations (Page 46).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7118')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "robustness" problem with XAI methods?</span>
+    </div>
+    <div class="qa-answer" id="qa-7118">
+        Many XAI methods are unreliable and prone to adversarial attacks (Page 46).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6236')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "interpretability gap" with heatmaps?</span>
+    </div>
+    <div class="qa-answer" id="qa-6236">
+        The "hottest" parts of the map contain both useful and non-useful information, so it doesn't reveal *exactly* what the model used (Page 47).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3134')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "feasibility" problem with counterfactual explanations?</span>
+    </div>
+    <div class="qa-answer" id="qa-3134">
+        Not all counterfactuals are actionable or realistic (e.g., suggesting a person change their age to get a loan) (Page 48).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8151')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What right does Recital 71 of the GDPR provide regarding automated decisions?</span>
+    </div>
+    <div class="qa-answer" id="qa-8151">
+        The right to obtain an explanation of the decision and to challenge the decision (Page 49).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3348')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What right does the AI Act (Art. 86) provide to an affected person?</span>
+    </div>
+    <div class="qa-answer" id="qa-3348">
+        The right to obtain "clear and meaningful explanations of the role of the AI system in the decision-making procedure" (Page 49).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5273')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">Is transparency a goal in itself?</span>
+    </div>
+    <div class="qa-answer" id="qa-5273">
+        No, it is a means to an end; it's necessary to achieve other goals we value, like justice, safety, and accountability (Page 51).
+    </div>
+</div>
+
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3369')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What three solutions are needed to increase transparency?</span>
+    </div>
+    <div class="qa-answer" id="qa-3369">
+        More robust XAI, strong regulation, and public education (Page 52).
     </div>
 </div>
                 </div>
