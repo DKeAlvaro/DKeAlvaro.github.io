@@ -299,8 +299,8 @@ Goals:
 Achieved:
 
 11 December 2025
-Goals:
-Achieved:
+Goals: 1h Bayesian ML (Observational Astronomy), 1h Computer vision (Assignment MLP), 1h Sqippa (Building migration), Gym and Secret Santa  
+Achieved: 7/10
 
 12 December 2025
 Goals: Clean room, buy bike mudguard, report address move, get up to date with uni 
