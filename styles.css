@@ -139,7 +139,6 @@ em {
 
 /* Header and Navigation */
 body > header {
-    border-bottom: 1px solid var(--border-color);
     background-color: var(--background-color);
     padding: calc(var(--spacing-unit) * 0.9) 0;
     transition: background-color 0.3s;
