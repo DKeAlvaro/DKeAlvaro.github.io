@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-7BJS149EFL');
     </script>
@@ -17,6 +18,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Mono&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <header>
         <nav class="nav-container">
@@ -27,15 +29,9 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="../../index.html">About</a></li>
-                <li><a href="../../journey.html">My Life</a></li>
-                <li><a href="../../projects.html">Projects</a></li>
                 <li><a href="../../blogs.html">Blog</a></li>
                 <li><a href="../../notes.html">MSc AIES</a></li>
-                <li><a href="../../calendar.html">Calendar</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
@@ -144,21 +140,43 @@
 
                 <p>Si quieres hacer una aplicación escalable que soporte miles de usuarios concurrentes y con grandes cantidades de datos, seguramente Git no sea la mejor opción. Pero en mi caso, lo único a guardar son archivos de texto que se actualizan pocas veces al día, haciendo de Git una opción jugosa. Almaceno todo en un repositorio privado de Github (distinto al de la aplicación), por lo que además es fácil visualizar las actualizaciones de los datos.</p>
                 <p>Github dispone de una <strong>API Rest</strong> para hacer todas las operaciones que harías desde tu terminal, así que puedes hacer fácilmente métodos para subir o descargar datos.</p>
-                <p>La autenticación de usuarios también está hecha mediante git. Los usuarios pueden registrarse mediante su correo electrónico. Al hacerlo, se crea una carpeta en el repositorio en la que se guardarán todos los datos, entre ellos un archivo '<em>credentials.txt</em>' que incluirá su correo y su contraseña <strong>hasheada.</strong></p>
-                <p>Para hostear la aplicación decidí usar <strong>Render</strong> en su nivel gratuito, ya que tengo experiencia previa y es fácil de usar. Para cambiar el dominio, lo adquirí previamente en <strong>Strato</strong> (0,96€ por 1 año) y seguí los pasos de Render, bastante sencillos.</p>
-                <p>El valor de la aplicación proviene de un archivo de python que debe ejecutarse diariamente para mandar los SMS. Tras barajar opciones, decidí clonar el repositorio de Github en la plataforma de <strong>PythonAnywhere</strong> en su nivel gratuito y añadir un <strong>cron-job</strong> diario que trae los datos de la última versión de github (<em>git pull</em>) y luego ejecuta el archivo necesario. Esta parte fue bastante divertida y útil porque una vez configurado, me puedo olvidar completamente de ella. Aprendí mucho sobre <strong>Bash,</strong> cómo gestionar un servidor web, y a usar los Personal Access Tokens (<strong>PAT</strong>) para acceder a repositorios privados.</p>
-                <p>Los SMS se mandan mediante <strong>Twilio</strong>, una plataforma que dispone de API Rest para mandar los mensajes. En mi opinión, sus servicios son bastante liosos y podrían hacer las cosas mejor. Sus herramientas son poco intuitivas de usar, y aún no he sido capaz de cambiar el nombre del remitente, por lo que el destinatario recibe mensajes de un número estadounidense.</p>
-                <p>Lo único que queda por hacer es añadir pasarelas de pago para conseguir revenue, pero aún tengo que estudiarlo mejor ya que no me quiero meter en un lío con hacienda, aunque seguramente acabe usando <strong>Stripe.</strong></p>
-                <p>Podría explayarme más acerca de cómo hice cada cosa pero para quién tenga experiencia en este tema le servirá más bien poco, y quien tenga poca experiencia seguramente no esté leyendo esto, así que lo dejo por aquí. Pero si tienes cualquier duda me puedes hablar por Linkedin, Correo o similares.</p>
-                <p>Por último, si os habéis quedado con ganas de saber cúal es la aplicación, se trata de <strong>www.agendado.es,</strong> que sirve para recordar citas a clientes con notificaciones automáticas mediante SMS el día anterior. Así de simple. En los próximos días haré más hincapié en la aplicación en sí.</p>
+                <p>La autenticación de usuarios también está hecha mediante git. Los usuarios pueden registrarse mediante su correo electrónico. Al hacerlo, se crea una carpeta en el repositorio en la que se guardarán todos los datos, entre ellos un archivo '
+                    <em>credentials.txt</em>' que incluirá su correo y su contraseña <strong>hasheada.</strong></p>
+                    <p>Para hostear la aplicación decidí usar <strong>Render</strong> en su nivel gratuito, ya que tengo
+                        experiencia previa y es fácil de usar. Para cambiar el dominio, lo adquirí previamente en
+                        <strong>Strato</strong> (0,96€ por 1 año) y seguí los pasos de Render, bastante sencillos.</p>
+                    <p>El valor de la aplicación proviene de un archivo de python que debe ejecutarse diariamente para
+                        mandar los SMS. Tras barajar opciones, decidí clonar el repositorio de Github en la plataforma
+                        de <strong>PythonAnywhere</strong> en su nivel gratuito y añadir un <strong>cron-job</strong>
+                        diario que trae los datos de la última versión de github (<em>git pull</em>) y luego ejecuta el
+                        archivo necesario. Esta parte fue bastante divertida y útil porque una vez configurado, me puedo
+                        olvidar completamente de ella. Aprendí mucho sobre <strong>Bash,</strong> cómo gestionar un
+                        servidor web, y a usar los Personal Access Tokens (<strong>PAT</strong>) para acceder a
+                        repositorios privados.</p>
+                    <p>Los SMS se mandan mediante <strong>Twilio</strong>, una plataforma que dispone de API Rest para
+                        mandar los mensajes. En mi opinión, sus servicios son bastante liosos y podrían hacer las cosas
+                        mejor. Sus herramientas son poco intuitivas de usar, y aún no he sido capaz de cambiar el nombre
+                        del remitente, por lo que el destinatario recibe mensajes de un número estadounidense.</p>
+                    <p>Lo único que queda por hacer es añadir pasarelas de pago para conseguir revenue, pero aún tengo
+                        que estudiarlo mejor ya que no me quiero meter en un lío con hacienda, aunque seguramente acabe
+                        usando <strong>Stripe.</strong></p>
+                    <p>Podría explayarme más acerca de cómo hice cada cosa pero para quién tenga experiencia en este
+                        tema le servirá más bien poco, y quien tenga poca experiencia seguramente no esté leyendo esto,
+                        así que lo dejo por aquí. Pero si tienes cualquier duda me puedes hablar por Linkedin, Correo o
+                        similares.</p>
+                    <p>Por último, si os habéis quedado con ganas de saber cúal es la aplicación, se trata de
+                        <strong>www.agendado.es,</strong> que sirve para recordar citas a clientes con notificaciones
+                        automáticas mediante SMS el día anterior. Así de simple. En los próximos días haré más hincapié
+                        en la aplicación en sí.</p>
+                </div>
+                </article>
             </div>
-        </article>
-    </div>
-            
-    <footer>
-        <p id="footerYear"></p>
-    </footer>
-    
-    <script src="../../script.js"></script>
+
+            <footer>
+                <p id="footerYear"></p>
+            </footer>
+
+            <script src="../../script.js"></script>
 </body>
-</html> 
+
+</html>

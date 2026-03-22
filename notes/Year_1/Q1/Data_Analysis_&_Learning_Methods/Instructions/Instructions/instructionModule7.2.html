@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,26 +9,30 @@
     <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+        crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"
+        crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
+        crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             // Initialize KaTeX
             renderMathInElement(document.body, {
                 delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false }
                 ]
             });
-            
+
             // Initialize Prism.js syntax highlighting
             if (typeof Prism !== 'undefined') {
                 Prism.highlightAll();
             }
-            
+
             // Handle theme switching for Prism.js
             function updatePrismTheme() {
                 const isDark = document.body.classList.contains('dark-theme');
@@ -40,19 +45,19 @@
                     }
                 }
             }
-            
+
             // Check initial theme
             updatePrismTheme();
-            
+
             // Listen for theme changes
-            const observer = new MutationObserver(function(mutations) {
-                mutations.forEach(function(mutation) {
+            const observer = new MutationObserver(function (mutations) {
+                mutations.forEach(function (mutation) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                         updatePrismTheme();
                     }
                 });
             });
-            
+
             observer.observe(document.body, {
                 attributes: true,
                 attributeFilter: ['class']
@@ -65,17 +70,20 @@
             margin: 0 auto;
             padding: 2rem;
         }
+
         .note-header {
             text-align: center;
             margin-bottom: 3rem;
             padding-bottom: 2rem;
             border-bottom: 2px solid var(--border-color);
         }
+
         .note-title {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--primary-color);
         }
+
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -90,44 +98,53 @@
             border-radius: 4px;
             transition: all 0.2s ease;
         }
+
         .back-link:hover {
             color: var(--primary-color);
             border-color: var(--primary-color);
         }
+
         .nav-left {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
         }
-        
+
         .breadcrumb-section {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             flex-wrap: wrap;
         }
+
         .folder-path {
-             font-size: 0.8rem;
-             color: var(--text-color-secondary);
-             opacity: 0.7;
-         }
-         .current-page-title {
-             font-size: 1.3rem;
-             font-weight: 700;
-             color: var(--text-color);
-             margin: 0;
-             line-height: 1.3;
-             letter-spacing: -0.01em;
-         }
+            font-size: 0.8rem;
+            color: var(--text-color-secondary);
+            opacity: 0.7;
+        }
+
+        .current-page-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin: 0;
+            line-height: 1.3;
+            letter-spacing: -0.01em;
+        }
+
         .note-content {
             line-height: 1.8;
             color: var(--text-color);
         }
-        .note-content h1, .note-content h2, .note-content h3 {
+
+        .note-content h1,
+        .note-content h2,
+        .note-content h3 {
             color: var(--primary-color);
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
+
         .note-content img {
             max-width: 100%;
             height: auto;
@@ -135,25 +152,30 @@
             margin: 1rem 0;
             display: block;
         }
+
         /* Preserve centered images from markdown HTML */
         .note-content div[style*="text-align: center"] {
             text-align: center !important;
         }
+
         .note-content div[style*="text-align: center"] img {
             margin: 1rem auto;
         }
+
         .note-content pre {
             background: var(--code-bg);
             padding: 1rem;
             border-radius: 5px;
             overflow-x: auto;
         }
+
         .note-content code {
             background: var(--code-bg);
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
         }
+
         .note-content blockquote {
             border-left: 4px solid var(--primary-color);
             padding-left: 1rem;
@@ -161,28 +183,35 @@
             font-style: italic;
             opacity: 0.9;
         }
-        .note-content ul, .note-content ol {
+
+        .note-content ul,
+        .note-content ol {
             padding-left: 2rem;
             margin: 1rem 0;
         }
+
         .note-content ul {
             list-style-type: disc;
         }
+
         .note-content li {
             margin-bottom: 0.2rem;
             display: list-item;
             list-style-position: outside;
         }
+
         /* Reduce spacing for nested lists */
-        .note-content li ul, .note-content li ol {
+        .note-content li ul,
+        .note-content li ol {
             margin: 0.3rem 0;
             padding-left: 1.5rem;
         }
+
         .note-content ul li::marker {
             color: var(--primary-color);
             font-size: 1.2em;
         }
-        
+
         /* Q&A Styles */
         .qa-item {
             margin: 1.5rem 0;
@@ -191,7 +220,7 @@
             overflow: hidden;
             background: var(--bg-color);
         }
-        
+
         .qa-question {
             padding: 1rem;
             background: var(--secondary-bg, #f8f9fa);
@@ -202,28 +231,28 @@
             transition: background-color 0.2s ease;
             user-select: none;
         }
-        
+
         .qa-question:hover {
             background: var(--hover-bg, #e9ecef);
         }
-        
+
         .qa-icon {
             font-size: 0.8rem;
             transition: transform 0.2s ease;
             color: var(--primary-color);
             font-weight: bold;
         }
-        
+
         .qa-question.active .qa-icon {
             transform: rotate(90deg);
         }
-        
+
         .qa-text {
             font-weight: 600;
             color: var(--text-color);
             flex: 1;
         }
-        
+
         .qa-answer {
             padding: 1rem;
             background: var(--bg-color);
@@ -232,33 +261,38 @@
             color: var(--text-color);
             line-height: 1.6;
         }
-        
+
         .qa-answer.active {
             display: block;
         }
-        
+
         /* Mobile responsive styles */
         @media (max-width: 768px) {
             .note-container {
                 padding: 0.5rem;
             }
+
             .navigation-header {
                 padding: 1rem;
                 gap: 1rem;
                 margin-bottom: 1.5rem;
             }
+
             .nav-left {
                 gap: 1rem;
             }
+
             .breadcrumb-section {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
+
             .current-page-title {
                 font-size: 1.1rem;
                 text-align: left;
             }
+
             .back-link {
                 font-size: 0.9rem;
                 padding: 0.6rem 1rem;
@@ -274,11 +308,13 @@
                 transition: all 0.2s ease;
                 flex-shrink: 0;
             }
+
             .back-link:hover {
                 background: var(--primary-color);
                 color: white !important;
                 border-color: var(--primary-color);
             }
+
             .folder-path {
                 font-size: 0.85rem;
                 color: var(--text-color-secondary);
@@ -286,6 +322,7 @@
                 flex: 1;
                 min-width: 0;
             }
+
             .note-navigation {
                 width: 100%;
                 display: flex;
@@ -293,6 +330,7 @@
                 gap: 0.75rem;
                 flex-wrap: nowrap;
             }
+
             .nav-button {
                 font-size: 1.2rem;
                 padding: 0.5rem;
@@ -304,354 +342,367 @@
                 justify-content: center;
                 flex-shrink: 0;
             }
+
             .nav-button span:not(.nav-icon) {
                 display: none;
             }
+
             .nav-progress {
                 flex: 1;
                 font-size: 0.8rem;
                 text-align: center;
                 color: var(--text-color-secondary);
             }
+
             .note-header {
                 margin-bottom: 1rem;
                 padding-bottom: 1.5rem;
             }
+
             .note-title {
                 font-size: 2rem;
             }
+
             .note-content h1 {
                 font-size: 1.8rem;
             }
+
             .note-content h2 {
                 font-size: 1.5rem;
             }
+
             .note-content h3 {
                 font-size: 1.3rem;
             }
+
             .note-content pre {
                 padding: 0.75rem;
                 font-size: 0.9rem;
             }
-            .note-content ul, .note-content ol {
+
+            .note-content ul,
+            .note-content ol {
                 padding-left: 1.5rem;
             }
         }
-        
+
         @media (max-width: 480px) {
-             .note-container {
-                 padding: 0.5rem;
-             }
-             .note-header {
-                 margin-bottom: 1.15rem;
-                 padding-bottom: 0.75rem;
-             }
-             .back-link {
-                 padding: 0.25rem 0.5rem;
-                 font-size: 0.85rem;
-             }
-         }
-        
+            .note-container {
+                padding: 0.5rem;
+            }
+
+            .note-header {
+                margin-bottom: 1.15rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .back-link {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
         /* Navigation header styles */
-         .navigation-header {
-             display: flex;
-             flex-direction: column;
-             gap: 1.25rem;
-             margin-bottom: 2rem;
-             padding: 1.25rem;
-             background: transparent;
-             border-radius: 0;
-             border: none;
-             border-bottom: 1px solid var(--border-color);
-         }
-         
-         /* Navigation buttons styles */
-         .note-navigation {
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             gap: 1rem;
-         }
-         
-         .nav-button {
-             display: inline-flex;
-             align-items: center;
-             justify-content: center;
-             padding: 0.6rem;
-             background: transparent;
-             border: 1px solid var(--border-color);
-             border-radius: 4px;
-             color: var(--text-color);
-             text-decoration: none;
-             font-size: 1rem;
-             font-weight: 400;
-             transition: all 0.2s ease;
-             width: 36px;
-             height: 36px;
-         }
-         
-         .nav-button:hover {
-             color: var(--primary-color);
-             border-color: var(--primary-color);
-         }
-         
-         .nav-button:disabled {
-             opacity: 0.5;
-             cursor: not-allowed;
-             pointer-events: none;
-         }
-         
-         .nav-button.prev {
-             justify-content: flex-start;
-         }
-         
-         .nav-button.next {
-             justify-content: flex-end;
-         }
-         
-         .nav-button-text {
-             display: flex;
-             flex-direction: column;
-             align-items: inherit;
-         }
-         
-         .nav-button-label {
-             font-size: 0.75rem;
-             opacity: 0.7;
-             margin-bottom: 0.2rem;
-         }
-         
-         .nav-button-title {
-             font-weight: 500;
-             max-width: 200px;
-             overflow: hidden;
-             text-overflow: ellipsis;
-             white-space: nowrap;
-         }
-         
-         .nav-progress {
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             gap: 0.5rem;
-             flex: 1;
-             margin: 0 1rem;
-         }
-         
-         .nav-progress-text {
-             font-size: 0.8rem;
-             font-weight: 400;
-             color: var(--text-color);
-             opacity: 0.7;
-             text-align: center;
-         }
-         
-         .nav-progress-bar {
-             width: 100%;
-             max-width: 200px;
-             height: 4px;
-             background: #f0f0f0;
-             border-radius: 2px;
-             overflow: hidden;
-         }
-         
-         .nav-progress-fill {
-             height: 100%;
-             background: #007acc;
-             transition: width 0.3s ease;
-         }
-         
-         @media (max-width: 768px) {
-              .note-navigation {
-                  flex-direction: row;
-                  gap: 0.75rem;
-                  align-items: center;
-              }
-              
-              .nav-button {
-                  width: 40px;
-                  min-width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  padding: 0.5rem;
-                  font-size: 1.2rem;
-              }
-              
-              .nav-progress {
-                  flex: 1;
-                  margin: 0;
-              }
-              
-              .nav-button-title {
-                  max-width: none;
-              }
-          }
-          
-          /* Jupyter Notebook Styles */
-          .code-cell {
-              margin: 1.5rem 0;
-              border: 1px solid var(--border-color);
-              border-radius: 8px;
-              overflow: hidden;
-              background: var(--bg-color);
-          }
-          
-          .markdown-cell {
-              margin: 1.5rem 0;
-              padding: 1rem;
-              background: var(--bg-color);
-              border-radius: 8px;
-          }
-          
-          .input-area {
-              background: var(--code-bg, #f8f9fa);
-              border-bottom: 1px solid var(--border-color);
-          }
-          
-          .input-area pre {
-              margin: 0;
-              padding: 1rem;
-              background: transparent;
-              border-radius: 0;
-              overflow-x: auto;
-          }
-          
-          .input-area code {
-              background: transparent;
-              padding: 0;
-              border-radius: 0;
-              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-              font-size: 0.9rem;
-              line-height: 1.4;
-          }
-          
-          .output-area {
-              background: var(--bg-color);
-              padding: 1rem;
-          }
-          
-          .output-stream {
-              background: var(--secondary-bg, #f1f3f4);
-              padding: 0.75rem;
-              margin: 0.5rem 0;
-              border-radius: 4px;
-              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-              font-size: 0.85rem;
-              line-height: 1.4;
-              color: var(--text-color);
-              border-left: 3px solid var(--primary-color);
-          }
-          
-          .output-result {
-              background: var(--bg-color);
-              padding: 0.75rem;
-              margin: 0.5rem 0;
-              border-radius: 4px;
-              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-              font-size: 0.85rem;
-              line-height: 1.4;
-              color: var(--text-color);
-              border: 1px solid var(--border-color);
-          }
-          
-          .output-image {
-              text-align: center;
-              margin: 1rem 0;
-              padding: 0.5rem;
-              background: var(--bg-color);
-              border-radius: 4px;
-          }
-          
-          .output-image img {
-              max-width: 100%;
-              height: auto;
-              border-radius: 4px;
-              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-              margin: 0;
-          }
-          
-          .output-html {
-              margin: 0.5rem 0;
-              padding: 0.75rem;
-              background: var(--bg-color);
-              border-radius: 4px;
-              border: 1px solid var(--border-color);
-              overflow-x: auto;
-          }
-          
-          .output-html table {
-              width: 100%;
-              border-collapse: collapse;
-              margin: 0;
-          }
-          
-          .output-html th,
-          .output-html td {
-              padding: 0.5rem;
-              border: 1px solid var(--border-color);
-              text-align: left;
-          }
-          
-          .output-html th {
-              background: var(--secondary-bg, #f8f9fa);
-              font-weight: 600;
-          }
-          
-          .output-error {
-              background: #fef2f2;
-              border: 1px solid #fecaca;
-              border-radius: 4px;
-              margin: 0.5rem 0;
-              padding: 0.75rem;
-          }
-          
-          .error-name {
-              color: #dc2626;
-              font-weight: 600;
-              margin: 0 0 0.5rem 0;
-              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-              font-size: 0.9rem;
-          }
-          
-          .error-traceback {
-              color: #7f1d1d;
-              margin: 0;
-              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-              font-size: 0.8rem;
-              line-height: 1.4;
-              background: #fef7f7;
-              padding: 0.5rem;
-              border-radius: 3px;
-              overflow-x: auto;
-          }
-          
-          /* Dark theme adjustments for error outputs */
-          .dark-theme .output-error {
-              background: #2d1b1b;
-              border-color: #7f1d1d;
-          }
-          
-          .dark-theme .error-name {
-              color: #f87171;
-          }
-          
-          .dark-theme .error-traceback {
-              color: #fca5a5;
-              background: #1f1515;
-          }
-          
-          /* Dark mode adjustments for Jupyter cells */
-          @media (prefers-color-scheme: dark) {
-              .input-area {
-                  background: var(--code-bg, #2d3748);
-              }
-              
-              .output-stream {
-                  background: var(--secondary-bg, #4a5568);
-              }
-          }
+        .navigation-header {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+            padding: 1.25rem;
+            background: transparent;
+            border-radius: 0;
+            border: none;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        /* Navigation buttons styles */
+        .note-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.6rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 400;
+            transition: all 0.2s ease;
+            width: 36px;
+            height: 36px;
+        }
+
+        .nav-button:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .nav-button.prev {
+            justify-content: flex-start;
+        }
+
+        .nav-button.next {
+            justify-content: flex-end;
+        }
+
+        .nav-button-text {
+            display: flex;
+            flex-direction: column;
+            align-items: inherit;
+        }
+
+        .nav-button-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-bottom: 0.2rem;
+        }
+
+        .nav-button-title {
+            font-weight: 500;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .nav-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .nav-progress-text {
+            font-size: 0.8rem;
+            font-weight: 400;
+            color: var(--text-color);
+            opacity: 0.7;
+            text-align: center;
+        }
+
+        .nav-progress-bar {
+            width: 100%;
+            max-width: 200px;
+            height: 4px;
+            background: #f0f0f0;
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .nav-progress-fill {
+            height: 100%;
+            background: #007acc;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .note-navigation {
+                flex-direction: row;
+                gap: 0.75rem;
+                align-items: center;
+            }
+
+            .nav-button {
+                width: 40px;
+                min-width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+            }
+
+            .nav-progress {
+                flex: 1;
+                margin: 0;
+            }
+
+            .nav-button-title {
+                max-width: none;
+            }
+        }
+
+        /* Jupyter Notebook Styles */
+        .code-cell {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+
+        .markdown-cell {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-color);
+            border-radius: 8px;
+        }
+
+        .input-area {
+            background: var(--code-bg, #f8f9fa);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-area pre {
+            margin: 0;
+            padding: 1rem;
+            background: transparent;
+            border-radius: 0;
+            overflow-x: auto;
+        }
+
+        .input-area code {
+            background: transparent;
+            padding: 0;
+            border-radius: 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .output-area {
+            background: var(--bg-color);
+            padding: 1rem;
+        }
+
+        .output-stream {
+            background: var(--secondary-bg, #f1f3f4);
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: var(--text-color);
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .output-result {
+            background: var(--bg-color);
+            padding: 0.75rem;
+            margin: 0.5rem 0;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.85rem;
+            line-height: 1.4;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+
+        .output-image {
+            text-align: center;
+            margin: 1rem 0;
+            padding: 0.5rem;
+            background: var(--bg-color);
+            border-radius: 4px;
+        }
+
+        .output-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            margin: 0;
+        }
+
+        .output-html {
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+            background: var(--bg-color);
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+        }
+
+        .output-html table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 0;
+        }
+
+        .output-html th,
+        .output-html td {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .output-html th {
+            background: var(--secondary-bg, #f8f9fa);
+            font-weight: 600;
+        }
+
+        .output-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            padding: 0.75rem;
+        }
+
+        .error-name {
+            color: #dc2626;
+            font-weight: 600;
+            margin: 0 0 0.5rem 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+        }
+
+        .error-traceback {
+            color: #7f1d1d;
+            margin: 0;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+            background: #fef7f7;
+            padding: 0.5rem;
+            border-radius: 3px;
+            overflow-x: auto;
+        }
+
+        /* Dark theme adjustments for error outputs */
+        .dark-theme .output-error {
+            background: #2d1b1b;
+            border-color: #7f1d1d;
+        }
+
+        .dark-theme .error-name {
+            color: #f87171;
+        }
+
+        .dark-theme .error-traceback {
+            color: #fca5a5;
+            background: #1f1515;
+        }
+
+        /* Dark mode adjustments for Jupyter cells */
+        @media (prefers-color-scheme: dark) {
+            .input-area {
+                background: var(--code-bg, #2d3748);
+            }
+
+            .output-stream {
+                background: var(--secondary-bg, #4a5568);
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="menu-overlay"></div>
     <header>
@@ -663,14 +714,9 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="../../../../../../index.html">About</a></li>
-                <li><a href="../../../../../../journey.html">My Life</a></li>
-                <li><a href="../../../../../../projects.html">Projects</a></li>
                 <li><a href="../../../../../../blogs.html">Blog</a></li>
                 <li><a href="../../../../../../notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../../../../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../../../../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="../../../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
@@ -685,7 +731,8 @@
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon"
+                        id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -701,244 +748,274 @@
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods / Instructions</span>
+                            <span class="folder-path">Year_1 / Q1 / Data_Analysis_&_Learning_Methods /
+                                Instructions</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
-                    
+
                     <div class="note-navigation" id="noteNavigation">
-                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;"
+                            title="Previous note">
                             <span class="nav-icon">←</span>
                         </a>
-                        
+
                         <div class="nav-progress">
                             <div class="nav-progress-text" id="progressText">Loading...</div>
                             <div class="nav-progress-bar">
                                 <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
                             </div>
                         </div>
-                        
-                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;"
+                            title="Next note">
                             <span class="nav-icon">→</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="note-content">
                     <div class="markdown-cell">
-<h1>Naive Bayes Classification</h1>
-<h2>Theory</h2>
-<p>Naive Bayes is a <strong>probabilistic classifier</strong> based on <strong>Bayes' theorem</strong> with a strong assumption that features are <strong>conditionally independent</strong> given the class. Despite this "naive" assumption, it often performs surprisingly well in practice.</p>
-<p>Bayes' theorem is given by:</p>
-<p>$P(C|X) = \frac{P(X|C) \cdot P(C)}{P(X)}$</p>
-<p>Where:<br />
-- $P(C|X)$ is the <strong>posterior probability</strong> of class $C$ given features $X$.<br />
-- $P(X|C)$ is the <strong>likelihood</strong> of observing features $X$ given class $C$.<br />
-- $P(C)$ is the <strong>prior probability</strong> of class $C$.<br />
-- $P(X)$ is the <strong>evidence</strong>, i.e., probability of observing $X$ (constant across classes).</p>
-<h3>Gaussian Naive Bayes</h3>
-<p>When features are continuous, we assume each feature follows a <strong>Gaussian (Normal) distribution</strong> for each class. The probability density function is:</p>
-<p>$P(x_i | C) = \frac{1}{\sqrt{2 \pi \sigma_C^2}} \exp\left( - \frac{(x_i - \mu_C)^2}{2 \sigma_C^2} \right)$</p>
-<p>Where:<br />
-- $x_i$ is the feature value.<br />
-- $\mu_C$ is the mean of the feature for class $C$.<br />
-- $\sigma_C^2$ is the variance of the feature for class $C$.</p>
-<p>The <strong>class with the highest posterior probability</strong> is assigned to the sample:</p>
-<p>$\hat{C} = \arg\max_C P(C|X) = \arg\max_C P(C) \prod_i P(x_i|C)$</p>
-<h3>Steps in Gaussian Naive Bayes:</h3>
-<ol>
-<li><strong>Separate the training data</strong> by class.  </li>
-<li><strong>Compute mean and variance</strong> for each feature per class.  </li>
-<li><strong>Calculate likelihoods</strong> using the Gaussian formula.  </li>
-<li><strong>Multiply likelihoods with class prior</strong> to get class probabilities.  </li>
-<li><strong>Predict the class</strong> with the highest posterior probability.</li>
-</ol>
-<p><strong>Key Assumption:</strong> Features are conditionally independent given the class.  </p>
-<p><strong>Advantages:</strong><br />
-- Simple, fast, and effective.<br />
-- Works well even with small datasets.  </p>
-<p><strong>Limitations:</strong><br />
-- Independence assumption may not hold in real data.<br />
-- Sensitive to irrelevant features.</p>
-</div>
-<div class="markdown-cell">
-<h2>----</h2>
-</div>
-<div class="markdown-cell">
-<h1>Gaussian Naive Bayes Step-by-Step Example</h1>
-<p>We illustrate <strong>Gaussian Naive Bayes</strong> on a toy dataset with <strong>continuous features</strong> and <strong>binary classes</strong>.</p>
-<table>
-<thead>
-<tr>
-<th>Feature 1 (X1)</th>
-<th>Feature 2 (X2)</th>
-<th>Class</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1.0</td>
-<td>2.0</td>
-<td>A</td>
-</tr>
-<tr>
-<td>1.2</td>
-<td>1.8</td>
-<td>A</td>
-</tr>
-<tr>
-<td>2.0</td>
-<td>3.0</td>
-<td>B</td>
-</tr>
-<tr>
-<td>2.2</td>
-<td>3.2</td>
-<td>B</td>
-</tr>
-</tbody>
-</table>
-<p>We want to <strong>predict the class</strong> for a new sample:<br />
-<strong>X = [1.1, 2.1]</strong></p>
-<hr />
-<h2>Step 0: Outline</h2>
-<ol>
-<li>Compute <strong>prior probabilities</strong> for each class.  </li>
-<li>Compute <strong>likelihoods</strong> for each feature (for Gaussian, use mean &amp; variance).  </li>
-<li>Multiply likelihoods and prior to get <strong>unnormalized posterior</strong>.  </li>
-<li><strong>Normalize</strong> posteriors so they sum to 1.  </li>
-<li>Choose the class with the <strong>highest posterior probability</strong>.</li>
-</ol>
-<hr />
-<h2>Step 1: Compute class priors</h2>
-<p>Count of each class:</p>
-<ul>
-<li>Class A: 2  </li>
-<li>Class B: 2  </li>
-<li>Total: 4  </li>
-</ul>
-<p>$$
-P(A) = \frac{2}{4} = 0.5, \quad P(B) = \frac{2}{4} = 0.5
-$$</p>
-<hr />
-<h2>Step 2: Compute mean and variance for each feature per class</h2>
-<p><strong>Class A:</strong><br />
-- Feature 1: $\mu_1 = 1.1$, $\sigma_1^2 = 0.01$<br />
-- Feature 2: $\mu_2 = 1.9$, $\sigma_2^2 = 0.01$  </p>
-<p><strong>Class B:</strong><br />
-- Feature 1: $\mu_1 = 2.1$, $\sigma_1^2 = 0.01$<br />
-- Feature 2: $\mu_2 = 3.1$, $\sigma_2^2 = 0.01$  </p>
-<hr />
-<h2>Step 3: Compute Gaussian probability density for each feature</h2>
-<p>Gaussian PDF formula:  </p>
-<p>$$
-P(x_i \mid C) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(x_i - \mu)^2}{2\sigma^2}\right)
-$$</p>
-<h3>Class A</h3>
-<ul>
-<li>Feature 1: $P(X_1=1.1 \mid A) \approx 3.989$  </li>
-<li>Feature 2: $P(X_2=2.1 \mid A) \approx 0.054$  </li>
-</ul>
-<h3>Class B</h3>
-<ul>
-<li>Feature 1: $P(X_1=1.1 \mid B) \approx 1.87 \cdot 10^{-11}$  </li>
-<li>Feature 2: $P(X_2=2.1 \mid B) \approx 1.87 \cdot 10^{-11}$  </li>
-</ul>
-<hr />
-<h2>Step 4: Compute unnormalized posterior (likelihood × prior)</h2>
-<p>$$
-\tilde{P}(A \mid X) = P(A) \cdot P(X_1 \mid A) \cdot P(X_2 \mid A) \approx 0.5 \cdot 3.989 \cdot 0.054 \approx 0.108
-$$</p>
-<p>$$
-\tilde{P}(B \mid X) = P(B) \cdot P(X_1 \mid B) \cdot P(X_2 \mid B) \approx 0.5 \cdot (1.87 \cdot 10^{-11})^2 \approx 1.75 \cdot 10^{-22}
-$$</p>
-<hr />
-<h2>Step 5: Normalize to get actual posterior probabilities</h2>
-<p>Normalization ensures the probabilities sum to 1:</p>
-<p>$$
-P(A \mid X) = \frac{\tilde{P}(A \mid X)}{\tilde{P}(A \mid X) + \tilde{P}(B \mid X)} \approx \frac{0.108}{0.108 + 1.75 \cdot 10^{-22}} \approx 1.0
-$$</p>
-<p>$$
-P(B \mid X) = \frac{\tilde{P}(B \mid X)}{\tilde{P}(A \mid X) + \tilde{P}(B \mid X)} \approx \frac{1.75 \cdot 10^{-22}}{0.108 + 1.75 \cdot 10^{-22}} \approx 0.0
-$$</p>
-<hr />
-<h2>Step 6: Predict class</h2>
-<p>Since $P(A \mid X) &gt; P(B \mid X)$, we <strong>predict class = A</strong> for the sample $X=[1.1,2.1]$.</p>
-</div>
-<div class="markdown-cell">
-<h2>-----</h2>
-</div>
-<div class="markdown-cell">
-<h2>Exercise: Implement Gaussian Naive Bayes for the Iris Dataset</h2>
-<p>In this exercise, you will manually implement Gaussian Naive Bayes using the Iris dataset. You will <strong>NOT</strong> use sklearn's Naive Bayes classifier; instead, you will follow the step-by-step process of computing probabilities, likelihoods, and predictions.</p>
-<p>You can use the following Python modules:</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+                        <h1>Naive Bayes Classification</h1>
+                        <h2>Theory</h2>
+                        <p>Naive Bayes is a <strong>probabilistic classifier</strong> based on <strong>Bayes'
+                                theorem</strong> with a strong assumption that features are <strong>conditionally
+                                independent</strong> given the class. Despite this "naive" assumption, it often performs
+                            surprisingly well in practice.</p>
+                        <p>Bayes' theorem is given by:</p>
+                        <p>$P(C|X) = \frac{P(X|C) \cdot P(C)}{P(X)}$</p>
+                        <p>Where:<br />
+                            - $P(C|X)$ is the <strong>posterior probability</strong> of class $C$ given features
+                            $X$.<br />
+                            - $P(X|C)$ is the <strong>likelihood</strong> of observing features $X$ given class
+                            $C$.<br />
+                            - $P(C)$ is the <strong>prior probability</strong> of class $C$.<br />
+                            - $P(X)$ is the <strong>evidence</strong>, i.e., probability of observing $X$ (constant
+                            across classes).</p>
+                        <h3>Gaussian Naive Bayes</h3>
+                        <p>When features are continuous, we assume each feature follows a <strong>Gaussian (Normal)
+                                distribution</strong> for each class. The probability density function is:</p>
+                        <p>$P(x_i | C) = \frac{1}{\sqrt{2 \pi \sigma_C^2}} \exp\left( - \frac{(x_i - \mu_C)^2}{2
+                            \sigma_C^2} \right)$</p>
+                        <p>Where:<br />
+                            - $x_i$ is the feature value.<br />
+                            - $\mu_C$ is the mean of the feature for class $C$.<br />
+                            - $\sigma_C^2$ is the variance of the feature for class $C$.</p>
+                        <p>The <strong>class with the highest posterior probability</strong> is assigned to the sample:
+                        </p>
+                        <p>$\hat{C} = \arg\max_C P(C|X) = \arg\max_C P(C) \prod_i P(x_i|C)$</p>
+                        <h3>Steps in Gaussian Naive Bayes:</h3>
+                        <ol>
+                            <li><strong>Separate the training data</strong> by class. </li>
+                            <li><strong>Compute mean and variance</strong> for each feature per class. </li>
+                            <li><strong>Calculate likelihoods</strong> using the Gaussian formula. </li>
+                            <li><strong>Multiply likelihoods with class prior</strong> to get class probabilities. </li>
+                            <li><strong>Predict the class</strong> with the highest posterior probability.</li>
+                        </ol>
+                        <p><strong>Key Assumption:</strong> Features are conditionally independent given the class. </p>
+                        <p><strong>Advantages:</strong><br />
+                            - Simple, fast, and effective.<br />
+                            - Works well even with small datasets. </p>
+                        <p><strong>Limitations:</strong><br />
+                            - Independence assumption may not hold in real data.<br />
+                            - Sensitive to irrelevant features.</p>
+                    </div>
+                    <div class="markdown-cell">
+                        <h2>----</h2>
+                    </div>
+                    <div class="markdown-cell">
+                        <h1>Gaussian Naive Bayes Step-by-Step Example</h1>
+                        <p>We illustrate <strong>Gaussian Naive Bayes</strong> on a toy dataset with <strong>continuous
+                                features</strong> and <strong>binary classes</strong>.</p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature 1 (X1)</th>
+                                    <th>Feature 2 (X2)</th>
+                                    <th>Class</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1.0</td>
+                                    <td>2.0</td>
+                                    <td>A</td>
+                                </tr>
+                                <tr>
+                                    <td>1.2</td>
+                                    <td>1.8</td>
+                                    <td>A</td>
+                                </tr>
+                                <tr>
+                                    <td>2.0</td>
+                                    <td>3.0</td>
+                                    <td>B</td>
+                                </tr>
+                                <tr>
+                                    <td>2.2</td>
+                                    <td>3.2</td>
+                                    <td>B</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>We want to <strong>predict the class</strong> for a new sample:<br />
+                            <strong>X = [1.1, 2.1]</strong>
+                        </p>
+                        <hr />
+                        <h2>Step 0: Outline</h2>
+                        <ol>
+                            <li>Compute <strong>prior probabilities</strong> for each class. </li>
+                            <li>Compute <strong>likelihoods</strong> for each feature (for Gaussian, use mean &amp;
+                                variance). </li>
+                            <li>Multiply likelihoods and prior to get <strong>unnormalized posterior</strong>. </li>
+                            <li><strong>Normalize</strong> posteriors so they sum to 1. </li>
+                            <li>Choose the class with the <strong>highest posterior probability</strong>.</li>
+                        </ol>
+                        <hr />
+                        <h2>Step 1: Compute class priors</h2>
+                        <p>Count of each class:</p>
+                        <ul>
+                            <li>Class A: 2 </li>
+                            <li>Class B: 2 </li>
+                            <li>Total: 4 </li>
+                        </ul>
+                        <p>$$
+                            P(A) = \frac{2}{4} = 0.5, \quad P(B) = \frac{2}{4} = 0.5
+                            $$</p>
+                        <hr />
+                        <h2>Step 2: Compute mean and variance for each feature per class</h2>
+                        <p><strong>Class A:</strong><br />
+                            - Feature 1: $\mu_1 = 1.1$, $\sigma_1^2 = 0.01$<br />
+                            - Feature 2: $\mu_2 = 1.9$, $\sigma_2^2 = 0.01$ </p>
+                        <p><strong>Class B:</strong><br />
+                            - Feature 1: $\mu_1 = 2.1$, $\sigma_1^2 = 0.01$<br />
+                            - Feature 2: $\mu_2 = 3.1$, $\sigma_2^2 = 0.01$ </p>
+                        <hr />
+                        <h2>Step 3: Compute Gaussian probability density for each feature</h2>
+                        <p>Gaussian PDF formula: </p>
+                        <p>$$
+                            P(x_i \mid C) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp\left(-\frac{(x_i -
+                            \mu)^2}{2\sigma^2}\right)
+                            $$</p>
+                        <h3>Class A</h3>
+                        <ul>
+                            <li>Feature 1: $P(X_1=1.1 \mid A) \approx 3.989$ </li>
+                            <li>Feature 2: $P(X_2=2.1 \mid A) \approx 0.054$ </li>
+                        </ul>
+                        <h3>Class B</h3>
+                        <ul>
+                            <li>Feature 1: $P(X_1=1.1 \mid B) \approx 1.87 \cdot 10^{-11}$ </li>
+                            <li>Feature 2: $P(X_2=2.1 \mid B) \approx 1.87 \cdot 10^{-11}$ </li>
+                        </ul>
+                        <hr />
+                        <h2>Step 4: Compute unnormalized posterior (likelihood × prior)</h2>
+                        <p>$$
+                            \tilde{P}(A \mid X) = P(A) \cdot P(X_1 \mid A) \cdot P(X_2 \mid A) \approx 0.5 \cdot 3.989
+                            \cdot 0.054 \approx 0.108
+                            $$</p>
+                        <p>$$
+                            \tilde{P}(B \mid X) = P(B) \cdot P(X_1 \mid B) \cdot P(X_2 \mid B) \approx 0.5 \cdot (1.87
+                            \cdot 10^{-11})^2 \approx 1.75 \cdot 10^{-22}
+                            $$</p>
+                        <hr />
+                        <h2>Step 5: Normalize to get actual posterior probabilities</h2>
+                        <p>Normalization ensures the probabilities sum to 1:</p>
+                        <p>$$
+                            P(A \mid X) = \frac{\tilde{P}(A \mid X)}{\tilde{P}(A \mid X) + \tilde{P}(B \mid X)} \approx
+                            \frac{0.108}{0.108 + 1.75 \cdot 10^{-22}} \approx 1.0
+                            $$</p>
+                        <p>$$
+                            P(B \mid X) = \frac{\tilde{P}(B \mid X)}{\tilde{P}(A \mid X) + \tilde{P}(B \mid X)} \approx
+                            \frac{1.75 \cdot 10^{-22}}{0.108 + 1.75 \cdot 10^{-22}} \approx 0.0
+                            $$</p>
+                        <hr />
+                        <h2>Step 6: Predict class</h2>
+                        <p>Since $P(A \mid X) &gt; P(B \mid X)$, we <strong>predict class = A</strong> for the sample
+                            $X=[1.1,2.1]$.</p>
+                    </div>
+                    <div class="markdown-cell">
+                        <h2>-----</h2>
+                    </div>
+                    <div class="markdown-cell">
+                        <h2>Exercise: Implement Gaussian Naive Bayes for the Iris Dataset</h2>
+                        <p>In this exercise, you will manually implement Gaussian Naive Bayes using the Iris dataset.
+                            You will <strong>NOT</strong> use sklearn's Naive Bayes classifier; instead, you will follow
+                            the step-by-step process of computing probabilities, likelihoods, and predictions.</p>
+                        <p>You can use the following Python modules:</p>
+                        <div class="codehilite">
+                            <pre><span></span><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_iris</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-</code></pre></div>
+</code></pre>
+                        </div>
 
-<hr />
-<h2>Step 0: Load the dataset</h2>
-<ol>
-<li>Load the Iris dataset using <code>load_iris()</code></li>
-<li>Store the features in <code>X</code> and the target labels in <code>y</code>  </li>
-<li>Split the dataset into train and test sets using <code>train_test_split()</code> (use <code>test_size=0.3</code> and <code>random_state=42</code>)</li>
-</ol>
-<p><strong>Hint:</strong> Use <code>iris.data</code> for features and <code>iris.target</code> for labels</p>
-<hr />
-<h2>Step 1: Create the training function</h2>
-<p>Create a function <code>train_naive_bayes(X_train, y_train)</code> that:
-- Gets unique classes using <code>np.unique(y_train)</code>
-- For each class, finds all samples belonging to that class
-- Calculates and stores: mean, variance, and prior probability</p>
-<p><strong>Hints:</strong>
-- Use <code>X_train[y_train == cls]</code> to get samples for a specific class
-- Use <code>np.mean(class_data, axis=0)</code> for mean of each feature
-- Use <code>np.var(class_data, axis=0)</code> for variance of each feature
-- Prior = number of samples in class / total samples</p>
-<p><strong>Return:</strong> A dictionary {} with statistics for each class</p>
-<hr />
-<h2>Step 2: Create the prediction function</h2>
-<p>Create a function <code>predict_sample(x, stats)</code> that:
-- Loops through each class in the statistics
-- Calculates likelihood using the Gaussian formula
-- Multiplies likelihood by prior probability
-- Returns the class with highest probability</p>
-<p><strong>Gaussian Formula:</strong></p>
-<div class="codehilite"><pre><span></span><code><span class="n">likelihood</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">variance</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance</span><span class="p">)</span>
-</code></pre></div>
+                        <hr />
+                        <h2>Step 0: Load the dataset</h2>
+                        <ol>
+                            <li>Load the Iris dataset using <code>load_iris()</code></li>
+                            <li>Store the features in <code>X</code> and the target labels in <code>y</code> </li>
+                            <li>Split the dataset into train and test sets using <code>train_test_split()</code> (use
+                                <code>test_size=0.3</code> and <code>random_state=42</code>)</li>
+                        </ol>
+                        <p><strong>Hint:</strong> Use <code>iris.data</code> for features and <code>iris.target</code>
+                            for labels</p>
+                        <hr />
+                        <h2>Step 1: Create the training function</h2>
+                        <p>Create a function <code>train_naive_bayes(X_train, y_train)</code> that:
+                            - Gets unique classes using <code>np.unique(y_train)</code>
+                            - For each class, finds all samples belonging to that class
+                            - Calculates and stores: mean, variance, and prior probability</p>
+                        <p><strong>Hints:</strong>
+                            - Use <code>X_train[y_train == cls]</code> to get samples for a specific class
+                            - Use <code>np.mean(class_data, axis=0)</code> for mean of each feature
+                            - Use <code>np.var(class_data, axis=0)</code> for variance of each feature
+                            - Prior = number of samples in class / total samples</p>
+                        <p><strong>Return:</strong> A dictionary {} with statistics for each class</p>
+                        <hr />
+                        <h2>Step 2: Create the prediction function</h2>
+                        <p>Create a function <code>predict_sample(x, stats)</code> that:
+                            - Loops through each class in the statistics
+                            - Calculates likelihood using the Gaussian formula
+                            - Multiplies likelihood by prior probability
+                            - Returns the class with highest probability</p>
+                        <p><strong>Gaussian Formula:</strong></p>
+                        <div class="codehilite">
+                            <pre><span></span><code><span class="n">likelihood</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">variance</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mf">0.5</span> <span class="o">*</span> <span class="p">((</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">variance</span><span class="p">)</span>
+</code></pre>
+                        </div>
 
-<p><strong>Hints:</strong>
-- Use <code>np.prod()</code> to multiply likelihoods of all features
-- Keep track of best probability and best class
-- Return the class with the highest probability</p>
-<hr />
-<h2>Step 3: Train your model</h2>
-<ul>
-<li>Call <code>train_naive_bayes(X_train, y_train)</code> to get model statistics</li>
-<li>Store the result in a variable called <code>model</code></li>
-</ul>
-<hr />
-<h2>Step 4: Make predictions</h2>
-<ul>
-<li>Use list comprehension to predict each sample in the test set</li>
-<li><code>predictions = [predict_sample(x, model) for x in X_test]</code></li>
-</ul>
-<hr />
-<h2>Step 5: Calculate accuracy</h2>
-<ul>
-<li>Use <code>np.mean(predictions == y_test)</code> to calculate accuracy</li>
-<li>Print the result</li>
-</ul>
-<hr />
-<h2>Step 6: Print model details</h2>
-<p>Print the statistics for each class to understand what the model learned:
-- Prior probability
-- Mean of each feature<br />
-- Variance of each feature</p>
-<hr />
-<h2>Expected Output Structure:</h2>
-<div class="codehilite"><pre><span></span><code><span class="n">Accuracy</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XX</span>
+                        <p><strong>Hints:</strong>
+                            - Use <code>np.prod()</code> to multiply likelihoods of all features
+                            - Keep track of best probability and best class
+                            - Return the class with the highest probability</p>
+                        <hr />
+                        <h2>Step 3: Train your model</h2>
+                        <ul>
+                            <li>Call <code>train_naive_bayes(X_train, y_train)</code> to get model statistics</li>
+                            <li>Store the result in a variable called <code>model</code></li>
+                        </ul>
+                        <hr />
+                        <h2>Step 4: Make predictions</h2>
+                        <ul>
+                            <li>Use list comprehension to predict each sample in the test set</li>
+                            <li><code>predictions = [predict_sample(x, model) for x in X_test]</code></li>
+                        </ul>
+                        <hr />
+                        <h2>Step 5: Calculate accuracy</h2>
+                        <ul>
+                            <li>Use <code>np.mean(predictions == y_test)</code> to calculate accuracy</li>
+                            <li>Print the result</li>
+                        </ul>
+                        <hr />
+                        <h2>Step 6: Print model details</h2>
+                        <p>Print the statistics for each class to understand what the model learned:
+                            - Prior probability
+                            - Mean of each feature<br />
+                            - Variance of each feature</p>
+                        <hr />
+                        <h2>Expected Output Structure:</h2>
+                        <div class="codehilite">
+                            <pre><span></span><code><span class="n">Accuracy</span><span class="o">:</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XX</span>
 
 <span class="n">Model</span><span class="w"> </span><span class="n">Statistics</span><span class="o">:</span>
 <span class="n">Class</span><span class="w"> </span><span class="mi">0</span><span class="o">:</span><span class="w"> </span><span class="n">Prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XXX</span>
@@ -952,24 +1029,25 @@ $$</p>
 <span class="n">Class</span><span class="w"> </span><span class="mi">2</span><span class="o">:</span><span class="w"> </span><span class="n">Prior</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="o">.</span><span class="na">XXX</span>
 <span class="w">  </span><span class="n">Mean</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
 <span class="w">  </span><span class="n">Variance</span><span class="o">:</span><span class="w"> </span><span class="o">[</span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="w"> </span><span class="n">X</span><span class="o">.</span><span class="na">XX</span><span class="o">]</span>
-</code></pre></div>
+</code></pre>
+                        </div>
 
-<hr />
-</div>
-<div class="code-cell">
-<div class="input-area">
-<pre><code class="language-python">
+                        <hr />
+                    </div>
+                    <div class="code-cell">
+                        <div class="input-area">
+                            <pre><code class="language-python">
 
 
 </code></pre>
-</div>
-</div>
-<div class="markdown-cell">
-<h1>A simplified NV implementation using Sklearn</h1>
-</div>
-<div class="code-cell">
-<div class="input-area">
-<pre><code class="language-python">
+                        </div>
+                    </div>
+                    <div class="markdown-cell">
+                        <h1>A simplified NV implementation using Sklearn</h1>
+                    </div>
+                    <div class="code-cell">
+                        <div class="input-area">
+                            <pre><code class="language-python">
 # Import libraries
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
@@ -999,11 +1077,11 @@ print(f"Accuracy: {accuracy:.2f}")
 print("Classification Report:")
 print(classification_report(y_test, y_pred, target_names=iris.target_names))
 </code></pre>
-</div>
-</div>
-<div class="markdown-cell">
-<h1>The end</h1>
-</div>
+                        </div>
+                    </div>
+                    <div class="markdown-cell">
+                        <h1>The end</h1>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1017,17 +1095,17 @@ print(classification_report(y_test, y_pred, target_names=iris.target_names))
 
     <script>
         // Note navigation functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadNoteNavigation();
         });
-        
+
         async function loadNoteNavigation() {
             try {
                 // Get current page path relative to root
                 const currentPath = window.location.pathname;
                 const pathParts = currentPath.split('/');
                 const fileName = pathParts[pathParts.length - 1];
-                
+
                 // Construct the relative path to match navigation data
                 let relativePath = '';
                 if (pathParts.includes('notes')) {
@@ -1036,41 +1114,41 @@ print(classification_report(y_test, y_pred, target_names=iris.target_names))
                 } else {
                     relativePath = 'notes/' + fileName;
                 }
-                
+
                 // Decode URL encoding (e.g., %20 -> space) to match navigation data
                 relativePath = decodeURIComponent(relativePath);
-                
+
                 // Load navigation data
                 const response = await fetch('../../../../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
                 }
-                
+
                 const navigationData = await response.json();
                 const currentNav = navigationData[relativePath];
-                
+
                 if (!currentNav) {
                     console.log('Current page not found in navigation data:', relativePath);
                     return;
                 }
-                
+
                 // Update progress
                 const progressText = document.getElementById('progressText');
                 const progressFill = document.getElementById('progressFill');
                 const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
-                
+
                 progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
                 progressFill.style.width = `${progress}%`;
-                
+
                 // Update current page title in header
                 const currentPageTitle = document.getElementById('currentPageTitle');
                 const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
                 currentPageTitle.textContent = pageTitle;
-                
+
                 // Update previous button
                 const prevButton = document.getElementById('prevButton');
-                
+
                 if (currentNav.previous) {
                     prevButton.href = '../../../../../../' + currentNav.previous;
                     prevButton.title = 'Previous: ' + currentNav.previous_title;
@@ -1078,10 +1156,10 @@ print(classification_report(y_test, y_pred, target_names=iris.target_names))
                 } else {
                     prevButton.style.visibility = 'hidden';
                 }
-                
+
                 // Update next button
                 const nextButton = document.getElementById('nextButton');
-                
+
                 if (currentNav.next) {
                     nextButton.href = '../../../../../../' + currentNav.next;
                     nextButton.title = 'Next: ' + currentNav.next_title;
@@ -1089,18 +1167,18 @@ print(classification_report(y_test, y_pred, target_names=iris.target_names))
                 } else {
                     nextButton.style.visibility = 'hidden';
                 }
-                
+
                 // Add keyboard navigation
-                document.addEventListener('keydown', function(e) {
+                document.addEventListener('keydown', function (e) {
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
-                    
+
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
                         window.location.href = '../../../../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
                         window.location.href = '../../../../../../' + currentNav.next;
                     }
                 });
-                
+
             } catch (error) {
                 console.error('Error loading navigation:', error);
                 document.getElementById('progressText').textContent = 'Navigation unavailable';
@@ -1109,4 +1187,5 @@ print(classification_report(y_test, y_pred, target_names=iris.target_names))
     </script>
 
 </body>
+
 </html>

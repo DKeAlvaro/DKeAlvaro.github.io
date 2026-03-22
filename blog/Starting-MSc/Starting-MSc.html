@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-7BJS149EFL');
     </script>
@@ -17,13 +18,14 @@
     <link rel="stylesheet" href="../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js"
+        crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
+        document.addEventListener("DOMContentLoaded", function () {
             renderMathInElement(document.body, {
                 delimiters: [
-                    {left: "$$", right: "$$", display: true},
-                    {left: "$", right: "$", display: false}
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false }
                 ]
             });
         });
@@ -34,17 +36,20 @@
             margin: 0 auto;
             padding: 2rem;
         }
+
         .note-header {
             text-align: center;
             margin-bottom: 3rem;
             padding-bottom: 2rem;
             border-bottom: 2px solid var(--border-color);
         }
+
         .note-title {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--primary-color);
         }
+
         .back-link {
             display: inline-block;
             margin-bottom: 0rem;
@@ -56,28 +61,36 @@
             border-radius: 4px;
             transition: color 0.2s ease;
         }
+
         .back-link:hover {
             color: var(--primary-color);
         }
+
         .nav-left {
             display: flex;
             align-items: center;
             gap: 1rem;
         }
+
         .folder-path {
-             font-size: 0.8rem;
-             color: var(--text-color-secondary);
-             opacity: 0.7;
-         }
+            font-size: 0.8rem;
+            color: var(--text-color-secondary);
+            opacity: 0.7;
+        }
+
         .note-content {
             line-height: 1.8;
             color: var(--text-color);
         }
-        .note-content h1, .note-content h2, .note-content h3 {
+
+        .note-content h1,
+        .note-content h2,
+        .note-content h3 {
             color: var(--primary-color);
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
+
         .note-content img {
             max-width: 100%;
             height: auto;
@@ -85,25 +98,30 @@
             margin: 1rem 0;
             display: block;
         }
+
         /* Preserve centered images from markdown HTML */
         .note-content div[style*="text-align: center"] {
             text-align: center !important;
         }
+
         .note-content div[style*="text-align: center"] img {
             margin: 1rem auto;
         }
+
         .note-content pre {
             background: var(--code-bg);
             padding: 1rem;
             border-radius: 5px;
             overflow-x: auto;
         }
+
         .note-content code {
             background: var(--code-bg);
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
         }
+
         .note-content blockquote {
             border-left: 4px solid var(--primary-color);
             padding-left: 1rem;
@@ -111,28 +129,35 @@
             font-style: italic;
             opacity: 0.9;
         }
-        .note-content ul, .note-content ol {
+
+        .note-content ul,
+        .note-content ol {
             padding-left: 2rem;
             margin: 1rem 0;
         }
+
         .note-content ul {
             list-style-type: disc;
         }
+
         .note-content li {
             margin-bottom: 0.2rem;
             display: list-item;
             list-style-position: outside;
         }
+
         /* Reduce spacing for nested lists */
-        .note-content li ul, .note-content li ol {
+        .note-content li ul,
+        .note-content li ol {
             margin: 0.3rem 0;
             padding-left: 1.5rem;
         }
+
         .note-content ul li::marker {
             color: var(--primary-color);
             font-size: 1.2em;
         }
-        
+
         /* Q&A Styles */
         .qa-item {
             margin: 1.5rem 0;
@@ -141,7 +166,7 @@
             overflow: hidden;
             background: var(--bg-color);
         }
-        
+
         .qa-question {
             padding: 1rem;
             background: var(--secondary-bg, #f8f9fa);
@@ -152,28 +177,28 @@
             transition: background-color 0.2s ease;
             user-select: none;
         }
-        
+
         .qa-question:hover {
             background: var(--hover-bg, #e9ecef);
         }
-        
+
         .qa-icon {
             font-size: 0.8rem;
             transition: transform 0.2s ease;
             color: var(--primary-color);
             font-weight: bold;
         }
-        
+
         .qa-question.active .qa-icon {
             transform: rotate(90deg);
         }
-        
+
         .qa-text {
             font-weight: 600;
             color: var(--text-color);
             flex: 1;
         }
-        
+
         .qa-answer {
             padding: 1rem;
             background: var(--bg-color);
@@ -182,16 +207,17 @@
             color: var(--text-color);
             line-height: 1.6;
         }
-        
+
         .qa-answer.active {
             display: block;
         }
-        
+
         /* Mobile responsive styles */
         @media (max-width: 768px) {
             .note-container {
                 padding: 0.5rem;
             }
+
             .navigation-header {
                 flex-direction: column;
                 align-items: flex-start;
@@ -199,12 +225,14 @@
                 padding: 0rem;
                 margin-bottom: 0rem;
             }
+
             .nav-left {
                 flex-direction: column;
                 align-items: center;
                 gap: 0.5rem;
                 width: 100%;
             }
+
             .back-link {
                 font-size: 0.9rem;
                 padding: 0.6rem 1rem;
@@ -220,11 +248,13 @@
                 transition: all 0.2s ease;
                 flex-shrink: 0;
             }
+
             .back-link:hover {
                 background: var(--primary-color);
                 color: white !important;
                 border-color: var(--primary-color);
             }
+
             .folder-path {
                 font-size: 0.85rem;
                 color: var(--text-color-secondary);
@@ -232,6 +262,7 @@
                 flex: 1;
                 min-width: 0;
             }
+
             .note-navigation {
                 width: 100%;
                 display: flex;
@@ -239,6 +270,7 @@
                 gap: 0.75rem;
                 flex-wrap: nowrap;
             }
+
             .nav-button {
                 font-size: 1.2rem;
                 padding: 0.5rem;
@@ -250,184 +282,197 @@
                 justify-content: center;
                 flex-shrink: 0;
             }
+
             .nav-button span:not(.nav-icon) {
                 display: none;
             }
+
             .nav-progress {
                 flex: 1;
                 font-size: 0.8rem;
                 text-align: center;
                 color: var(--text-color-secondary);
             }
+
             .note-header {
                 margin-bottom: 1rem;
                 padding-bottom: 1.5rem;
             }
+
             .note-title {
                 font-size: 2rem;
             }
+
             .note-content h1 {
                 font-size: 1.8rem;
             }
+
             .note-content h2 {
                 font-size: 1.5rem;
             }
+
             .note-content h3 {
                 font-size: 1.3rem;
             }
+
             .note-content pre {
                 padding: 0.75rem;
                 font-size: 0.9rem;
             }
-            .note-content ul, .note-content ol {
+
+            .note-content ul,
+            .note-content ol {
                 padding-left: 1.5rem;
             }
         }
-        
+
         @media (max-width: 480px) {
-             .note-container {
-                 padding: 0.5rem;
-             }
-             .note-header {
-                 margin-bottom: 1.15rem;
-                 padding-bottom: 0.75rem;
-             }
-             .back-link {
-                 padding: 0.25rem 0.5rem;
-                 font-size: 0.85rem;
-             }
-         }
-        
+            .note-container {
+                padding: 0.5rem;
+            }
+
+            .note-header {
+                margin-bottom: 1.15rem;
+                padding-bottom: 0.75rem;
+            }
+
+            .back-link {
+                padding: 0.25rem 0.5rem;
+                font-size: 0.85rem;
+            }
+        }
+
         /* Navigation header styles */
-         .navigation-header {
-             display: flex;
-             justify-content: space-between;
-             align-items: center;
-             margin-bottom: 2rem;
-             padding-bottom: 1rem;
-             border-bottom: 1px solid var(--border-color);
-             flex-wrap: wrap;
-             gap: 1rem;
-         }
-         
-         /* Navigation buttons styles */
-         .note-navigation {
-             display: flex;
-             justify-content: center;
-             align-items: center;
-             gap: 1rem;
-         }
-         
-         .nav-button {
-             display: inline-flex;
-             align-items: center;
-             gap: 0.5rem;
-             padding: 0.3rem 0.6rem;
-             background: transparent;
-             border: 1px solid var(--border-color);
-             border-radius: 4px;
-             color: var(--text-color);
-             text-decoration: none;
-             font-size: 0.9rem;
-             transition: color 0.2s ease;
-             min-width: 100px;
-         }
-         
-         .nav-button:hover {
-             color: var(--primary-color);
-         }
-         
-         .nav-button:disabled {
-             opacity: 0.5;
-             cursor: not-allowed;
-             pointer-events: none;
-         }
-         
-         .nav-button.prev {
-             justify-content: flex-start;
-         }
-         
-         .nav-button.next {
-             justify-content: flex-end;
-         }
-         
-         .nav-button-text {
-             display: flex;
-             flex-direction: column;
-             align-items: inherit;
-         }
-         
-         .nav-button-label {
-             font-size: 0.75rem;
-             opacity: 0.7;
-             margin-bottom: 0.2rem;
-         }
-         
-         .nav-button-title {
-             font-weight: 500;
-             max-width: 200px;
-             overflow: hidden;
-             text-overflow: ellipsis;
-             white-space: nowrap;
-         }
-         
-         .nav-progress {
-             display: flex;
-             flex-direction: column;
-             align-items: center;
-             gap: 0.5rem;
-             flex: 1;
-             margin: 0 1rem;
-         }
-         
-         .nav-progress-text {
-             font-size: 0.8rem;
-             color: var(--text-color);
-             opacity: 0.7;
-         }
-         
-         .nav-progress-bar {
-             width: 100%;
-             max-width: 200px;
-             height: 4px;
-             background: var(--border-color);
-             border-radius: 2px;
-             overflow: hidden;
-         }
-         
-         .nav-progress-fill {
-             height: 100%;
-             background: var(--primary-color);
-             transition: width 0.3s ease;
-         }
-         
-         @media (max-width: 768px) {
-              .note-navigation {
-                  flex-direction: row;
-                  gap: 0.75rem;
-                  align-items: center;
-              }
-              
-              .nav-button {
-                  width: 40px;
-                  min-width: 40px;
-                  height: 40px;
-                  border-radius: 50%;
-                  padding: 0.5rem;
-                  font-size: 1.2rem;
-              }
-              
-              .nav-progress {
-                  flex: 1;
-                  margin: 0;
-              }
-              
-              .nav-button-title {
-                  max-width: none;
-              }
-          }
+        .navigation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        /* Navigation buttons styles */
+        .note-navigation {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 0.6rem;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s ease;
+            min-width: 100px;
+        }
+
+        .nav-button:hover {
+            color: var(--primary-color);
+        }
+
+        .nav-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .nav-button.prev {
+            justify-content: flex-start;
+        }
+
+        .nav-button.next {
+            justify-content: flex-end;
+        }
+
+        .nav-button-text {
+            display: flex;
+            flex-direction: column;
+            align-items: inherit;
+        }
+
+        .nav-button-label {
+            font-size: 0.75rem;
+            opacity: 0.7;
+            margin-bottom: 0.2rem;
+        }
+
+        .nav-button-title {
+            font-weight: 500;
+            max-width: 200px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .nav-progress {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .nav-progress-text {
+            font-size: 0.8rem;
+            color: var(--text-color);
+            opacity: 0.7;
+        }
+
+        .nav-progress-bar {
+            width: 100%;
+            max-width: 200px;
+            height: 4px;
+            background: var(--border-color);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .nav-progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .note-navigation {
+                flex-direction: row;
+                gap: 0.75rem;
+                align-items: center;
+            }
+
+            .nav-button {
+                width: 40px;
+                min-width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                padding: 0.5rem;
+                font-size: 1.2rem;
+            }
+
+            .nav-progress {
+                flex: 1;
+                margin: 0;
+            }
+
+            .nav-button-title {
+                max-width: none;
+            }
+        }
     </style>
 </head>
+
 <body>
     <div class="menu-overlay"></div>
     <header>
@@ -439,14 +484,9 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="../../../index.html">About</a></li>
-                <li><a href="../../../journey.html">My Life</a></li>
-                <li><a href="../../../projects.html">Projects</a></li>
                 <li><a href="../../../blogs.html">Blog</a></li>
                 <li><a href="../../../notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../../assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="../../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
@@ -475,73 +515,87 @@
                         <a href="../../../notes.html" class="back-link">← Back to Notes</a>
                         <span class="folder-path">blog</span>
                     </div>
-                    
+
                     <div class="note-navigation" id="noteNavigation">
                         <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;">
                             <span class="nav-icon">←</span>
                             <span id="prevTitle">Previous</span>
                         </a>
-                        
+
                         <div class="nav-progress">
                             <div class="nav-progress-text" id="progressText">Loading...</div>
                             <div class="nav-progress-bar">
                                 <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
                             </div>
                         </div>
-                        
+
                         <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;">
                             <span id="nextTitle">Next</span>
                             <span class="nav-icon">→</span>
                         </a>
                     </div>
                 </div>
-                
+
                 <div class="note-content">
                     <h1>End of summer and starting my Master's degree in AI!</h1>
-<p>I havent written here in a while. It's not that I stopped coding and shipping 👀, but more that Linkedin is completely empty during summer. Anyway, I had a GREAT time this summer. I was'nt expecting many cool plans but it ended up being really cool. I would highlight three different trips I did: <em>Santander</em>, <em>Ceuta-Melilla 6 day Bike trip</em> and <em>San Fermines</em>. Each one had their unique bits that made them amazing. Dont worry, I will go more into details about them in the pictures below!</p>
-<div class="image-carousel">
-  <div class="carousel-item">
-    <img src="painting-bike.jpeg" alt="Painting Bike">
-    <p class="carousel-description">My new friends and I in some random park in Eindhoven painting a bike</p>
-  </div>
-  <div class="carousel-item">
-    <img src="campus-card.jpeg" alt="Campus card">
-    <p class="carousel-description">My brand new student card 😎</p>
-  </div>
-  <div class="carousel-item">
-    <img src="power-nap.jpeg" alt="Bunk beds at library">
-    <p class="carousel-description">Turns out Eindhoven has bunk beds to allow students to take naps! </p>
-  </div>
-  <div class="carousel-item">
-    <img src="ceuta-melilla-selfie.jpeg" alt="Ceuta selfie">
-    <p class="carousel-description">A selfie we took in Algeciras before getting into the ferry to Ceuta </p>
-  </div>
-  <div class="carousel-item">
-    <img src="ceuta-melilla.jpeg" alt="Ceuta Melilla">
-    <p class="carousel-description">The route we did biking! That big hill in the middle was really difficult.</p>
-  </div>
-  <div class="carousel-item">
-    <img src="despedida.jpeg" alt="Despedida">
-    <p class="carousel-description">An amazing goodbye party my friends and I did</p>
-  </div>
-  <div class="carousel-item">
-    <img src="pana-miguel.jpeg" alt="Pana Miguel">
-    <p class="carousel-description">A super cute cat😻 we met at Cala Iris. I should of taken him home...</p>
-  </div>
-  <div class="carousel-item">
-    <img src="sanfermines.jpeg" alt="Sanfermines">
-    <p class="carousel-description">An unforgettable trip we did to Pamplona. We ran in front of the bulls</p>
-  </div>
-</div>
+                    <p>I havent written here in a while. It's not that I stopped coding and shipping 👀, but more that
+                        Linkedin is completely empty during summer. Anyway, I had a GREAT time this summer. I was'nt
+                        expecting many cool plans but it ended up being really cool. I would highlight three different
+                        trips I did: <em>Santander</em>, <em>Ceuta-Melilla 6 day Bike trip</em> and <em>San
+                            Fermines</em>. Each one had their unique bits that made them amazing. Dont worry, I will go
+                        more into details about them in the pictures below!</p>
+                    <div class="image-carousel">
+                        <div class="carousel-item">
+                            <img src="painting-bike.jpeg" alt="Painting Bike">
+                            <p class="carousel-description">My new friends and I in some random park in Eindhoven
+                                painting a bike</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="campus-card.jpeg" alt="Campus card">
+                            <p class="carousel-description">My brand new student card 😎</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="power-nap.jpeg" alt="Bunk beds at library">
+                            <p class="carousel-description">Turns out Eindhoven has bunk beds to allow students to take
+                                naps! </p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="ceuta-melilla-selfie.jpeg" alt="Ceuta selfie">
+                            <p class="carousel-description">A selfie we took in Algeciras before getting into the ferry
+                                to Ceuta </p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="ceuta-melilla.jpeg" alt="Ceuta Melilla">
+                            <p class="carousel-description">The route we did biking! That big hill in the middle was
+                                really difficult.</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="despedida.jpeg" alt="Despedida">
+                            <p class="carousel-description">An amazing goodbye party my friends and I did</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="pana-miguel.jpeg" alt="Pana Miguel">
+                            <p class="carousel-description">A super cute cat😻 we met at Cala Iris. I should of taken
+                                him home...</p>
+                        </div>
+                        <div class="carousel-item">
+                            <img src="sanfermines.jpeg" alt="Sanfermines">
+                            <p class="carousel-description">An unforgettable trip we did to Pamplona. We ran in front of
+                                the bulls</p>
+                        </div>
+                    </div>
 
-<p>After this recap, I want to write about the plans and expectations I have for the following two years while I'm completing my new degree. 
-Here are the things I WOULD like to do/achieve: 
-- Complete the degree in the expected time, no extra semester. 
-- At least a 8 GPA
-- Get a student job in the following month, and stay there for 6-12 months
-- Get an internship/qualified job in the second half of 2025 or in 2026
-- Go as much as I can to Madrid. I cannot commit to this though cause it depends more on my economic 
-I dont have much left to say, just that Im so happy for the opportunity that has been given to me and I hope to be up to expectations!</p>
+                    <p>After this recap, I want to write about the plans and expectations I have for the following two
+                        years while I'm completing my new degree.
+                        Here are the things I WOULD like to do/achieve:
+                        - Complete the degree in the expected time, no extra semester.
+                        - At least a 8 GPA
+                        - Get a student job in the following month, and stay there for 6-12 months
+                        - Get an internship/qualified job in the second half of 2025 or in 2026
+                        - Go as much as I can to Madrid. I cannot commit to this though cause it depends more on my
+                        economic
+                        I dont have much left to say, just that Im so happy for the opportunity that has been given to
+                        me and I hope to be up to expectations!</p>
                 </div>
             </div>
         </div>
@@ -555,17 +609,17 @@ I dont have much left to say, just that Im so happy for the opportunity that has
 
     <script>
         // Note navigation functionality
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             loadNoteNavigation();
         });
-        
+
         async function loadNoteNavigation() {
             try {
                 // Get current page path relative to root
                 const currentPath = window.location.pathname;
                 const pathParts = currentPath.split('/');
                 const fileName = pathParts[pathParts.length - 1];
-                
+
                 // Construct the relative path to match navigation data
                 let relativePath = '';
                 if (pathParts.includes('notes')) {
@@ -574,34 +628,34 @@ I dont have much left to say, just that Im so happy for the opportunity that has
                 } else {
                     relativePath = 'notes/' + fileName;
                 }
-                
+
                 // Load navigation data
                 const response = await fetch('../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
                 }
-                
+
                 const navigationData = await response.json();
                 const currentNav = navigationData[relativePath];
-                
+
                 if (!currentNav) {
                     console.log('Current page not found in navigation data:', relativePath);
                     return;
                 }
-                
+
                 // Update progress
                 const progressText = document.getElementById('progressText');
                 const progressFill = document.getElementById('progressFill');
                 const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
-                
+
                 progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
                 progressFill.style.width = `${progress}%`;
-                
+
                 // Update previous button
                 const prevButton = document.getElementById('prevButton');
                 const prevTitle = document.getElementById('prevTitle');
-                
+
                 if (currentNav.previous) {
                     prevButton.href = '../../../' + currentNav.previous;
                     prevTitle.textContent = currentNav.previous_title;
@@ -609,11 +663,11 @@ I dont have much left to say, just that Im so happy for the opportunity that has
                 } else {
                     prevButton.style.visibility = 'hidden';
                 }
-                
+
                 // Update next button
                 const nextButton = document.getElementById('nextButton');
                 const nextTitle = document.getElementById('nextTitle');
-                
+
                 if (currentNav.next) {
                     nextButton.href = '../../../' + currentNav.next;
                     nextTitle.textContent = currentNav.next_title;
@@ -621,18 +675,18 @@ I dont have much left to say, just that Im so happy for the opportunity that has
                 } else {
                     nextButton.style.visibility = 'hidden';
                 }
-                
+
                 // Add keyboard navigation
-                document.addEventListener('keydown', function(e) {
+                document.addEventListener('keydown', function (e) {
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
-                    
+
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
                         window.location.href = '../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
                         window.location.href = '../../../' + currentNav.next;
                     }
                 });
-                
+
             } catch (error) {
                 console.error('Error loading navigation:', error);
                 document.getElementById('progressText').textContent = 'Navigation unavailable';
@@ -641,4 +695,5 @@ I dont have much left to say, just that Im so happy for the opportunity that has
     </script>
 
 </body>
+
 </html>
