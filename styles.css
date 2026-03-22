@@ -359,9 +359,7 @@ body.menu-open {
 }
 
 /* Dark theme adjustments */
-.dark-theme .nav-links {
-    border-right: 1px solid var(--border-color);
-}
+
 
 .dark-theme .hamburger span {
     background-color: var(--primary-color);
@@ -537,7 +535,6 @@ footer {
     padding: calc(var(--spacing-unit) * 1) 0;
     margin-top: auto;
     background-color: var(--background-color);
-    border-top: 1px solid var(--border-color);
     color: var(--text-color);
 }
 
@@ -585,11 +582,6 @@ footer {
 .company-role-cell {
     color: var(--accent-color);
     font-weight: 500;
-}
-/* Intro container for failures page */
-.intro-container {
-    /* max-width: 800px; */
-    /* margin: 0 auto; */
 }
 
 /* Accessibility */
@@ -879,9 +871,10 @@ footer {
     
     .about-image-mobile {
         display: block;
-        max-width: 280px;
-        margin: calc(var(--spacing-unit) * 1.5) auto;
-        align-self: center;
+        max-width: 250px;
+        margin: 0 auto calc(var(--spacing-unit) * 2) auto;
+        border-radius: 0%;
+        overflow: hidden;
     }
     
     .profile-image {
@@ -1104,6 +1097,92 @@ footer {
   .year-btn { font-size: 1.05rem; padding: 6px 12px; }
   .year-label { font-size: 1.05rem; }
 }
+/* Logo Marquee */
+.logo-marquee {
+    width: 100%;
+    overflow: hidden;
+    padding: 1rem 0 3rem 0;
+    margin-top: 2.5rem;
+    background: transparent;
+    position: relative;
+}
+
+.marquee-title {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-color);
+    opacity: 0.4;
+    margin-bottom: 2.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+}
+
+.marquee-content {
+    display: flex;
+    white-space: nowrap;
+    animation: scroll 30s linear infinite;
+    width: max-content;
+    gap: 5rem;
+    align-items: center;
+}
+
+.marquee-content img {
+    height: 30px; /* Reduced overall height */
+    width: 100px; /* Reduced overall width */
+    filter: grayscale(1);
+    opacity: 0.5;
+    transition: filter 0.3s ease, opacity 0.3s ease;
+    object-fit: contain; /* Prevents stretching */
+}
+
+/* Adjusted scaling for better visual balance */
+.marquee-content img.ans-logo {
+    transform: scale(0.9);
+}
+
+.marquee-content img.sqippa-logo {
+    transform: scale(1.5);
+}
+
+.marquee-content img.maastricht-logo {
+    transform: scale(1.1);
+}
+
+.logo-marquee:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+.marquee-content a {
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+}
+
+.marquee-content img:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+/* Dark mode adjustments for logos if needed */
+.dark-theme .marquee-content img {
+    filter: grayscale(1) invert(var(--icon-invert));
+}
+
+.dark-theme .marquee-content img:hover {
+    filter: grayscale(0) invert(0);
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-25%);
+    }
+}
+
+/* Tooltip */
 .heatmap-tooltip {
     position: absolute;
     background: var(--background-color);

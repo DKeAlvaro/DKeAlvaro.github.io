@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-7BJS149EFL"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-7BJS149EFL');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio of Álvaro Menéndez Ros's projects in AI, Data Science and Web Development">
+    <meta name="description"
+        content="Portfolio of Álvaro Menéndez Ros's projects in AI, Data Science and Web Development">
     <title>Projects - Álvaro Menéndez Ros</title>
     <link rel="icon" href="./assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
     <div class="menu-overlay"></div>
     <header>
@@ -27,15 +30,9 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="./index.html">About</a></li>
-                <li><a href="./journey.html">My Life</a></li>
-                <li><a href="./projects.html">Projects</a></li>
                 <li><a href="./blogs.html">Blog</a></li>
                 <li><a href="./notes.html">MSc AIES</a></li>
-                <li><a href="./calendar.html">Calendar</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="./acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="./assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="./assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
@@ -49,7 +46,8 @@
                         <img src="assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
-                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0"><img src="assets/svg/sun.svg" alt="Toggle theme" class="theme-icon"></div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0"><img
+                        src="assets/svg/sun.svg" alt="Toggle theme" class="theme-icon"></div>
             </div>
         </nav>
     </header>
@@ -63,14 +61,14 @@
             </div>
         </div>
     </div>
-    
+
     <footer>
         <p id="footerYear"></p>
     </footer>
-    
+
     <script src="./script.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const username = 'DKeAlvaro';
             const overviewContainer = document.getElementById('projects-overview-container');
 
@@ -83,8 +81,8 @@
                     })
                     .then(repos => {
                         const eligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0)
-                                                   .sort((a, b) => b.stargazers_count - a.stargazers_count);
-                        
+                            .sort((a, b) => b.stargazers_count - a.stargazers_count);
+
                         if (eligibleRepos.length === 0) {
                             overviewContainer.innerHTML = '<p>No repositories with stars found.</p>';
                             return;
@@ -103,7 +101,7 @@
             function displayProjectWithReadme(repo) {
                 const projectContainer = document.createElement('div');
                 projectContainer.className = 'project-card collapsed';
-                
+
                 const readmeContainerId = `readme-${repo.id}`;
                 projectContainer.innerHTML = `
                     <div class="project-header">
@@ -204,13 +202,13 @@
                             }
                         }
                     }
-                } catch(e) { console.error("Error finding project image:", e); }
+                } catch (e) { console.error("Error finding project image:", e); }
 
                 targetContainer.innerHTML = ''; // Clear loading indicator
 
                 const rawBase = `https://raw.githubusercontent.com/${repo.owner.login}/${repo.name}/${branch}/`;
                 let html = marked.parse(md || '');
-                
+
                 // Fix relative image/video links
                 html = html.replace(/<img([^>]+)src=["']([^"']+)["']/g, (match, pre, src) => {
                     let abs = src.match(/^https?:\/\//) ? src : rawBase + src.replace(/^\.?\/?/, '');
@@ -220,9 +218,9 @@
                     let abs = src.match(/^https?:\/\//) ? src : rawBase + src.replace(/^\.?\/?/, '');
                     return `<video${pre}src="${abs}"`;
                 });
-                
+
                 // Embed GitHub user-attachments links as <video> or <img>
-                html = html.replace(/<a[^>]+href=["'](https:\/\/github.com\/user-attachments\/assets\/[^"']+)["'][^>]*>([^<]*)<\/a>/gi, function(match, url, filename) {
+                html = html.replace(/<a[^>]+href=["'](https:\/\/github.com\/user-attachments\/assets\/[^"']+)["'][^>]*>([^<]*)<\/a>/gi, function (match, url, filename) {
                     const videoExt = /(\.mp4|\.webm|\.ogg)$/i;
                     const imageExt = /(\.png|\.jpg|\.jpeg|\.gif|\.bmp|\.svg)$/i;
                     if (videoExt.test(url) || videoExt.test(filename)) {
@@ -231,12 +229,12 @@
                         return `<img src="${url}" alt="${filename}" style="max-width:100%;height:auto;" />`;
                     } else {
                         if (/\/assets\/[a-f0-9\-]+$/.test(url)) {
-                           return `<video controls style="max-width:100%;height:auto;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
+                            return `<video controls style="max-width:100%;height:auto;"><source src="${url}" type="video/mp4">Your browser does not support the video tag.</video>`;
                         }
                         return match;
                     }
                 });
-                
+
                 targetContainer.innerHTML = `<div class="readme-content">${html}</div>`;
             }
 
@@ -245,256 +243,309 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
-    .projects-overview-container {
-        display: flex;
-        flex-direction: column;
-        gap: 40px; /* Increased separation */
-    }
-    .project-card {
-        border: none;
-        padding: 20px;
-        border-radius: 8px;
-        background-color: var(--background-color, #fff);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1); /* Enhanced shadow for better separation */
-        overflow: hidden; /* To contain readme content */
-        transition: all 0.3s ease-in-out;
-    }
-    .project-header {
-        cursor: pointer;
-        padding: 10px;
-        border-radius: 6px;
-        transition: background-color 0.2s ease-in-out;
-    }
-    .project-header:hover {
-        background-color: var(--hover-bg, #f0f0f0);
-    }
-    .project-title-area {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    .project-image {
-        width: 60px;
-        height: 60px;
-        border-radius: 6px;
-        margin-right: 15px;
-        object-fit: contain;
-    }
-    .collapse-icon {
-        width: 16px;
-        height: 16px;
-        border-right: 2px solid var(--accent-color);
-        border-bottom: 2px solid var(--accent-color);
-        transform: rotate(45deg);
-        transition: transform 0.3s ease-in-out;
-    }
-    .project-card.collapsed .collapse-icon {
-        transform: rotate(-45deg);
-    }
-    .project-subheader {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 5px;
-    }
-    .project-card h3 {
-        margin-top: 0;
-        color: var(--accent-color, #333);
-        font-size: 2.2em;
-        margin-bottom: 0;
-    }
-    .project-header p {
-        font-style: italic;
-        font-size: 1rem;
-        opacity: 0.8;
-        color: var(--text-color, #555);
-        margin-bottom: 0;
-        margin-right: 20px;
-    }
-    .project-meta {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 0.9rem;
-        white-space: nowrap;
-    }
-    .project-meta .repo-link {
-        color: var(--accent-color, #007bff);
-        text-decoration: none;
-    }
-    .project-meta .repo-link:hover {
-        text-decoration: underline;
-    }
-    .project-readme {
-        margin-top: 15px;
-        border-top: none; /* Removed horizontal line */
-        padding-top: 0;
-        max-height: 2000px; /* Adjust as needed, for transition */
-        overflow: hidden;
-        transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out, opacity 0.3s ease-in-out;
-        opacity: 1;
-    }
-    .project-card.collapsed .project-readme {
-        max-height: 0;
-        margin-top: 0;
-        opacity: 0;
-    }
-    .project-readme img,
-    .project-readme video {
-        max-width: 80%;
-        height: auto;
-        border-radius: 4px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        display: block;
-        margin-left: auto;
-        margin-right: auto;
-    }
-    .readme-content {
-        line-height: 1.6;
-    }
-    .readme-content hr {
-        display: none; /* Removed horizontal lines from READMEs */
-    }
-    .readme-content h1,
-    .readme-content h2,
-    .readme-content h3,
-    .readme-content h4,
-    .readme-content h5,
-    .readme-content h6 {
-        margin-top: 24px;
-        margin-bottom: 16px;
-        font-weight: 600;
-        line-height: 1.25;
-        color: var(--accent-color);
-        border-bottom: none;
-        padding-bottom: 0;
-    }
-    .readme-content h1 {
-        font-size: 1.8em;
-        border-bottom: 2px solid var(--border-color, #eee);
-        padding-bottom: .3em;
-    }
-    .readme-content h2 {
-        font-size: 1.5em;
-        border-bottom: 1px solid var(--border-color, #eee);
-        padding-bottom: .3em;
-    }
-    .readme-content h3 { font-size: 1.2em; font-weight: bold; }
-    .readme-content p {
-        margin-bottom: 16px;
-    }
-    .readme-content ul,
-    .readme-content ol {
-        padding-left: 20px;
-        margin-bottom: 16px;
-    }
-    .readme-content li {
-        margin-bottom: 8px;
-    }
-    .readme-content pre {
-        background-color: var(--code-bg, #f6f8fa);
-        border-radius: 6px;
-        padding: 16px;
-        overflow: auto;
-        line-height: 1.45;
-    }
-    .readme-content code {
-        background-color: var(--code-bg, #f6f8fa);
-        border-radius: 6px;
-        padding: .2em .4em;
-        margin: 0;
-        font-size: 85%;
-    }
-    .readme-content pre code {
-        padding: 0;
-        margin: 0;
-        font-size: 100%;
-        background-color: transparent;
-        border: none;
-    }
-    .readme-content blockquote {
-        padding: 0 1em;
-        color: var(--text-color, #555);
-        border-left: .25em solid var(--border-color, #dfe2e5);
-        margin-left: 0;
-        margin-right: 0;
-        margin-bottom: 16px;
-    }
-    .readme-content table {
-        border-collapse: collapse;
-        width: 100%;
-        margin-bottom: 16px;
-    }
-    .readme-content th,
-    .readme-content td {
-        border: 1px solid var(--border-color, #dfe2e5);
-        padding: 8px 12px;
-    }
-    .readme-content th {
-        font-weight: 600;
-        background-color: var(--table-header-bg, #f6f8fa);
-    }
-    .loading-indicator,
-    .error-message {
-        padding: 20px;
-        text-align: center;
-        border-radius: 8px;
-        margin: 20px 0;
-    }
-    .loading-indicator p {
-        font-size: 1.1rem;
-        color: var(--text-color, #555);
-    }
-    .error-message {
-        background-color: var(--error-bg, #ffebee);
-        color: var(--error-text, #c62828);
-        border: 1px solid var(--error-border, #c62828);
-    }
-    .error-message p {
-        margin: 5px 0;
-    }
+        .projects-overview-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            /* Increased separation */
+        }
 
-    @media (max-width: 768px) {
         .project-card {
-            padding: 15px;
+            border: none;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: var(--background-color, #fff);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            /* Enhanced shadow for better separation */
+            overflow: hidden;
+            /* To contain readme content */
+            transition: all 0.3s ease-in-out;
+        }
+
+        .project-header {
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 6px;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        .project-header:hover {
+            background-color: var(--hover-bg, #f0f0f0);
+        }
+
+        .project-title-area {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-image {
+            width: 60px;
+            height: 60px;
+            border-radius: 6px;
+            margin-right: 15px;
+            object-fit: contain;
+        }
+
+        .collapse-icon {
+            width: 16px;
+            height: 16px;
+            border-right: 2px solid var(--accent-color);
+            border-bottom: 2px solid var(--accent-color);
+            transform: rotate(45deg);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .project-card.collapsed .collapse-icon {
+            transform: rotate(-45deg);
+        }
+
+        .project-subheader {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 5px;
         }
 
         .project-card h3 {
-            font-size: 1.8em;
-        }
-        
-        .project-image {
-            width: 40px;
-            height: 40px;
-        }
-        
-        .project-subheader {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 10px;
+            margin-top: 0;
+            color: var(--accent-color, #333);
+            font-size: 2.2em;
+            margin-bottom: 0;
         }
 
         .project-header p {
-            font-size: 0.9rem;
-            margin-right: 0;
+            font-style: italic;
+            font-size: 1rem;
+            opacity: 0.8;
+            color: var(--text-color, #555);
+            margin-bottom: 0;
+            margin-right: 20px;
         }
 
         .project-meta {
-            white-space: normal;
-            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 0.9rem;
+            white-space: nowrap;
         }
-        
-        .readme-content h1 { font-size: 1.6em; }
-        .readme-content h2 { font-size: 1.3em; }
-        .readme-content h3 { font-size: 1.1em; }
-        
+
+        .project-meta .repo-link {
+            color: var(--accent-color, #007bff);
+            text-decoration: none;
+        }
+
+        .project-meta .repo-link:hover {
+            text-decoration: underline;
+        }
+
+        .project-readme {
+            margin-top: 15px;
+            border-top: none;
+            /* Removed horizontal line */
+            padding-top: 0;
+            max-height: 2000px;
+            /* Adjust as needed, for transition */
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, margin-top 0.5s ease-in-out, opacity 0.3s ease-in-out;
+            opacity: 1;
+        }
+
+        .project-card.collapsed .project-readme {
+            max-height: 0;
+            margin-top: 0;
+            opacity: 0;
+        }
+
         .project-readme img,
         .project-readme video {
-            max-width: 100%;
+            max-width: 80%;
+            height: auto;
+            border-radius: 4px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
         }
-    }
+
+        .readme-content {
+            line-height: 1.6;
+        }
+
+        .readme-content hr {
+            display: none;
+            /* Removed horizontal lines from READMEs */
+        }
+
+        .readme-content h1,
+        .readme-content h2,
+        .readme-content h3,
+        .readme-content h4,
+        .readme-content h5,
+        .readme-content h6 {
+            margin-top: 24px;
+            margin-bottom: 16px;
+            font-weight: 600;
+            line-height: 1.25;
+            color: var(--accent-color);
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .readme-content h1 {
+            font-size: 1.8em;
+            border-bottom: 2px solid var(--border-color, #eee);
+            padding-bottom: .3em;
+        }
+
+        .readme-content h2 {
+            font-size: 1.5em;
+            border-bottom: 1px solid var(--border-color, #eee);
+            padding-bottom: .3em;
+        }
+
+        .readme-content h3 {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .readme-content p {
+            margin-bottom: 16px;
+        }
+
+        .readme-content ul,
+        .readme-content ol {
+            padding-left: 20px;
+            margin-bottom: 16px;
+        }
+
+        .readme-content li {
+            margin-bottom: 8px;
+        }
+
+        .readme-content pre {
+            background-color: var(--code-bg, #f6f8fa);
+            border-radius: 6px;
+            padding: 16px;
+            overflow: auto;
+            line-height: 1.45;
+        }
+
+        .readme-content code {
+            background-color: var(--code-bg, #f6f8fa);
+            border-radius: 6px;
+            padding: .2em .4em;
+            margin: 0;
+            font-size: 85%;
+        }
+
+        .readme-content pre code {
+            padding: 0;
+            margin: 0;
+            font-size: 100%;
+            background-color: transparent;
+            border: none;
+        }
+
+        .readme-content blockquote {
+            padding: 0 1em;
+            color: var(--text-color, #555);
+            border-left: .25em solid var(--border-color, #dfe2e5);
+            margin-left: 0;
+            margin-right: 0;
+            margin-bottom: 16px;
+        }
+
+        .readme-content table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        .readme-content th,
+        .readme-content td {
+            border: 1px solid var(--border-color, #dfe2e5);
+            padding: 8px 12px;
+        }
+
+        .readme-content th {
+            font-weight: 600;
+            background-color: var(--table-header-bg, #f6f8fa);
+        }
+
+        .loading-indicator,
+        .error-message {
+            padding: 20px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .loading-indicator p {
+            font-size: 1.1rem;
+            color: var(--text-color, #555);
+        }
+
+        .error-message {
+            background-color: var(--error-bg, #ffebee);
+            color: var(--error-text, #c62828);
+            border: 1px solid var(--error-border, #c62828);
+        }
+
+        .error-message p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 768px) {
+            .project-card {
+                padding: 15px;
+            }
+
+            .project-card h3 {
+                font-size: 1.8em;
+            }
+
+            .project-image {
+                width: 40px;
+                height: 40px;
+            }
+
+            .project-subheader {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .project-header p {
+                font-size: 0.9rem;
+                margin-right: 0;
+            }
+
+            .project-meta {
+                white-space: normal;
+                font-size: 0.8rem;
+            }
+
+            .readme-content h1 {
+                font-size: 1.6em;
+            }
+
+            .readme-content h2 {
+                font-size: 1.3em;
+            }
+
+            .readme-content h3 {
+                font-size: 1.1em;
+            }
+
+            .project-readme img,
+            .project-readme video {
+                max-width: 100%;
+            }
+        }
     </style>
 </body>
-</html>
 
+</html>

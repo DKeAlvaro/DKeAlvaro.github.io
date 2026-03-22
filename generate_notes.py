@@ -470,9 +470,9 @@ def generate_notes_html(tree):
                 <li><a href="./blogs.html">Blog</a></li>
                 <li><a href="./notes.html">MSc AIES</a></li>
                 <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://alvaromenendez.es/ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
                 <li><a href="./acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="./assets/Alvaro_Menendez_CV.pdf" download>CV</a></li>
+                <li><a href="./assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
