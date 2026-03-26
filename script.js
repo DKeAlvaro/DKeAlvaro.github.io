@@ -2,7 +2,6 @@
 const hamburger = document.getElementById('hamburger');
 const navLinks = document.getElementById('navLinks');
 const themeToggle = document.getElementById('themeToggle');
-const footerYear = document.getElementById('footerYear');
 const firstConfirmButton = document.getElementById('firstConfirmButton');
 const secondConfirmButton = document.getElementById('secondConfirmButton');
 const firstConfirmation = document.getElementById('firstConfirmation');
@@ -10,10 +9,7 @@ const secondConfirmation = document.getElementById('secondConfirmation');
 const journeyContent = document.getElementById('journeyContent');
 const menuOverlay = document.querySelector('.menu-overlay');
 
-// Set current year in footer
-if (footerYear) {
-    footerYear.textContent = `Álvaro Menéndez Ros - alvaro.mrgr@gmail.com`;
-}
+
 
 // Mobile menu toggle
 if (hamburger && navLinks) {
