@@ -63,7 +63,8 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
     
     # Create password protection if private
     if is_private:
-        blog_structure = f'''<div id="password-prompt" class="password-container">
+        blog_structure = f'''<div class="content">
+            <div id="password-prompt" class="password-container">
                 <h2>This is a private post</h2>
                 <p>Please enter the password to view this content:</p>
                 <input type="password" id="password-input" placeholder="Enter password">
@@ -81,6 +82,7 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
                     </div>
                 </article>
             </div>
+        </div>
         <script>
             function checkPassword() {{
                 const password = document.getElementById('password-input').value;
@@ -104,7 +106,8 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
         </script>'''
     else:
         # Create the proper blog structure matching existing blogs
-        blog_structure = f'''<article class="page sans">
+        blog_structure = f'''<div class="content">
+            <article class="page sans">
                 <header>
                     <h1 class="page-title">{title}</h1>
                     <p class="page-description"></p>
@@ -112,24 +115,25 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
                 <div class="page-body">
 {html_content}
                 </div>
-            </article>'''
+            </article>
+        </div>'''
     
     html_output = html_output.replace('your_iframe_here', blog_structure)
     
     # Add the proper styling that matches existing blogs
     new_style = '''
         .page-title {
-            margin-top: 4rem;
+            margin-top: 0;
             font-size: 2.5rem;
             margin-bottom: -1.0rem;
         }
         .page-description {
             color: #666;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
         }
         .page-body {
             line-height: 1.6;
-            margin-top: 3rem;
+            margin-top: 2rem;
         }
         .image {
             margin: 1.5rem 0;

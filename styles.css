@@ -385,7 +385,7 @@ body.menu-open .menu-overlay {
 
 /* Content Sections */
 .content {
-    margin-top: calc(var(--spacing-unit) * 3);
+    margin-top: calc(var(--spacing-unit) * 2);
 }
 
 /* Acknowledgments intro text */
