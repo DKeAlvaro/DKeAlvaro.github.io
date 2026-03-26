@@ -63,8 +63,7 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
     
     # Create password protection if private
     if is_private:
-        blog_structure = f'''<div class="page-container">
-            <div id="password-prompt" class="password-container">
+        blog_structure = f'''<div id="password-prompt" class="password-container">
                 <h2>This is a private post</h2>
                 <p>Please enter the password to view this content:</p>
                 <input type="password" id="password-input" placeholder="Enter password">
@@ -82,7 +81,6 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
                     </div>
                 </article>
             </div>
-        </div>
         <script>
             function checkPassword() {{
                 const password = document.getElementById('password-input').value;
@@ -106,8 +104,7 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
         </script>'''
     else:
         # Create the proper blog structure matching existing blogs
-        blog_structure = f'''<div class="page-container">
-            <article class="page sans">
+        blog_structure = f'''<article class="page sans">
                 <header>
                     <h1 class="page-title">{title}</h1>
                     <p class="page-description"></p>
@@ -115,15 +112,14 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
                 <div class="page-body">
 {html_content}
                 </div>
-            </article>
-        </div>'''
+            </article>'''
     
     html_output = html_output.replace('your_iframe_here', blog_structure)
     
     # Add the proper styling that matches existing blogs
     new_style = '''
         .page-title {
-            margin-top: 1.5rem;
+            margin-top: 4rem;
             font-size: 2.5rem;
             margin-bottom: -1.0rem;
         }
@@ -133,6 +129,7 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
         }
         .page-body {
             line-height: 1.6;
+            margin-top: 3rem;
         }
         .image {
             margin: 1.5rem 0;
@@ -240,8 +237,14 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
     '''
     
     html_output = html_output.replace(
-        '.page-container {\n          display: flex;\n          justify-content: center; /* horizontal */\n          align-items: center;     /* vertical */\n          height: 100vh;           /* full viewport height */\n        }\n        \n        iframe {\n          width: 500px;\n          height: 600px;\n          border: none;\n        }',
-        new_style
+        '<style>\n        .page-container {\n            display: flex;\n            justify-content: center;\n            /* horizontal */\n            align-items: center;\n            /* vertical */\n            height: 100vh;\n            /* full viewport height */\n        }\n\n        iframe {\n            width: 500px;\n            height: 600px;\n            border: none;\n        }\n    </style>',
+        f'<style>{new_style}</style>'
+    )
+    
+    # Also fix the placeholder container to avoid double nesting
+    html_output = html_output.replace(
+        '<div class="page-container">\n        your_iframe_here\n    </div>',
+        'your_iframe_here'
     )
     
     return html_output
