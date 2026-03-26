@@ -978,10 +978,6 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
         </div>
     </div>
 
-    <footer>
-        <p id="footerYear"></p>
-    </footer>
-
     <script src="{path_prefix}script.js"></script>
 </body>
 </html>'''

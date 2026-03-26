@@ -503,11 +503,6 @@ def generate_notes_html(tree):
             </div>
         </div>
     </div>
-
-    <footer>
-        <p id="footerYear"></p>
-    </footer>
-
     <script src="./script.js"></script>
 </body>
 </html>'''
