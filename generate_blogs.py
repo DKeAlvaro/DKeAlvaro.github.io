@@ -260,8 +260,12 @@ def update_blogs_html(blog_entries):
     
     # Find the content div where blog entries are added
     content_start = content.find('<div class="content">')
-    content_end = content.find('</div>\n    </div>\n\n    <script')
+    content_end = content.find('</div>\n    </div>\n    <script')
     
+    if content_start == -1 or content_end == -1:
+        # Try another common pattern
+        content_end = content.find('</div>\n    </div>\n\n    <script')
+        
     if content_start == -1 or content_end == -1:
         print("Could not find content section in blogs.html")
         return
