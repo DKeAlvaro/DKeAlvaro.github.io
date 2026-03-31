@@ -49,7 +49,7 @@ def extract_metadata_from_md(md_file_path):
 def convert_md_to_html(md_content, title):
     """Convert markdown content to HTML"""
     # Convert markdown to HTML
-    html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite'])
+    html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'admonition', 'sane_lists'])
     return html_content
 
 def create_html_from_template(title, html_content, folder_name, is_private=False):
@@ -135,6 +135,22 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
             line-height: 1.6;
             margin-top: 2rem;
         }
+        .page-body ul {
+            list-style-type: disc;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .page-body ol {
+            list-style-type: decimal;
+            padding-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        .page-body li {
+            margin-bottom: 0.5rem;
+        }
+        .page-body li p {
+            margin-bottom: 0;
+        }
         .image {
             margin: 1.5rem 0;
             text-align: center;
@@ -146,6 +162,26 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
             display: block;
             margin-left: auto;
             margin-right: auto;
+        }
+        
+        /* Admonition styles */
+        .admonition {
+            border-left: 4px solid var(--accent-color, #007bff);
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            background: rgba(0, 123, 255, 0.05);
+            border-radius: 0 8px 8px 0;
+        }
+        .admonition-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color, #007bff);
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+        .admonition p:last-child {
+            margin-bottom: 0;
         }
         
         /* Password protection styles */
