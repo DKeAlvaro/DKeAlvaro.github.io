@@ -139,7 +139,7 @@ def convert_ipynb_manually(ipynb_file_path):
             if cell_type == 'markdown':
                 # Convert markdown to HTML
                 html_content.append('<div class="markdown-cell">')
-                html_content.append(markdown.markdown(source_text, extensions=['extra', 'codehilite', 'fenced_code', 'tables']))
+                html_content.append(markdown.markdown(source_text, extensions=['extra', 'codehilite', 'fenced_code', 'tables', 'mdx_math']))
                 html_content.append('</div>')
                 
             elif cell_type == 'code':
