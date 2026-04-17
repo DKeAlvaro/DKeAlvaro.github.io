@@ -75,11 +75,11 @@
                         return response.json();
                     })
                     .then(repos => {
-                        const eligibleRepos = repos.filter(r => !r.fork && r.stargazers_count > 0)
-                            .sort((a, b) => b.stargazers_count - a.stargazers_count);
+                        const eligibleRepos = repos.filter(r => !r.fork)
+                            .sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
 
                         if (eligibleRepos.length === 0) {
-                            overviewContainer.innerHTML = '<p>No repositories with stars found.</p>';
+                            overviewContainer.innerHTML = '<p>No repositories found.</p>';
                             return;
                         }
 
