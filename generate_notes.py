@@ -178,6 +178,19 @@ def build_tree_from_files(files):
                     'type': 'markdown',
                     'parsed_date': parse_date_string(date)
                 })
+            else:
+                # Even if no overview is found, still include the markdown file
+                html_filename = file.stem + '.html'
+                absolute_file_path = file.resolve()
+                relative_path = absolute_file_path.relative_to(Path.cwd()).with_suffix('.html')
+                current_level['files'].append({
+                    'title': file.stem.replace('_', ' '),
+                    'path': str(relative_path).replace('\\', '/'),
+                    'overview': 'Study Note',
+                    'date': date,
+                    'type': 'markdown',
+                    'parsed_date': parse_date_string(date)
+                })
         elif file.suffix == '.ipynb':
             # Handle Jupyter notebook files
             overview, date = extract_overview_and_date_from_ipynb(file)
@@ -293,48 +306,11 @@ def generate_tree_html(tree):
 </li>
 '''
     
-    # Then, show files from folders without subfolders (leaf folders)
-    # Collect all files from leaf folders and sort them by date
-    leaf_files = []
+    # Then, show all folders recursively
     for folder_name, folder_content in tree['folders'].items():
-        if not folder_content['folders']:  # Leaf folders - collect their files
-            leaf_files.extend(folder_content['files'])
-    
-    # Sort leaf files by parsed date
-    leaf_files.sort(key=lambda x: x['parsed_date'])
-    
-    # Display sorted leaf files
-    for file in leaf_files:
-        meta_text = file['date'] if file['date'] else ""
-        file_type = file.get('type', 'markdown')
-        
-        if file_type == 'pdf':
-            # PDF files open in new tab with PDF icon
-            html += f'''<li class="tree-file">
-<div class="tree-file-content">
-    <a href="{file['path']}" target="_blank">{file['title']}</a>
-    <p class="tree-file-description">{file['overview']}</p>
-</div>
-<div class="tree-file-meta">{meta_text}</div>
-</li>
-'''
-        else:
-            # Markdown files (converted to HTML)
-            html += f'''<li class="tree-file">
-<div class="tree-file-content">
-    <a href="{file['path']}">{file['title']}</a>
-    <p class="tree-file-description">{file['overview']}</p>
-</div>
-<div class="tree-file-meta">{meta_text}</div>
-</li>
-'''
-    
-    # Finally, show folders that have subfolders
-    for folder_name, folder_content in tree['folders'].items():
-        if folder_content['folders']:  # Only show folders that have subfolders
-            html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
-            html += generate_tree_html(folder_content)
-            html += '</li>\n'
+        html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
+        html += generate_tree_html(folder_content)
+        html += '</li>\n'
     
     html += '</ul>\n'
     return html
@@ -465,13 +441,8 @@ def generate_notes_html(tree):
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="./index.html">About</a></li>
-                <li><a href="./journey.html">My Life</a></li>
-                <li><a href="./projects.html">Projects</a></li>
                 <li><a href="./blogs.html">Blog</a></li>
                 <li><a href="./notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="./acknowledgments.html">Acknowledgments</a></li>
                 <li><a href="./assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
             </ul>
             <div class="nav-right">

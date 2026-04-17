@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,30 +8,26 @@
     <link rel="icon" href="../../../../../../assets/svg/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="../../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js"
-        crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"
-        crossorigin="anonymous"></script>
-    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"
-        crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             // Initialize KaTeX
             renderMathInElement(document.body, {
                 delimiters: [
-                    { left: "$$", right: "$$", display: true },
-                    { left: "$", right: "$", display: false }
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
                 ]
             });
-
+            
             // Initialize Prism.js syntax highlighting
             if (typeof Prism !== 'undefined') {
                 Prism.highlightAll();
             }
-
+            
             // Handle theme switching for Prism.js
             function updatePrismTheme() {
                 const isDark = document.body.classList.contains('dark-theme');
@@ -45,19 +40,19 @@
                     }
                 }
             }
-
+            
             // Check initial theme
             updatePrismTheme();
-
+            
             // Listen for theme changes
-            const observer = new MutationObserver(function (mutations) {
-                mutations.forEach(function (mutation) {
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
                     if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
                         updatePrismTheme();
                     }
                 });
             });
-
+            
             observer.observe(document.body, {
                 attributes: true,
                 attributeFilter: ['class']
@@ -70,20 +65,17 @@
             margin: 0 auto;
             padding: 2rem;
         }
-
         .note-header {
             text-align: center;
             margin-bottom: 3rem;
             padding-bottom: 2rem;
             border-bottom: 2px solid var(--border-color);
         }
-
         .note-title {
             font-size: 2.5rem;
             margin-bottom: 1rem;
             color: var(--primary-color);
         }
-
         .back-link {
             display: inline-flex;
             align-items: center;
@@ -98,53 +90,44 @@
             border-radius: 4px;
             transition: all 0.2s ease;
         }
-
         .back-link:hover {
             color: var(--primary-color);
             border-color: var(--primary-color);
         }
-
         .nav-left {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
         }
-
+        
         .breadcrumb-section {
             display: flex;
             align-items: center;
             gap: 0.75rem;
             flex-wrap: wrap;
         }
-
         .folder-path {
-            font-size: 0.8rem;
-            color: var(--text-color-secondary);
-            opacity: 0.7;
-        }
-
-        .current-page-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--text-color);
-            margin: 0;
-            line-height: 1.3;
-            letter-spacing: -0.01em;
-        }
-
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
         .note-content {
             line-height: 1.8;
             color: var(--text-color);
         }
-
-        .note-content h1,
-        .note-content h2,
-        .note-content h3 {
+        .note-content h1, .note-content h2, .note-content h3 {
             color: var(--primary-color);
             margin-top: 2rem;
             margin-bottom: 1rem;
         }
-
         .note-content img {
             max-width: 100%;
             height: auto;
@@ -152,30 +135,25 @@
             margin: 1rem 0;
             display: block;
         }
-
         /* Preserve centered images from markdown HTML */
         .note-content div[style*="text-align: center"] {
             text-align: center !important;
         }
-
         .note-content div[style*="text-align: center"] img {
             margin: 1rem auto;
         }
-
         .note-content pre {
             background: var(--code-bg);
             padding: 1rem;
             border-radius: 5px;
             overflow-x: auto;
         }
-
         .note-content code {
             background: var(--code-bg);
             padding: 0.2rem 0.4rem;
             border-radius: 3px;
             font-family: 'Courier New', monospace;
         }
-
         .note-content blockquote {
             border-left: 4px solid var(--primary-color);
             padding-left: 1rem;
@@ -183,35 +161,28 @@
             font-style: italic;
             opacity: 0.9;
         }
-
-        .note-content ul,
-        .note-content ol {
+        .note-content ul, .note-content ol {
             padding-left: 2rem;
             margin: 1rem 0;
         }
-
         .note-content ul {
             list-style-type: disc;
         }
-
         .note-content li {
             margin-bottom: 0.2rem;
             display: list-item;
             list-style-position: outside;
         }
-
         /* Reduce spacing for nested lists */
-        .note-content li ul,
-        .note-content li ol {
+        .note-content li ul, .note-content li ol {
             margin: 0.3rem 0;
             padding-left: 1.5rem;
         }
-
         .note-content ul li::marker {
             color: var(--primary-color);
             font-size: 1.2em;
         }
-
+        
         /* Q&A Styles */
         .qa-item {
             margin: 1.5rem 0;
@@ -220,7 +191,7 @@
             overflow: hidden;
             background: var(--bg-color);
         }
-
+        
         .qa-question {
             padding: 1rem;
             background: var(--secondary-bg, #f8f9fa);
@@ -231,28 +202,28 @@
             transition: background-color 0.2s ease;
             user-select: none;
         }
-
+        
         .qa-question:hover {
             background: var(--hover-bg, #e9ecef);
         }
-
+        
         .qa-icon {
             font-size: 0.8rem;
             transition: transform 0.2s ease;
             color: var(--primary-color);
             font-weight: bold;
         }
-
+        
         .qa-question.active .qa-icon {
             transform: rotate(90deg);
         }
-
+        
         .qa-text {
             font-weight: 600;
             color: var(--text-color);
             flex: 1;
         }
-
+        
         .qa-answer {
             padding: 1rem;
             background: var(--bg-color);
@@ -261,38 +232,33 @@
             color: var(--text-color);
             line-height: 1.6;
         }
-
+        
         .qa-answer.active {
             display: block;
         }
-
+        
         /* Mobile responsive styles */
         @media (max-width: 768px) {
             .note-container {
                 padding: 0.5rem;
             }
-
             .navigation-header {
                 padding: 1rem;
                 gap: 1rem;
                 margin-bottom: 1.5rem;
             }
-
             .nav-left {
                 gap: 1rem;
             }
-
             .breadcrumb-section {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.5rem;
             }
-
             .current-page-title {
                 font-size: 1.1rem;
                 text-align: left;
             }
-
             .back-link {
                 font-size: 0.9rem;
                 padding: 0.6rem 1rem;
@@ -308,13 +274,11 @@
                 transition: all 0.2s ease;
                 flex-shrink: 0;
             }
-
             .back-link:hover {
                 background: var(--primary-color);
                 color: white !important;
                 border-color: var(--primary-color);
             }
-
             .folder-path {
                 font-size: 0.85rem;
                 color: var(--text-color-secondary);
@@ -322,7 +286,6 @@
                 flex: 1;
                 min-width: 0;
             }
-
             .note-navigation {
                 width: 100%;
                 display: flex;
@@ -330,7 +293,6 @@
                 gap: 0.75rem;
                 flex-wrap: nowrap;
             }
-
             .nav-button {
                 font-size: 1.2rem;
                 padding: 0.5rem;
@@ -342,367 +304,354 @@
                 justify-content: center;
                 flex-shrink: 0;
             }
-
             .nav-button span:not(.nav-icon) {
                 display: none;
             }
-
             .nav-progress {
                 flex: 1;
                 font-size: 0.8rem;
                 text-align: center;
                 color: var(--text-color-secondary);
             }
-
             .note-header {
                 margin-bottom: 1rem;
                 padding-bottom: 1.5rem;
             }
-
             .note-title {
                 font-size: 2rem;
             }
-
             .note-content h1 {
                 font-size: 1.8rem;
             }
-
             .note-content h2 {
                 font-size: 1.5rem;
             }
-
             .note-content h3 {
                 font-size: 1.3rem;
             }
-
             .note-content pre {
                 padding: 0.75rem;
                 font-size: 0.9rem;
             }
-
-            .note-content ul,
-            .note-content ol {
+            .note-content ul, .note-content ol {
                 padding-left: 1.5rem;
             }
         }
-
+        
         @media (max-width: 480px) {
-            .note-container {
-                padding: 0.5rem;
-            }
-
-            .note-header {
-                margin-bottom: 1.15rem;
-                padding-bottom: 0.75rem;
-            }
-
-            .back-link {
-                padding: 0.25rem 0.5rem;
-                font-size: 0.85rem;
-            }
-        }
-
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
         /* Navigation header styles */
-        .navigation-header {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            margin-bottom: 2rem;
-            padding: 1.25rem;
-            background: transparent;
-            border-radius: 0;
-            border: none;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        /* Navigation buttons styles */
-        .note-navigation {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .nav-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.6rem;
-            background: transparent;
-            border: 1px solid var(--border-color);
-            border-radius: 4px;
-            color: var(--text-color);
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 400;
-            transition: all 0.2s ease;
-            width: 36px;
-            height: 36px;
-        }
-
-        .nav-button:hover {
-            color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .nav-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
-        }
-
-        .nav-button.prev {
-            justify-content: flex-start;
-        }
-
-        .nav-button.next {
-            justify-content: flex-end;
-        }
-
-        .nav-button-text {
-            display: flex;
-            flex-direction: column;
-            align-items: inherit;
-        }
-
-        .nav-button-label {
-            font-size: 0.75rem;
-            opacity: 0.7;
-            margin-bottom: 0.2rem;
-        }
-
-        .nav-button-title {
-            font-weight: 500;
-            max-width: 200px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
-
-        .nav-progress {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            flex: 1;
-            margin: 0 1rem;
-        }
-
-        .nav-progress-text {
-            font-size: 0.8rem;
-            font-weight: 400;
-            color: var(--text-color);
-            opacity: 0.7;
-            text-align: center;
-        }
-
-        .nav-progress-bar {
-            width: 100%;
-            max-width: 200px;
-            height: 4px;
-            background: #f0f0f0;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .nav-progress-fill {
-            height: 100%;
-            background: #007acc;
-            transition: width 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .note-navigation {
-                flex-direction: row;
-                gap: 0.75rem;
-                align-items: center;
-            }
-
-            .nav-button {
-                width: 40px;
-                min-width: 40px;
-                height: 40px;
-                border-radius: 50%;
-                padding: 0.5rem;
-                font-size: 1.2rem;
-            }
-
-            .nav-progress {
-                flex: 1;
-                margin: 0;
-            }
-
-            .nav-button-title {
-                max-width: none;
-            }
-        }
-
-        /* Jupyter Notebook Styles */
-        .code-cell {
-            margin: 1.5rem 0;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            overflow: hidden;
-            background: var(--bg-color);
-        }
-
-        .markdown-cell {
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: var(--bg-color);
-            border-radius: 8px;
-        }
-
-        .input-area {
-            background: var(--code-bg, #f8f9fa);
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .input-area pre {
-            margin: 0;
-            padding: 1rem;
-            background: transparent;
-            border-radius: 0;
-            overflow-x: auto;
-        }
-
-        .input-area code {
-            background: transparent;
-            padding: 0;
-            border-radius: 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9rem;
-            line-height: 1.4;
-        }
-
-        .output-area {
-            background: var(--bg-color);
-            padding: 1rem;
-        }
-
-        .output-stream {
-            background: var(--secondary-bg, #f1f3f4);
-            padding: 0.75rem;
-            margin: 0.5rem 0;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            color: var(--text-color);
-            border-left: 3px solid var(--primary-color);
-        }
-
-        .output-result {
-            background: var(--bg-color);
-            padding: 0.75rem;
-            margin: 0.5rem 0;
-            border-radius: 4px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.85rem;
-            line-height: 1.4;
-            color: var(--text-color);
-            border: 1px solid var(--border-color);
-        }
-
-        .output-image {
-            text-align: center;
-            margin: 1rem 0;
-            padding: 0.5rem;
-            background: var(--bg-color);
-            border-radius: 4px;
-        }
-
-        .output-image img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 4px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            margin: 0;
-        }
-
-        .output-html {
-            margin: 0.5rem 0;
-            padding: 0.75rem;
-            background: var(--bg-color);
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            overflow-x: auto;
-        }
-
-        .output-html table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 0;
-        }
-
-        .output-html th,
-        .output-html td {
-            padding: 0.5rem;
-            border: 1px solid var(--border-color);
-            text-align: left;
-        }
-
-        .output-html th {
-            background: var(--secondary-bg, #f8f9fa);
-            font-weight: 600;
-        }
-
-        .output-error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            border-radius: 4px;
-            margin: 0.5rem 0;
-            padding: 0.75rem;
-        }
-
-        .error-name {
-            color: #dc2626;
-            font-weight: 600;
-            margin: 0 0 0.5rem 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.9rem;
-        }
-
-        .error-traceback {
-            color: #7f1d1d;
-            margin: 0;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 0.8rem;
-            line-height: 1.4;
-            background: #fef7f7;
-            padding: 0.5rem;
-            border-radius: 3px;
-            overflow-x: auto;
-        }
-
-        /* Dark theme adjustments for error outputs */
-        .dark-theme .output-error {
-            background: #2d1b1b;
-            border-color: #7f1d1d;
-        }
-
-        .dark-theme .error-name {
-            color: #f87171;
-        }
-
-        .dark-theme .error-traceback {
-            color: #fca5a5;
-            background: #1f1515;
-        }
-
-        /* Dark mode adjustments for Jupyter cells */
-        @media (prefers-color-scheme: dark) {
-            .input-area {
-                background: var(--code-bg, #2d3748);
-            }
-
-            .output-stream {
-                background: var(--secondary-bg, #4a5568);
-            }
-        }
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
     </style>
 </head>
-
 <body>
     <div class="menu-overlay"></div>
     <header>
@@ -714,9 +663,14 @@
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="../../../../../../index.html">About</a></li>
+                <li><a href="../../../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../../../projects.html">Projects</a></li>
                 <li><a href="../../../../../../blogs.html">Blog</a></li>
                 <li><a href="../../../../../../notes.html">MSc AIES</a></li>
-                <li><a href="../../../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
@@ -731,8 +685,7 @@
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon"
-                        id="themeIcon">
+                    <img src="../../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -752,348 +705,306 @@
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
-
+                    
                     <div class="note-navigation" id="noteNavigation">
-                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;"
-                            title="Previous note">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
                             <span class="nav-icon">←</span>
                         </a>
-
+                        
                         <div class="nav-progress">
                             <div class="nav-progress-text" id="progressText">Loading...</div>
                             <div class="nav-progress-bar">
                                 <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
                             </div>
                         </div>
-
-                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;"
-                            title="Next note">
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
                             <span class="nav-icon">→</span>
                         </a>
                     </div>
                 </div>
-
+                
                 <div class="note-content">
                     <h1>Human and ethical aspects of AI - Lecture 4</h1>
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-5672')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What are the four approaches mentioned for incorporating ethics into
-                                AI applications?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-5672">
-                            1. Build the system using ethical rules/values; 2. Train systems on data where rules are
-                            followed; 3. Train on data where rules *might not* have been followed, but use rules as
-                            filters; 4. Rely on the socio-technical system (users) to provide ethical input (Page 5).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1268')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the four approaches mentioned for incorporating ethics into AI applications?</span>
+    </div>
+    <div class="qa-answer" id="qa-1268">
+        1. Build the system using ethical rules/values; 2. Train systems on data where rules are followed; 3. Train on data where rules *might not* have been followed, but use rules as filters; 4. Rely on the socio-technical system (users) to provide ethical input (Page 5).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-1347')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What are some limitations of the "Design for Values" (DfV)
-                                approach?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-1347">
-                            Some ethical issues appear too late in the design process; DfV is very resource-intensive;
-                            and it may be impossible to specify values in cases of high moral uncertainty ('moral
-                            disruption') (Page 7).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9861')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are some limitations of the "Design for Values" (DfV) approach?</span>
+    </div>
+    <div class="qa-answer" id="qa-9861">
+        Some ethical issues appear too late in the design process; DfV is very resource-intensive; and it may be impossible to specify values in cases of high moral uncertainty ('moral disruption') (Page 7).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-2791')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the guiding assumption of "just war theory"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-2791">
-                            The only justification for war is self-defense (Page 9).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5037')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the guiding assumption of "just war theory"?</span>
+    </div>
+    <div class="qa-answer" id="qa-5037">
+        The only justification for war is self-defense (Page 9).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-551')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What are the two main branches of "just war theory"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-551">
-                            *Jus ad bellum* (justice *of* war) and *jus in bello* (justice *in* war) (Page 9).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2912')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the two main branches of "just war theory"?</span>
+    </div>
+    <div class="qa-answer" id="qa-2912">
+        *Jus ad bellum* (justice *of* war) and *jus in bello* (justice *in* war) (Page 9).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-2886')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What are two key principles of *jus in bello* (justice *in*
-                                war)?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-2886">
-                            The principles of proportionality and discrimination (Page 9).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5598')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are two key principles of *jus in bello* (justice *in* war)?</span>
+    </div>
+    <div class="qa-answer" id="qa-5598">
+        The principles of proportionality and discrimination (Page 9).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-4104')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">According to Cummings (2006), what is the primary purpose of analyzing
-                                ethical issues in a military system?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-4104">
-                            To identify human value design considerations that will guide the engineer in constructing a
-                            more effective decision support system (Page 10).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8077')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">According to Cummings (2006), what is the primary purpose of analyzing ethical issues in a military system?</span>
+    </div>
+    <div class="qa-answer" id="qa-8077">
+        To identify human value design considerations that will guide the engineer in constructing a more effective decision support system (Page 10).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-9150')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What was the key limitation of the original Tomahawk missile?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-9150">
-                            It could not be redirected in-flight, leading to potential redundant demolition of targets
-                            or the inability to correct a targeting mistake (Page 11).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-545')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What was the key limitation of the original Tomahawk missile?</span>
+    </div>
+    <div class="qa-answer" id="qa-545">
+        It could not be redirected in-flight, leading to potential redundant demolition of targets or the inability to correct a targeting mistake (Page 11).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-7607')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is "automation bias"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-7607">
-                            The tendency for human operators to accept the default of automated, "smart" systems, even
-                            if they have other information that should lead them to double-check it (Page 14).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3671')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "automation bias"?</span>
+    </div>
+    <div class="qa-answer" id="qa-3671">
+        The tendency for human operators to accept the default of automated, "smart" systems, even if they have other information that should lead them to double-check it (Page 14).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-4719')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the core argument for why algorithmic fairness must represent
-                                well-being or need?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-4719">
-                            For fairness to be non-accidental, its elements (like prior well-being, need, and group
-                            parity) must be represented in the algorithm (Page 16).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9586')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the core argument for why algorithmic fairness must represent well-being or need?</span>
+    </div>
+    <div class="qa-answer" id="qa-9586">
+        For fairness to be non-accidental, its elements (like prior well-being, need, and group parity) must be represented in the algorithm (Page 16).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-9309')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the "Parity-based approach" to algorithmic fairness?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-9309">
-                            An approach that aims to achieve a form of parity of outcomes between different groups (Page
-                            18).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1867')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Parity-based approach" to algorithmic fairness?</span>
+    </div>
+    <div class="qa-answer" id="qa-1867">
+        An approach that aims to achieve a form of parity of outcomes between different groups (Page 18).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-3619')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is a "worry" or objection to the idea that fairness must be
-                                actively represented in an algorithm?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-3619">
-                            If fairness is conceptualized as "non-bias," then we only need to ensure no bias exists, not
-                            actively represent the elements of fairness (Page 21).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7142')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is a "worry" or objection to the idea that fairness must be actively represented in an algorithm?</span>
+    </div>
+    <div class="qa-answer" id="qa-7142">
+        If fairness is conceptualized as "non-bias," then we only need to ensure no bias exists, not actively represent the elements of fairness (Page 21).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-1633')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is "selection bias" in an algorithm?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-1633">
-                            The training data does not represent the population to which a model is applied (Page 22).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3917')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "selection bias" in an algorithm?</span>
+    </div>
+    <div class="qa-answer" id="qa-3917">
+        The training data does not represent the population to which a model is applied (Page 22).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-6939')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is "model bias" in an algorithm?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-6939">
-                            The model itself introduces incorrect assumptions (e.g., in what it takes as input for a
-                            risk score) (Page 22).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-1394')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "model bias" in an algorithm?</span>
+    </div>
+    <div class="qa-answer" id="qa-1394">
+        The model itself introduces incorrect assumptions (e.g., in what it takes as input for a risk score) (Page 22).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-3566')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What problem does the lecture highlight regarding the classification
-                                of "ethnicity"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-3566">
-                            The technical assumptions of a classification system demand mutually exclusive categories,
-                            which is problematic for a concept like race and may not capture reality (Page 23).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3407')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What problem does the lecture highlight regarding the classification of "ethnicity"?</span>
+    </div>
+    <div class="qa-answer" id="qa-3407">
+        The technical assumptions of a classification system demand mutually exclusive categories, which is problematic for a concept like race and may not capture reality (Page 23).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-6272')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What are the problems with using "fairness as algorithmic non-bias"
-                                (i.e., a "blind" model)?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-6272">
-                            Background inequalities are left in place, and "proxies" for a characteristic (like race)
-                            might be included accidentally or intentionally (Page 24).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7271')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What are the problems with using "fairness as algorithmic non-bias" (i.e., a "blind" model)?</span>
+    </div>
+    <div class="qa-answer" id="qa-7271">
+        Background inequalities are left in place, and "proxies" for a characteristic (like race) might be included accidentally or intentionally (Page 24).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-2162')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the difference between "procedural fairness" and "substantive
-                                fairness"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-2162">
-                            Procedural concepts describe *how* decisions should be made (the process), while substantive
-                            notions refer to the *outcome* or goal the decision should achieve (Page 25).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7399')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the difference between "procedural fairness" and "substantive fairness"?</span>
+    </div>
+    <div class="qa-answer" id="qa-7399">
+        Procedural concepts describe *how* decisions should be made (the process), while substantive notions refer to the *outcome* or goal the decision should achieve (Page 25).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-9151')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the difference between "Contractualism" and
-                                "Contractarianism"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-9151">
-                            Contractualism (Hobbes) is what people *actually* agree to, while Contractarianism (Rawls)
-                            is what *reasonable* people *would* agree to under ideal circumstances (Page 26).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5426')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the difference between "Contractualism" and "Contractarianism"?</span>
+    </div>
+    <div class="qa-answer" id="qa-5426">
+        Contractualism (Hobbes) is what people *actually* agree to, while Contractarianism (Rawls) is what *reasonable* people *would* agree to under ideal circumstances (Page 26).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-9359')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the "Veil of Ignorance" in Rawlsian justice?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-9359">
-                            A hypothetical condition where people agree on principles of justice *without* knowing which
-                            position in society they will go on to occupy (Page 27).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-9567')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Veil of Ignorance" in Rawlsian justice?</span>
+    </div>
+    <div class="qa-answer" id="qa-9567">
+        A hypothetical condition where people agree on principles of justice *without* knowing which position in society they will go on to occupy (Page 27).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-8552')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the "Difference Principle"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-8552">
-                            Inequalities are permitted only when they benefit those who are least well off (Page 28).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-6072')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Difference Principle"?</span>
+    </div>
+    <div class="qa-answer" id="qa-6072">
+        Inequalities are permitted only when they benefit those who are least well off (Page 28).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-4616')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is "Prioritarianism"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-4616">
-                            Increases in well-being for those who are less well-off count more than similar increases
-                            for those who are better off (Page 28).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8108')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "Prioritarianism"?</span>
+    </div>
+    <div class="qa-answer" id="qa-8108">
+        Increases in well-being for those who are less well-off count more than similar increases for those who are better off (Page 28).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-5094')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the "Rawlsian rule for algorithmic fairness" proposed by
-                                Barsotti & Kocer (2024)?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-5094">
-                            'A model is fair if it does not make more systematic errors for any [relevant] sub-group in
-                            the dataset compared to the others' (Page 29).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-2415')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the "Rawlsian rule for algorithmic fairness" proposed by Barsotti & Kocer (2024)?</span>
+    </div>
+    <div class="qa-answer" id="qa-2415">
+        'A model is fair if it does not make more systematic errors for any [relevant] sub-group in the dataset compared to the others' (Page 29).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-1469')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the main argument from Winters et al. (2020) regarding digital
-                                health and justice?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-1469">
-                            Based on Prioritarianism, we should favor contextual and targeted initiatives because they
-                            benefit the poor more, even if they require more resources than general, scalable tools
-                            (Page 33).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-8996')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the main argument from Winters et al. (2020) regarding digital health and justice?</span>
+    </div>
+    <div class="qa-answer" id="qa-8996">
+        Based on Prioritarianism, we should favor contextual and targeted initiatives because they benefit the poor more, even if they require more resources than general, scalable tools (Page 33).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-2273')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is "relational justice"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-2273">
-                            An approach to justice that focuses on power and history instead of a general principle of
-                            distribution (Page 34).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4825')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "relational justice"?</span>
+    </div>
+    <div class="qa-answer" id="qa-4825">
+        An approach to justice that focuses on power and history instead of a general principle of distribution (Page 34).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-5646')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What slogan is associated with relational justice in data
-                                ethics?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-5646">
-                            "Nothing about us, without us" (Page 34).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-5314')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What slogan is associated with relational justice in data ethics?</span>
+    </div>
+    <div class="qa-answer" id="qa-5314">
+        "Nothing about us, without us" (Page 34).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-2313')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What was the Havasupai tribe case about?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-2313">
-                            Their DNA samples, collected for diabetes studies, had been used without consent for other
-                            genetic studies (Page 35).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-4286')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What was the Havasupai tribe case about?</span>
+    </div>
+    <div class="qa-answer" id="qa-4286">
+        Their DNA samples, collected for diabetes studies, had been used without consent for other genetic studies (Page 35).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-5067')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is "punitive justice"?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-5067">
-                            Justice related to decisions about jail or sentencing, guided by the principle that "justice
-                            is blind" to arbitrary characteristics (Page 36).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-373')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is "punitive justice"?</span>
+    </div>
+    <div class="qa-answer" id="qa-373">
+        Justice related to decisions about jail or sentencing, guided by the principle that "justice is blind" to arbitrary characteristics (Page 36).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-9635')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What is the argument against using statistical tools like the Public
-                                Safety Assessment (PSA) for detention?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-9635">
-                            We should not deny people their liberty on statistical grounds; individualized evidence
-                            should be required (Page 37).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-7842')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What is the argument against using statistical tools like the Public Safety Assessment (PSA) for detention?</span>
+    </div>
+    <div class="qa-answer" id="qa-7842">
+        We should not deny people their liberty on statistical grounds; individualized evidence should be required (Page 37).
+    </div>
+</div>
 
-                    <div class="qa-item">
-                        <div class="qa-question" onclick="toggleQA('qa-7705')">
-                            <span class="qa-icon">▶</span>
-                            <span class="qa-text">What advice does the lecture give to AI experts who want to be useful
-                                to the world?</span>
-                        </div>
-                        <div class="qa-answer" id="qa-7705">
-                            To "dive into" the domain (e.g., study the history of segregation if you care about housing)
-                            and not be "domain agnostic" (Page 38).
-                        </div>
-                    </div>
+<div class="qa-item">
+    <div class="qa-question" onclick="toggleQA('qa-3509')">
+        <span class="qa-icon">▶</span>
+        <span class="qa-text">What advice does the lecture give to AI experts who want to be useful to the world?</span>
+    </div>
+    <div class="qa-answer" id="qa-3509">
+        To "dive into" the domain (e.g., study the history of segregation if you care about housing) and not be "domain agnostic" (Page 38).
+    </div>
+</div>
                 </div>
             </div>
         </div>
@@ -1103,17 +1014,17 @@
 
     <script>
         // Note navigation functionality
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             loadNoteNavigation();
         });
-
+        
         async function loadNoteNavigation() {
             try {
                 // Get current page path relative to root
                 const currentPath = window.location.pathname;
                 const pathParts = currentPath.split('/');
                 const fileName = pathParts[pathParts.length - 1];
-
+                
                 // Construct the relative path to match navigation data
                 let relativePath = '';
                 if (pathParts.includes('notes')) {
@@ -1122,41 +1033,41 @@
                 } else {
                     relativePath = 'notes/' + fileName;
                 }
-
+                
                 // Decode URL encoding (e.g., %20 -> space) to match navigation data
                 relativePath = decodeURIComponent(relativePath);
-
+                
                 // Load navigation data
                 const response = await fetch('../../../../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
                 }
-
+                
                 const navigationData = await response.json();
                 const currentNav = navigationData[relativePath];
-
+                
                 if (!currentNav) {
                     console.log('Current page not found in navigation data:', relativePath);
                     return;
                 }
-
+                
                 // Update progress
                 const progressText = document.getElementById('progressText');
                 const progressFill = document.getElementById('progressFill');
                 const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
-
+                
                 progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
                 progressFill.style.width = `${progress}%`;
-
+                
                 // Update current page title in header
                 const currentPageTitle = document.getElementById('currentPageTitle');
                 const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
                 currentPageTitle.textContent = pageTitle;
-
+                
                 // Update previous button
                 const prevButton = document.getElementById('prevButton');
-
+                
                 if (currentNav.previous) {
                     prevButton.href = '../../../../../../' + currentNav.previous;
                     prevButton.title = 'Previous: ' + currentNav.previous_title;
@@ -1164,10 +1075,10 @@
                 } else {
                     prevButton.style.visibility = 'hidden';
                 }
-
+                
                 // Update next button
                 const nextButton = document.getElementById('nextButton');
-
+                
                 if (currentNav.next) {
                     nextButton.href = '../../../../../../' + currentNav.next;
                     nextButton.title = 'Next: ' + currentNav.next_title;
@@ -1175,18 +1086,18 @@
                 } else {
                     nextButton.style.visibility = 'hidden';
                 }
-
+                
                 // Add keyboard navigation
-                document.addEventListener('keydown', function (e) {
+                document.addEventListener('keydown', function(e) {
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
-
+                    
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
                         window.location.href = '../../../../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
                         window.location.href = '../../../../../../' + currentNav.next;
                     }
                 });
-
+                
             } catch (error) {
                 console.error('Error loading navigation:', error);
                 document.getElementById('progressText').textContent = 'Navigation unavailable';
@@ -1195,5 +1106,4 @@
     </script>
 
 </body>
-
 </html>

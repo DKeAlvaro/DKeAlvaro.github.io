@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2022 - MSc AI & Engineering Systems Notes">
+    <title>2022 - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h3>Question 1</h3>
+<p><strong>1a</strong> Below are four statements about the Bayesian approach to machine learning. Which of the below statements is false?
+a) The Bayesian approach does not require splitting the data set into a training and test set. All data can be used for training.
+b) The Bayesian approach is a fundamentally sound approach to optimal processing of incomplete information sources such as a data set, since it is based on probability theory.
+c) The Bayesian approach to machine learning requires upfront to state all model assumptions explicitly in the model specification. Alternative approaches may hide these assumptions in various ways through cost functions, learning rates, etc.
+d) The Bayesian approach to machine learning is a fast alternative to the more fundamental maximum likelihood method.
+<strong>Answer:</strong> d</p>
+<p><strong>1b</strong> Which of the following statements is NOT a property of the Variational Bayesian (VB) approach to machine learning?
+a) The VB approach transfers Bayesian ML to an optimization problem.
+b) VB finds posterior distributions by maximizing Bayesian model evidence.
+c) Minimization of Variational Free Energy leads both to (possibly approximate) results for (1) the posterior distribution over the latent variables, and (2) Bayesian model evidence.
+d) Global optimization of Variational Free Energy leads to the realization of Bayes rule.
+<strong>Answer:</strong> b</p>
+<p><strong>1c</strong> Consider two model specifications $p(x, \theta, m_k) = p(x | \theta, m_k) p(\theta | m_k) p(m_k)$ for $k = {1, 2}$. After training both models on the same data set $D = {x_1, x_2, ..., x_N}$, you want to use the Bayes Factor (BF) to select the best model for this data set. The BF can be expressed as follows:
+a) $B_{12} = \frac{p(D|m_1)}{p(D|m_2)} = \frac{p(m_1|D)}{p(m_2|D)} \cdot \frac{p(m_1)}{p(m_2)}$
+b) $B_{12} = \frac{p(D|m_1)}{p(D|m_2)} = \frac{p(m_1|D)}{p(m_2|D)} \cdot \frac{p(m_2)}{p(m_1)}$
+c) $B_{12} = \frac{p(m_1|D)}{p(m_2|D)} = \frac{p(D|m_1)}{p(D|m_2)} \cdot \frac{p(m_2)}{p(m_1)}$
+d) $B_{12} = \frac{p(m_1|D)}{p(m_2|D)} = \frac{p(D|m_1)}{p(D|m_2)} \cdot \frac{p(m_1)}{p(m_2)}$
+<strong>Answer:</strong> c</p>
+<p><strong>1d</strong> In the Free Energy Principle approach to designing an intelligent agent, which of the following statements describes most accurately how to equip the agent with goal-driven behavior?
+a) Specify a cost function of future states and choose actions to minimize future costs.
+b) Extend the generative model with target priors for future observations. Then choose actions that minimize Free Energy in the extended model.
+c) Specify a cost function of actions and choose actions that minimize the cost function.
+d) Extend the generative model with a posterior distribution for actions and choose the action that maximizes this posterior distribution.
+<strong>Answer:</strong> b</p>
+<h3>Question 2</h3>
+<p>Consider a two-class classification problem with data set $D = {(x_1, y_1), (x_2, y_2), ..., (x_N, y_N)}$, where $x_n \in \mathbb{R}^{2 \times 1}$ are observed features (note that $x_n$ is a two-dimensional column vector) and $y_n \in {(1,0), (0,1)}$ is a one-hot coded class identifier. We define a data generating distribution by:
+<script type="math/tex; mode=display">p(x_n | y_{n1}=1)p(y_{n1}=1) = \mathcal{N}(x_n | \mu_1, \Sigma_1) \cdot \pi_1</script>
+<script type="math/tex; mode=display">p(x_n | y_{n2}=1)p(y_{n2}=1) = \mathcal{N}(x_n | \mu_2, \Sigma_2) \cdot \pi_2</script>
+where $\theta = {\pi_1, \pi_2, \mu_1, \mu_2, \Sigma_1, \Sigma_2}$ are the model parameters.</p>
+<p><strong>2a</strong> What is the expression for the "generative model" $p(x_n, y_n)$?
+a) $p(x_n, y_n) = \prod_{k=1}^2 \pi_k \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k)^{y_{nk}}$
+b) $p(x_n, y_n) = \prod_{k=1}^2 (\pi_k \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k))^{y_{nk}}$
+c) $p(x_n, y_n) = \prod_{k=1}^2 \pi_k^{y_{nk}} \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k)$
+d) $p(x_n, y_n) = \sum_{k=1}^2 y_{nk} \log(\pi_k \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k))$
+<strong>Answer:</strong> b</p>
+<p><strong>2b</strong> The posterior class distribution $p(y_{n1}=1 | x_n)$ for a given input $x_n$ is given by:
+a) $p(y_{n1}=1 | x_n) = \frac{\mathcal{N}(x_n | \mu_1, \Sigma_1)}{\mathcal{N}(x_n | \mu_1, \Sigma_1) + \mathcal{N}(x_n | \mu_2, \Sigma_2)}$
+b) $p(y_{n1}=1 | x_n) = \frac{\pi_1}{\pi_1 + \pi_2}$
+c) $p(y_{n1}=1 | x_n) = \frac{\pi_2 \cdot \mathcal{N}(x_n | \mu_2, \Sigma_2)}{\pi_1 \mathcal{N}(x_n | \mu_1, \Sigma_1) + \pi_2 \mathcal{N}(x_n | \mu_2, \Sigma_2)}$
+d) $p(y_{n1}=1 | x_n) = \frac{\pi_1 \cdot \mathcal{N}(x_n | \mu_1, \Sigma_1)}{\pi_1 \mathcal{N}(x_n | \mu_1, \Sigma_1) + \pi_2 \cdot \mathcal{N}(x_n | \mu_2, \Sigma_2)}$
+<strong>Answer:</strong> d</p>
+<p><strong>2c</strong> The log-likelihood $\log p(D | \theta)$ can be worked out to:
+a) $\log p(D | \theta) = \sum_k y_{nk} \log \mathcal{N}(x_n | \mu_k, \Sigma_k) + \sum_k y_{nk} \log \pi_k$
+b) $\log p(D | \theta) = \sum_n \sum_k y_{nk} \log \mathcal{N}(x_n | \mu_k, \Sigma_k) + \sum_n \sum_k \log \pi_k$
+c) $\log p(D | \theta) = \sum_n \sum_k y_{nk} \log \mathcal{N}(x_n | \mu_k, \Sigma_k) + \sum_n \sum_k y_{nk} \log \pi_k$
+d) $\log p(D | \theta) = \sum_k y_{nk} \log (\pi_k \mathcal{N}(x_n | \mu_k, \Sigma_k))$
+<strong>Answer:</strong> c</p>
+<p><strong>2d</strong> Let $\hat{\mu}<em n2="n2">2$ be the maximum likelihood estimate for $\mu_2$. The maximum likelihood estimate $\hat{\Sigma}_2$ for the variance parameter $\Sigma_2$ is given by:
+a) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n (x_n - \hat{\mu}_2)(x_n - \hat{\mu}_2)^T$
+b) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n y</em>} (x_n - \hat{\mu<em n2="n2">2)(x_n - \hat{\mu}_2)^T$
+c) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n y</em>} (x_n - \hat{\mu<em n2="n2">2)^T (x_n - \hat{\mu}_2)$
+d) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n y</em>_2)^2$
+} (x_n - \hat{\mu<strong>Answer:</strong> b</p>
+<p><strong>2e</strong> Aside from degenerative cases, the discrimination boundary between the two classes will be given by a:
+a) straight line
+b) parabola
+c) square
+d) triangle
+<strong>Answer:</strong> b</p>
+<h3>Question 3</h3>
+<p>Consider a biased coin with outcomes:
+<script type="math/tex; mode=display">x_n = \begin{cases} 0 & (heads) \\ 1 & (tails) \end{cases}</script>
+We assume that the data generating process is governed by a Bernoulli distribution,
+<script type="math/tex; mode=display">p(x_n | \mu) = \mu^{x_n} (1-\mu)^{(1-x_n)}</script>
+and we assume a Beta distribution for the prior on $\mu$:
+<script type="math/tex; mode=display">p(\mu) = \text{Beta}(\mu | \alpha=3, \beta=2)</script>
+Note that the Beta distribution is given by $\text{Beta}(x | \alpha, \beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}$, where $\Gamma(\cdot)$ is the gamma function. The mean of the Beta distribution is given by $E[x] = \frac{\alpha}{\alpha+\beta}$.</p>
+<p>We throw the coin 7 times and observe outcomes $D = {0, 1, 0, 0, 1, 0, 0}$.</p>
+<p><strong>3a</strong> Which of the following interpretations of the choice $\alpha=3$, $\beta=2$ is most valid?
+a) We assume 5 "pseudo" coin tosses with outcomes 2 tails and 3 heads.
+b) We assume 3 "pseudo" coin tosses with outcomes 2 tails and 1 heads.
+c) We assume that the probability of throwing tails is 2/3 times the probability of throwing heads.
+d) We assume 5 "pseudo" coin tosses with outcomes 3 tails and 2 heads.
+<strong>Answer:</strong> d</p>
+<p><strong>3b</strong> Work out the likelihood function $p(D | \mu)$ for $\mu$.
+a) $p(D | \mu) = \binom{5}{2} \cdot \mu^5 (1-\mu)^2$
+b) $p(D | \mu) = \mu^5 (1-\mu)^2$
+c) $p(D | \mu) = \mu^2 (1-\mu)^5$
+d) $p(D | \mu) = \mu^1 (1-\mu)^4$
+<strong>Answer:</strong> c</p>
+<p><strong>3c</strong> Compute the posterior distribution $p(\mu | D)$.
+a) $p(\mu | D) = \text{Beta}(\mu | 4, 6)$
+b) $p(\mu | D) = \mu^4 (1-\mu)^6$
+c) $p(\mu | D) = \mu^5 (1-\mu)^7$
+d) $p(\mu | D) = \text{Beta}(\mu | 5, 7)$
+<strong>Answer:</strong> d</p>
+<p><strong>3d</strong> Now compute the probability for throwing tails after the data set has been absorbed in the model.
+a) $p(x_{n+1}=1 | D) = 4/11$
+b) $p(x_{n+1}=1 | D) = 3/5$
+c) $p(x_{n+1}=1 | D) = 1/2$
+d) $p(x_{n+1}=1 | D) = 5/12$
+<strong>Answer:</strong> d</p>
+<h3>Question 4</h3>
+<p>A model $m_1$ is described by a single parameter $\theta$, with $0 \le \theta \le 1$. The system can produce data $x \in {0, 1}$.
+The sampling distribution $p(x | \theta, m_1)$ and prior $p(\theta | m_1)$ are given by:
+<script type="math/tex; mode=display">p(x | \theta, m_1) = \theta^x (1-\theta)^{(1-x)}</script>
+<script type="math/tex; mode=display">p(\theta | m_1) = 6\theta(1-\theta)</script>
+</p>
+<p><strong>4a</strong> Work out the probability $p(x=1 | m_1)$.
+a) $1/4$
+b) $1/2$
+c) $\theta / (1+\theta)$
+d) $3/4$
+<strong>Answer:</strong> b</p>
+<p><strong>4b</strong> Determine the posterior $p(\theta | x=1, m_1)$.
+a) $6\theta^2 (1-\theta)$
+b) $12\theta (1-\theta)^2$
+c) $12\theta^2 (1-\theta)$
+d) $6\theta (1-\theta)^2$
+<strong>Answer:</strong> c</p>
+<p>Consider a second model $m_2$ with the following sampling distribution and prior on $0 \le \theta \le 1$:
+<script type="math/tex; mode=display">p(x | \theta, m_2) = (1-\theta)^x \theta^{(1-x)}</script>
+<script type="math/tex; mode=display">p(\theta | m_2) = 2\theta</script>
+</p>
+<p><strong>4c</strong> Determine the probability $p(x=1 | m_2)$.
+a) $2/3$
+b) $1/4$
+c) $1/2$
+d) $1/3$
+<strong>Answer:</strong> d</p>
+<p><strong>4d</strong> Now assume that the model priors are given by $p(m_1) = 1/3$ and $p(m_2) = 2/3$. Compute the probability $p(x=1)$ by "Bayesian model averaging", i.e., by weighing the predictions of both models appropriately.
+a) $7/18$
+b) $1/2$
+c) $4/9$
+d) $8/18$
+<strong>Answer:</strong> a</p>
+<p><strong>4e</strong> Compute the fraction of posterior model probabilities $\frac{p(m_1 | x=1)}{p(m_2 | x=1)}$.
+a) $3/4$
+b) $4/9$
+c) $5/9$
+d) $2/3$
+<strong>Answer:</strong> a</p>
+<h3>Question 5</h3>
+<p><strong>5a</strong> For a state space model with given process model $p(z_t | z_{t-1})$ and observation model $p(x_t | z_t)$, write out how to recursively update the latent state estimate $p(z_t | x_{1:t})$.
+a) $p(z_t | x_{1:t}) = p(x_t | z_t) \sum_{z_{t-1}} p(z_t | z_{t-1}) p(z_{t-1} | x_{1:t-1})$
+b) $p(z_t | x_{1:t}) \propto p(x_t | z_t) \sum_{z_{t-1}} p(z_t | z_{t-1}) p(z_{t-1} | x_{1:t-1})$
+c) $p(z_t | x_{1:t}) = \sum_{x_t} p(x_t | z_t) p(z_t | x_{1:t-1})$
+d) $p(z_t | x_{1:t}) \propto p(z_t, x_{1:t})$
+<strong>Answer:</strong> b</p>
+<p><strong>5b</strong> Which of the following statements are consistent with the Free Energy Principle:
+(a) An active inference agent holds a generative model for its sensory inputs.
+(b) Actions are inferred from differences between the predicted and desired future observations.
+(c) Actions are inferred from differences between the predicted and actual future observations.
+(d) An active inference agent focuses on explorative behavior only.
+a) (a) and (b)
+b) (a)
+c) (b) and (d)
+d) (c) and (d)
+<strong>Answer:</strong> a</p>
+<p><strong>5c</strong> Given is a model:
+<script type="math/tex; mode=display">p(z) = \mathcal{N}(z | 0, I)</script>
+<script type="math/tex; mode=display">p(x | z) = \mathcal{N}(x | Wz, \Sigma)</script>
+Work out an expression for the marginal $p(x)$.
+a) $p(x) = \mathcal{N}(x | 0, W^T W + \Sigma)$
+b) $p(x) = \mathcal{N}(x | Wz, \Sigma)$
+c) $p(x) = \mathcal{N}(x | 0, W \Sigma W^T)$
+d) $p(x) = \mathcal{N}(x | 0, W W^T + \Sigma)$
+<strong>Answer:</strong> d</p>
+<p><strong>5d</strong> Which of the following statements are true?
+(a) If X and Y are independent Gaussian-distributed variables, then $Z=XY$ is also Gaussian distributed.
+(b) If X and Y are independent Gaussian-distributed variables, then $Z=3X-Y$ is also Gaussian distributed.
+(c) The sum of two Gaussian distributions is always also a Gaussian distribution.
+(d) Discriminative classification is more similar to regression than to density estimation.
+a) (b) and (c)
+b) (a) and (d)
+c) (b) and (d)
+d) (b) and (c)
+<strong>Answer:</strong> c</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

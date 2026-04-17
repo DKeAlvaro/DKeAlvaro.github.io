@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="06 Bayesian Classifier - MSc AI & Engineering Systems Notes">
+    <title>06 Bayesian Classifier - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Exercise Type 6: Bayesian Classifier (Discrimination Boundary &amp; Error)</h1>
+<blockquote>
+<p><strong>What the exam asks:</strong> You have a machine that measures some property of a liquid/object. You want to classify it into one of two categories. Given the mathematical formulas for how each category behaves and how common each is, find the decision boundary, compute posterior class probabilities, and calculate error rates.</p>
+</blockquote>
+<hr />
+<h2>Part 0: What Do All These Symbols Mean?</h2>
+<h3>The Key Notation</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>How to Read It</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$C_1$</td>
+<td>"Class one"</td>
+<td>One category (e.g., "Fanta")</td>
+</tr>
+<tr>
+<td>$C_2$</td>
+<td>"Class two"</td>
+<td>The other category (e.g., "Orangina")</td>
+</tr>
+<tr>
+<td>$x$</td>
+<td>lowercase x</td>
+<td>The measurement you made (e.g., "orangeness" = 1.3)</td>
+</tr>
+<tr>
+<td>$p(x|C_1)$</td>
+<td>"probability of x given class C₁"</td>
+<td>If the drink IS Fanta, how likely is it to have measurement x?</td>
+</tr>
+<tr>
+<td>$p(C_1)$</td>
+<td>"probability of class C₁"</td>
+<td>Before measuring, how likely is it to be Fanta? (the prior)</td>
+</tr>
+<tr>
+<td>$p(C_1|x)$</td>
+<td>"probability of class C₁ given x"</td>
+<td>After measuring x, how likely is it to be Fanta? (the posterior)</td>
+</tr>
+</tbody>
+</table>
+<h3>The Core Idea</h3>
+<p>You have two types of drinks. Each type produces measurements according to a different mathematical pattern. You see a measurement and want to know: "Which type of drink is this?"</p>
+<p>Bayes' rule for classification:</p>
+<p>
+<script type="math/tex; mode=display">p(C_1|x) = \frac{p(x|C_1) \cdot p(C_1)}{p(x)}</script>
+</p>
+<p><strong>In plain English:</strong> "The probability this is Fanta given the measurement = (how likely Fanta produces this measurement) × (how common Fanta is), divided by (overall probability of this measurement)."</p>
+<h3>The Evidence $p(x)$</h3>
+<p>
+<script type="math/tex; mode=display">p(x) = p(x|C_1) \cdot p(C_1) + p(x|C_2) \cdot p(C_2)</script>
+</p>
+<p><strong>In plain English:</strong> "The overall probability of seeing measurement x = (how likely C₁ produces x × how common C₁ is) + (how likely C₂ produces x × how common C₂ is)."</p>
+<hr />
+<h2>Part 1: The Three Things You Might Be Asked</h2>
+<h3>Thing 1: The Discrimination Boundary</h3>
+<p>This is the measurement value where you're equally unsure about both classes. At this point:</p>
+<p>
+<script type="math/tex; mode=display">p(C_1|x) = p(C_2|x)</script>
+</p>
+<p>Which is equivalent to:</p>
+<p>
+<script type="math/tex; mode=display">\frac{p(C_1|x)}{p(C_2|x)} = 1</script>
+</p>
+<p>Using Bayes' rule:</p>
+<p>
+<script type="math/tex; mode=display">\frac{p(x|C_1) \cdot p(C_1)}{p(x|C_2) \cdot p(C_2)} = 1</script>
+</p>
+<p><strong>This is the equation you solve to find the boundary.</strong></p>
+<h3>Thing 2: Posterior Class Probability</h3>
+<p>Given a specific measurement (e.g., $x = 0.5$), compute $p(C_1|x)$:</p>
+<p>
+<script type="math/tex; mode=display">p(C_1|x) = \frac{p(x|C_1) \cdot p(C_1)}{p(x|C_1) \cdot p(C_1) + p(x|C_2) \cdot p(C_2)}</script>
+</p>
+<h3>Thing 3: Error Probability</h3>
+<p>If your decision boundary is at $x = a$, the probability of making a wrong classification is:</p>
+<p>
+<script type="math/tex; mode=display">P(\text{error}) = \int_{\text{decide } C_2} p(x|C_1)p(C_1)dx + \int_{\text{decide } C_1} p(x|C_2)p(C_2)dx</script>
+</p>
+<p><strong>In plain English:</strong> "Error = (probability it's C₁ but we decide C₂) + (probability it's C₂ but we decide C₁)"</p>
+<hr />
+<h2>Part 2: FULL Walkthrough of Real Exam Questions</h2>
+<h3>EXAM QUESTION 1 (2021-Resit, Question 5 — Orange-ness)</h3>
+<blockquote>
+<p>$p(x|C_1) = 6x(1-x)$ for $0 \leq x \leq 1$
+$p(x|C_2) = 2x$ for $0 \leq x \leq 1$
+$p(C_1) = 0.6$, $p(C_2) = 0.4$</p>
+</blockquote>
+<hr />
+<h3>Question 5a: The Discrimination Boundary</h3>
+<blockquote>
+<p>Options:
+- (a) $1 = \frac{p(x|C_1)}{p(x|C_2)} = \frac{6x(1-x)}{2x} \Rightarrow x = 2/3$
+- (b) $\frac{1}{2} = \frac{p(C_1|x)}{p(C_2|x)} = \frac{p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} = \frac{6x(1-x)\cdot 0.6}{2x\cdot 0.4} \Rightarrow x = 8/9$
+- (c) $1 = \frac{p(C_1|x)}{p(C_2|x)} = \frac{p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} = \frac{6x(1-x)\cdot 0.6}{2x\cdot 0.4} \Rightarrow x = 7/9$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Set up the boundary equation</strong></p>
+<p>At the boundary, the two posterior probabilities are equal:</p>
+<p>
+<script type="math/tex; mode=display">\frac{p(C_1|x)}{p(C_2|x)} = 1</script>
+</p>
+<p>Using Bayes' rule:</p>
+<p>
+<script type="math/tex; mode=display">\frac{p(x|C_1) \cdot p(C_1)}{p(x|C_2) \cdot p(C_2)} = 1</script>
+</p>
+<p><strong>Step 2: Plug in the formulas</strong></p>
+<p>
+<script type="math/tex; mode=display">\frac{6x(1-x) \cdot 0.6}{2x \cdot 0.4} = 1</script>
+</p>
+<p><strong>Step 3: Simplify the left side</strong></p>
+<p>First, let's handle the constants:
+- Numerator constant: $6 \times 0.6 = 3.6$
+- Denominator constant: $2 \times 0.4 = 0.8$</p>
+<p>
+<script type="math/tex; mode=display">\frac{3.6x(1-x)}{0.8x} = 1</script>
+</p>
+<p>Cancel the $x$ (assuming $x \neq 0$):</p>
+<p>
+<script type="math/tex; mode=display">\frac{3.6(1-x)}{0.8} = 1</script>
+</p>
+<p>Simplify the fraction: $3.6/0.8 = 36/8 = 9/2 = 4.5$</p>
+<p>
+<script type="math/tex; mode=display">\frac{9(1-x)}{2} = 1</script>
+</p>
+<p><strong>Step 4: Solve for x</strong></p>
+<p>
+<script type="math/tex; mode=display">9(1-x) = 2</script>
+<script type="math/tex; mode=display">9 - 9x = 2</script>
+<script type="math/tex; mode=display">-9x = 2 - 9 = -7</script>
+<script type="math/tex; mode=display">x = \frac{7}{9}</script>
+</p>
+<p><strong>Step 5: Match the answer</strong></p>
+<p>(c) has the correct setup (with "1 =" and the full Bayes' rule) AND gets $x = 7/9$.</p>
+<p>(a) is missing the prior probabilities — it only uses the likelihood ratio.
+(b) has "1/2 =" which is wrong — the boundary is at ratio = 1.</p>
+<p><strong>Answer: (c)</strong> ✅</p>
+<hr />
+<h3>Question 5b: Compute $p(C_1|x=0.5)$</h3>
+<blockquote>
+<p>Options:
+- (a) $\frac{p(x=0.5|C_1)p(C_1)}{p(x=0.5|C_2)p(C_2)} = \frac{\frac{6}{4}\cdot\frac{6}{10}}{1\cdot\frac{4}{10}}$
+- (b) $\frac{p(x=0.5|C_1)p(C_1)}{p(x=0.5)} = \frac{\frac{6}{4}\cdot\frac{6}{10}}{\frac{6}{4}\cdot\frac{6}{10}+1\cdot\frac{4}{10}}$
+- (c) $p(x=0.5|C_1)p(C_1) = \frac{6}{4}\cdot\frac{6}{10}$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Evaluate class-conditionals at x = 0.5</strong></p>
+<p>For $C_1$: $p(x=0.5|C_1) = 6 \times 0.5 \times (1-0.5) = 6 \times 0.5 \times 0.5 = 6/4 = 1.5$</p>
+<p>For $C_2$: $p(x=0.5|C_2) = 2 \times 0.5 = 1$</p>
+<p><strong>Step 2: Write Bayes' rule</strong></p>
+<p>
+<script type="math/tex; mode=display">p(C_1|x=0.5) = \frac{p(x=0.5|C_1) \cdot p(C_1)}{p(x=0.5)}</script>
+</p>
+<p>Where:
+<script type="math/tex; mode=display">p(x=0.5) = p(x=0.5|C_1) \cdot p(C_1) + p(x=0.5|C_2) \cdot p(C_2)</script>
+</p>
+<p><strong>Step 3: Plug in</strong></p>
+<p>
+<script type="math/tex; mode=display">p(C_1|x=0.5) = \frac{\frac{6}{4} \cdot \frac{6}{10}}{\frac{6}{4} \cdot \frac{6}{10} + 1 \cdot \frac{4}{10}}</script>
+</p>
+<p><strong>Step 4: Match the answer</strong></p>
+<p>(b) matches exactly — it has the proper evidence in the denominator.</p>
+<p>(a) divides one joint by the other — that's a ratio, not a posterior.
+(c) is just the joint probability $p(x, C_1)$, not the posterior.</p>
+<p><strong>Answer: (b)</strong> ✅</p>
+<hr />
+<h3>Question 5c: Learning Class Priors from Data</h3>
+<blockquote>
+<p>Options:
+- (a) Gaussian prior on θ, classify by $\int p(x_\bullet|C_1,\theta)p(\theta|D)d\theta$
+- (b) Assume $p(C_1)=p(C_2)=0.5$ and use Bayes rule
+- (c) Beta prior on θ, classify by $\int p(x_\bullet|C_1)p(C_1|\theta)p(\theta|D)d\theta$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>If we don't know the prior probabilities $p(C_1)$ and $p(C_2)$, we need to learn them from labeled data.</p>
+<p>We model: $p(C_1|\theta) = \theta$ and $p(C_2|\theta) = 1-\theta$, where $0 \leq \theta \leq 1$.</p>
+<p>Since θ is between 0 and 1, the conjugate prior is <strong>Beta</strong> (not Gaussian).</p>
+<p>The predictive probability for a new sample $x_\bullet$:</p>
+<p>
+<script type="math/tex; mode=display">p(C_1|x_\bullet, D) \propto \int p(x_\bullet|C_1) \cdot p(C_1|\theta) \cdot p(\theta|D) \, d\theta</script>
+</p>
+<p><strong>Answer: (c)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 2 (2023, Question 2c — Error Probability)</h3>
+<blockquote>
+<p>Let the discrimination boundary be $x = a$. Work out the probability of wrong classification.</p>
+<p>Options:
+- (a) $0.4\int_a^2(4-2x)dx + 0.6\int_1^a 6(1-x)(x-2)dx$
+- (b) $0.6\int_a^2(4-2x)dx + 0.4\int_1^a 6(1-x)(x-2)dx$
+- (c) $a/2$
+- (d) $\int_a^2(4-2x)dx + \int_1^a 6(1-x)(x-2)dx$</p>
+<p><strong>Context:</strong> $p(x|C_1) = -6(x-1)(x-2) = 6(1-x)(x-2)$ for $1 \leq x \leq 2$
+$p(x|C_2) = 4-2x$ for $1 \leq x \leq 2$
+$p(C_1) = 0.4$, $p(C_2) = 0.6$
+We decide $C_1$ if $x &gt; a$, and $C_2$ if $x &lt; a$.</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Understand the decision rule</strong></p>
+<ul>
+<li>If $x &lt; a$: we decide $C_2$</li>
+<li>If $x &gt; a$: we decide $C_1$</li>
+</ul>
+<p><strong>Step 2: When do we make an error?</strong></p>
+<p>Error occurs in two scenarios:
+1. <strong>False $C_2$</strong>: It's actually $C_1$ but we decided $C_2$ (i.e., $x &lt; a$)
+2. <strong>False $C_1$</strong>: It's actually $C_2$ but we decided $C_1$ (i.e., $x &gt; a$)</p>
+<p><strong>Step 3: Write the error probability</strong></p>
+<p>
+<script type="math/tex; mode=display">P(\text{error}) = P(\text{true } C_1, \text{ decide } C_2) + P(\text{true } C_2, \text{ decide } C_1)</script>
+</p>
+<p>For the first term (true $C_1$, decide $C_2$ = $x &lt; a$):
+<script type="math/tex; mode=display">\int_1^a p(x|C_1) \cdot p(C_1) \, dx = p(C_1) \int_1^a p(x|C_1) \, dx = 0.4 \int_1^a 6(1-x)(x-2) \, dx</script>
+</p>
+<p>For the second term (true $C_2$, decide $C_1$ = $x &gt; a$):
+<script type="math/tex; mode=display">\int_a^2 p(x|C_2) \cdot p(C_2) \, dx = p(C_2) \int_a^2 p(x|C_2) \, dx = 0.6 \int_a^2 (4-2x) \, dx</script>
+</p>
+<p><strong>Step 4: Combine</strong></p>
+<p>
+<script type="math/tex; mode=display">P(\text{error}) = 0.4 \int_1^a 6(1-x)(x-2) \, dx + 0.6 \int_a^2 (4-2x) \, dx</script>
+</p>
+<p><strong>Step 5: Match the answer</strong></p>
+<p>(a) matches exactly.</p>
+<p>(b) has the priors swapped (0.6 with the first integral, 0.4 with the second).
+(c) is way too simple.
+(d) is missing the prior probabilities.</p>
+<p><strong>Answer: (a)</strong> ✅</p>
+<hr />
+<h2>Part 3: Tricks &amp; Shortcuts</h2>
+<h3>TRICK 1: Boundary Equation Pattern</h3>
+<p>The correct answer ALWAYS has "1 =" on the left side, not "1/2 =" or anything else.</p>
+<p>The correct answer ALWAYS includes BOTH the likelihoods AND the priors.</p>
+<p>If an option only has likelihoods (no priors) → wrong.</p>
+<h3>TRICK 2: Posterior Always Has Evidence in Denominator</h3>
+<p>
+<script type="math/tex; mode=display">p(C_1|x) = \frac{p(x|C_1)p(C_1)}{p(x|C_1)p(C_1) + p(x|C_2)p(C_2)}</script>
+</p>
+<p>If the denominator is just one term → wrong.
+If there's no denominator → wrong.</p>
+<h3>TRICK 3: Error Integral Structure</h3>
+<p>Each term must have:
+- A prior probability ($p(C_1)$ or $p(C_2)$)
+- An integral of the class-conditional density
+- Integration limits matching the wrong decision region</p>
+<p>If an option is missing the priors → wrong.</p>
+<hr />
+<h2>Part 4: Practice Exercises</h2>
+<h3>Exercise 1</h3>
+<blockquote>
+<p>$p(x|C_1) = 6x(1-x)$ for $0 \leq x \leq 1$
+$p(x|C_2) = 2x$ for $0 \leq x \leq 1$
+$p(C_1) = 0.6$, $p(C_2) = 0.4$</p>
+<p><strong>Find the discrimination boundary.</strong></p>
+<p>Options:
+- (a) $1 = \frac{p(x|C_1)}{p(x|C_2)} = \frac{6x(1-x)}{2x} \Rightarrow x = 2/3$
+- (b) $\frac{1}{2} = \frac{p(C_1|x)}{p(C_2|x)} = \frac{p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} = \frac{6x(1-x)\cdot 0.6}{2x\cdot 0.4} \Rightarrow x = 8/9$
+- (c) $1 = \frac{p(C_1|x)}{p(C_2|x)} = \frac{p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} = \frac{6x(1-x)\cdot 0.6}{2x\cdot 0.4} \Rightarrow x = 7/9$</p>
+</blockquote>
+<hr />
+<h3>Exercise 2</h3>
+<blockquote>
+<p>Same setup. Compute $p(C_1|x=0.5)$.</p>
+<p>Options:
+- (a) $\frac{p(x=0.5|C_1)p(C_1)}{p(x=0.5|C_2)p(C_2)} = \frac{\frac{6}{4}\cdot\frac{6}{10}}{1\cdot\frac{4}{10}}$
+- (b) $\frac{p(x=0.5|C_1)p(C_1)}{p(x=0.5)} = \frac{\frac{6}{4}\cdot\frac{6}{10}}{\frac{6}{4}\cdot\frac{6}{10}+1\cdot\frac{4}{10}}$
+- (c) $p(x=0.5|C_1)p(C_1) = \frac{6}{4}\cdot\frac{6}{10}$</p>
+</blockquote>
+<hr />
+<h3>Exercise 3</h3>
+<blockquote>
+<p>Prior probabilities not known, have labeled data $D$. How to classify $x_\bullet$?</p>
+<p>Options:
+- (a) Gaussian prior on θ, classify by $\int p(x_\bullet|C_1,\theta)p(\theta|D)d\theta$
+- (b) Assume $p(C_1)=p(C_2)=0.5$
+- (c) Beta prior on θ, classify by $\int p(x_\bullet|C_1)p(C_1|\theta)p(\theta|D)d\theta$</p>
+</blockquote>
+<hr />
+<h3>Exercise 4</h3>
+<blockquote>
+<p>$p(x|C_1) = -6(x-1)(x-2)$ for $1 \leq x \leq 2$
+$p(x|C_2) = 4-2x$ for $1 \leq x \leq 2$
+$p(C_1) = 0.4$, $p(C_2) = 0.6$
+Boundary at $x = a$.</p>
+<p><strong>Error probability:</strong></p>
+<p>Options:
+- (a) $0.4\int_{a}^{2}(4-2x)dx + 0.6\int_{1}^{a}6(1-x)(x-2)dx$
+- (b) $0.6\int_{a}^{2}(4-2x)dx + 0.4\int_{1}^{a}6(1-x)(x-2)dx$
+- (c) $a/2$
+- (d) $\int_{a}^{2}(4-2x)dx + \int_{1}^{a}6(1-x)(x-2)dx$</p>
+</blockquote>
+<hr />
+<hr />
+<h2>Answers</h2>
+<details>
+<summary>Exercise 1</summary>
+
+**Answer: (c) x = 7/9**
+
+Set up: 6x(1-x)·0.6 / (2x·0.4) = 1
+Simplify: 3.6x(1-x) / 0.8x = 1
+Cancel x: 3.6(1-x)/0.8 = 1
+Simplify: 9(1-x)/2 = 1
+Solve: 1-x = 2/9, x = 7/9
+
+(a) is wrong because it doesn't include the priors.
+(b) is wrong because it has "1/2 =" instead of "1 =".
+</details>
+
+<details>
+<summary>Exercise 2</summary>
+
+**Answer: (b)**
+
+Full Bayes' rule with proper evidence in denominator:
+p(C₁|x) = p(x|C₁)p(C₁) / [p(x|C₁)p(C₁) + p(x|C₂)p(C₂)]
+
+(a) is a ratio of joints, not a posterior.
+(c) is just the joint probability, missing the denominator.
+</details>
+
+<details>
+<summary>Exercise 3</summary>
+
+**Answer: (c)**
+
+Class prior θ ∈ [0,1] → Beta is the conjugate prior (not Gaussian).
+Predictive: ∫ p(x|C₁)p(C₁|θ)p(θ|D)dθ
+</details>
+
+<details>
+<summary>Exercise 4</summary>
+
+**Answer: (a)**
+
+Error = p(C₁) × ∫₁ᵃ p(x|C₁)dx + p(C₂) × ∫ₐ² p(x|C₂)dx
+
+Below boundary (x < a): decide C₂, error if true class is C₁
+Above boundary (x > a): decide C₁, error if true class is C₂
+
+(b) has the priors swapped.
+(d) is missing the priors.
+</details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>
