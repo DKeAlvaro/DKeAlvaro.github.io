@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="03 Gaussian Posterior Evidence - MSc AI & Engineering Systems Notes">
+    <title>03 Gaussian Posterior Evidence - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Exercise Type 3: Gaussian Posterior &amp; Evidence (Gaussian-Gaussian Conjugacy)</h1>
+<blockquote>
+<p><strong>What the exam asks:</strong> You are given a Gaussian likelihood (data model with unknown mean μ) and a Gaussian prior on μ. You must compute the posterior distribution over μ after seeing data, the evidence (marginal likelihood), and/or combine predictions from multiple models using Bayesian model averaging.</p>
+</blockquote>
+<hr />
+<h2>Part 0: What Do All These Symbols Mean?</h2>
+<h3>The Key Notation</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>How to Read It</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\mu$</td>
+<td>Greek letter "mu"</td>
+<td>The <strong>unknown mean</strong> — the parameter we're trying to estimate</td>
+</tr>
+<tr>
+<td>$x$</td>
+<td>lowercase x</td>
+<td>The <strong>observation</strong> — the data point we actually saw</td>
+</tr>
+<tr>
+<td>$\sigma^2$</td>
+<td>"sigma squared"</td>
+<td>A <strong>variance</strong> — how spread out a Gaussian distribution is</td>
+</tr>
+<tr>
+<td>$\sigma_0^2$</td>
+<td>"sigma naught squared"</td>
+<td>The <strong>prior variance</strong> — how uncertain we are about μ BEFORE seeing data</td>
+</tr>
+<tr>
+<td>$\sigma^2_{post}$</td>
+<td>"sigma post squared"</td>
+<td>The <strong>posterior variance</strong> — how uncertain we are about μ AFTER seeing data</td>
+</tr>
+<tr>
+<td>$\mu_0$</td>
+<td>"mu naught"</td>
+<td>The <strong>prior mean</strong> — what we believed μ was before seeing data</td>
+</tr>
+<tr>
+<td>$\mu_{post}$</td>
+<td>"mu post"</td>
+<td>The <strong>posterior mean</strong> — our updated estimate of μ after seeing data</td>
+</tr>
+<tr>
+<td>$\sigma_\epsilon^2$</td>
+<td>"sigma epsilon squared"</td>
+<td>The <strong>observation noise variance</strong> — how noisy our measurements are</td>
+</tr>
+<tr>
+<td>$\mathcal{N}(x|\mu, \sigma^2)$</td>
+<td>"Gaussian of x given mu and sigma squared"</td>
+<td>The Gaussian (Normal) distribution for x, with mean μ and variance $\sigma^2$</td>
+</tr>
+<tr>
+<td>$\frac{1}{\sigma^2}$</td>
+<td>"one over sigma squared"</td>
+<td>The <strong>precision</strong> — the inverse of variance. High precision = low uncertainty</td>
+</tr>
+</tbody>
+</table>
+<h3>The Gaussian Distribution Formula</h3>
+<p>
+<script type="math/tex; mode=display">\mathcal{N}(x|\mu, \sigma^2) = \frac{1}{\sqrt{2\pi\sigma^2}} \exp\left(-\frac{(x-\mu)^2}{2\sigma^2}\right)</script>
+</p>
+<p><strong>How to read this:</strong> "The probability density of x given mean μ and variance $\sigma^2$." The exponential term gives the bell curve shape — highest when $x = \mu$, dropping off as x moves away.</p>
+<p><strong>In the exam you don't need to expand this</strong> — you just need to identify the mean and variance inside the $\mathcal{N}(\cdot|\cdot, \cdot)$ notation.</p>
+<hr />
+<h2>Part 1: The Core Concepts — No Math</h2>
+<h3>What's Going On? (Plain English)</h3>
+<p>Imagine you're trying to figure out the true temperature μ of an oven. You have:</p>
+<ol>
+<li><strong>A prior belief:</strong> "I think the oven is around 200°C, give or take 10°C." This is your Gaussian prior: $\mathcal{N}(\mu|200, 10^2)$.</li>
+<li><strong>A measurement:</strong> You stick a thermometer in and it reads 210°C. But the thermometer is noisy. This is your likelihood: $\mathcal{N}(x=210|\mu, \sigma^2_{noise})$.</li>
+<li><strong>An updated belief:</strong> After seeing the measurement, you revise your estimate. This is your <strong>posterior</strong>.</li>
+</ol>
+<p><strong>Bayesian inference with Gaussians is just the math of combining these two sources of information.</strong></p>
+<h3>The Intuition Behind the Posterior</h3>
+<p>The posterior mean is a <strong>weighted average</strong> of the prior mean and the observation:</p>
+<p>
+<script type="math/tex; mode=display">\mu_{post} = \text{(weight on prior)} \times \mu_0 + \text{(weight on data)} \times x</script>
+</p>
+<p><strong>Who gets more weight?</strong> The one that's more certain (higher precision):
+- If the prior is very certain (small $\sigma_0^2$) → posterior stays close to $\mu_0$
+- If the observation is very certain (small $\sigma^2$) → posterior moves toward $x$</p>
+<p>The posterior variance is <strong>always smaller</strong> than both the prior and the likelihood variance — because you now have TWO sources of information.</p>
+<h3>The Intuition Behind the Evidence</h3>
+<p>The <strong>evidence</strong> $p(x)$ answers: "Before I saw the data, how likely was this particular observation under my model?"</p>
+<p>For a Gaussian model with unknown mean, the evidence is a Gaussian centered at the <strong>prior mean</strong> with variance = <strong>prior variance + likelihood variance</strong>.</p>
+<p><strong>Why the summed variance?</strong> Because there are TWO sources of uncertainty:
+1. We don't know μ (prior uncertainty = $\sigma_0^2$)
+2. Even if we knew μ, the observation is noisy (likelihood uncertainty = $\sigma^2$)</p>
+<p>These add up. The evidence is <strong>broader</strong> than the likelihood alone.</p>
+<hr />
+<h2>Part 2: The Key Formulas (MEMORIZE)</h2>
+<h3>Setup</h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Formula</th>
+<th>What You Know</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Likelihood</strong></td>
+<td>$p(x \mid \mu) = \mathcal{N}(x \mid \mu, \sigma^2)$</td>
+<td>$\sigma^2$ is given</td>
+</tr>
+<tr>
+<td><strong>Prior</strong></td>
+<td>$p(\mu) = \mathcal{N}(\mu \mid \mu_0, \sigma_0^2)$</td>
+<td>$\mu_0$ and $\sigma_0^2$ are given</td>
+</tr>
+</tbody>
+</table>
+<h3>Posterior: $p(\mu \mid x) = \mathcal{N}(\mu \mid \mu_{post}, \sigma^2_{post})$</h3>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+<th>How to Remember</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Posterior precision</strong></td>
+<td>$\dfrac{1}{\sigma^2_{post}} = \dfrac{1}{\sigma^2_0} + \dfrac{1}{\sigma^2}$</td>
+<td>Precision = prior precision + likelihood precision</td>
+</tr>
+<tr>
+<td><strong>Posterior variance</strong></td>
+<td>$\sigma^2_{post} = \dfrac{1}{\frac{1}{\sigma^2_0} + \frac{1}{\sigma^2}} = \dfrac{\sigma^2_0 \cdot \sigma^2}{\sigma^2_0 + \sigma^2}$</td>
+<td>Inverse of the sum of precisions</td>
+</tr>
+<tr>
+<td><strong>Posterior mean</strong></td>
+<td>$\mu_{post} = \sigma^2_{post} \left( \dfrac{\mu_0}{\sigma^2_0} + \dfrac{x}{\sigma^2} \right)$</td>
+<td>Precision-weighted average</td>
+</tr>
+</tbody>
+</table>
+<h3>The Precision-Weighted Average (Rewritten)</h3>
+<p>
+<script type="math/tex; mode=display">\mu_{post} = \frac{\frac{\mu_0}{\sigma^2_0} + \frac{x}{\sigma^2}}{\frac{1}{\sigma^2_0} + \frac{1}{\sigma^2}}</script>
+</p>
+<p><strong>In plain English:</strong> "Each source contributes in proportion to its precision. More precise sources get more weight."</p>
+<p><strong>Shortcut when both variances = 1:</strong> $\mu_{post} = (\mu_0 + x) / 2$ (simple average).</p>
+<h3>Evidence: $p(x)$</h3>
+<p>
+<script type="math/tex; mode=display">p(x) = \mathcal{N}(x|\mu_0,\; \sigma^2_0 + \sigma^2)</script>
+</p>
+<p><strong>Mean = prior mean.</strong> <strong>Variance = prior variance + likelihood variance.</strong></p>
+<hr />
+<h2>Part 3: Tricks &amp; Shortcuts</h2>
+<h3>TRICK 1: Posterior Precision = Sum of Precisions</h3>
+<p>Precision = $1/\sigma^2$. Just add them: $1/\sigma^2_{post} = 1/\sigma^2_0 + 1/\sigma^2$. Then flip: $\sigma^2_{post} = 1 / (\text{sum})$.</p>
+<h3>TRICK 2: Posterior Mean = Precision-Weighted Average</h3>
+<p>Each source contributes: (its mean) × (its precision). Then divide by total precision.</p>
+<p><strong>If both variances equal:</strong> posterior mean = simple average $(\mu_0 + x) / 2$.</p>
+<h3>TRICK 3: Evidence Variance = Sum of Variances</h3>
+<p>Evidence = $\mathcal{N}(x|\mu_0, \sigma^2_0 + \sigma^2)$. Mean stays at prior mean. Variances add.</p>
+<h3>TRICK 4: Posterior Variance Always Decreases</h3>
+<p>$\sigma^2_{post}$ is always smaller than both $\sigma^2_0$ and $\sigma^2$. More information → more certainty.</p>
+<hr />
+<h2>Part 4: FULL Walkthrough of Real Exam Questions</h2>
+<h3>EXAM QUESTION 1 (2023, Question 1a-b)</h3>
+<blockquote>
+<p>Model $m_1$: $p(x|\mu, m_1) = \mathcal{N}(x|\mu, 1)$, $p(\mu|m_1) = \mathcal{N}(\mu|0, 1)$</p>
+<p><strong>1a:</strong> We observe $x=1$. Determine $p(\mu|x=1, m_1)$.</p>
+<p>Options:
+- (a) $\mathcal{N}(\mu|0, 0.5)$
+- (b) $\mathcal{N}(\mu|1, 2)$
+- (c) $\mathcal{N}(\mu|0.5, 0.5)$
+- (d) $\mathcal{N}(\mu|0.5, 1)$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Compute posterior variance</strong></p>
+<p>
+<script type="math/tex; mode=display">\frac{1}{\sigma^2_{post}} = \frac{1}{\sigma^2_0} + \frac{1}{\sigma^2} = \frac{1}{1} + \frac{1}{1} = 2</script>
+</p>
+<p>
+<script type="math/tex; mode=display">\sigma^2_{post} = \frac{1}{2} = 0.5</script>
+</p>
+<p><strong>Step 2: Compute posterior mean</strong></p>
+<p>
+<script type="math/tex; mode=display">\mu_{post} = \sigma^2_{post} \left( \frac{\mu_0}{\sigma^2_0} + \frac{x}{\sigma^2} \right) = 0.5 \left( \frac{0}{1} + \frac{1}{1} \right) = 0.5 \cdot 1 = 0.5</script>
+</p>
+<p><strong>Answer: (c) $\mathcal{N}(\mu|0.5, 0.5)$</strong> ✅</p>
+<hr />
+<h3>Question 1b: Evidence</h3>
+<blockquote>
+<p>Determine $p(x=1|m_1)$.</p>
+<p>Options:
+- (a) $\mathcal{N}(1|0, 2)$
+- (b) $2/\sqrt{2\pi}$
+- (c) $\mathcal{N}(0|1, 1)$
+- (d) $1/\sqrt{2\pi}$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>
+<script type="math/tex; mode=display">p(x=1|m_1) = \mathcal{N}(x=1|\mu_0=0, \sigma^2_0 + \sigma^2 = 1+1 = 2) = \mathcal{N}(1|0, 2)</script>
+</p>
+<p><strong>Answer: (a) $\mathcal{N}(1|0, 2)$</strong> ✅</p>
+<hr />
+<h3>Tricks &amp; Shortcuts</h3>
+<p><strong>TRICK 1: Posterior precision = sum of precisions</strong>
+- Precision = 1/variance
+- Posterior precision = prior precision + likelihood precision
+- Posterior variance = 1/(sum of precisions)</p>
+<p><strong>TRICK 2: Posterior mean = precision-weighted average</strong>
+- More precise source gets more weight
+- If both have same variance: mean = (μ₀ + x) / 2</p>
+<p><strong>TRICK 3: Evidence = Gaussian with summed variances</strong>
+- $p(x) = \mathcal{N}(x|\mu_0, \sigma^2_0 + \sigma^2)$
+- Mean = prior mean, variance = prior variance + likelihood variance</p>
+<p><strong>TRICK 4: When both variances = 1</strong>
+- Posterior variance = 1/2
+- Posterior mean = (prior_mean + observation) / 2</p>
+<hr />
+<h2>Part 5: Practice Exercises</h2>
+<h3>Exercise 1 (2023, Question 1a)</h3>
+<blockquote>
+<p>Model $m_1$: $p(x|\mu, m_1) = \mathcal{N}(x|\mu, 1)$, $p(\mu|m_1) = \mathcal{N}(\mu|0, 1)$</p>
+<p>We observe $x=1$. Determine $p(\mu|x=1, m_1)$.</p>
+<p>Options:
+- (a) $\mathcal{N}(\mu|0, 0.5)$
+- (b) $\mathcal{N}(\mu|1, 2)$
+- (c) $\mathcal{N}(\mu|0.5, 0.5)$
+- (d) $\mathcal{N}(\mu|0.5, 1)$</p>
+</blockquote>
+<hr />
+<h3>Exercise 2 (2023, Question 1b)</h3>
+<blockquote>
+<p>Same model. Determine $p(x=1|m_1)$.</p>
+<p>Options:
+- (a) $\mathcal{N}(1|0, 2)$
+- (b) $2/\sqrt{2\pi}$
+- (c) $\mathcal{N}(0|1, 1)$
+- (d) $1/\sqrt{2\pi}$</p>
+</blockquote>
+<hr />
+<h3>Exercise 3 (2023, Question 1c)</h3>
+<blockquote>
+<p>Model $m_1$: $p(x|\mu, m_1) = \mathcal{N}(x|\mu, 1)$, $p(\mu|m_1) = \mathcal{N}(\mu|0, 1)$
+Model $m_2$: $p(x|m_2) = \mathcal{N}(x|1, 1)$
+$p(m_1) = 2/3$, $p(m_2) = 1/3$</p>
+<p>Determine $p(x=2)$ by Bayesian model averaging.</p>
+<p>Options:
+- (a) $\frac{2}{3\sqrt{2\pi}} + \frac{1}{3}\mathcal{N}(2|0, 1)$
+- (b) $\frac{1}{3}\mathcal{N}(2|1, 2) + \frac{1}{3\sqrt{2\pi}}$
+- (c) $\frac{2}{3}\mathcal{N}(2|0, 2) + \frac{1}{3}\mathcal{N}(2|1, 1)$
+- (d) $\frac{1}{3\sqrt{2\pi}} + \frac{1}{3}\mathcal{N}(2|1, 1)$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Write the Bayesian model averaging formula</strong></p>
+<p>
+<script type="math/tex; mode=display">p(x=2) = p(x=2|m_1) \cdot p(m_1) + p(x=2|m_2) \cdot p(m_2)</script>
+</p>
+<p>We need two ingredients: the evidence $p(x=2|m_1)$ and the evidence $p(x=2|m_2)$, then weight by their prior model probabilities.</p>
+<hr />
+<p><strong>Step 2: Compute the evidence for model $m_1$</strong></p>
+<p>Model $m_1$ has unknown parameter μ. The likelihood is $\mathcal{N}(x|\mu, 1)$ and the prior on μ is $\mathcal{N}(\mu|0, 1)$.</p>
+<p><strong>Key formula — Gaussian evidence:</strong></p>
+<p>When likelihood = $\mathcal{N}(x|\mu, \sigma^2)$ and prior = $\mathcal{N}(\mu|\mu_0, \sigma_0^2)$:</p>
+<p>
+<script type="math/tex; mode=display">p(x|m_1) = \mathcal{N}(x|\mu_0,\; \sigma_0^2 + \sigma^2)</script>
+</p>
+<p><strong>How to read this:</strong> The evidence is a Gaussian centered at the <em>prior mean</em> with variance = <em>prior variance + likelihood variance</em>.</p>
+<p>From $m_1$:
+- $\mu_0 = 0$ (prior mean)
+- $\sigma_0^2 = 1$ (prior variance)
+- $\sigma^2 = 1$ (likelihood variance)</p>
+<p>
+<script type="math/tex; mode=display">p(x=2|m_1) = \mathcal{N}(x=2|\mu_0=0,\; 1+1=2) = \mathcal{N}(2|0, 2)</script>
+</p>
+<p><strong>Why is the variance 2?</strong> Because we don't know μ — we averaged over all possible μ values (the prior), which adds uncertainty on top of the observation noise.</p>
+<hr />
+<p><strong>Step 3: Compute the evidence for model $m_2$</strong></p>
+<p>Model $m_2$ has NO unknown parameter — it directly specifies:</p>
+<p>
+<script type="math/tex; mode=display">p(x|m_2) = \mathcal{N}(x|1, 1)</script>
+</p>
+<p>So we just evaluate at $x=2$:</p>
+<p>
+<script type="math/tex; mode=display">p(x=2|m_2) = \mathcal{N}(2|1, 1)</script>
+</p>
+<p><strong>Key difference from $m_1$:</strong> $m_2$ is fully specified (no parameter to integrate over), so its evidence is just the Gaussian evaluated at 2. $m_1$ has unknown μ, so its evidence is broader (variance 2 instead of 1).</p>
+<hr />
+<p><strong>Step 4: Combine with model averaging</strong></p>
+<p>
+<script type="math/tex; mode=display">p(x=2) = \underbrace{\mathcal{N}(2|0, 2)}_{m_1 \text{ evidence}} \cdot \underbrace{\frac{2}{3}}_{p(m_1)} + \underbrace{\mathcal{N}(2|1, 1)}_{m_2 \text{ evidence}} \cdot \underbrace{\frac{1}{3}}_{p(m_2)}</script>
+</p>
+<p>
+<script type="math/tex; mode=display">p(x=2) = \frac{2}{3}\mathcal{N}(2|0, 2) + \frac{1}{3}\mathcal{N}(2|1, 1)</script>
+</p>
+<hr />
+<p><strong>Step 5: Match the answer</strong></p>
+<p><strong>(c)</strong> matches exactly. ✓</p>
+<p><strong>(a)</strong> Has $\frac{2}{3\sqrt{2\pi}}$ — this looks like someone tried to evaluate $\mathcal{N}(2|0, 1)$ numerically but got it wrong. Also has $\mathcal{N}(2|0, 1)$ instead of $\mathcal{N}(2|0, 2)$. ELIMINATE.
+<strong>(b)</strong> Has the model weights swapped ($1/3$ with the first term, $1/3\sqrt{2\pi}$ with the second). Also the second term is a number not a Gaussian. ELIMINATE.
+<strong>(d)</strong> Same issues — wrong weights and wrong terms. ELIMINATE.</p>
+<p><strong>Answer: (c) $\frac{2}{3}\mathcal{N}(2|0, 2) + \frac{1}{3}\mathcal{N}(2|1, 1)$</strong> ✅</p>
+<hr />
+<h3>KEY INTUITION</h3>
+<p><strong>Bayesian model averaging = weighted average of predictions</strong></p>
+<p>Think of it like asking two weather forecasters:
+- Forecaster $m_1$ says "20°C, but I'm uncertain (wide error bar)"
+- Forecaster $m_2$ says "20°C, but I'm more confident (narrow error bar)"
+- You trust forecaster $m_1$ twice as much (2/3 vs 1/3)</p>
+<p>Your combined forecast = $2/3 \times m_1\text{'s prediction} + 1/3 \times m_2\text{'s prediction}$</p>
+<p><strong>Why does $m_1$ have variance 2?</strong> Because $m_1$ has an unknown parameter μ. It's uncertain about both the noise AND where μ is. $m_2$ has no unknown parameter — it's just one Gaussian with variance 1.</p>
+<hr />
+<h3>Exercise 4 (Kalman-Style Posterior Variance Update)</h3>
+<blockquote>
+<p>In a Kalman-style update, the posterior variance update is:</p>
+<p>Options:
+- (a) $\sigma_k^2 = (1-K_k)\cdot\sigma_{k-1}^2 + \sigma_\epsilon^2$
+- (b) $\sigma_k^2 = \sigma_{k-1}^2 + K_k\cdot(\sigma_\epsilon^2-\sigma_{k-1}^2)$
+- (c) $\sigma_k^2 = K_k\cdot\sigma_{k-1}^2$
+- (d) $\sigma_k^2 = (1-K_k)\cdot\sigma_{k-1}^2$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Understand the setup</strong></p>
+<p>This is the Kalman filter applied to estimating a static parameter θ. At step k:
+- Prior (before seeing $x_k$): $p(\theta|D_{k-1}) = \mathcal{N}(\theta|\mu_{k-1}, \sigma_{k-1}^2)$
+- Likelihood: $p(x_k|\theta) = \mathcal{N}(x_k|\theta, \sigma_\epsilon^2)$
+- Posterior (after seeing $x_k$): $p(\theta|D_k) = \mathcal{N}(\theta|\mu_k, \sigma_k^2)$</p>
+<p><strong>Step 2: Use the Gaussian multiplication rule</strong></p>
+<p>Posterior precision = prior precision + likelihood precision:</p>
+<p>
+<script type="math/tex; mode=display">\frac{1}{\sigma_k^2} = \frac{1}{\sigma_{k-1}^2} + \frac{1}{\sigma_\epsilon^2}</script>
+</p>
+<p><strong>Step 3: Solve for $\sigma_k^2$</strong></p>
+<p>
+<script type="math/tex; mode=display">\sigma_k^2 = \frac{1}{\frac{1}{\sigma_{k-1}^2} + \frac{1}{\sigma_\epsilon^2}} = \frac{\sigma_{k-1}^2 \cdot \sigma_\epsilon^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2}</script>
+</p>
+<p>Now factor out $\sigma_{k-1}^2$:</p>
+<p>
+<script type="math/tex; mode=display">\sigma_k^2 = \sigma_{k-1}^2 \cdot \frac{\sigma_\epsilon^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2}</script>
+</p>
+<p><strong>Step 4: Recognize the Kalman gain</strong></p>
+<p>The Kalman gain is:</p>
+<p>
+<script type="math/tex; mode=display">K_k = \frac{\sigma_{k-1}^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2}</script>
+</p>
+<p>So $1 - K_k = 1 - \frac{\sigma_{k-1}^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2} = \frac{\sigma_\epsilon^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2}$</p>
+<p><strong>Step 5: Substitute</strong></p>
+<p>
+<script type="math/tex; mode=display">\sigma_k^2 = \sigma_{k-1}^2 \cdot \frac{\sigma_\epsilon^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2} = \sigma_{k-1}^2 \cdot (1 - K_k) = (1 - K_k)\cdot\sigma_{k-1}^2</script>
+</p>
+<p><strong>Step 6: Match the answer</strong></p>
+<p><strong>(a)</strong> Adds $+\sigma_\epsilon^2$ at the end — this would make variance increase, which is wrong. ELIMINATE.
+<strong>(b)</strong> A completely different form — doesn't match the derivation. ELIMINATE.
+<strong>(c)</strong> Uses $K_k$ instead of $(1-K_k)$ — this would give the wrong factor. ELIMINATE.
+<strong>(d)</strong> Matches exactly. ✓</p>
+<p><strong>Answer: (d) $\sigma_k^2 = (1-K_k)\cdot\sigma_{k-1}^2$</strong> ✅</p>
+<h3>KEY INTUITION</h3>
+<ul>
+<li>Since $0 &lt; K_k &lt; 1$, we have $0 &lt; (1-K_k) &lt; 1$</li>
+<li>So $\sigma_k^2 &lt; \sigma_{k-1}^2$ — <strong>posterior variance always decreases</strong> with each new observation</li>
+<li>This makes sense: more data → more certainty → lower variance</li>
+<li>The Kalman gain $K_k$ controls how fast: high $K_k$ (trusting the observation more) → bigger variance reduction</li>
+</ul>
+<hr />
+<h3>Answers</h3>
+<details>
+<summary>Exercise 1</summary>
+**Answer: (c) 𝒩(μ|0.5, 0.5)** Posterior precision = 1/1 + 1/1 = 2, so variance = 1/2 = 0.5. Mean = 0.5 × (0/1 + 1/1) = 0.5
+</details>
+
+<details>
+<summary>Exercise 2</summary>
+**Answer: (a) 𝒩(1|0, 2)** Evidence = 𝒩(x|μ₀, σ²₀ + σ²) = 𝒩(1|0, 1+1) = 𝒩(1|0, 2)
+</details>
+
+<details>
+<summary>Exercise 3</summary>
+**Answer: (c)** p(x=2|m₁) = 𝒩(2|0, 2), p(x=2|m₂) = 𝒩(2|1, 1). Weighted sum: (2/3)𝒩(2|0, 2) + (1/3)𝒩(2|1, 1)
+</details>
+
+<details>
+<summary>Exercise 4</summary>
+**Answer: (d)** In the standard Kalman filter, σ²_k = (1-K_k)·σ²_{k-1}. The posterior variance decreases by the Kalman gain factor.
+</details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

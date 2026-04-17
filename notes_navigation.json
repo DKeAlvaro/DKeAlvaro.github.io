@@ -1,7 +1,7 @@
 {
   "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html": {
     "current_index": 0,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": null,
     "next": "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html",
     "previous_title": null,
@@ -9,7 +9,7 @@
   },
   "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html": {
     "current_index": 1,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Q1_Guide/Q1_Guide.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule10.html",
     "previous_title": "Q1 Guide",
@@ -17,7 +17,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule10.html": {
     "current_index": 2,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Mentor_meeting/Meentor_meeting.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/InstructionModule3.html",
     "previous_title": "Meentor meeting",
@@ -25,7 +25,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/InstructionModule3.html": {
     "current_index": 3,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule10.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/InstructionModule4.html",
     "previous_title": "instructionModule10",
@@ -33,7 +33,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/InstructionModule4.html": {
     "current_index": 4,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/InstructionModule3.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule5.html",
     "previous_title": "InstructionModule3",
@@ -41,7 +41,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule5.html": {
     "current_index": 5,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/InstructionModule4.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule6.html",
     "previous_title": "InstructionModule4",
@@ -49,7 +49,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule6.html": {
     "current_index": 6,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule5.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule7.2.html",
     "previous_title": "instructionModule5",
@@ -57,7 +57,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule7.2.html": {
     "current_index": 7,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule6.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule7.html",
     "previous_title": "instructionModule6",
@@ -65,7 +65,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule7.html": {
     "current_index": 8,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule7.2.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule8_SVM.html",
     "previous_title": "instructionModule7.2",
@@ -73,7 +73,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule8_SVM.html": {
     "current_index": 9,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule7.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule9.html",
     "previous_title": "instructionModule7",
@@ -81,7 +81,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule9.html": {
     "current_index": 10,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule8_SVM.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/First_lecture/Introduction_to_the_course,_basic_learning_types,_basic ML_tasks.html",
     "previous_title": "instructionModule8 SVM",
@@ -89,7 +89,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/First_lecture/Introduction_to_the_course,_basic_learning_types,_basic ML_tasks.html": {
     "current_index": 11,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Instructions/Instructions/instructionModule9.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Second_lecture/Basic_data_collection,_data_representation,_pre-processing.html",
     "previous_title": "instructionModule9",
@@ -97,7 +97,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Second_lecture/Basic_data_collection,_data_representation,_pre-processing.html": {
     "current_index": 12,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/First_lecture/Introduction_to_the_course,_basic_learning_types,_basic ML_tasks.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Third_lecture/Feature_engineering,_feature_selection,_feature_extraction.html",
     "previous_title": "Introduction to the course, basic learning types, basic ML tasks",
@@ -105,7 +105,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Third_lecture/Feature_engineering,_feature_selection,_feature_extraction.html": {
     "current_index": 13,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Second_lecture/Basic_data_collection,_data_representation,_pre-processing.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Fourth_lecture/Unsupervised_learning,_clustering_techniques.html",
     "previous_title": "Basic data collection, data representation, pre-processing",
@@ -113,7 +113,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Fourth_lecture/Unsupervised_learning,_clustering_techniques.html": {
     "current_index": 14,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Third_lecture/Feature_engineering,_feature_selection,_feature_extraction.html",
     "next": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Fifth_lecture/Supervised_learning.html",
     "previous_title": "Feature engineering, feature selection, feature extraction",
@@ -121,7 +121,7 @@
   },
   "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Fifth_lecture/Supervised_learning.html": {
     "current_index": 15,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Fourth_lecture/Unsupervised_learning,_clustering_techniques.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Assignment/Client_Meeting/Client_Meeting.html",
     "previous_title": "Unsupervised learning, clustering techniques",
@@ -129,7 +129,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Assignment/Client_Meeting/Client_Meeting.html": {
     "current_index": 16,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Data_Analysis_&_Learning_Methods/Notes/Fifth_lecture/Supervised_learning.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/First_lecture/Introduction_to_ethics_and_the_course.html",
     "previous_title": "Supervised learning",
@@ -137,7 +137,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/First_lecture/Introduction_to_ethics_and_the_course.html": {
     "current_index": 17,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Assignment/Client_Meeting/Client_Meeting.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Second_lecture/Philosophical fundamentals of AI.html",
     "previous_title": "Client Meeting",
@@ -145,7 +145,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Second_lecture/Philosophical fundamentals of AI.html": {
     "current_index": 18,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/First_lecture/Introduction_to_ethics_and_the_course.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Third_lecture/Design for Values and AI.html",
     "previous_title": "Introduction to ethics and the course",
@@ -153,7 +153,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Third_lecture/Design for Values and AI.html": {
     "current_index": 19,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Second_lecture/Philosophical fundamentals of AI.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Fourth_lecture/Fairness_and_AI.html",
     "previous_title": "Philosophical fundamentals of AI",
@@ -161,7 +161,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Fourth_lecture/Fairness_and_AI.html": {
     "current_index": 20,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Third_lecture/Design for Values and AI.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Fifth_lecture/Responsibility and AI.html",
     "previous_title": "Design for Values and AI",
@@ -169,7 +169,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Fifth_lecture/Responsibility and AI.html": {
     "current_index": 21,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Fourth_lecture/Fairness_and_AI.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Sixth_lecture/Sustainability and AI.html",
     "previous_title": "Fairness and AI",
@@ -177,7 +177,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Sixth_lecture/Sustainability and AI.html": {
     "current_index": 22,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Fifth_lecture/Responsibility and AI.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Seventh_lecture/The Opacity Problem in ML.html",
     "previous_title": "Responsibility and AI",
@@ -185,7 +185,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Seventh_lecture/The Opacity Problem in ML.html": {
     "current_index": 23,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Sixth_lecture/Sustainability and AI.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Eighth_lecture/Two value paradigms for human-AI interaction.html",
     "previous_title": "Sustainability and AI",
@@ -193,7 +193,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Eighth_lecture/Two value paradigms for human-AI interaction.html": {
     "current_index": 24,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Seventh_lecture/The Opacity Problem in ML.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Ninth_lecture/Moral machines.html",
     "previous_title": "The Opacity Problem in ML",
@@ -201,7 +201,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Ninth_lecture/Moral machines.html": {
     "current_index": 25,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Eighth_lecture/Two value paradigms for human-AI interaction.html",
     "next": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Tenth_lecture/Superintelligence and risks of AI.html",
     "previous_title": "Two value paradigms for human-AI interaction",
@@ -209,7 +209,7 @@
   },
   "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Tenth_lecture/Superintelligence and risks of AI.html": {
     "current_index": 26,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Ninth_lecture/Moral machines.html",
     "next": "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html",
     "previous_title": "Moral machines",
@@ -217,7 +217,7 @@
   },
   "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html": {
     "current_index": 27,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Human_and_ethical_aspects_of_AI/Notes/Tenth_lecture/Superintelligence and risks of AI.html",
     "next": "notes/Year_1/Q1/Software_Engineering_for_AI/Assignment_1/Git_and_Github_Tutorial-Assignment_1.html",
     "previous_title": "Superintelligence and risks of AI",
@@ -225,10 +225,186 @@
   },
   "notes/Year_1/Q1/Software_Engineering_for_AI/Assignment_1/Git_and_Github_Tutorial-Assignment_1.html": {
     "current_index": 28,
-    "total_notes": 29,
+    "total_notes": 51,
     "previous": "notes/Year_1/Q1/Software_Engineering_for_AI/Lecture_1/Assesment.html",
-    "next": null,
+    "next": "notes/Year_1/Q2/Bayesian ML/01-bayes-rule-posterior.html",
     "previous_title": "Assesment",
+    "next_title": "01-bayes-rule-posterior"
+  },
+  "notes/Year_1/Q2/Bayesian ML/01-bayes-rule-posterior.html": {
+    "current_index": 29,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q1/Software_Engineering_for_AI/Assignment_1/Git_and_Github_Tutorial-Assignment_1.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/02-beta-bernoulli-coin-toss.html",
+    "previous_title": "Git and Github Tutorial-Assignment 1",
+    "next_title": "02-beta-bernoulli-coin-toss"
+  },
+  "notes/Year_1/Q2/Bayesian ML/02-beta-bernoulli-coin-toss.html": {
+    "current_index": 30,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/01-bayes-rule-posterior.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/03-gaussian-posterior-evidence.html",
+    "previous_title": "01-bayes-rule-posterior",
+    "next_title": "03-gaussian-posterior-evidence"
+  },
+  "notes/Year_1/Q2/Bayesian ML/03-gaussian-posterior-evidence.html": {
+    "current_index": 31,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/02-beta-bernoulli-coin-toss.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/04-model-evidence-averaging.html",
+    "previous_title": "02-beta-bernoulli-coin-toss",
+    "next_title": "04-model-evidence-averaging"
+  },
+  "notes/Year_1/Q2/Bayesian ML/04-model-evidence-averaging.html": {
+    "current_index": 32,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/03-gaussian-posterior-evidence.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/05-model-comparison-bayes-factor.html",
+    "previous_title": "03-gaussian-posterior-evidence",
+    "next_title": "05-model-comparison-bayes-factor"
+  },
+  "notes/Year_1/Q2/Bayesian ML/05-model-comparison-bayes-factor.html": {
+    "current_index": 33,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/04-model-evidence-averaging.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/06-bayesian-classifier.html",
+    "previous_title": "04-model-evidence-averaging",
+    "next_title": "06-bayesian-classifier"
+  },
+  "notes/Year_1/Q2/Bayesian ML/06-bayesian-classifier.html": {
+    "current_index": 34,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/05-model-comparison-bayes-factor.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/07-ball-box-conditional.html",
+    "previous_title": "05-model-comparison-bayes-factor",
+    "next_title": "07-ball-box-conditional"
+  },
+  "notes/Year_1/Q2/Bayesian ML/07-ball-box-conditional.html": {
+    "current_index": 35,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/06-bayesian-classifier.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/08-gmm-form.html",
+    "previous_title": "06-bayesian-classifier",
+    "next_title": "08-gmm-form"
+  },
+  "notes/Year_1/Q2/Bayesian ML/08-gmm-form.html": {
+    "current_index": 36,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/07-ball-box-conditional.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/09-vfe.html",
+    "previous_title": "07-ball-box-conditional",
+    "next_title": "09-vfe"
+  },
+  "notes/Year_1/Q2/Bayesian ML/09-vfe.html": {
+    "current_index": 37,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/08-gmm-form.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/10-fep.html",
+    "previous_title": "08-gmm-form",
+    "next_title": "10-fep"
+  },
+  "notes/Year_1/Q2/Bayesian ML/10-fep.html": {
+    "current_index": 38,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/09-vfe.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/11-factor-analysis.html",
+    "previous_title": "09-vfe",
+    "next_title": "11-factor-analysis"
+  },
+  "notes/Year_1/Q2/Bayesian ML/11-factor-analysis.html": {
+    "current_index": 39,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/10-fep.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/12-recursive-filtering.html",
+    "previous_title": "10-fep",
+    "next_title": "12-recursive-filtering"
+  },
+  "notes/Year_1/Q2/Bayesian ML/12-recursive-filtering.html": {
+    "current_index": 40,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/11-factor-analysis.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/13-log-likelihood-mle.html",
+    "previous_title": "11-factor-analysis",
+    "next_title": "13-log-likelihood-mle"
+  },
+  "notes/Year_1/Q2/Bayesian ML/13-log-likelihood-mle.html": {
+    "current_index": 41,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/12-recursive-filtering.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/14-gmm-vfe-fep-concepts.html",
+    "previous_title": "12-recursive-filtering",
+    "next_title": "14-gmm-vfe-fep-concepts"
+  },
+  "notes/Year_1/Q2/Bayesian ML/14-gmm-vfe-fep-concepts.html": {
+    "current_index": 42,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/13-log-likelihood-mle.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/2021-part-a.html",
+    "previous_title": "13-log-likelihood-mle",
+    "next_title": "2021-part-a"
+  },
+  "notes/Year_1/Q2/Bayesian ML/2021-part-a.html": {
+    "current_index": 43,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/14-gmm-vfe-fep-concepts.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/2021-part-b.html",
+    "previous_title": "14-gmm-vfe-fep-concepts",
+    "next_title": "2021-part-b"
+  },
+  "notes/Year_1/Q2/Bayesian ML/2021-part-b.html": {
+    "current_index": 44,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/2021-part-a.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/2021-resit.html",
+    "previous_title": "2021-part-a",
+    "next_title": "2021-resit"
+  },
+  "notes/Year_1/Q2/Bayesian ML/2021-resit.html": {
+    "current_index": 45,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/2021-part-b.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/2022.html",
+    "previous_title": "2021-part-b",
+    "next_title": "2022"
+  },
+  "notes/Year_1/Q2/Bayesian ML/2022.html": {
+    "current_index": 46,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/2021-resit.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/2023.html",
+    "previous_title": "2021-resit",
+    "next_title": "2023"
+  },
+  "notes/Year_1/Q2/Bayesian ML/2023.html": {
+    "current_index": 47,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/2022.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/crash-course.html",
+    "previous_title": "2022",
+    "next_title": "crash-course"
+  },
+  "notes/Year_1/Q2/Bayesian ML/crash-course.html": {
+    "current_index": 48,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/2023.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/exam-cheatsheet.html",
+    "previous_title": "2023",
+    "next_title": "exam-cheatsheet"
+  },
+  "notes/Year_1/Q2/Bayesian ML/exam-cheatsheet.html": {
+    "current_index": 49,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/crash-course.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/README.html",
+    "previous_title": "crash-course",
+    "next_title": "README"
+  },
+  "notes/Year_1/Q2/Bayesian ML/README.html": {
+    "current_index": 50,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/exam-cheatsheet.html",
+    "next": null,
+    "previous_title": "exam-cheatsheet",
     "next_title": null
   }
 }

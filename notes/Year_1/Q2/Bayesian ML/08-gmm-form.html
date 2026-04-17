@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="08 Gmm Form - MSc AI & Engineering Systems Notes">
+    <title>08 Gmm Form - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Exercise Type 8: Gaussian Mixture Model (GMM) Form</h1>
+<blockquote>
+<p><strong>What the exam asks:</strong> You are given several mathematical expressions and must identify which one correctly specifies a Gaussian Mixture Model with one-hot encoded cluster assignments.</p>
+</blockquote>
+<hr />
+<h2>Part 0: What Do All These Symbols Mean?</h2>
+<h3>The Key Notation</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>How to Read It</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$x_n$</td>
+<td>"x sub n"</td>
+<td>The n-th data point (observation)</td>
+</tr>
+<tr>
+<td>$z_n$</td>
+<td>"z sub n"</td>
+<td>The hidden cluster assignment for data point n</td>
+</tr>
+<tr>
+<td>$z_{nk}$</td>
+<td>"z sub n k"</td>
+<td>The k-th element of the vector $z_n$ — is data point n in cluster k?</td>
+</tr>
+<tr>
+<td>$K$</td>
+<td>Capital K</td>
+<td>Total number of clusters (mixture components)</td>
+</tr>
+<tr>
+<td>$\pi_k$</td>
+<td>"pi sub k"</td>
+<td>The mixing coefficient — how common is cluster k?</td>
+</tr>
+<tr>
+<td>$\mathcal{N}$</td>
+<td>Capital N (script)</td>
+<td>The <strong>Gaussian</strong> (Normal) distribution</td>
+</tr>
+<tr>
+<td>$\mathcal{N}(x|\mu, \Sigma)$</td>
+<td>"Gaussian of x given mu and Sigma"</td>
+<td>A Gaussian distribution for x, with mean μ and covariance Σ</td>
+</tr>
+<tr>
+<td>$\prod$</td>
+<td>Capital Pi (product)</td>
+<td>"Multiply together" — like sum (Σ) but for multiplication</td>
+</tr>
+<tr>
+<td>$\sum$</td>
+<td>Capital Sigma (sum)</td>
+<td>"Add up"</td>
+</tr>
+<tr>
+<td>$^{z_{nk}}$</td>
+<td>"to the power z sub n k"</td>
+<td>Exponentiation — since $z_{nk}$ is 0 or 1, this acts as a "switch"</td>
+</tr>
+</tbody>
+</table>
+<h3>What Is a Gaussian Mixture Model?</h3>
+<p>Imagine you have data that comes from several different "clusters" or "groups." Each cluster has its own Gaussian distribution (bell curve). But you don't know which cluster each data point belongs to — that's hidden.</p>
+<p><strong>The GMM says:</strong>
+1. First, pick a cluster: cluster k is chosen with probability $\pi_k$
+2. Then, generate a data point from that cluster's Gaussian distribution</p>
+<h3>One-Hot Encoding</h3>
+<p>The cluster assignment $z_n$ is a vector of length $K$ where exactly ONE element is 1 and the rest are 0.</p>
+<p><strong>Example with K=3 clusters:</strong>
+- If data point n belongs to cluster 1: $z_n = (1, 0, 0)$ → $z_{n1} = 1, z_{n2} = 0, z_{n3} = 0$
+- If data point n belongs to cluster 2: $z_n = (0, 1, 0)$ → $z_{n1} = 0, z_{n2} = 1, z_{n3} = 0$
+- If data point n belongs to cluster 3: $z_n = (0, 0, 1)$ → $z_{n1} = 0, z_{n2} = 0, z_{n3} = 1$</p>
+<p><strong>Why use one-hot encoding?</strong> It lets us write the mixture model as a compact product:</p>
+<p>
+<script type="math/tex; mode=display">\prod_{k=1}^K f_k^{z_{nk}} = f_1^{z_{n1}} \cdot f_2^{z_{n2}} \cdot ... \cdot f_K^{z_{nK}}</script>
+</p>
+<p>Since exactly one $z_{nk} = 1$ and all others are 0, and anything to the power 0 = 1, all terms become 1 except the one where $z_{nk} = 1$. So this product equals exactly the active component.</p>
+<p><strong>Example:</strong> If $z_n = (0, 1, 0)$:
+<script type="math/tex; mode=display">f_1^0 \cdot f_2^1 \cdot f_3^0 = 1 \cdot f_2 \cdot 1 = f_2</script>
+</p>
+<hr />
+<h2>Part 1: The Correct GMM Joint Distribution</h2>
+<h3>The Formula</h3>
+<p>
+<script type="math/tex; mode=display">p(x_n, z_n) = \prod_{k=1}^K \left(\pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k)\right)^{z_{nk}}</script>
+</p>
+<h3>Why This Works</h3>
+<ul>
+<li>The product runs over all clusters k = 1, 2, ..., K</li>
+<li>For each cluster, we have $\pi_k$ (mixing coefficient) times the Gaussian for that cluster</li>
+<li>The whole thing is raised to the power $z_{nk}$</li>
+<li>Since $z_n$ is one-hot, only ONE term survives</li>
+<li>That surviving term is $\pi_j \cdot \mathcal{N}(x_n|\mu_j, \Sigma_j)$ where $z_{nj} = 1$</li>
+</ul>
+<hr />
+<h2>Part 2: FULL Walkthrough of Real Exam Questions</h2>
+<h3>EXAM QUESTION 1 (2021-Part-B, Question 1e)</h3>
+<blockquote>
+<p>Which is a correct GMM specification?</p>
+<p>Options:
+- (a) $p(x_n,z_n) = \prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{z_n}$
+- (b) $p(x_n,z_n) = \prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)^{z_{nk}}$
+- (c) $p(x_n,z_n) = \sum_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)$
+- (d) $p(x_n,z_n) = \prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{z_{nk}}$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: What should the correct answer look like?</strong></p>
+<p>The joint $p(x_n, z_n)$ must:
+1. Use a <strong>product</strong> (∏) over k (not a sum Σ) — because we're selecting ONE component
+2. Have the exponent $z_{nk}$ (not $z_n$) — we need the k-th element of the vector
+3. Have <strong>both</strong> $\pi_k$ AND $\mathcal{N}$ inside the parentheses, raised to the power $z_{nk}$</p>
+<p><strong>Step 2: Eliminate wrong answers</strong></p>
+<p><strong>(c)</strong> uses a sum (Σ) instead of a product (∏). This is actually the <strong>marginal</strong> $p(x_n)$ (after summing out $z_n$), not the joint. ELIMINATE.</p>
+<p><strong>(a)</strong> uses $z_n$ as the exponent, not $z_{nk}$. $z_n$ is the whole vector — you can't raise a number to the power of a vector. ELIMINATE.</p>
+<p><strong>(b)</strong> Only $\mathcal{N}$ is raised to $z_{nk}$, but $\pi_k$ is outside the exponent. This means every $\pi_k$ appears in the product, not just the one for the active cluster. ELIMINATE.</p>
+<p><strong>(d)</strong> Has everything correct:
+- Product over k ✓
+- Both $\pi_k$ and $\mathcal{N}$ inside the parentheses ✓
+- Raised to the power $z_{nk}$ ✓</p>
+<p><strong>Answer: (d)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 2 (2023, Question 4c)</h3>
+<blockquote>
+<p>Same question, different exam:</p>
+<p>Options:
+- (a) $\prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)$
+- (b) $\prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{z_{nk}}$
+- (c) $\prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)^{z_{nk}}$
+- (d) $\prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{z_n}$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>(a)</strong> Missing the $z_{nk}$ exponent entirely. This is just the product of all mixing coefficients times all Gaussians. ELIMINATE.</p>
+<p><strong>(d)</strong> Uses $z_n$ instead of $z_{nk}$. ELIMINATE.</p>
+<p><strong>(c)</strong> Only $\mathcal{N}$ is raised to $z_{nk}$. The $\pi_k$ is outside and appears for ALL k, not just the active one. ELIMINATE.</p>
+<p><strong>(b)</strong> Correct: both $\pi_k$ and $\mathcal{N}$ inside the power $z_{nk}$.</p>
+<p><strong>Answer: (b)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 3 (2021-Part-B, Question 2a — Generative Classifier)</h3>
+<blockquote>
+<p>Generative model $p(x_n, y_n)$ for two-class classification with one-hot $y_n$:</p>
+<p>Options:
+- (a) $\prod_{k=1}^2 \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)^{y_{nk}}$
+- (b) $\prod_{k=1}^2 (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{y_{nk}}$
+- (c) $\prod_{k=1}^2 \pi_k^{y_{nk}} \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)$
+- (d) $\sum_{k=1}^2 y_{nk} \log(\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>Same pattern — this is just K=2 (two classes instead of K clusters).</p>
+<p><strong>(a)</strong> Only $\mathcal{N}$ has the exponent. ELIMINATE.</p>
+<p><strong>(c)</strong> Only $\pi_k$ has the exponent. ELIMINATE.</p>
+<p><strong>(d)</strong> This is a sum of logs — that's a log-likelihood form, not the joint distribution. ELIMINATE.</p>
+<p><strong>(b)</strong> Correct: both inside the power.</p>
+<p><strong>Answer: (b)</strong> ✅</p>
+<hr />
+<h2>Part 3: Tricks &amp; Shortcuts</h2>
+<h3>TRICK 1: Both Must Be Inside the Power</h3>
+<p>The correct answer ALWAYS has <strong>both</strong> $\pi_k$ and $\mathcal{N}$ inside the parentheses, raised to $z_{nk}$.</p>
+<p>If only one of them has the exponent → wrong.</p>
+<h3>TRICK 2: It Must Be $z_{nk}$ Not $z_n$</h3>
+<p>$z_{nk}$ = the k-th element (a single 0 or 1).
+$z_n$ = the whole vector.</p>
+<h3>TRICK 3: Product, Not Sum</h3>
+<p>The joint uses ∏ (product). The marginal (after summing out z) uses Σ (sum).</p>
+<p>If the question asks for the <strong>joint</strong> $p(x_n, z_n)$ → product.
+If the question asks for the <strong>marginal</strong> $p(x_n)$ → sum.</p>
+<hr />
+<h2>Part 4: Practice Exercises</h2>
+<h3>Exercise 1</h3>
+<blockquote>
+<p>Which is a correct GMM for $p(x_n, z_n)$?</p>
+<p>Options:
+- (a) $\prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{z_n}$
+- (b) $\prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)^{z_{nk}}$
+- (c) $\sum_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)$
+- (d) $\prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{z_{nk}}$</p>
+</blockquote>
+<hr />
+<h3>Exercise 2</h3>
+<blockquote>
+<p>Generative model $p(x_n, y_n)$ for two-class classification:</p>
+<p>Options:
+- (a) $\prod_{k=1}^2 \pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)^{y_{nk}}$
+- (b) $\prod_{k=1}^2 (\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))^{y_{nk}}$
+- (c) $\prod_{k=1}^2 \pi_k^{y_{nk}} \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k)$
+- (d) $\sum_{k=1}^2 y_{nk} \log(\pi_k \cdot \mathcal{N}(x_n|\mu_k,\Sigma_k))$</p>
+</blockquote>
+<hr />
+<hr />
+<h2>Answers</h2>
+<details>
+<summary>Exercise 1</summary>
+
+**Answer: (d)**
+
+(a) uses z_n instead of z_{nk}.
+(b) only 𝒩 has the exponent.
+(c) is a sum (that's the marginal, not the joint).
+(d) is correct: both inside, power z_{nk}, product.
+</details>
+
+<details>
+<summary>Exercise 2</summary>
+
+**Answer: (b)**
+
+(a) only 𝒩 has the exponent.
+(c) only π has the exponent.
+(d) is a log-likelihood form, not the joint.
+(b) is correct: both inside the power y_{nk}.
+</details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Exam Cheatsheet - MSc AI & Engineering Systems Notes">
+    <title>Exam Cheatsheet - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Bayesian ML Exam — Formula Cheatsheet</h1>
+<blockquote>
+<p>Organized by exercise type number. Every formula you need, nothing you don't.</p>
+</blockquote>
+<hr />
+<h2>Type 1: Bayes' Rule &amp; Posterior Computation</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bayes' Rule</strong></td>
+<td>$p(\theta \mid x) = \dfrac{p(x \mid \theta) \cdot p(\theta)}{p(x)}$</td>
+</tr>
+<tr>
+<td><strong>Proportional form</strong></td>
+<td>$p(\theta \mid x) \propto p(x \mid \theta) \cdot p(\theta)$</td>
+</tr>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>$p(x \mid m) = \int p(x \mid \theta, m) \cdot p(\theta \mid m) \, d\theta$</td>
+</tr>
+<tr>
+<td><strong>Joint</strong></td>
+<td>$p(x, \theta) = p(x \mid \theta) \cdot p(\theta)$</td>
+</tr>
+</tbody>
+</table>
+<h3>Beta Function Trick (for integrals over $\theta \in [0,1]$)</h3>
+<p>
+<script type="math/tex; mode=display">\int_0^1 \theta^p (1-\theta)^q \, d\theta = \frac{p! \cdot q!}{(p+q+1)!}</script>
+</p>
+<p><strong>How to use:</strong> Multiply likelihood × prior → read off powers $p$ and $q$ → plug into formula → multiply by any constant outside the integral.</p>
+<hr />
+<h2>Type 2: Beta-Bernoulli Coin Toss</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bernoulli likelihood</strong></td>
+<td>$p(D \mid \mu) = \mu^{N_1}(1-\mu)^{N_0}$</td>
+</tr>
+<tr>
+<td><strong>Beta prior</strong></td>
+<td>$p(\mu) = \text{Beta}(\mu \mid \alpha, \beta) = \dfrac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \mu^{\alpha-1}(1-\mu)^{\beta-1}$</td>
+</tr>
+<tr>
+<td><strong>Posterior</strong></td>
+<td>$p(\mu \mid D) = \text{Beta}(\mu \mid \alpha + N_1,\; \beta + N_0)$</td>
+</tr>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>$p(D) = \dfrac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} \cdot \dfrac{\Gamma(\alpha+N_1)\Gamma(\beta+N_0)}{\Gamma(\alpha+\beta+N)}$</td>
+</tr>
+<tr>
+<td><strong>Predictive</strong></td>
+<td>$p(x_{\text{next}}=1 \mid D) = \dfrac{\alpha + N_1}{\alpha + \beta + N}$</td>
+</tr>
+<tr>
+<td><strong>Beta mean</strong></td>
+<td>$\mathbb{E}[\mu] = \dfrac{\alpha}{\alpha + \beta}$</td>
+</tr>
+<tr>
+<td><strong>Gamma (integers)</strong></td>
+<td>$\Gamma(n) = (n-1)!$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key:</strong> $N_1$ = count of ones, $N_0$ = count of zeros, $N = N_1 + N_0$. <strong>No binomial coefficient in the likelihood!</strong></p>
+<hr />
+<h2>Type 3: Gaussian Posterior &amp; Evidence</h2>
+<p><strong>Setup:</strong> Likelihood $\mathcal{N}(x \mid \mu, \sigma^2)$, Prior $\mathcal{N}(\mu \mid \mu_0, \sigma_0^2)$</p>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Posterior variance</strong></td>
+<td>$\dfrac{1}{\sigma^2_{\text{post}}} = \dfrac{1}{\sigma^2_0} + \dfrac{1}{\sigma^2}$</td>
+</tr>
+<tr>
+<td><strong>Posterior mean</strong></td>
+<td>$\mu_{\text{post}} = \sigma^2_{\text{post}} \left( \dfrac{\mu_0}{\sigma^2_0} + \dfrac{x}{\sigma^2} \right)$</td>
+</tr>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>$p(x) = \mathcal{N}(x \mid \mu_0,\; \sigma^2_0 + \sigma^2)$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Shortcut:</strong> Posterior precision = sum of precisions. Posterior mean = precision-weighted average. Evidence variance = prior variance + likelihood variance.</p>
+<p><strong>When both variances = 1:</strong> $\sigma^2_{\text{post}} = 0.5$, $\mu_{\text{post}} = (\mu_0 + x)/2$.</p>
+<hr />
+<h2>Type 4: Model Evidence &amp; Bayesian Model Averaging</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>$p(x \mid m_k) = \int p(x \mid \theta, m_k) \cdot p(\theta \mid m_k) \, d\theta$</td>
+</tr>
+<tr>
+<td><strong>Model averaging</strong></td>
+<td>$p(x) = \sum_k p(x \mid m_k) \cdot p(m_k)$</td>
+</tr>
+<tr>
+<td><strong>Gaussian evidence</strong></td>
+<td>$p(x \mid m) = \mathcal{N}(x \mid \mu_0,\; \sigma^2_0 + \sigma^2)$</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Type 5: Model Comparison &amp; Bayes Factor</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Bayes Factor</strong></td>
+<td>$B_{12} = \dfrac{p(D \mid m_1)}{p(D \mid m_2)}$</td>
+</tr>
+<tr>
+<td><strong>Posterior ratio</strong></td>
+<td>$\dfrac{p(m_1 \mid D)}{p(m_2 \mid D)} = \dfrac{p(D \mid m_1)}{p(D \mid m_2)} \cdot \dfrac{p(m_1)}{p(m_2)} = B_{12} \cdot \dfrac{p(m_1)}{p(m_2)}$</td>
+</tr>
+<tr>
+<td><strong>BF from posteriors</strong></td>
+<td>$B_{12} = \dfrac{p(D \mid m_1)}{p(D \mid m_2)} = \dfrac{p(m_1 \mid D)}{p(m_2 \mid D)} \cdot \dfrac{p(m_2)}{p(m_1)}$</td>
+</tr>
+<tr>
+<td><strong>Posterior model prob</strong></td>
+<td>$p(m_k \mid D) = \dfrac{p(D \mid m_k) \cdot p(m_k)}{p(D)}$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Interpretation:</strong> Posterior ratio &gt; 1 → model 1 wins. Evidence = ∫ likelihood × prior dθ.</p>
+<hr />
+<h2>Type 6: Bayesian Classifier</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Posterior</strong></td>
+<td>$p(C_k \mid x) = \dfrac{p(x \mid C_k) \cdot p(C_k)}{p(x)}$</td>
+</tr>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>$p(x) = p(x \mid C_1) \cdot p(C_1) + p(x \mid C_2) \cdot p(C_2)$</td>
+</tr>
+<tr>
+<td><strong>Decision boundary</strong></td>
+<td>$\dfrac{p(x \mid C_1) \cdot p(C_1)}{p(x \mid C_2) \cdot p(C_2)} = 1$</td>
+</tr>
+<tr>
+<td><strong>Error probability</strong></td>
+<td>$P(\text{error}) = \int_{\text{decide }C_2} p(x \mid C_1)p(C_1)dx + \int_{\text{decide }C_1} p(x \mid C_2)p(C_2)dx$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Boundary shortcuts:</strong>
+- Different covariances → <strong>quadratic</strong> (parabola)
+- Shared covariance → <strong>linear</strong> (straight line)</p>
+<p><strong>Learned class prior (Beta):</strong> $p(C_1 \mid x_\bullet, D) \propto \int p(x_\bullet \mid C_1)\, p(C_1 \mid \theta)\, p(\theta \mid D)\, d\theta$</p>
+<hr />
+<h2>Type 7: Ball/Box Conditional Probability</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Product Rule</strong></td>
+<td>$P(A, B) = P(A \mid B) \cdot P(B)$</td>
+</tr>
+<tr>
+<td><strong>Total Probability</strong></td>
+<td>$P(A) = \sum_i P(A \mid B_i) \cdot P(B_i)$</td>
+</tr>
+<tr>
+<td><strong>Bayes' Rule</strong></td>
+<td>$P(B_i \mid A) = \dfrac{P(A \mid B_i) \cdot P(B_i)}{P(A)}$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Without replacement:</strong> Update counts after each draw (decrease both the drawn type and total by 1).</p>
+<hr />
+<h2>Type 8: Gaussian Mixture Model (GMM) Form</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Joint</strong> (one-hot $z_n$)</td>
+<td>$p(x_n, z_n) = \prod_{k=1}^K \left(\pi_k \cdot \mathcal{N}(x_n \mid \mu_k, \Sigma_k)\right)^{z_{nk}}$</td>
+</tr>
+<tr>
+<td><strong>Marginal</strong></td>
+<td>$p(x_n) = \sum_{k=1}^K \pi_k \, \mathcal{N}(x_n \mid \mu_k, \Sigma_k)$</td>
+</tr>
+<tr>
+<td><strong>Mixing constraint</strong></td>
+<td>$\sum_{k=1}^K \pi_k = 1$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Spotting trick:</strong> Both $\pi_k$ AND $\mathcal{N}$ must be inside the parentheses raised to $z_{nk}$ (not $z_n$). Joint uses product ∏, marginal uses sum Σ.</p>
+<hr />
+<h2>Type 9: Variational Free Energy (VFE)</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VFE functional</strong></td>
+<td>$F[q] = \int q(z) \log \dfrac{q(z)}{p(x,z)} \, dz$</td>
+</tr>
+<tr>
+<td><strong>Upper bound</strong></td>
+<td>$F[q] \geq -\log p(x)$ for any $q(z)$</td>
+</tr>
+<tr>
+<td><strong>Equality</strong></td>
+<td>$F[q] = -\log p(x)$ when $q(z) = p(z \mid x)$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Key:</strong> VFE minimizes $KL(q(z) \,|\, p(z \mid x))$ and gives an upper bound on negative log evidence.</p>
+<hr />
+<h2>Type 10: Free Energy Principle (FEP) — Concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Principle</th>
+<th>Statement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Generative model</strong></td>
+<td>Agents MUST have an internal model of how sensory data is generated</td>
+</tr>
+<tr>
+<td><strong>Perception</strong></td>
+<td>Minimizes free energy (update beliefs to match observations)</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Minimizes <strong>expected free energy</strong> of future states</td>
+</tr>
+<tr>
+<td><strong>Goals</strong></td>
+<td>Encoded as <strong>target priors</strong> in the generative model</td>
+</tr>
+<tr>
+<td><strong>Decision making</strong></td>
+<td>Minimization of a functional of beliefs about future states</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Rules of thumb:</strong> Always MINIMIZE (never maximize) free energy. Beliefs, not cost functions. Desired (target priors), not actual future.</p>
+<hr />
+<h2>Type 11: Factor Analysis &amp; Marginal Gaussian</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model</strong></td>
+<td>$x = Wz + \epsilon$, $z \sim \mathcal{N}(0, I)$, $\epsilon \sim \mathcal{N}(0, \Psi)$</td>
+</tr>
+<tr>
+<td><strong>Conditional</strong></td>
+<td>$p(x \mid z) = \mathcal{N}(x \mid Wz, \Psi)$</td>
+</tr>
+<tr>
+<td><strong>Joint</strong></td>
+<td>$p(x, z) = \mathcal{N}(x \mid Wz, \Psi) \cdot \mathcal{N}(z \mid 0, I)$</td>
+</tr>
+<tr>
+<td><strong>Marginal</strong></td>
+<td>$p(x) = \mathcal{N}(x \mid 0,\; WW^T + \Psi)$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Note:</strong> $WW^T$ (not $W^TW$) — must give $N \times N$ covariance for $x$.</p>
+<hr />
+<h2>Type 12: Recursive Filtering / Kalman</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Observation model</strong></td>
+<td>$x_t = \theta + \epsilon_t$, $\epsilon_t \sim \mathcal{N}(0, \sigma_\epsilon^2)$</td>
+</tr>
+<tr>
+<td><strong>Likelihood</strong></td>
+<td>$p(x_k \mid \theta) = \mathcal{N}(x_k \mid \theta, \sigma_\epsilon^2)$</td>
+</tr>
+<tr>
+<td><strong>Recursive update</strong></td>
+<td>$p(\theta \mid D_k) \propto p(x_k \mid \theta) \cdot p(\theta \mid D_{k-1})$</td>
+</tr>
+<tr>
+<td><strong>Kalman gain</strong></td>
+<td>$K_k = \dfrac{\sigma_{k-1}^2}{\sigma_{k-1}^2 + \sigma_\epsilon^2}$</td>
+</tr>
+<tr>
+<td><strong>Mean update</strong></td>
+<td>$\mu_k = \mu_{k-1} + K_k \, (x_k - \mu_{k-1})$</td>
+</tr>
+<tr>
+<td><strong>Variance update</strong></td>
+<td>$\sigma_k^2 = (1 - K_k) \, \sigma_{k-1}^2$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>State-space update:</strong> $p(z_t \mid x_{1:t}) \propto p(x_t \mid z_t) \sum_{z_{t-1}} p(z_t \mid z_{t-1})\, p(z_{t-1} \mid x_{1:t-1})$</p>
+<p><strong>As $k \to \infty$:</strong> $\sigma_k^2 \to 0$, $K_k \to 0$, $\mu_k \to$ true value (stationary).</p>
+<hr />
+<h2>Type 13: Log-Likelihood &amp; MLE</h2>
+<table>
+<thead>
+<tr>
+<th>Formula</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Log-likelihood</strong></td>
+<td>$\log p(D \mid \theta) = \sum_n \sum_k y_{nk} \log \mathcal{N}(x_n \mid \mu_k, \Sigma_k) + \sum_n \sum_k y_{nk} \log \pi_k$</td>
+</tr>
+<tr>
+<td><strong>MLE mean</strong></td>
+<td>$\hat{\mu}<em nk="nk">k = \dfrac{\sum_n y</em>$} x_n}{N_k}$ where $N_k = \sum_n y_{nk</td>
+</tr>
+<tr>
+<td><strong>MLE covariance</strong></td>
+<td>$\hat{\Sigma}<em nk="nk">k = \dfrac{1}{N_k} \sum_n y</em>_k)^T$} (x_n - \hat{\mu}_k)(x_n - \hat{\mu</td>
+</tr>
+<tr>
+<td><strong>Log-Gaussian</strong></td>
+<td>$\log \mathcal{N}(x \mid \mu, \Sigma) = -\frac{1}{2}(x-\mu)^T \Sigma^{-1} (x-\mu) + \text{const}$</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Covariance trick:</strong> Must use <strong>outer product</strong> $(x-\mu)(x-\mu)^T$ (gives matrix), NOT inner product $(x-\mu)^T(x-\mu)$ (gives scalar).</p>
+<p><strong>Decision boundary:</strong> Different covariances → <strong>quadratic</strong> (parabola). Shared covariance → <strong>linear</strong> (straight line).</p>
+<hr />
+<h2>Type 14: GMM, VFE, FEP &amp; Concept Questions</h2>
+<h3>VFE Properties</h3>
+<ul>
+<li>$F[q] \geq -\log p(x)$ — upper bound on negative log evidence</li>
+<li>Equality at $q(z) = p(z \mid x)$ (true posterior, NOT the prior)</li>
+<li>Minimizing VFE = minimizing KL divergence to true posterior</li>
+</ul>
+<h3>Bayesian vs MLE</h3>
+<ul>
+<li><strong>Likelihood</strong> is a function of parameters: $L(\theta) = p(D \mid \theta)$</li>
+<li><strong>MLE</strong> maximizes $p(D \mid \theta)$; <strong>MAP</strong> maximizes $p(D \mid \theta)p(\theta)$ — equal only with uniform prior</li>
+<li>As data grows: likelihood narrows, prior stays fixed → MLE ≈ MAP</li>
+<li><strong>Bayesian evidence</strong> = fit minus complexity (built-in overfitting protection)</li>
+</ul>
+<h3>Gaussian Properties</h3>
+<ul>
+<li><strong>Linear combination</strong> of Gaussians → Gaussian</li>
+<li><strong>Products/ratios</strong> of Gaussians → NOT Gaussian</li>
+</ul>
+<h3>Discriminative Predictive</h3>
+<p>
+<script type="math/tex; mode=display">p(y_\bullet \mid x_\bullet, D) = \int p(y_\bullet \mid x_\bullet, \theta)\, p(\theta \mid D)\, d\theta</script>
+</p>
+<h3>Generative Model for Signal Recovery</h3>
+<p>
+<script type="math/tex; mode=display">p(s \mid x) \propto \int p(x \mid s,z)\, p(s,z) \, dz</script>
+</p>
+<hr />
+<h2>Quick-Reference Concept Facts</h2>
+<ul>
+<li><strong>Bayesian methods</strong> are NOT faster than MLE — often more computationally expensive</li>
+<li><strong>No train/test split needed</strong> in Bayesian approach — all data used for inference</li>
+<li><strong>Beta</strong> is the conjugate prior for Bernoulli (not Gaussian)</li>
+<li>MLE covariance uses $1/N_k$ (not $1/N$), and requires $y_{nk}$ selector</li>
+</ul>
+<hr />
+<h2>Gamma Factorial Quick Values</h2>
+<table>
+<thead>
+<tr>
+<th>$n$</th>
+<th>$\Gamma(n) = (n-1)!$</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>6</td>
+</tr>
+<tr>
+<td>5</td>
+<td>24</td>
+</tr>
+<tr>
+<td>6</td>
+<td>120</td>
+</tr>
+<tr>
+<td>7</td>
+<td>720</td>
+</tr>
+<tr>
+<td>8</td>
+<td>5040</td>
+</tr>
+<tr>
+<td>10</td>
+<td>362880</td>
+</tr>
+</tbody>
+</table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

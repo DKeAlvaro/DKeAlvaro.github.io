@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="14 Gmm Vfe Fep Concepts - MSc AI & Engineering Systems Notes">
+    <title>14 Gmm Vfe Fep Concepts - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Exercise Type 14: GMM, VFE, FEP &amp; Concept Questions</h1>
+<blockquote>
+<p><strong>What the exam asks:</strong> A mixed bag of questions testing your ability to spot the correct GMM form, understand VFE properties, reason about FEP conceptually, and distinguish true/false statements about Bayesian vs ML approaches, Gaussian properties, and overfitting.</p>
+</blockquote>
+<hr />
+<h2>Part 0: What Do All These Symbols Mean?</h2>
+<h3>The Key Notation</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>How to Read It</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$\pi_k$</td>
+<td>"pi sub k"</td>
+<td>Mixing coefficient — how common is component k?</td>
+</tr>
+<tr>
+<td>$z_{nk}$</td>
+<td>"z sub n k"</td>
+<td>Is data point n in cluster k? (1 if yes, 0 if no)</td>
+</tr>
+<tr>
+<td>$K$</td>
+<td>Capital K</td>
+<td>Total number of clusters/components</td>
+</tr>
+<tr>
+<td>$F[q]$</td>
+<td>"F of q"</td>
+<td>The <strong>VFE functional</strong> — a function of the variational distribution q</td>
+</tr>
+<tr>
+<td>$q(z)$</td>
+<td>"q of z"</td>
+<td>The <strong>variational distribution</strong> — our approximation to the true posterior</td>
+</tr>
+<tr>
+<td>$p(x,z)$</td>
+<td>"p of x comma z"</td>
+<td>The <strong>joint distribution</strong> over observed and latent variables</td>
+</tr>
+<tr>
+<td>$KL(q \,|\, p)$</td>
+<td>"KL divergence of q from p"</td>
+<td>How different q is from p — always ≥ 0</td>
+</tr>
+<tr>
+<td>$p(y_\bullet \mid x_\bullet, D)$</td>
+<td>"prob of y bullet given x bullet and data"</td>
+<td>Predictive distribution for a new data point</td>
+</tr>
+<tr>
+<td>$L(\theta)$</td>
+<td>"L of theta"</td>
+<td>The <strong>likelihood function</strong> — a function of the parameters</td>
+</tr>
+</tbody>
+</table>
+<h3>The Core Ideas — Plain English</h3>
+<p><strong>GMM (Gaussian Mixture Model):</strong> Data comes from multiple hidden clusters, each generating points from its own Gaussian. The joint distribution uses a <strong>product</strong> over components, raised to the power $z_{nk}$, which acts as a switch — only the active cluster's term survives.</p>
+<p><strong>VFE (Variational Free Energy):</strong> When the true posterior is too hard to compute, we approximate it with a simpler distribution $q(z)$. VFE measures how good our approximation is. <strong>Minimizing VFE</strong> simultaneously improves the approximation and gives an estimate of the model evidence.</p>
+<p><strong>FEP (Free Energy Principle):</strong> A theory of intelligent behavior. Agents have an internal model of the world. They <strong>perceive</strong> by updating beliefs to match observations (minimize free energy). They <strong>act</strong> by choosing actions that minimize expected future surprise. Goals are encoded as <strong>target priors</strong> — preferred future states built into the model.</p>
+<p><strong>Bayesian vs MLE:</strong> MLE maximizes fit only. Bayesian averages over uncertainty. As data grows, MLE ≈ MAP because the likelihood dominates the prior. Bayesian evidence automatically penalizes complexity — no separate test set needed.</p>
+<hr />
+<h2>Part 1: The Key Formulas (MEMORIZE)</h2>
+<h3>GMM Joint Distribution</h3>
+<p>
+<script type="math/tex; mode=display">p(x_n, z_n) = \prod_{k=1}^K \left(\pi_k \cdot \mathcal{N}(x_n \mid \mu_k, \Sigma_k)\right)^{z_{nk}}</script>
+</p>
+<p><strong>Spotting trick:</strong> Both $\pi_k$ AND $\mathcal{N}$ must be inside the parentheses raised to $z_{nk}$ (not $z_n$). Product ∏, not sum Σ.</p>
+<h3>VFE Functional</h3>
+<p>
+<script type="math/tex; mode=display">F[q] = \int q(z) \log \frac{q(z)}{p(x,z)} \, dz</script>
+</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Expression</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Upper bound</strong></td>
+<td>$F[q] \geq -\log p(x)$ for any $q(z)$</td>
+</tr>
+<tr>
+<td><strong>Equality</strong></td>
+<td>$F[q] = -\log p(x)$ when $q(z) = p(z \mid x)$</td>
+</tr>
+<tr>
+<td><strong>Minimization</strong></td>
+<td>Minimizes $KL(q(z) \,|\, p(z \mid x))$ AND gives evidence estimate</td>
+</tr>
+</tbody>
+</table>
+<h3>FEP Core Principles</h3>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Perception</strong></td>
+<td>Minimize free energy (update beliefs to match observations)</td>
+</tr>
+<tr>
+<td><strong>Action</strong></td>
+<td>Minimize <strong>expected free energy</strong> of future states</td>
+</tr>
+<tr>
+<td><strong>Goals</strong></td>
+<td>Encoded as <strong>target priors</strong> in the generative model</td>
+</tr>
+<tr>
+<td><strong>Decision making</strong></td>
+<td>Minimization of a functional of <strong>beliefs</strong> (not costs)</td>
+</tr>
+</tbody>
+</table>
+<h3>Concept Facts</h3>
+<table>
+<thead>
+<tr>
+<th>Statement</th>
+<th>True/False</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Likelihood = function of parameters</td>
+<td>True</td>
+<td>$L(\theta) = p(D \mid \theta)$</td>
+</tr>
+<tr>
+<td>Linear combination of Gaussians = Gaussian</td>
+<td>True</td>
+<td>$Z = aX + bY$ preserves Gaussianity</td>
+</tr>
+<tr>
+<td>Product of Gaussians = Gaussian</td>
+<td>False</td>
+<td>$Z = XY$ is NOT Gaussian</td>
+</tr>
+<tr>
+<td>MLE = MAP always</td>
+<td>False</td>
+<td>Only when prior is uniform</td>
+</tr>
+<tr>
+<td>Bayesian evidence = fit − complexity</td>
+<td>True</td>
+<td>Built-in overfitting protection</td>
+</tr>
+<tr>
+<td>Discriminative classification ≈ regression</td>
+<td>True</td>
+<td>Predicts label, not full density</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Part 2: Tricks &amp; Shortcuts</h2>
+<h3>TRICK 1: GMM Joint — Both Must Be in the Power</h3>
+<p>The correct answer ALWAYS has both $\pi_k$ and $\mathcal{N}$ inside the parentheses raised to $z_{nk}$.</p>
+<p>If only $\mathcal{N}$ has the exponent → wrong.
+If only $\pi_k$ has the exponent → wrong.
+If it uses a sum (Σ) instead of product (∏) → that's the marginal, not the joint.</p>
+<h3>TRICK 2: VFE — Always ≥ Negative Log Evidence</h3>
+<p>Think: "Variational Free Energy is an <strong>Upper</strong> bound" → VFEU.</p>
+<ul>
+<li>If an option says ≤ → wrong direction.</li>
+<li>If it says equality at $q(z) = p(z)$ (prior) → wrong, it's the <strong>posterior</strong> $p(z \mid x)$.</li>
+<li>If it says equality at $q(z) = 0$ → nonsense, not a valid distribution.</li>
+</ul>
+<h3>TRICK 3: FEP — Always MINIMIZE, Never Maximize</h3>
+<p>FEP is about MINIMIZING free energy (or expected free energy).</p>
+<ul>
+<li>"Maximize free energy" → wrong direction.</li>
+<li>"Cost function" → wrong framework (traditional engineering, not FEP).</li>
+<li>"Desired" vs "actual" future → it's <strong>desired</strong> (target priors), not actual.</li>
+<li>"Generative model" → if a statement says agents hold one, it's true.</li>
+</ul>
+<h3>TRICK 4: Gaussian Properties</h3>
+<ul>
+<li><strong>Linear combination</strong> ($aX + bY$) → Gaussian ✅</li>
+<li><strong>Product</strong> ($XY$) → NOT Gaussian ❌</li>
+<li><strong>Sum of distributions</strong> (mixture) → NOT Gaussian in general ❌</li>
+<li><strong>Ratio</strong> ($X/Y$) → NOT Gaussian ❌</li>
+</ul>
+<h3>TRICK 5: Bayesian vs MLE</h3>
+<ul>
+<li>More data → likelihood gets <strong>narrower</strong> (more certain), prior stays fixed.</li>
+<li>MLE ≈ MAP eventually because likelihood dominates.</li>
+<li>Bayesian methods are NOT faster — often more expensive (integration).</li>
+<li>No train/test split needed — complexity penalty handles overfitting.</li>
+</ul>
+<hr />
+<h2>Part 3: FULL Walkthrough of Real Exam Questions</h2>
+<h3>EXAM QUESTION 1 (2021-Part-B, Question 1e — GMM Form)</h3>
+<blockquote>
+<p>Which is a correct GMM specification for $p(x_n, z_n)$ with one-hot $z_n$?</p>
+<p>Options:
+- (a) $p(x_n,z_n) = \prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k))^{z_n}$
+- (b) $p(x_n,z_n) = \prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k)^{z_{nk}}$
+- (c) $p(x_n,z_n) = \sum_{k=1}^K \pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k)$
+- (d) $p(x_n,z_n) = \prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k))^{z_{nk}}$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Check the exponent</strong></p>
+<p>We need $z_{nk}$ (the k-th element), not $z_n$ (the whole vector).</p>
+<p>(a) uses $z_n$ → ELIMINATE.</p>
+<p><strong>Step 2: Check what's raised to the power</strong></p>
+<p>Both $\pi_k$ AND $\mathcal{N}$ must be inside the exponentiation — the power selects the right cluster entirely.</p>
+<p>(b) only $\mathcal{N}$ has the exponent, $\pi_k$ is outside → ELIMINATE.</p>
+<p><strong>Step 3: Check product vs sum</strong></p>
+<p>The joint uses a product (∏) — we're selecting one component per data point.
+The marginal uses a sum (Σ) — we've summed out the hidden variable.</p>
+<p>(c) uses a sum → this is the marginal, not the joint → ELIMINATE.</p>
+<p><strong>Step 4: Verify (d)</strong></p>
+<p>(d) has: product over k ✓, both $\pi_k$ and $\mathcal{N}$ inside ✓, raised to $z_{nk}$ ✓</p>
+<p><strong>Answer: (d)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 2 (2021-Resit, Question 4e — VFE Property)</h3>
+<blockquote>
+<p>$F[q] = \int q(z) \log \frac{q(z)}{p(x,z)} \, dz$. Which statement is true?</p>
+<p>Options:
+- (a) $F[q] = -\log p(x)$ if $q(z) = 0$
+- (b) $F[q] \leq -\log p(x)$ for any $q(z)$
+- (c) $F[q] \geq -\log p(x)$ for any $q(z)$
+- (d) $F[q] = -\log p(x)$ if $q(z) = p(z)$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Recall the fundamental VFE property</strong></p>
+<p>$F[q] \geq -\log p(x)$ for any $q(z)$. It's an <strong>upper bound</strong> on the negative log evidence.</p>
+<p>This immediately gives us (c).</p>
+<p><strong>Step 2: Eliminate the rest</strong></p>
+<p>(a) $q(z) = 0$ is not a valid probability distribution (doesn't integrate to 1) → ELIMINATE.</p>
+<p>(b) Wrong direction — it's ≥ not ≤ → ELIMINATE.</p>
+<p>(d) Equality is at $q(z) = p(z \mid x)$ (the true posterior), not $q(z) = p(z)$ (the prior) → ELIMINATE.</p>
+<p><strong>Answer: (c)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 3 (2023, Question 4f — VFE &amp; Bayesian Inference)</h3>
+<blockquote>
+<p>Why can VFE minimization approximate Bayesian inference?</p>
+<p>Options:
+- (a) VFE is Bayesian inference plus Gaussian noise
+- (b) VFE minimizes KL-divergence to evidence, and VFE is upper bound on posterior
+- (c) VFE minimizes evidence by optimizing variational posterior
+- (d) VFE minimizes KL-divergence between variational and true posterior, and VFE is upper bound on negative log evidence</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p><strong>Step 1: Two key facts about VFE</strong></p>
+<ol>
+<li>$F[q] = KL(q(z) \,|\, p(z \mid x)) - \log p(x)$. Since $-\log p(x)$ doesn't depend on $q$, minimizing $F[q]$ minimizes the KL divergence to the true posterior.</li>
+<li>$F[q] \geq -\log p(x)$ (upper bound on negative log evidence).</li>
+</ol>
+<p><strong>Step 2: Match the options</strong></p>
+<p>(a) "Plus Gaussian noise" — nonsense → ELIMINATE.</p>
+<p>(b) "KL to evidence" — wrong, it's KL to the posterior. "Upper bound on posterior" — wrong, it's on negative log evidence → ELIMINATE.</p>
+<p>(c) "Minimizes evidence" — wrong, it minimizes KL to the posterior → ELIMINATE.</p>
+<p>(d) Both parts are correct → ✓</p>
+<p><strong>Answer: (d)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 4 (2021-Part-B, Question 1b — VB Properties)</h3>
+<blockquote>
+<p>Which is NOT a property of the Variational Bayesian approach?</p>
+<p>Options:
+- (a) Transfers Bayesian ML to optimization problem
+- (b) VB finds posteriors by maximizing Bayesian evidence
+- (c) VFE minimization gives posterior AND evidence
+- (d) Global VFE minimization realizes Bayes rule</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>(a) True — VB turns integration into optimization → NOT the answer.</p>
+<p>(b) VB finds posteriors by <strong>minimizing</strong> VFE (upper bound on negative log evidence), not "maximizing evidence" → <strong>This is wrong</strong> → ELIMINATE as the answer.</p>
+<p>(c) True — VFE gives both $q(z)$ (approximate posterior) and a lower bound on log evidence → NOT the answer.</p>
+<p>(d) True — at the global minimum, $q(z) = p(z \mid x)$ (exact Bayes rule) → NOT the answer.</p>
+<p><strong>Answer: (b)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 5 (2022, Question 4a — FEP Comprehension)</h3>
+<blockquote>
+<p>Which statement is most consistent with FEP?</p>
+<p>Options:
+- (a) Actions aim to minimize free energy of future states
+- (b) Actions aim to minimize complexity of future states
+- (c) Intelligent decision making requires minimization of a functional of beliefs about future states
+- (d) Intelligent decision making requires minimization of a cost function of future states</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>(a) Close, but imprecise — it's about minimizing a functional of <strong>beliefs</strong>, not directly "free energy of future states."</p>
+<p>(b) "Minimize complexity" — not the core idea of FEP → ELIMINATE.</p>
+<p>(c) Yes — expected free energy is a <strong>functional</strong> of probability distributions (beliefs) about future states → ✓</p>
+<p>(d) "Cost function" — that's traditional control theory, not FEP → ELIMINATE.</p>
+<p><strong>Answer: (c)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 6 (2021-Part-B, Question 1d — FEP Goal-Driven Behavior)</h3>
+<blockquote>
+<p>How to equip an agent with goal-driven behavior in FEP?</p>
+<p>Options:
+- (a) Specify cost function, minimize costs
+- (b) Extend generative model with target priors for future observations. Minimize Free Energy.
+- (c) Specify cost function of actions, minimize
+- (d) Extend with posterior for actions, maximize posterior</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>In FEP, goals are encoded as <strong>target priors</strong> — preferred future states built into the generative model. The agent then minimizes expected free energy, which naturally achieves these goals.</p>
+<p>(a), (c) "Cost function" — wrong framework → ELIMINATE.
+(d) Doesn't explain how goals are encoded → ELIMINATE.</p>
+<p><strong>Answer: (b)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 7 (2021-Part-B, Question 5b — FEP Consistent Statements)</h3>
+<blockquote>
+<p>Which statements are consistent with FEP?
+- (a) Active inference agent holds generative model for sensory inputs
+- (b) Actions inferred from differences between predicted and desired future observations
+- (c) Actions inferred from differences between predicted and actual future observations
+- (d) Agent focuses on explorative behavior only</p>
+<p>Options:
+- (a) (a) and (b)
+- (b) (a)
+- (c) (b) and (d)
+- (d) (c) and (d)</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>(a) True — generative model is fundamental to FEP → ✓
+(b) True — actions bridge predicted vs. <strong>desired</strong> (target prior) states → ✓
+(c) False — it's about desired, not "actual" future → ✗
+(d) False — agents balance exploration AND exploitation → ✗</p>
+<p>(a) and (b) are true.</p>
+<p><strong>Answer: (a) — (a) and (b)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 8 (2021-Part-A, Question 1a — Likelihood Terminology)</h3>
+<blockquote>
+<p>"The likelihood of the parameters" is more appropriate than "the likelihood of the data".</p>
+<p>Options: (a) true, (b) false</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>The likelihood IS a function of the parameters given the data: $L(\theta) = p(D \mid \theta)$. So "likelihood of the parameters" is correct usage.</p>
+<p><strong>Answer: (a) true</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 9 (2021-Part-A, Question 1b — Gaussian Properties)</h3>
+<blockquote>
+<p>If X and Y are independent Gaussian distributed variables, then $Z = 3X - XY$ is also Gaussian.</p>
+<p>Options: (a) true, (b) false</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>The product $XY$ of two Gaussians is NOT Gaussian in general. Linear combinations like $3X - Y$ are Gaussian, but $3X - XY$ involves a product term.</p>
+<p><strong>Answer: (b) false</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 10 (2021-Part-A, Question 1d — MLE vs MAP)</h3>
+<blockquote>
+<p>MLE always selects the parameter where the Bayesian posterior distribution is maximal.</p>
+<p>Options: (a) true, (b) false</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>MLE maximizes $p(D \mid \theta)$. MAP maximizes $p(D \mid \theta)p(\theta)$. They're only equal when the prior $p(\theta)$ is uniform. MLE ≠ MAP in general.</p>
+<p><strong>Answer: (b) false</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 11 (2021-Resit, Question 4b — Bayesian vs MLE)</h3>
+<blockquote>
+<p>Which statement is most accurate?</p>
+<p>Options:
+- (a) ML becomes better approximation as data grows, since prior becomes wider
+- (b) ML becomes worse as data grows, since both likelihood and prior become wider
+- (c) ML becomes better as data grows, since likelihood becomes wider while prior doesn't depend on data
+- (d) ML becomes better as data grows, since likelihood becomes narrower while prior doesn't depend on data</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>With more data:
+- Likelihood becomes <strong>narrower</strong> (more certain about the true parameter)
+- Prior stays the same (doesn't depend on data)
+- The likelihood eventually dominates → MLE ≈ MAP</p>
+<p>(a) Prior doesn't become wider → ELIMINATE.
+(b) Both don't become wider → ELIMINATE.
+(c) Likelihood becomes narrower, not wider → ELIMINATE.</p>
+<p><strong>Answer: (d)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 12 (2021-Part-B, Question 1a — Bayesian Approach)</h3>
+<blockquote>
+<p>Which statement is FALSE about the Bayesian approach?</p>
+<p>Options:
+- (a) No need to split data into train/test. All data used for training.
+- (b) Fundamentally sound, based on probability theory.
+- (c) Requires explicit model assumptions upfront.
+- (d) Fast alternative to maximum likelihood.</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>Bayesian methods are NOT generally faster — they're often more computationally expensive due to integration over parameters.</p>
+<p><strong>Answer: (d) false</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 13 (2021-Part-B, Question 5d — Discriminative Classification)</h3>
+<blockquote>
+<p>Which statements are true?
+- (a) Product of independent Gaussians is Gaussian
+- (b) Linear combination $Z = 3X - Y$ of independent Gaussians is Gaussian
+- (c) Sum of two Gaussians is Gaussian
+- (d) Discriminative classification is more similar to regression than density estimation</p>
+<p>Options:
+- (a) (b) and (c)
+- (b) (a) and (d)
+- (c) (b) and (d)
+- (d) (b) and (c)</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>(a) False — the product random variable $Z = XY$ is NOT Gaussian → ✗
+(b) True — linear combinations of Gaussians are Gaussian → ✓
+(c) True — sum of Gaussians is Gaussian → ✓
+(d) True — discriminative classification predicts a label value (like regression), not a full density → ✓</p>
+<p>Options with (a) → ELIMINATE. (b), (c), and (d) are all true.</p>
+<p>Best match: <strong>(c) — (b) and (d)</strong>.</p>
+<p><strong>Answer: (c)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 14 (2023, Question 4b — Overfitting)</h3>
+<blockquote>
+<p>Why is a "Bayesian engineer" not concerned about overfitting?</p>
+<p>Options:
+- (a) Model evidence decomposes as "fit minus complexity". Complexity prevents overfitting.
+- (b) Uses separate test set
+- (c) Minimizes probability of overfitting
+- (d) Evidence decomposes as "fit minus entropy"</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>Bayesian model evidence naturally penalizes complexity (the "Occam factor"):</p>
+<p>
+<script type="math/tex; mode=display">\log p(D \mid m) = \text{fit} - \text{complexity}</script>
+</p>
+<p>This is built-in overfitting protection — no separate test set needed.</p>
+<p>(b) That's the frequentist approach → ELIMINATE.
+(c) Vague, not the reason → ELIMINATE.
+(d) "Entropy" — wrong term, it's complexity → ELIMINATE.</p>
+<p><strong>Answer: (a)</strong> ✅</p>
+<hr />
+<h3>EXAM QUESTION 15 (2021-Part-B, Question 1c — Bayesian Model Comparison)</h3>
+<blockquote>
+<p>Posterior model probability $p(m_k \mid D)$:</p>
+<p>Options:
+- (a) $p(m_k \mid D) = p(m_k) \int p(\theta \mid D,m_k) \, p(D \mid m_k) \, d\theta$
+- (b) $p(m_k \mid D) = p(m_k) \int p(D \mid \theta,m_k) \, p(\theta \mid m_k) \, d\theta$
+- (c) $p(m_k \mid D) = \sum_n p(m_k) \, p(D \mid m_k)$
+- (d) $p(m_k \mid D) = \int p(D \mid \theta,m_k) \, p(\theta \mid m_k) \, d\theta$</p>
+</blockquote>
+<h3>STEP-BY-STEP SOLUTION</h3>
+<p>
+<script type="math/tex; mode=display">p(m_k \mid D) = \frac{p(D \mid m_k) \cdot p(m_k)}{p(D)}</script>
+</p>
+<p>Where the evidence is:</p>
+<p>
+<script type="math/tex; mode=display">p(D \mid m_k) = \int p(D \mid \theta,m_k) \, p(\theta \mid m_k) \, d\theta</script>
+</p>
+<p>So without the normalizing constant $p(D)$:</p>
+<p>
+<script type="math/tex; mode=display">p(m_k \mid D) \propto p(m_k) \int p(D \mid \theta,m_k) \, p(\theta \mid m_k) \, d\theta</script>
+</p>
+<p>(a) Integrates $p(\theta \mid D,m_k) \cdot p(D \mid m_k)$ — wrong terms → ELIMINATE.
+(c) Sums over data points — nonsense → ELIMINATE.
+(d) Missing the prior $p(m_k)$ — that's just the evidence, not the posterior → ELIMINATE.</p>
+<p><strong>Answer: (b)</strong> ✅</p>
+<hr />
+<h2>Part 4: Practice Exercises</h2>
+<h3>Exercise 1 (GMM Form)</h3>
+<blockquote>
+<p>Which is a correct GMM for $p(x_n, z_n)$ with one-hot $z_n$?</p>
+<p>Options:
+- (a) $\prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k))^{z_n}$
+- (b) $\prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k)^{z_{nk}}$
+- (c) $\sum_{k=1}^K \pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k)$
+- (d) $\prod_{k=1}^K (\pi_k \cdot \mathcal{N}(x_n \mid \mu_k,\Sigma_k))^{z_{nk}}$</p>
+</blockquote>
+<hr />
+<h3>Exercise 2 (VFE Property)</h3>
+<blockquote>
+<p>$F[q] = \int q(z) \log \frac{q(z)}{p(x,z)} \, dz$. Which is true?</p>
+<p>Options:
+- (a) $F[q] = -\log p(x)$ if $q(z) = 0$
+- (b) $F[q] \leq -\log p(x)$ for any $q(z)$
+- (c) $F[q] \geq -\log p(x)$ for any $q(z)$
+- (d) $F[q] = -\log p(x)$ if $q(z) = p(z)$</p>
+</blockquote>
+<hr />
+<h3>Exercise 3 (FEP Action)</h3>
+<blockquote>
+<p>In FEP, how does an agent choose actions?</p>
+<p>Options:
+- (a) Minimize cost function of future states
+- (b) Minimize expected free energy in future states
+- (c) Maximize free energy in future states
+- (d) Maximize expected accuracy of future states</p>
+</blockquote>
+<hr />
+<h3>Exercise 4 (Gaussian Property)</h3>
+<blockquote>
+<p>Which is true?</p>
+<p>Options:
+- (a) Product of independent Gaussians is Gaussian
+- (b) Linear combination of independent Gaussians is Gaussian
+- (c) Ratio of Gaussians is Gaussian
+- (d) Product $Z = XY$ of Gaussians is Gaussian</p>
+</blockquote>
+<hr />
+<h3>Exercise 5 (Bayesian vs MLE)</h3>
+<blockquote>
+<p>As data size grows:</p>
+<p>Options:
+- (a) ML becomes worse, prior becomes wider
+- (b) ML becomes better, likelihood becomes narrower, prior unchanged
+- (c) ML becomes worse, both become wider
+- (d) ML becomes better, prior becomes narrower</p>
+</blockquote>
+<hr />
+<h3>Exercise 6 (Discriminative Classification)</h3>
+<blockquote>
+<p>Discriminative approach to classification for new input $x_\bullet$:</p>
+<p>Options:
+- (a) $p(y_\bullet \mid x_\bullet,D) = \int p(y_\bullet \mid x_\bullet,\theta,D) \, d\theta$
+- (b) $p(y_\bullet \mid x_\bullet) = \int p(y_\bullet \mid x_\bullet,\theta) \, p(\theta) \, d\theta$
+- (c) $p(y_\bullet \mid x_\bullet,D) = \int p(y_\bullet \mid x_\bullet,\theta) \, p(\theta \mid D) \, d\theta$
+- (d) $p(y_\bullet \mid x_\bullet) = \int p(y_\bullet \mid x_\bullet,\theta) \, d\theta$</p>
+</blockquote>
+<hr />
+<h3>Exercise 7 (Overfitting)</h3>
+<blockquote>
+<p>Why are Bayesian engineers not concerned about overfitting?</p>
+<p>Options:
+- (a) Evidence = fit − complexity
+- (b) Use separate test set
+- (c) Minimize overfitting probability
+- (d) Evidence = fit − entropy</p>
+</blockquote>
+<hr />
+<h3>Exercise 8 (Generative Model for Signal Recovery)</h3>
+<blockquote>
+<p>Bayesian records signal $x$, wants to recover speech $s$. How?</p>
+<p>Options:
+- (a) Model $p(x,s,z) = p(s \mid x,z)p(x,z)$, compute $p(s \mid x) \propto \int p(s \mid x,z) \, dz$
+- (b) Model $p(x,s,z) = p(s \mid x,z)p(x,z)$, compute $p(s \mid x) \propto \int p(s \mid x,z)p(x,z) \, dz$
+- (c) Model $p(x,s,z) = p(x \mid s,z)p(s,z)$, compute $p(s \mid x,z) = \frac{p(x \mid s,z)p(s,z)}{p(x,z)}$
+- (d) Model $p(x,s,z) = p(x \mid s,z)p(s,z)$, compute $p(s \mid x) \propto \int p(x \mid s,z)p(s,z) \, dz$</p>
+</blockquote>
+<hr />
+<h2>Part 5: Answers</h2>
+<details>
+<summary>Exercise 1</summary>
+
+**Answer: (d)**
+
+(a) uses $z_n$ instead of $z_{nk}$.
+(b) only $\mathcal{N}$ has the exponent.
+(c) is a sum (that's the marginal, not the joint).
+(d) is correct: both inside, power $z_{nk}$, product.
+</details>
+
+<details>
+<summary>Exercise 2</summary>
+
+**Answer: (c)**
+
+VFE is always ≥ negative log evidence (upper bound).
+(a) $q(z)=0$ is not a valid distribution.
+(b) wrong direction.
+(d) equality at posterior, not prior.
+</details>
+
+<details>
+<summary>Exercise 3</summary>
+
+**Answer: (b)**
+
+Actions minimize expected free energy, not maximize. Not cost functions.
+</details>
+
+<details>
+<summary>Exercise 4</summary>
+
+**Answer: (b)**
+
+Linear combinations of Gaussians are Gaussian. Products and ratios are not.
+</details>
+
+<details>
+<summary>Exercise 5</summary>
+
+**Answer: (b)**
+
+With more data, likelihood narrows (more certain), prior stays fixed. ML ≈ MAP eventually.
+</details>
+
+<details>
+<summary>Exercise 6</summary>
+
+**Answer: (c)**
+
+Bayesian predictive: average the likelihood $p(y \mid x,\theta)$ over the posterior $p(\theta \mid D)$.
+(a) has wrong conditioning. (b), (d) don't use the data $D$.
+</details>
+
+<details>
+<summary>Exercise 7</summary>
+
+**Answer: (a)**
+
+Evidence = training fit − complexity. The complexity term prevents overfitting.
+(b) is the frequentist approach. (d) says "entropy" — wrong.
+</details>
+
+<details>
+<summary>Exercise 8</summary>
+
+**Answer: (d)**
+
+Joint model $p(x,s,z) = p(x \mid s,z)p(s,z)$. Marginalize $z$: $p(s \mid x) \propto \int p(x \mid s,z)p(s,z) \, dz$.
+(a), (b) use wrong factorization. (c) conditions on $z$ which is unobserved.
+</details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>

@@ -127,19 +127,26 @@ def convert_ipynb_manually(ipynb_file_path):
         
         html_content = []
         
-        for cell in notebook_data.get('cells', []):
+        for i, cell in enumerate(notebook_data.get('cells', [])):
             cell_type = cell.get('cell_type', '')
             source = cell.get('source', [])
             
             if isinstance(source, list):
                 source_text = ''.join(source)
-            else:
+            elif source is not None:
                 source_text = source
+            else:
+                source_text = ""
             
             if cell_type == 'markdown':
                 # Convert markdown to HTML
                 html_content.append('<div class="markdown-cell">')
-                html_content.append(markdown.markdown(source_text, extensions=['extra', 'codehilite', 'fenced_code', 'tables', 'mdx_math']))
+                try:
+                    html_content.append(markdown.markdown(source_text, extensions=['extra', 'codehilite', 'fenced_code', 'tables', 'mdx_math']))
+                except Exception as e:
+                    print(f"      -> Error in cell {i} (type: {cell_type}): {e}")
+                    print(f"      -> Source text: {repr(source_text)}")
+                    raise e
                 html_content.append('</div>')
                 
             elif cell_type == 'code':

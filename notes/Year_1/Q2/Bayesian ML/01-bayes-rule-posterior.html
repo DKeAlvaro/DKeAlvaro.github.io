@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="01 Bayes Rule Posterior - MSc AI & Engineering Systems Notes">
+    <title>01 Bayes Rule Posterior - MSc AIES</title>
+    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/contrib/auto-render.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Initialize KaTeX
+            renderMathInElement(document.body, {
+                delimiters: [
+                    {left: "$$", right: "$$", display: true},
+                    {left: "$", right: "$", display: false}
+                ]
+            });
+            
+            // Initialize Prism.js syntax highlighting
+            if (typeof Prism !== 'undefined') {
+                Prism.highlightAll();
+            }
+            
+            // Handle theme switching for Prism.js
+            function updatePrismTheme() {
+                const isDark = document.body.classList.contains('dark-theme');
+                const prismLink = document.querySelector('link[href*="prism"]');
+                if (prismLink) {
+                    if (isDark) {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-dark.min.css';
+                    } else {
+                        prismLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css';
+                    }
+                }
+            }
+            
+            // Check initial theme
+            updatePrismTheme();
+            
+            // Listen for theme changes
+            const observer = new MutationObserver(function(mutations) {
+                mutations.forEach(function(mutation) {
+                    if (mutation.type === 'attributes' && mutation.attributeName === 'class') {
+                        updatePrismTheme();
+                    }
+                });
+            });
+            
+            observer.observe(document.body, {
+                attributes: true,
+                attributeFilter: ['class']
+            });
+        });
+    </script>
+    <style>
+        .note-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .note-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+        .note-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 0.8rem;
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 400;
+            background: transparent;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+        .back-link:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+        .nav-left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .breadcrumb-section {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .folder-path {
+             font-size: 0.8rem;
+             color: var(--text-color-secondary);
+             opacity: 0.7;
+         }
+         .current-page-title {
+             font-size: 1.3rem;
+             font-weight: 700;
+             color: var(--text-color);
+             margin: 0;
+             line-height: 1.3;
+             letter-spacing: -0.01em;
+         }
+        .note-content {
+            line-height: 1.8;
+            color: var(--text-color);
+        }
+        .note-content h1, .note-content h2, .note-content h3 {
+            color: var(--primary-color);
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+        .note-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1rem 0;
+            display: block;
+        }
+        /* Preserve centered images from markdown HTML */
+        .note-content div[style*="text-align: center"] {
+            text-align: center !important;
+        }
+        .note-content div[style*="text-align: center"] img {
+            margin: 1rem auto;
+        }
+        .note-content pre {
+            background: var(--code-bg);
+            padding: 1rem;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        .note-content code {
+            background: var(--code-bg);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .note-content blockquote {
+            border-left: 4px solid var(--primary-color);
+            padding-left: 1rem;
+            margin: 1rem 0;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        .note-content ul, .note-content ol {
+            padding-left: 2rem;
+            margin: 1rem 0;
+        }
+        .note-content ul {
+            list-style-type: disc;
+        }
+        .note-content li {
+            margin-bottom: 0.2rem;
+            display: list-item;
+            list-style-position: outside;
+        }
+        /* Reduce spacing for nested lists */
+        .note-content li ul, .note-content li ol {
+            margin: 0.3rem 0;
+            padding-left: 1.5rem;
+        }
+        .note-content ul li::marker {
+            color: var(--primary-color);
+            font-size: 1.2em;
+        }
+        
+        /* Q&A Styles */
+        .qa-item {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-color);
+        }
+        
+        .qa-question {
+            padding: 1rem;
+            background: var(--secondary-bg, #f8f9fa);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: background-color 0.2s ease;
+            user-select: none;
+        }
+        
+        .qa-question:hover {
+            background: var(--hover-bg, #e9ecef);
+        }
+        
+        .qa-icon {
+            font-size: 0.8rem;
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .qa-question.active .qa-icon {
+            transform: rotate(90deg);
+        }
+        
+        .qa-text {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+        }
+        
+        .qa-answer {
+            padding: 1rem;
+            background: var(--bg-color);
+            border-top: 1px solid var(--border-color);
+            display: none;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .qa-answer.active {
+            display: block;
+        }
+        
+        /* Mobile responsive styles */
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0.5rem;
+            }
+            .navigation-header {
+                padding: 1rem;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .nav-left {
+                gap: 1rem;
+            }
+            .breadcrumb-section {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+            .current-page-title {
+                font-size: 1.1rem;
+                text-align: left;
+            }
+            .back-link {
+                font-size: 0.9rem;
+                padding: 0.6rem 1rem;
+                min-height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 6px;
+                background: var(--border-color);
+                color: var(--text-color) !important;
+                text-decoration: none;
+                border: 1px solid var(--border-color);
+                transition: all 0.2s ease;
+                flex-shrink: 0;
+            }
+            .back-link:hover {
+                background: var(--primary-color);
+                color: white !important;
+                border-color: var(--primary-color);
+            }
+            .folder-path {
+                font-size: 0.85rem;
+                color: var(--text-color-secondary);
+                opacity: 0.8;
+                flex: 1;
+                min-width: 0;
+            }
+            .note-navigation {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                flex-wrap: nowrap;
+            }
+            .nav-button {
+                font-size: 1.2rem;
+                padding: 0.5rem;
+                min-height: 40px;
+                min-width: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .nav-button span:not(.nav-icon) {
+                display: none;
+            }
+            .nav-progress {
+                flex: 1;
+                font-size: 0.8rem;
+                text-align: center;
+                color: var(--text-color-secondary);
+            }
+            .note-header {
+                margin-bottom: 1rem;
+                padding-bottom: 1.5rem;
+            }
+            .note-title {
+                font-size: 2rem;
+            }
+            .note-content h1 {
+                font-size: 1.8rem;
+            }
+            .note-content h2 {
+                font-size: 1.5rem;
+            }
+            .note-content h3 {
+                font-size: 1.3rem;
+            }
+            .note-content pre {
+                padding: 0.75rem;
+                font-size: 0.9rem;
+            }
+            .note-content ul, .note-content ol {
+                padding-left: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+             .note-container {
+                 padding: 0.5rem;
+             }
+             .note-header {
+                 margin-bottom: 1.15rem;
+                 padding-bottom: 0.75rem;
+             }
+             .back-link {
+                 padding: 0.25rem 0.5rem;
+                 font-size: 0.85rem;
+             }
+         }
+        
+        /* Navigation header styles */
+         .navigation-header {
+             display: flex;
+             flex-direction: column;
+             gap: 1.25rem;
+             margin-bottom: 2rem;
+             padding: 1.25rem;
+             background: transparent;
+             border-radius: 0;
+             border: none;
+             border-bottom: 1px solid var(--border-color);
+         }
+         
+         /* Navigation buttons styles */
+         .note-navigation {
+             display: flex;
+             justify-content: center;
+             align-items: center;
+             gap: 1rem;
+         }
+         
+         .nav-button {
+             display: inline-flex;
+             align-items: center;
+             justify-content: center;
+             padding: 0.6rem;
+             background: transparent;
+             border: 1px solid var(--border-color);
+             border-radius: 4px;
+             color: var(--text-color);
+             text-decoration: none;
+             font-size: 1rem;
+             font-weight: 400;
+             transition: all 0.2s ease;
+             width: 36px;
+             height: 36px;
+         }
+         
+         .nav-button:hover {
+             color: var(--primary-color);
+             border-color: var(--primary-color);
+         }
+         
+         .nav-button:disabled {
+             opacity: 0.5;
+             cursor: not-allowed;
+             pointer-events: none;
+         }
+         
+         .nav-button.prev {
+             justify-content: flex-start;
+         }
+         
+         .nav-button.next {
+             justify-content: flex-end;
+         }
+         
+         .nav-button-text {
+             display: flex;
+             flex-direction: column;
+             align-items: inherit;
+         }
+         
+         .nav-button-label {
+             font-size: 0.75rem;
+             opacity: 0.7;
+             margin-bottom: 0.2rem;
+         }
+         
+         .nav-button-title {
+             font-weight: 500;
+             max-width: 200px;
+             overflow: hidden;
+             text-overflow: ellipsis;
+             white-space: nowrap;
+         }
+         
+         .nav-progress {
+             display: flex;
+             flex-direction: column;
+             align-items: center;
+             gap: 0.5rem;
+             flex: 1;
+             margin: 0 1rem;
+         }
+         
+         .nav-progress-text {
+             font-size: 0.8rem;
+             font-weight: 400;
+             color: var(--text-color);
+             opacity: 0.7;
+             text-align: center;
+         }
+         
+         .nav-progress-bar {
+             width: 100%;
+             max-width: 200px;
+             height: 4px;
+             background: #f0f0f0;
+             border-radius: 2px;
+             overflow: hidden;
+         }
+         
+         .nav-progress-fill {
+             height: 100%;
+             background: #007acc;
+             transition: width 0.3s ease;
+         }
+         
+         @media (max-width: 768px) {
+              .note-navigation {
+                  flex-direction: row;
+                  gap: 0.75rem;
+                  align-items: center;
+              }
+              
+              .nav-button {
+                  width: 40px;
+                  min-width: 40px;
+                  height: 40px;
+                  border-radius: 50%;
+                  padding: 0.5rem;
+                  font-size: 1.2rem;
+              }
+              
+              .nav-progress {
+                  flex: 1;
+                  margin: 0;
+              }
+              
+              .nav-button-title {
+                  max-width: none;
+              }
+          }
+          
+          /* Jupyter Notebook Styles */
+          .code-cell {
+              margin: 1.5rem 0;
+              border: 1px solid var(--border-color);
+              border-radius: 8px;
+              overflow: hidden;
+              background: var(--bg-color);
+          }
+          
+          .markdown-cell {
+              margin: 1.5rem 0;
+              padding: 1rem;
+              background: var(--bg-color);
+              border-radius: 8px;
+          }
+          
+          .input-area {
+              background: var(--code-bg, #f8f9fa);
+              border-bottom: 1px solid var(--border-color);
+          }
+          
+          .input-area pre {
+              margin: 0;
+              padding: 1rem;
+              background: transparent;
+              border-radius: 0;
+              overflow-x: auto;
+          }
+          
+          .input-area code {
+              background: transparent;
+              padding: 0;
+              border-radius: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+              line-height: 1.4;
+          }
+          
+          .output-area {
+              background: var(--bg-color);
+              padding: 1rem;
+          }
+          
+          .output-stream {
+              background: var(--secondary-bg, #f1f3f4);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border-left: 3px solid var(--primary-color);
+          }
+          
+          .output-result {
+              background: var(--bg-color);
+              padding: 0.75rem;
+              margin: 0.5rem 0;
+              border-radius: 4px;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.85rem;
+              line-height: 1.4;
+              color: var(--text-color);
+              border: 1px solid var(--border-color);
+          }
+          
+          .output-image {
+              text-align: center;
+              margin: 1rem 0;
+              padding: 0.5rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+          }
+          
+          .output-image img {
+              max-width: 100%;
+              height: auto;
+              border-radius: 4px;
+              box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+              margin: 0;
+          }
+          
+          .output-html {
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+              background: var(--bg-color);
+              border-radius: 4px;
+              border: 1px solid var(--border-color);
+              overflow-x: auto;
+          }
+          
+          .output-html table {
+              width: 100%;
+              border-collapse: collapse;
+              margin: 0;
+          }
+          
+          .output-html th,
+          .output-html td {
+              padding: 0.5rem;
+              border: 1px solid var(--border-color);
+              text-align: left;
+          }
+          
+          .output-html th {
+              background: var(--secondary-bg, #f8f9fa);
+              font-weight: 600;
+          }
+          
+          .output-error {
+              background: #fef2f2;
+              border: 1px solid #fecaca;
+              border-radius: 4px;
+              margin: 0.5rem 0;
+              padding: 0.75rem;
+          }
+          
+          .error-name {
+              color: #dc2626;
+              font-weight: 600;
+              margin: 0 0 0.5rem 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.9rem;
+          }
+          
+          .error-traceback {
+              color: #7f1d1d;
+              margin: 0;
+              font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+              font-size: 0.8rem;
+              line-height: 1.4;
+              background: #fef7f7;
+              padding: 0.5rem;
+              border-radius: 3px;
+              overflow-x: auto;
+          }
+          
+          /* Dark theme adjustments for error outputs */
+          .dark-theme .output-error {
+              background: #2d1b1b;
+              border-color: #7f1d1d;
+          }
+          
+          .dark-theme .error-name {
+              color: #f87171;
+          }
+          
+          .dark-theme .error-traceback {
+              color: #fca5a5;
+              background: #1f1515;
+          }
+          
+          /* Dark mode adjustments for Jupyter cells */
+          @media (prefers-color-scheme: dark) {
+              .input-area {
+                  background: var(--code-bg, #2d3748);
+              }
+              
+              .output-stream {
+                  background: var(--secondary-bg, #4a5568);
+              }
+          }
+    </style>
+</head>
+<body>
+    <div class="menu-overlay"></div>
+    <header>
+        <nav class="nav-container">
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="../../../../index.html">About</a></li>
+                <li><a href="../../../../journey.html">My Life</a></li>
+                <li><a href="../../../../projects.html">Projects</a></li>
+                <li><a href="../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../notes.html">MSc AIES</a></li>
+                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
+                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
+                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
+                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+            </ul>
+            <div class="nav-right">
+                <div class="social-links">
+                    <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
+                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                    </a>
+                    <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
+                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                    </a>
+                    <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
+                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                    </a>
+                </div>
+                <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
+                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="page-container">
+        <div class="content">
+            <div class="note-container">
+                <div class="navigation-header">
+                    <div class="nav-left">
+                        <div class="breadcrumb-section">
+                            <a href="../../../../notes.html" class="back-link">
+                                <span>←</span>
+                                <span>Back to Notes</span>
+                            </a>
+                            <span class="folder-path">Year_1 / Q2</span>
+                        </div>
+                        <div class="current-page-title" id="currentPageTitle"></div>
+                    </div>
+                    
+                    <div class="note-navigation" id="noteNavigation">
+                        <a href="#" class="nav-button prev" id="prevButton" style="visibility: hidden;" title="Previous note">
+                            <span class="nav-icon">←</span>
+                        </a>
+                        
+                        <div class="nav-progress">
+                            <div class="nav-progress-text" id="progressText">Loading...</div>
+                            <div class="nav-progress-bar">
+                                <div class="nav-progress-fill" id="progressFill" style="width: 0%;"></div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="nav-button next" id="nextButton" style="visibility: hidden;" title="Next note">
+                            <span class="nav-icon">→</span>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="note-content">
+                    <h1>Exercise Type 1: Bayes' Rule &amp; Posterior Computation</h1>
+<blockquote>
+<p><strong>What the exam asks:</strong> You are given a mathematical model with an unknown parameter θ, a formula for how data is generated (the likelihood), and a formula for what you believed before seeing data (the prior). You must compute the updated belief after seeing data (the posterior).</p>
+</blockquote>
+<hr />
+<h2>Part 0: What Do All These Symbols Mean?</h2>
+<p>Before we do ANYTHING, let's learn to read the math.</p>
+<h3>The Basic Symbols</h3>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>What It Looks Like</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p(\cdot)$</td>
+<td>lowercase p with parentheses</td>
+<td>"probability of..." — a function that tells you how likely something is</td>
+</tr>
+<tr>
+<td>$\theta$</td>
+<td>Greek letter "theta" (looks like a circle with a line through it)</td>
+<td>The <strong>unknown parameter</strong> we're trying to figure out. Think of it as "the truth we don't know"</td>
+</tr>
+<tr>
+<td>$x$</td>
+<td>lowercase x</td>
+<td>The <strong>data</strong> we observed. A number we actually saw</td>
+</tr>
+<tr>
+<td>$</td>
+<td>$</td>
+<td>vertical bar</td>
+</tr>
+<tr>
+<td>$m_1$</td>
+<td>letter m with subscript 1</td>
+<td>"Model 1" — a particular way the world might work</td>
+</tr>
+<tr>
+<td>$\int$</td>
+<td>elongated S symbol</td>
+<td><strong>Integral</strong> — means "add up infinitely many tiny pieces" (like a continuous sum)</td>
+</tr>
+<tr>
+<td>$d\theta$</td>
+<td>letter d with Greek theta</td>
+<td>"with respect to θ" — tells the integral what variable we're adding over</td>
+</tr>
+<tr>
+<td>$\leq$</td>
+<td>less-than-or-equal sign</td>
+<td>"less than or equal to"</td>
+</tr>
+</tbody>
+</table>
+<h3>Reading Probability Expressions Out Loud</h3>
+<table>
+<thead>
+<tr>
+<th>Expression</th>
+<th>How to Read It</th>
+<th>What It Means</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$p(x)$</td>
+<td>"probability of x"</td>
+<td>How likely is it that we'd observe this data?</td>
+</tr>
+<tr>
+<td>$p(\theta)$</td>
+<td>"probability of theta"</td>
+<td>How likely do we think each possible value of θ is?</td>
+</tr>
+<tr>
+<td>$p(x|\theta)$</td>
+<td>"probability of x GIVEN theta"</td>
+<td>If we KNEW θ was the truth, how likely would this data be?</td>
+</tr>
+<tr>
+<td>$p(\theta|x)$</td>
+<td>"probability of theta GIVEN x"</td>
+<td>Now that we've SEEN the data x, how likely is each value of θ?</td>
+</tr>
+<tr>
+<td>$p(x,\theta)$</td>
+<td>"joint probability of x and theta"</td>
+<td>How likely are BOTH x and θ together?</td>
+</tr>
+</tbody>
+</table>
+<h3>The Key Relationship (Product Rule)</h3>
+<p>
+<script type="math/tex; mode=display">p(x, \theta) = p(x|\theta) \cdot p(\theta)</script>
+</p>
+<p><strong>In words:</strong> The joint probability (both happening) equals the conditional probability times the marginal probability.</p>
+<p><strong>Analogy:</strong> "The probability that it's raining AND you have an umbrella" = "The probability you have an umbrella GIVEN it's raining" × "The probability it's raining."</p>
+<hr />
+<h2>Part 1: The Core Concepts — No Math</h2>
+<h3>What Is Bayesian Inference? (Plain English)</h3>
+<p>Imagine you're trying to figure out if a coin is fair or biased. You have:</p>
+<ol>
+<li><strong>A prior belief</strong> — before flipping, you think the coin is probably fair (maybe slightly biased)</li>
+<li><strong>Some data</strong> — you flip the coin 10 times and get 8 heads</li>
+<li><strong>A posterior belief</strong> — after seeing the data, you update your belief</li>
+</ol>
+<p><strong>Bayesian inference is just the math of updating beliefs.</strong> That's it.</p>
+<h3>The Four Key Words</h3>
+<table>
+<thead>
+<tr>
+<th>Word</th>
+<th>Symbol</th>
+<th>Plain English</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prior</strong></td>
+<td>$p(\theta)$</td>
+<td>What I believed BEFORE seeing any data</td>
+</tr>
+<tr>
+<td><strong>Likelihood</strong></td>
+<td>$p(x</td>
+<td>\theta)$</td>
+</tr>
+<tr>
+<td><strong>Posterior</strong></td>
+<td>$p(\theta</td>
+<td>x)$</td>
+</tr>
+<tr>
+<td><strong>Evidence</strong></td>
+<td>$p(x)$</td>
+<td>How likely was this data overall? (just a normalization number)</td>
+</tr>
+</tbody>
+</table>
+<h3>Bayes' Rule — THE Most Important Formula</h3>
+<p>
+<script type="math/tex; mode=display">p(\theta|x) = \frac{p(x|\theta) \cdot p(\theta)}{p(x)}</script>
+</p>
+<p><strong>In plain English:</strong></p>
+<blockquote>
+<p>My updated belief = (how well θ explains the data) × (my original belief), divided by (a normalizing number)</p>
+</blockquote>
+<h3>The "Proportional To" Shortcut (∝)</h3>
+<p>You'll see this everywhere:</p>
+<p>
+<script type="math/tex; mode=display">p(\theta|x) \propto p(x|\theta) \cdot p(\theta)</script>
+</p>
+<p>The symbol $\propto$ means <strong>"proportional to"</strong>. It means: "the shape of the posterior is given by likelihood × prior, but the height might not add up to 1 yet."</p>
+<p><strong>Why do we use this?</strong> Because the denominator $p(x)$ is just a number that makes everything add up to 1. We can figure it out at the end.</p>
+<p><strong>Analogy:</strong> Imagine you're baking a cake and the recipe says "2 parts flour, 1 part sugar." The proportions matter. Then at the end you scale it up or down to feed the right number of people. That scaling is the denominator.</p>
+<hr />
+<h2>Part 2: The Beta Function Trick (You NEED This)</h2>
+<h3>What Is an Integral?</h3>
+<p>An integral $\int_a^b f(\theta) \, d\theta$ means "add up the area under the curve of $f(\theta)$ from θ = a to θ = b."</p>
+<p>In our case, we need to compute integrals like:</p>
+<p>
+<script type="math/tex; mode=display">\int_0^1 \theta^3(1-\theta)^2 \, d\theta</script>
+</p>
+<p>This looks terrifying. But there's a <strong>trick</strong>.</p>
+<h3>The Beta Function Formula (MEMORIZE THIS)</h3>
+<p>For ANY integral of this form:</p>
+<p>
+<script type="math/tex; mode=display">\int_0^1 \theta^p (1-\theta)^q \, d\theta = \frac{p! \cdot q!}{(p+q+1)!}</script>
+</p>
+<p>Where $p$ and $q$ are the <strong>powers</strong> (exponents) of θ and $(1-\theta)$.</p>
+<h3>What Is a Factorial?</h3>
+<p>The notation $n!$ (read "n factorial") means multiply all numbers from 1 to n:</p>
+<table>
+<thead>
+<tr>
+<th>Factorial</th>
+<th>Calculation</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>$1!$</td>
+<td>$1$</td>
+<td>$1$</td>
+</tr>
+<tr>
+<td>$2!$</td>
+<td>$2 \times 1$</td>
+<td>$2$</td>
+</tr>
+<tr>
+<td>$3!$</td>
+<td>$3 \times 2 \times 1$</td>
+<td>$6$</td>
+</tr>
+<tr>
+<td>$4!$</td>
+<td>$4 \times 3 \times 2 \times 1$</td>
+<td>$24$</td>
+</tr>
+<tr>
+<td>$5!$</td>
+<td>$5 \times 4 \times 3 \times 2 \times 1$</td>
+<td>$120$</td>
+</tr>
+<tr>
+<td>$6!$</td>
+<td>$720$</td>
+<td>$720$</td>
+</tr>
+<tr>
+<td>$7!$</td>
+<td>$5040$</td>
+<td>$5040$</td>
+</tr>
+<tr>
+<td>$8!$</td>
+<td>$40320$</td>
+<td>$40320$</td>
+</tr>
+</tbody>
+</table>
+<h3>Worked Examples of the Beta Function</h3>
+<p><strong>Example 1:</strong> $\int_0^1 \theta^2(1-\theta)^1 \, d\theta$</p>
+<ul>
+<li>$p = 2$ (power of θ), $q = 1$ (power of $1-\theta$)</li>
+<li>Answer: $\frac{2! \cdot 1!}{(2+1+1)!} = \frac{2 \cdot 1}{4!} = \frac{2}{24} = \frac{1}{12}$</li>
+</ul>
+<p><strong>Example 2:</strong> $\int_0^1 \theta^5(1-\theta)^2 \, d\theta$</p>
+<ul>
+<li>$p = 5$, $q = 2$</li>
+<li>Answer: $\frac{5! \cdot 2!}{(5+2+1)!} = \frac{120 \cdot 2}{8!} = \frac{240}{40320} = \frac{1}{168}$</li>
+</ul>
+<p><strong>Example 3:</strong> $\int_0^1 \theta^1(1-\theta)^1 \, d\theta$</p>
+<ul>
+<li>$p = 1$, $q = 1$</li>
+<li>Answer: $\frac{1! \cdot 1!}{(1+1+1)!} = \frac{1 \cdot 1}{3!} = \frac{1}{6}$</li>
+</ul>
+<hr />
+<h2>Part 3: FULL Walkthrough of a Real Exam Question</h2>
+<h3>THE EXAM QUESTION (2021-Part-B, Question 2a)</h3>
+<blockquote>
+<p>A model $m_1$ has a single parameter $\theta$ where $0 \leq \theta \leq 1$ (θ is a number between 0 and 1).</p>
+<p>The <strong>sampling distribution</strong> (also called likelihood) is:
+<script type="math/tex; mode=display">p(x|\theta, m_1) = (1-\theta)\theta^x</script>
+</p>
+<p>The <strong>prior</strong> is:
+<script type="math/tex; mode=display">p(\theta|m_1) = 6\theta(1-\theta)</script>
+</p>
+<p>We observe data $x = 4$.</p>
+<p><strong>Determine the posterior</strong> $p(\theta|x=4, m_1)$.</p>
+<p>Options:
+- (a) $6\theta^4(1-\theta)^2$
+- (b) $\frac{\int_0^1 \theta^5(1-\theta)^2 \, d\theta}{\theta^5(1-\theta)^2}$
+- (c) $\frac{\theta^5(1-\theta)^2}{\int_0^1 \theta^5(1-\theta)^2 \, d\theta}$</p>
+</blockquote>
+<hr />
+<h3>STEP 1: Understand What the Question Is Asking</h3>
+<p>We need to find $p(\theta|x=4, m_1)$ — our updated belief about θ after seeing $x = 4$.</p>
+<p>By Bayes' rule:</p>
+<p>
+<script type="math/tex; mode=display">p(\theta|x=4, m_1) = \frac{p(x=4|\theta, m_1) \cdot p(\theta|m_1)}{p(x=4|m_1)}</script>
+</p>
+<p>The numerator is <strong>likelihood × prior</strong>. The denominator is the <strong>evidence</strong> (a number that normalizes things).</p>
+<hr />
+<h3>STEP 2: Evaluate the Likelihood at x = 4</h3>
+<p>The likelihood formula is: $p(x|\theta, m_1) = (1-\theta)\theta^x$</p>
+<p>We replace $x$ with $4$:</p>
+<p>
+<script type="math/tex; mode=display">p(x=4|\theta, m_1) = (1-\theta)\theta^4</script>
+</p>
+<p><strong>What this means:</strong> For each possible value of θ, this formula tells us how well it explains the observation $x = 4$.</p>
+<hr />
+<h3>STEP 3: Write Down the Prior</h3>
+<p>
+<script type="math/tex; mode=display">p(\theta|m_1) = 6\theta(1-\theta)</script>
+</p>
+<p><strong>What this means:</strong> Before seeing any data, this is how plausible we think each value of θ is.</p>
+<ul>
+<li>When θ = 0: prior = $6 \times 0 \times 1 = 0$ (we don't believe θ = 0 at all)</li>
+<li>When θ = 0.5: prior = $6 \times 0.5 \times 0.5 = 1.5$ (quite plausible)</li>
+<li>When θ = 1: prior = $6 \times 1 \times 0 = 0$ (we don't believe θ = 1 at all)</li>
+</ul>
+<p>So the prior says θ is most likely somewhere in the middle.</p>
+<hr />
+<h3>STEP 4: Multiply Likelihood × Prior (The Numerator)</h3>
+<p>
+<script type="math/tex; mode=display">\text{Numerator} = (1-\theta)\theta^4 \times 6\theta(1-\theta)</script>
+</p>
+<p>Now let's carefully multiply these together:</p>
+<ol>
+<li>The constant: $6$</li>
+<li>Powers of θ: $\theta^4 \times \theta^1 = \theta^{4+1} = \theta^5$ (when you multiply, add exponents)</li>
+<li>Powers of $(1-\theta)$: $(1-\theta)^1 \times (1-\theta)^1 = (1-\theta)^{1+1} = (1-\theta)^2$</li>
+</ol>
+<p>
+<script type="math/tex; mode=display">\text{Numerator} = 6\theta^5(1-\theta)^2</script>
+</p>
+<hr />
+<h3>STEP 5: Compute the Evidence (The Denominator)</h3>
+<p>The evidence is the integral of the numerator over all possible values of θ:</p>
+<p>
+<script type="math/tex; mode=display">p(x=4|m_1) = \int_0^1 6\theta^5(1-\theta)^2 \, d\theta = 6 \int_0^1 \theta^5(1-\theta)^2 \, d\theta</script>
+</p>
+<p>We pull the 6 outside the integral because constants can be moved out.</p>
+<p><strong>IMPORTANT:</strong> We don't need to evaluate this integral yet. We just need to write it down for now.</p>
+<hr />
+<h3>STEP 6: Write the Full Posterior</h3>
+<p>
+<script type="math/tex; mode=display">p(\theta|x=4, m_1) = \frac{6\theta^5(1-\theta)^2}{6 \int_0^1 \theta^5(1-\theta)^2 \, d\theta}</script>
+</p>
+<p>The 6 cancels:</p>
+<p>
+<script type="math/tex; mode=display">p(\theta|x=4, m_1) = \frac{\theta^5(1-\theta)^2}{\int_0^1 \theta^5(1-\theta)^2 \, d\theta}</script>
+</p>
+<hr />
+<h3>STEP 7: Match the Answer</h3>
+<ul>
+<li>(a) $6\theta^4(1-\theta)^2$ — <strong>Wrong.</strong> Power of θ is 4, should be 5. Also not normalized.</li>
+<li>(b) $\frac{\int \cdots}{\theta^5(1-\theta)^2}$ — <strong>Wrong.</strong> Upside down! The integral is in the numerator.</li>
+<li>(c) $\frac{\theta^5(1-\theta)^2}{\int_0^1 \theta^5(1-\theta)^2 \, d\theta}$ — <strong>Correct!</strong> ✅</li>
+</ul>
+<p><strong>Answer: (c)</strong></p>
+<hr />
+<h2>Part 4: Tricks &amp; Shortcuts</h2>
+<h3>TRICK 1: The Power-Adding Rule</h3>
+<p>When multiplying terms with the same base, ADD the exponents:</p>
+<ul>
+<li>$\theta^4 \times \theta^1 = \theta^5$</li>
+<li>$(1-\theta)^1 \times (1-\theta)^1 = (1-\theta)^2$</li>
+</ul>
+<p>So if the prior has $\theta^a(1-\theta)^b$ and the likelihood has $\theta^c(1-\theta)^d$, the product has $\theta^{a+c}(1-\theta)^{b+d}$.</p>
+<h3>TRICK 2: Spot the Correct Answer Instantly</h3>
+<p>The posterior <strong>always</strong> looks like:</p>
+<p>
+<script type="math/tex; mode=display">\frac{\text{function}}{\int \text{same function} \, d\theta}</script>
+</p>
+<p>If the integral is in the numerator → wrong.
+If the function in the numerator doesn't match the one in the integral → wrong.</p>
+<h3>TRICK 3: The Constant Cancels</h3>
+<p>If both the numerator and denominator have the same constant (like 6), it cancels. The final answer won't have it.</p>
+<h3>TRICK 4: Common Wrong Answers to Watch For</h3>
+<table>
+<thead>
+<tr>
+<th>What They Do Wrong</th>
+<th>What It Looks Like</th>
+<th>Why It's Wrong</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forget to multiply by the prior</td>
+<td>$\theta^4(1-\theta)$ instead of $\theta^5(1-\theta)^2$</td>
+<td>They only used the likelihood</td>
+</tr>
+<tr>
+<td>Wrong exponent arithmetic</td>
+<td>$\theta^4$ instead of $\theta^5$</td>
+<td>They didn't add the exponents from prior</td>
+</tr>
+<tr>
+<td>Upside down</td>
+<td>integral on top, function on bottom</td>
+<td>Bayes' rule is likelihood×prior / evidence, not the reverse</td>
+</tr>
+<tr>
+<td>Missing normalization</td>
+<td>Just $6\theta^5(1-\theta)^2$</td>
+<td>This doesn't integrate to 1, so it's not a valid probability</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2>Part 5: Practice Exercises</h2>
+<h3>Exercise 1 (2021-Part-B, Question 2b)</h3>
+<blockquote>
+<p>Same model: $p(x|\theta, m_1) = (1-\theta)\theta^x$, $p(\theta|m_1) = 6\theta(1-\theta)$</p>
+<p><strong>Determine the evidence</strong> $p(x=4|m_1)$.</p>
+<p>Options:
+- (a) $\int_0^1 \frac{(1-\theta)\theta^4}{6\theta(1-\theta)} \, d\theta$
+- (b) $\int_0^1 (1-\theta)\theta^4 \, d\theta$
+- (c) $\int_0^1 6\theta^5(1-\theta)^2 \, d\theta$
+- (d) $\int_0^1 \frac{6\theta(1-\theta)}{(1-\theta)\theta^4} \, d\theta$</p>
+</blockquote>
+<p><strong>Hint:</strong> The evidence = ∫ likelihood × prior dθ. What did we compute in Step 5 above?</p>
+<hr />
+<h3>Exercise 2 (2021-Part-B, Question 2c)</h3>
+<blockquote>
+<p>Model $m_2$: likelihood $p(x|\theta, m_2) = (1-\theta)\theta^x$, prior $p(\theta|m_2) = 2\theta$</p>
+<p><strong>Determine</strong> $p(x=4|m_2)$.</p>
+<p>Options:
+- (a) $\int_0^1 2(1-\theta)\theta^5 \, d\theta$
+- (b) $\frac{1}{\int_0^1 2(1-\theta)\theta^5} \, d\theta$
+- (c/d) $\int_0^1 \frac{(1-\theta)\theta^4}{2\theta} \, d\theta$</p>
+</blockquote>
+<p><strong>Hint:</strong> 
+- Step 1: Likelihood at x=4 → $(1-\theta)\theta^4$
+- Step 2: Multiply by prior → $(1-\theta)\theta^4 \times 2\theta$
+- Step 3: Add exponents → $2\theta^5(1-\theta)$
+- Step 4: Integrate</p>
+<hr />
+<h3>Exercise 3 (2022, Question 4a)</h3>
+<blockquote>
+<p>Model $m_1$: likelihood $p(x|\theta, m_1) = \theta^x(1-\theta)^{1-x}$, prior $p(\theta|m_1) = 6\theta(1-\theta)$</p>
+<p><strong>Determine</strong> $p(x=1|m_1)$ (the evidence for x=1).</p>
+<p>Options:
+- (a) $2/3$
+- (b) $1/6$
+- (c) $1/3$
+- (d) $1/2$</p>
+</blockquote>
+<p><strong>Hint:</strong>
+- Step 1: Plug x=1 into likelihood → $\theta^1(1-\theta)^0 = \theta$ (anything to the power 0 = 1)
+- Step 2: Multiply by prior → $\theta \times 6\theta(1-\theta) = 6\theta^2(1-\theta)$
+- Step 3: Integrate → use Beta function: p=2, q=1</p>
+<hr />
+<h3>Exercise 4 (2022, Question 4b)</h3>
+<blockquote>
+<p>Same model as Exercise 3. <strong>Determine the posterior</strong> $p(\theta|x=1, m_1)$.</p>
+<p>Options:
+- (a) $6\frac{\theta^2}{1-\theta}$
+- (b) $12\theta^2(1-\theta)$
+- (c) $6\theta^2(1-\theta)$
+- (d) $12\frac{\theta^2}{1-\theta}$</p>
+</blockquote>
+<p><strong>Hint:</strong>
+- Numerator = likelihood × prior = $6\theta^2(1-\theta)$
+- Evidence = $\int_0^1 6\theta^2(1-\theta) d\theta = 6 \times \frac{2! \cdot 1!}{4!} = 6 \times \frac{2}{24} = 1/2$
+- Posterior = numerator / evidence = $6\theta^2(1-\theta) / (1/2)$</p>
+<hr />
+<h3>Exercise 5 (2022, Question 4a)</h3>
+<blockquote>
+<p>Model $m_1$: $p(x|\theta, m_1) = \theta^x(1-\theta)^{1-x}$, $p(\theta|m_1) = 6\theta(1-\theta)$</p>
+<p><strong>Work out</strong> $p(x=1|m_1)$.</p>
+<p>Options:
+- (a) $1/4$
+- (b) $1/2$
+- (c) $\theta/(1+\theta)$
+- (d) $3/4$</p>
+</blockquote>
+<p><strong>Hint:</strong> This is the SAME model as Exercise 3. Same answer.</p>
+<hr />
+<h3>Exercise 6 (2022, Question 4b)</h3>
+<blockquote>
+<p>Same model. <strong>Determine</strong> $p(\theta|x=1, m_1)$.</p>
+<p>Options:
+- (a) $6\theta^2(1-\theta)$
+- (b) $12\theta(1-\theta)^2$
+- (c) $12\theta^2(1-\theta)$
+- (d) $6\theta(1-\theta)^2$</p>
+</blockquote>
+<p><strong>Hint:</strong> Same as Exercise 4.</p>
+<hr />
+<h3>Exercise 7 (2022, Question 4c)</h3>
+<blockquote>
+<p>Model $m_2$: $p(x|\theta, m_2) = (1-\theta)^x\theta^{1-x}$, $p(\theta|m_2) = 2\theta$</p>
+<p><strong>Determine</strong> $p(x=1|m_2)$.</p>
+<p>Options:
+- (a) $2/3$
+- (b) $1/4$
+- (c) $1/2$
+- (d) $1/3$</p>
+</blockquote>
+<p><strong>Hint:</strong> 
+- <strong>WARNING:</strong> The likelihood is $(1-\theta)^x\theta^{1-x}$, which is DIFFERENT from before!
+- Step 1: Plug x=1 → $(1-\theta)^1\theta^0 = 1-\theta$
+- Step 2: Multiply by prior → $(1-\theta) \times 2\theta = 2\theta(1-\theta)$
+- Step 3: Integrate → p=1, q=1</p>
+<hr />
+<hr />
+<h2>Answers</h2>
+<details>
+<summary>Exercise 1</summary>
+
+**Answer: (c)** $\int_0^1 6\theta^5(1-\theta)^2 \, d\theta$
+
+The evidence is always ∫ likelihood × prior dθ.
+
+From our work above: likelihood × prior = $6\theta^5(1-\theta)^2$.
+
+Option (a) divides likelihood by prior — wrong operation.
+Option (b) is missing the prior entirely.
+Option (d) divides prior by likelihood — wrong.
+</details>
+
+<details>
+<summary>Exercise 2</summary>
+
+**Answer: (a)** $\int_0^1 2(1-\theta)\theta^5 \, d\theta$
+
+Step-by-step:
+1. Likelihood at x=4: $(1-\theta)\theta^4$
+2. Prior: $2\theta$
+3. Product: $(1-\theta)\theta^4 \times 2\theta = 2\theta^5(1-\theta)$
+4. Evidence = $\int_0^1 2\theta^5(1-\theta) d\theta$
+
+Option (b) has the integral upside down.
+Option (c/d) divides instead of multiplying.
+</details>
+
+<details>
+<summary>Exercise 3</summary>
+
+**Answer: (d) 1/2**
+
+Step-by-step:
+1. Likelihood at x=1: $\theta^1(1-\theta)^{1-1} = \theta^1(1-\theta)^0 = \theta \times 1 = \theta$
+2. Prior: $6\theta(1-\theta)$
+3. Product: $\theta \times 6\theta(1-\theta) = 6\theta^2(1-\theta)$
+4. Integrate using Beta function: p=2, q=1
+   $$\int_0^1 6\theta^2(1-\theta) d\theta = 6 \cdot \frac{2! \cdot 1!}{(2+1+1)!} = 6 \cdot \frac{2}{24} = 6 \cdot \frac{1}{12} = \frac{1}{2}$$
+</details>
+
+<details>
+<summary>Exercise 4</summary>
+
+**Answer: (b) $12\theta^2(1-\theta)$**
+
+Step-by-step:
+1. Numerator = $6\theta^2(1-\theta)$ (from Exercise 3, Step 3)
+2. Evidence = $1/2$ (from Exercise 3, Step 4)
+3. Posterior = $\frac{6\theta^2(1-\theta)}{1/2} = 6\theta^2(1-\theta) \times 2 = 12\theta^2(1-\theta)$
+
+Option (a) has $(1-\theta)$ in the denominator — wrong.
+Option (c) didn't divide by the evidence (forgot normalization).
+Option (d) has the wrong powers.
+</details>
+
+<details>
+<summary>Exercise 5</summary>
+
+**Answer: (b) 1/2**
+
+Same calculation as Exercise 3. Same model, same x=1.
+</details>
+
+<details>
+<summary>Exercise 6</summary>
+
+**Answer: (c) $12\theta^2(1-\theta)$**
+
+Same calculation as Exercise 4.
+</details>
+
+<details>
+<summary>Exercise 7</summary>
+
+**Answer: (d) 1/3**
+
+Step-by-step:
+1. Likelihood at x=1: $(1-\theta)^1\theta^{1-1} = (1-\theta)\theta^0 = (1-\theta) \times 1 = 1-\theta$
+2. Prior: $2\theta$
+3. Product: $(1-\theta) \times 2\theta = 2\theta(1-\theta) = 2\theta^1(1-\theta)^1$
+4. Integrate using Beta function: p=1, q=1
+   $$\int_0^1 2\theta(1-\theta) d\theta = 2 \cdot \frac{1! \cdot 1!}{(1+1+1)!} = 2 \cdot \frac{1}{6} = \frac{1}{3}$$
+</details>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../../../../script.js"></script>
+
+    <script>
+        // Note navigation functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadNoteNavigation();
+        });
+        
+        async function loadNoteNavigation() {
+            try {
+                // Get current page path relative to root
+                const currentPath = window.location.pathname;
+                const pathParts = currentPath.split('/');
+                const fileName = pathParts[pathParts.length - 1];
+                
+                // Construct the relative path to match navigation data
+                let relativePath = '';
+                if (pathParts.includes('notes')) {
+                    const notesIndex = pathParts.indexOf('notes');
+                    relativePath = pathParts.slice(notesIndex).join('/');
+                } else {
+                    relativePath = 'notes/' + fileName;
+                }
+                
+                // Decode URL encoding (e.g., %20 -> space) to match navigation data
+                relativePath = decodeURIComponent(relativePath);
+                
+                // Load navigation data
+                const response = await fetch('../../../../notes_navigation.json');
+                if (!response.ok) {
+                    console.log('Navigation data not found');
+                    return;
+                }
+                
+                const navigationData = await response.json();
+                const currentNav = navigationData[relativePath];
+                
+                if (!currentNav) {
+                    console.log('Current page not found in navigation data:', relativePath);
+                    return;
+                }
+                
+                // Update progress
+                const progressText = document.getElementById('progressText');
+                const progressFill = document.getElementById('progressFill');
+                const progress = ((currentNav.current_index + 1) / currentNav.total_notes) * 100;
+                
+                progressText.textContent = `${currentNav.current_index + 1} of ${currentNav.total_notes}`;
+                progressFill.style.width = `${progress}%`;
+                
+                // Update current page title in header
+                const currentPageTitle = document.getElementById('currentPageTitle');
+                const pageTitle = relativePath.split('/').pop().replace('.html', '').replace(/_/g, ' ');
+                currentPageTitle.textContent = pageTitle;
+                
+                // Update previous button
+                const prevButton = document.getElementById('prevButton');
+                
+                if (currentNav.previous) {
+                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.title = 'Previous: ' + currentNav.previous_title;
+                    prevButton.style.visibility = 'visible';
+                } else {
+                    prevButton.style.visibility = 'hidden';
+                }
+                
+                // Update next button
+                const nextButton = document.getElementById('nextButton');
+                
+                if (currentNav.next) {
+                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.title = 'Next: ' + currentNav.next_title;
+                    nextButton.style.visibility = 'visible';
+                } else {
+                    nextButton.style.visibility = 'hidden';
+                }
+                
+                // Add keyboard navigation
+                document.addEventListener('keydown', function(e) {
+                    if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
+                    
+                    if (e.key === 'ArrowLeft' && currentNav.previous) {
+                        window.location.href = '../../../../' + currentNav.previous;
+                    } else if (e.key === 'ArrowRight' && currentNav.next) {
+                        window.location.href = '../../../../' + currentNav.next;
+                    }
+                });
+                
+            } catch (error) {
+                console.error('Error loading navigation:', error);
+                document.getElementById('progressText').textContent = 'Navigation unavailable';
+            }
+        }
+    </script>
+
+</body>
+</html>
