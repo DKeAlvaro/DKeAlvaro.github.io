@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="2021 Part A - MSc AI & Engineering Systems Notes">
-    <title>2021 Part A - MSc AIES</title>
-    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../../../../styles.css">
+    <meta name="description" content="2021 Part B - MSc AI & Engineering Systems Notes">
+    <title>2021 Part B - MSc AIES</title>
+    <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -662,30 +662,25 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="../../../../index.html">About</a></li>
-                <li><a href="../../../../journey.html">My Life</a></li>
-                <li><a href="../../../../projects.html">Projects</a></li>
-                <li><a href="../../../../blogs.html">Blog</a></li>
-                <li><a href="../../../../notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+                <li><a href="../../../../../index.html">About</a></li>
+                <li><a href="../../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../../notes.html">MSc AIES</a></li>
+                <li><a href="../../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
                     <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
-                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                        <img src="../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
                     </a>
                     <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
-                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                        <img src="../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
                     </a>
                     <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
-                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                        <img src="../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -697,11 +692,11 @@
                 <div class="navigation-header">
                     <div class="nav-left">
                         <div class="breadcrumb-section">
-                            <a href="../../../../notes.html" class="back-link">
+                            <a href="../../../../../notes.html" class="back-link">
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q2</span>
+                            <span class="folder-path">Year_1 / Q2 / Bayesian ML</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -726,100 +721,71 @@
                 
                 <div class="note-content">
                     <h3>Question 1</h3>
-<p>Which of the following statements are true?</p>
-<ul>
-<li><strong>1a</strong> It is more appropriate to say "the likelihood of the parameters", than "the likelihood of the data".<ul>
-<li>a) true</li>
-<li>b) false</li>
-</ul>
-</li>
-<li><strong>1b</strong> If X and Y are independent Gaussian distributed variables, then $Z=3X-XY$ is also a Gaussian distributed variable.<ul>
-<li>a) true</li>
-<li>b) false</li>
-</ul>
-</li>
-<li><strong>1c</strong> For a given Linear Gaussian Dynamical System with observations ${x_{t}}$ and latent states ${z_{t}}$ the Kalman filter is a recursive solution to the inference problem $p(z_{t}|x_{1:t})$ based on a state estimate at the previous time step $p(z_{t-1}|x_{1:t-1})$ and a new observation $x_{t}.$<ul>
-<li>a) true</li>
-<li>b) false</li>
-</ul>
-</li>
-<li><strong>1d</strong> In the context of parameter estimation, maximum likelihood estimation always selects the parameter values where the Bayesian posterior distribution is maximal.<ul>
-<li>a) true</li>
-<li>b) false</li>
-</ul>
-</li>
-<li><strong>1e</strong> Bayes rule is inconsistent with the Method of Maximum Relative Entropy as a method of inference.<ul>
-<li>a) true</li>
-<li>b) false</li>
-</ul>
-</li>
-</ul>
+<p><strong>1a</strong> The Free Energy Principle (FEP) is a theory about biological self-organization, in particular about how brains develop through interactions with their environment. Which of the following statements is most consistent with FEP:
+* <strong>a.</strong> Our actions aim to reduce the complexity of our model of the environment.
+* <strong>b.</strong> Learning maximizes variational free energy
+* <strong>c.</strong> Perception aims to reduce the complexity of our model of the environment.
+* <strong>d.</strong> We act to fullfil our predictions about future sensory inputs.</p>
+<p><strong>1b</strong> Given is a data set $D={(x_{n},y_{n})}<em n="n">{n=1}^{N}$ where $x</em>$ is based on:
+* }$ holds a set of features and $y_{n}$ is the class label for the n-th item. The discriminative approach to classification is based on a model proposal $p(y_{n}|x_{n},\theta)$ with prior $p(\theta)$. After training this model on data D, the Bayesian class prediction $y_{\bullet}$ for a new input $x_{\bullet<strong>a.</strong> $p(y_{\bullet}|x_{\bullet},D)=\int p(y_{\bullet}|x_{\bullet},\theta,D)dt$
+* <strong>b.</strong> $p(y_{\bullet}|x_{\bullet})=\int p(y_{\bullet}|x_{\bullet},\theta)p(\theta)d\theta$
+* <strong>c.</strong> $p(y_{\bullet}|x_{\bullet},D)=\int p(y_{\bullet}|x_{\bullet},\theta)p(\theta|D)d\theta$
+* <strong>d.</strong> $p(y_{\bullet}|x_{\bullet})=\int p(y_{\bullet}|x_{\bullet},\theta)d\theta$</p>
+<p><strong>1c</strong> In the Bayesian approach to model comparison, we rate the performance of model $m_{k}$ for a given data set $D={x_{n}}<em k="k">{n=1}^{N}$ by its posterior probability $p(m</em>|D)$, which can be evaluated by the following formula:
+* <strong>a.</strong> $p(m_{k}|D)=p(m_{k})\int p(\theta|D,m_{k})p(D|m_{k})d\theta$
+* <strong>b.</strong> $p(m_{k}|D)=p(m_{k})\int p(D|\theta,m_{k})p(\theta|m_{k})d\theta$
+* <strong>c.</strong> $p(m_{k}|D)=\Sigma_{n}p(m_{k})p(D|m_{k})$
+* <strong>d.</strong> $p(m_{k}|D)=\int p(D|\theta,m_{k})p(\theta|m_{k})d\theta$</p>
+<p><strong>1d</strong> A dark bag contains five red balls and seven green ones. Balls are not returned to the bag after each draw. If you know that on the third draw the ball was a green one, what is now the probability of drawing a red ball on the first draw?
+* <strong>a.</strong> $4/12$
+* <strong>b.</strong> $5/11$
+* <strong>c.</strong> $5/12$
+* <strong>d.</strong> $4/11$</p>
+<p><strong>1e</strong> Which of the following expressions is a correct generative Gaussian Mixture Model for observations $x_{n}$ and hidden one-hot coded cluster selection variables $z_{n}$?
+* <strong>a.</strong> $p(x_{n},z_{n})=\prod_{k=1}^{K}(\pi_{k}\cdot\mathcal{N}(x_{n}|\mu_{k},\Sigma_{k}))^{z_{n}}$
+* <strong>b.</strong> $p(x_{n},z_{n})=\prod_{k=1}^{K}\pi_{k}\cdot\mathcal{N}(x_{n}|\mu_{k},\Sigma_{k})^{z_{nk}}$
+* <strong>c.</strong> $p(x_{n},z_{n})=\Sigma_{k=1}^{K}\pi_{k}\cdot\mathcal{N}(x_{n}|\mu_{k},\Sigma_{k})$
+* <strong>d.</strong> $p(x_{n},z_{n})=\prod_{k=1}^{K}(\pi_{k}\cdot\mathcal{N}(x_{n}|\mu_{k},\Sigma_{k}))^{z_{nk}}$</p>
 <hr />
 <h3>Question 2</h3>
-<p>Let $x_{n}\in\mathbb{R}^{N}$ and $z_{n}\in\mathbb{R}^{M}$ with $M&lt;&lt;N.$ Given is a model</p>
+<p>A model $m_{1}$ is described by a single parameter, with $0\le\theta\le1$. The system can produce data $x\in{0,1,...}$. The sampling distribution $p(x|\theta,m_{1})$ and prior $p(\theta|m_{1})$ are given by:</p>
 <p>
-<script type="math/tex; mode=display">x_{n}=Wz_{n}+\epsilon_{n}</script>
-<script type="math/tex; mode=display">z_{n}\sim\mathcal{N}(0,I)</script>
-<script type="math/tex; mode=display">\epsilon_{n}\sim\mathcal{N}(0,\Psi)</script>
+<script type="math/tex; mode=display">p(x|\theta,m_{1})=(1-\theta)\theta^{x}</script>
+<script type="math/tex; mode=display">p(\theta|m_{1})=6\theta(1-\theta)</script>
 </p>
-<p>where $\mathcal{N}(m,V)$ is a Gaussian distribution with mean m and covariance matrix V.</p>
-<ul>
-<li><strong>2a</strong> Work out an equivalent expression for this model as a joint probability distribution over $x_{n}$ and $z_{n}$.<ul>
-<li>a) $p(x_{n},z_{n})=\frac{\mathcal{N}(x_{n}|Wz_{n},\epsilon_{n})}{\mathcal{N}(z_{n}|0,I)}$</li>
-<li>b) $p(x_{n},z_{n})=\mathcal{N}(x_{n}|Wz_{n},\Psi)$</li>
-<li>c) $p(x_{n},z_{n})=\mathcal{N}(x_{n}|Wz_{n},\epsilon_{n})\mathcal{N}(z_{n}|0,I)$</li>
-<li>d) $p(x_{n},z_{n})=\mathcal{N}(x_{n}|Wz_{n},\Psi)\mathcal{N}(z_{n}|0,I)$</li>
-</ul>
-</li>
-<li><strong>2b</strong> Work out an expression for $p(x_{n})$<ul>
-<li>a) $p(x_{n})=\mathcal{N}(x_{n}|0,WW^{T}+\Psi)$</li>
-<li>b) $p(x_{n})=\mathcal{N}(x_{n}|Wz_{n},WW^{T}+\Psi)$</li>
-<li>c) $p(x_{n})=\mathcal{N}(x_{n}|0,W^{T}W+\Psi)$</li>
-<li>d) $p(x_{n})=\mathcal{N}(x_{n}|Wz_{n},\epsilon_{n})$</li>
-</ul>
-</li>
-<li><strong>2c</strong> This model is known as a "factor analysis" model and is commonly used to compress observations $x_{n}$ into lower dimensional variables $z_{n}$. Before we can make use of this model, we will need to train the parameters W. Let's start by adding a prior $W\sim\mathcal{N}(0,I)$. Consider an observed data set $X={x_{n}|n=1,2,...,N}$. How would you train the parameters W for this application?<ul>
-<li>a) Compute a posterior $p(W|{x_{n}},{z_{n}})$. This is easy because the joint is a Gaussian system so we can do this analytically with sum and product rules.</li>
-<li>b) Compute a posterior $p(W|{x_{n}},{z_{n}})$. This is hard because ${z_{n}}$ is unobserved. Consider variational Bayesian approach.</li>
-<li>c) Compute a posterior $p(W|{x_{n}})$. This is hard because both ${z_{n}}$ and W are unobserved. Consider a variational Bayesian approach.</li>
-<li>d) Compute a posterior $p(W|{x_{n}})$ through Bayes rule. This is easy because the joint is a Gaussian system so we can do this analytically with sum and product rules.</li>
-</ul>
-</li>
-</ul>
-<hr />
-<h3>Question 3</h3>
-<p>You have a machine that measures property, the "orangeness" of liquids. You wish to discriminate between $C_{1}=$ 'Fanta' and $C_{2}=$ 'Orangina'. It is known that</p>
+<p><strong>2a</strong> Determine the posterior $p(\theta|x=4,m_{1})$
+* <strong>a.</strong> $6\theta^{4}(1-\theta)^{2}$
+* <strong>b.</strong> $\frac{\int_{0}^{1}\theta^{5}(1-\theta)^{2}d\theta}{\theta^{5}(1-\theta)^{2}}$
+* <strong>c.</strong> $\frac{\theta^{5}(1-\theta)^{2}}{\int_{0}^{1}\theta^{5}(1-\theta)^{2}d\theta}$</p>
+<p><strong>2b</strong> Determine the probability $p(x=4|m_{1})$.
+* <strong>a.</strong> $\int_{0}^{1}\frac{(1-\theta)\theta^{4}}{6\theta(1-\theta)}d\theta$
+* <strong>b.</strong> $\int_{0}^{1}(1-\theta)\theta^{4}d\theta$
+* <strong>c.</strong> $\int_{0}^{1}6\theta^{5}(1-\theta)^{2}d\theta$
+* <strong>d.</strong> $\int_{0}^{1}\frac{6\theta(1-\theta)}{(1-\theta)\theta^{4}}d\theta$</p>
+<p>Consider a second model $m_{2}$ with the following sampling distribution and prior on $0\le\theta\le1$:</p>
 <p>
-<script type="math/tex; mode=display">p(x|C_{1})=\begin{cases}1&1.0\le x\le2.0\\ 0&otherwise\end{cases}</script>
-<script type="math/tex; mode=display">p(x|C_{2})=\begin{cases}2\cdot(x-1)&1.0\le x\le2.0\\ 0&otherwise\end{cases}</script>
+<script type="math/tex; mode=display">p(x|\theta,m_{2})=(1-\theta)\theta^{x}</script>
+<script type="math/tex; mode=display">p(\theta|m_{2})=2\theta</script>
 </p>
-<p>The probability that falls outside the interval [1.0, 2.0] is zero. The prior class probabilities $p(C_{1})=0.6$ and $p(C_{2})=0.4$ are also known from experience.</p>
-<ul>
-<li><strong>3a</strong> We want to develop a Bayesian classifier. The discrimination boundary on the interval $x\in[1.0,2.0]$ is given by<ul>
-<li>a) $1=\frac{p(x|C_{2})}{p(x|C_{1})}\cdot\frac{p(C_{1})}{p(C_{2})}=\frac{1}{2(x-1)}\cdot\frac{0.4}{0.6}\Rightarrow x=5/3$</li>
-<li>b) $1=\frac{p(x|C_{2})}{p(x|C_{1})}=\frac{1}{2(x-1)}\Rightarrow x=3/2$</li>
-<li>c) $1=\frac{p(C_{2}|x)}{p(C_{1}|x)}=\frac{1.0.6}{2(x-1)\cdot0.4}\Rightarrow x=7/4$</li>
-</ul>
-</li>
-<li><strong>3b</strong> Compute $p(C_{1}|x=1.3)$<ul>
-<li>a) $p(C_{1}|x=1.3)=\frac{p(x=1.3|C_{1})p(C_{1})}{p(x=1.3|C_{2})p(C_{2})}=\frac{1.0.6}{2(1.3-1)\cdot0.4}$</li>
-<li>b) $p(C_{1}|x=1.3)=p(x=1.3|C_{1})p(C_{1})=1\cdot0.6$</li>
-<li>c) $p(C_{1}|x=1.3)=\frac{p(x=1.3|C_{1})p(C_{1})}{p(x=1.3)}=\frac{1.0.6}{1.0.6+2(1.3-1)\cdot0.4}$</li>
-</ul>
-</li>
-<li><strong>3c</strong> Let the discrimination boundary be given by $x=a$. Work out the total probability of a false classification:<ul>
-<li>a) $\int_{1.0}^{a}p(x|C_{2})p(C_{2})dx+\int_{a}^{2}p(x|C_{1})p(C_{1})dx$</li>
-<li>b) $\int_{1.0}^{a}p(C_{1}|x)p(x)dx+\int_{a}^{2}p(C_{2}|x)p(x)dx$</li>
-<li>c) $\int_{1.0}^{a}p(C_{2}|x)dx+\int_{a}^{2}p(C_{1}|x)dx$</li>
-</ul>
-</li>
-</ul>
+<p>The model priors are given by $p(m_{1})=2/3$ and $p(m_{2})=1/3$.</p>
+<p><strong>2c</strong> Determine the probability $p(x=4|m_{2})$.
+* <strong>a.</strong> $\int_{0}^{1}2(1-\theta)\theta^{5}d\theta$
+* <strong>b.</strong> $\frac{1}{\int_{0}^{1}2(1-\theta)\theta^{5}}d\theta$
+* <strong>c/d.</strong> $\int_{0}^{1}\frac{(1-\theta)\theta^{4}}{2\theta}d\theta$</p>
+<p><strong>2d</strong> Which of the two models has the largest Bayesian evidence after observing $x=4?$
+* <strong>a.</strong> $m_{1}$
+* <strong>b.</strong> $m_{2}$
+* <strong>c.</strong> same evidence for both models</p>
+<p><strong>2e</strong> Which of the two models has the largest posterior probability after observing $x=4?$
+* <strong>a.</strong> $m_{1}$
+* <strong>b.</strong> $m_{2}$
+* <strong>c.</strong> both models have the same posterior probability.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../../../../script.js"></script>
+    <script src="../../../../../script.js"></script>
 
     <script>
         // Note navigation functionality
@@ -847,7 +813,7 @@
                 relativePath = decodeURIComponent(relativePath);
                 
                 // Load navigation data
-                const response = await fetch('../../../../notes_navigation.json');
+                const response = await fetch('../../../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
@@ -878,7 +844,7 @@
                 const prevButton = document.getElementById('prevButton');
                 
                 if (currentNav.previous) {
-                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.href = '../../../../../' + currentNav.previous;
                     prevButton.title = 'Previous: ' + currentNav.previous_title;
                     prevButton.style.visibility = 'visible';
                 } else {
@@ -889,7 +855,7 @@
                 const nextButton = document.getElementById('nextButton');
                 
                 if (currentNav.next) {
-                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.href = '../../../../../' + currentNav.next;
                     nextButton.title = 'Next: ' + currentNav.next_title;
                     nextButton.style.visibility = 'visible';
                 } else {
@@ -901,9 +867,9 @@
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
                     
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
-                        window.location.href = '../../../../' + currentNav.previous;
+                        window.location.href = '../../../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
-                        window.location.href = '../../../../' + currentNav.next;
+                        window.location.href = '../../../../../' + currentNav.next;
                     }
                 });
                 

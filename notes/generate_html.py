@@ -917,14 +917,9 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="{path_prefix}index.html">About</a></li>
-                <li><a href="{path_prefix}journey.html">My Life</a></li>
-                <li><a href="{path_prefix}projects.html">Projects</a></li>
                 <li><a href="{path_prefix}blogs.html">Blog</a></li>
                 <li><a href="{path_prefix}notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="{path_prefix}acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="{path_prefix}assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+                <li><a href="{path_prefix}assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">

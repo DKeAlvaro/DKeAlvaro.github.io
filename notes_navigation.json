@@ -339,60 +339,20 @@
     "current_index": 42,
     "total_notes": 51,
     "previous": "notes/Year_1/Q2/Bayesian ML/13-log-likelihood-mle.html",
-    "next": "notes/Year_1/Q2/Bayesian ML/2021-part-a.html",
-    "previous_title": "13-log-likelihood-mle",
-    "next_title": "2021-part-a"
-  },
-  "notes/Year_1/Q2/Bayesian ML/2021-part-a.html": {
-    "current_index": 43,
-    "total_notes": 51,
-    "previous": "notes/Year_1/Q2/Bayesian ML/14-gmm-vfe-fep-concepts.html",
-    "next": "notes/Year_1/Q2/Bayesian ML/2021-part-b.html",
-    "previous_title": "14-gmm-vfe-fep-concepts",
-    "next_title": "2021-part-b"
-  },
-  "notes/Year_1/Q2/Bayesian ML/2021-part-b.html": {
-    "current_index": 44,
-    "total_notes": 51,
-    "previous": "notes/Year_1/Q2/Bayesian ML/2021-part-a.html",
-    "next": "notes/Year_1/Q2/Bayesian ML/2021-resit.html",
-    "previous_title": "2021-part-a",
-    "next_title": "2021-resit"
-  },
-  "notes/Year_1/Q2/Bayesian ML/2021-resit.html": {
-    "current_index": 45,
-    "total_notes": 51,
-    "previous": "notes/Year_1/Q2/Bayesian ML/2021-part-b.html",
-    "next": "notes/Year_1/Q2/Bayesian ML/2022.html",
-    "previous_title": "2021-part-b",
-    "next_title": "2022"
-  },
-  "notes/Year_1/Q2/Bayesian ML/2022.html": {
-    "current_index": 46,
-    "total_notes": 51,
-    "previous": "notes/Year_1/Q2/Bayesian ML/2021-resit.html",
-    "next": "notes/Year_1/Q2/Bayesian ML/2023.html",
-    "previous_title": "2021-resit",
-    "next_title": "2023"
-  },
-  "notes/Year_1/Q2/Bayesian ML/2023.html": {
-    "current_index": 47,
-    "total_notes": 51,
-    "previous": "notes/Year_1/Q2/Bayesian ML/2022.html",
     "next": "notes/Year_1/Q2/Bayesian ML/crash-course.html",
-    "previous_title": "2022",
+    "previous_title": "13-log-likelihood-mle",
     "next_title": "crash-course"
   },
   "notes/Year_1/Q2/Bayesian ML/crash-course.html": {
-    "current_index": 48,
+    "current_index": 43,
     "total_notes": 51,
-    "previous": "notes/Year_1/Q2/Bayesian ML/2023.html",
+    "previous": "notes/Year_1/Q2/Bayesian ML/14-gmm-vfe-fep-concepts.html",
     "next": "notes/Year_1/Q2/Bayesian ML/exam-cheatsheet.html",
-    "previous_title": "2023",
+    "previous_title": "14-gmm-vfe-fep-concepts",
     "next_title": "exam-cheatsheet"
   },
   "notes/Year_1/Q2/Bayesian ML/exam-cheatsheet.html": {
-    "current_index": 49,
+    "current_index": 44,
     "total_notes": 51,
     "previous": "notes/Year_1/Q2/Bayesian ML/crash-course.html",
     "next": "notes/Year_1/Q2/Bayesian ML/README.html",
@@ -400,11 +360,51 @@
     "next_title": "README"
   },
   "notes/Year_1/Q2/Bayesian ML/README.html": {
-    "current_index": 50,
+    "current_index": 45,
     "total_notes": 51,
     "previous": "notes/Year_1/Q2/Bayesian ML/exam-cheatsheet.html",
-    "next": null,
+    "next": "notes/Year_1/Q2/Bayesian ML/Exams/2021-part-a.html",
     "previous_title": "exam-cheatsheet",
+    "next_title": "2021-part-a"
+  },
+  "notes/Year_1/Q2/Bayesian ML/Exams/2021-part-a.html": {
+    "current_index": 46,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/README.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/Exams/2021-part-b.html",
+    "previous_title": "README",
+    "next_title": "2021-part-b"
+  },
+  "notes/Year_1/Q2/Bayesian ML/Exams/2021-part-b.html": {
+    "current_index": 47,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/Exams/2021-part-a.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/Exams/2021-resit.html",
+    "previous_title": "2021-part-a",
+    "next_title": "2021-resit"
+  },
+  "notes/Year_1/Q2/Bayesian ML/Exams/2021-resit.html": {
+    "current_index": 48,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/Exams/2021-part-b.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/Exams/2022.html",
+    "previous_title": "2021-part-b",
+    "next_title": "2022"
+  },
+  "notes/Year_1/Q2/Bayesian ML/Exams/2022.html": {
+    "current_index": 49,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/Exams/2021-resit.html",
+    "next": "notes/Year_1/Q2/Bayesian ML/Exams/2023.html",
+    "previous_title": "2021-resit",
+    "next_title": "2023"
+  },
+  "notes/Year_1/Q2/Bayesian ML/Exams/2023.html": {
+    "current_index": 50,
+    "total_notes": 51,
+    "previous": "notes/Year_1/Q2/Bayesian ML/Exams/2022.html",
+    "next": null,
+    "previous_title": "2022",
     "next_title": null
   }
 }
