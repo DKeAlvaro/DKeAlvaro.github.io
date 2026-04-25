@@ -276,8 +276,8 @@ def get_dfs_note_order(tree):
     dfs_traverse(tree)
     return notes_list
 
-def generate_tree_html(tree):
-    """Generate HTML for the notes tree."""
+def generate_tree_html(tree, current_folder_name=""):
+    """Generate HTML for the notes tree. Only flattens leaf folders if they have the same name as the parent."""
     html = '<ul class="notes-tree-level">\n'
     
     # First, show files at the current level
@@ -306,11 +306,42 @@ def generate_tree_html(tree):
 </li>
 '''
     
-    # Then, show all folders recursively
+    # Then, handle folders
     for folder_name, folder_content in tree['folders'].items():
-        html += f'<li class="tree-folder"><span>{folder_name.replace('_', ' ')}</span>\n'
-        html += generate_tree_html(folder_content)
-        html += '</li>\n'
+        # Flatten logic: Only flatten if it's a leaf AND has the same name as the parent (case-insensitive)
+        is_leaf = not folder_content['folders']
+        is_same_name = folder_name.lower() == current_folder_name.lower()
+        
+        if is_leaf and is_same_name:
+            # Flatten files from this same-named leaf folder into the current level
+            # (Files are already sorted by date in build_tree_from_files)
+            for file in folder_content['files']:
+                meta_text = file['date'] if file['date'] else ""
+                file_type = file.get('type', 'markdown')
+                
+                if file_type == 'pdf':
+                    html += f'''<li class="tree-file">
+<div class="tree-file-content">
+    <a href="{file['path']}" target="_blank">{file['title']}</a>
+    <p class="tree-file-description">{file['overview']}</p>
+</div>
+<div class="tree-file-meta">{meta_text}</div>
+</li>
+'''
+                else:
+                    html += f'''<li class="tree-file">
+<div class="tree-file-content">
+    <a href="{file['path']}">{file['title']}</a>
+    <p class="tree-file-description">{file['overview']}</p>
+</div>
+<div class="tree-file-meta">{meta_text}</div>
+</li>
+'''
+        else:
+            # Show as a regular folder
+            html += f'<li class="tree-folder"><span>{folder_name.replace("_", " ")}</span>\n'
+            html += generate_tree_html(folder_content, folder_name)
+            html += '</li>\n'
     
     html += '</ul>\n'
     return html
