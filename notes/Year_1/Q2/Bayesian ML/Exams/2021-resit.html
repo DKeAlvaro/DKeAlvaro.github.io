@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="2023 - MSc AI & Engineering Systems Notes">
-    <title>2023 - MSc AIES</title>
-    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../../../../styles.css">
+    <meta name="description" content="2021 Resit - MSc AI & Engineering Systems Notes">
+    <title>2021 Resit - MSc AIES</title>
+    <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -662,30 +662,25 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="../../../../index.html">About</a></li>
-                <li><a href="../../../../journey.html">My Life</a></li>
-                <li><a href="../../../../projects.html">Projects</a></li>
-                <li><a href="../../../../blogs.html">Blog</a></li>
-                <li><a href="../../../../notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+                <li><a href="../../../../../index.html">About</a></li>
+                <li><a href="../../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../../notes.html">MSc AIES</a></li>
+                <li><a href="../../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
                     <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
-                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                        <img src="../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
                     </a>
                     <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
-                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                        <img src="../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
                     </a>
                     <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
-                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                        <img src="../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -697,11 +692,11 @@
                 <div class="navigation-header">
                     <div class="nav-left">
                         <div class="breadcrumb-section">
-                            <a href="../../../../notes.html" class="back-link">
+                            <a href="../../../../../notes.html" class="back-link">
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q2</span>
+                            <span class="folder-path">Year_1 / Q2 / Bayesian ML</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -725,129 +720,133 @@
                 </div>
                 
                 <div class="note-content">
-                    <h2>1. Gaussian Model Predictions</h2>
-<p>A model $m_1$ for observations $x \in \mathbb{R}$ is specified as follows:
-<script type="math/tex; mode=display">p(x|\mu, m_1) = \mathcal{N}(x|\mu, 1)</script>
-<script type="math/tex; mode=display">p(\mu|m_1) = \mathcal{N}(\mu|0, 1)</script>
-</p>
-<p><strong>(Consult the Formula sheet in the preamble of the exam for Gaussian distribution rules).</strong></p>
-<p><strong>1a. We make an observation $x=1$. Determine the posterior $p(\mu|x=1, m_1)$.</strong>
-- a) $\mathcal{N}(\mu|0, 0.5)$
-- b) $\mathcal{N}(\mu|1, 2)$
-- c) $\mathcal{N}(\mu|0.5, 0.5)$
-- d) $\mathcal{N}(\mu|0.5, 1)$</p>
-<p><strong>1b. Determine the evidence $p(x=1|m_1)$ for model $m_1$, based on observation $x=1$.</strong>
-- a) $\mathcal{N}(1|0, 2)$
-- b) $2/\sqrt{2\pi}$
-- c) $\mathcal{N}(0|1, 1)$
-- d) $1/\sqrt{2\pi}$</p>
-<p>Consider a second model $m_2$ specified as:
-<script type="math/tex; mode=display">p(x|m_2) = \mathcal{N}(x|1, 1)</script>
-The model priors are given by $p(m_1) = 2/3$ and $p(m_2) = 1/3$.</p>
-<p><strong>1c. Determine the probability $p(x=2)$ by Bayesian model averaging over both $m_1$ and $m_2$.</strong>
-- a) $\frac{2}{3\sqrt{2\pi}} + \frac{1}{3}\mathcal{N}(2|0, 1)$
-- b) $\frac{1}{3}\mathcal{N}(2|1, 2) + \frac{1}{3\sqrt{2\pi}}$
-- c) $\frac{2}{3}\mathcal{N}(2|0, 2) + \frac{1}{3}\mathcal{N}(2|1, 1)$
-- d) $\frac{1}{3\sqrt{2\pi}} + \frac{1}{3}\mathcal{N}(2|1, 1)$</p>
+                    <h2>Question 1: Probabilities of drawing objects from a box</h2>
+<p>Box 1 contains 4 apples and 8 oranges. Box 2 contains 10 apples and 2 oranges. Boxes are chosen with equal probability. You make one draw.</p>
+<p><strong>1a</strong> What is the probability of choosing an apple?
+a) <em>(Option a not shown)</em>
+b) $\frac{6}{12}$
+c) <em>(Option c not shown)</em>
+d) <em>(Option d not shown)</em></p>
+<p><strong>1b</strong> If an apple is chosen, what is the probability that it came from box 1?
+a) <em>(Option a not shown)</em>
+b) <em>(Option b not shown)</em>
+c) $\frac{1}{3}$
+d) <em>(Option d not shown)</em></p>
+<p>Instead of one draw, we now take two draws without replacement. Again, we can draw from either box at each draw, and boxes are chosen with equal probabilities.</p>
+<p><strong>1c</strong> If you know that your second draw will be an orange from box 2, what is now the probability of drawing an apple at the first draw?
+a) $7/12$
+b) $41/66$
+c) $7/11$
+d) The correct answer is not shown.</p>
 <hr />
-<h2>2. Classification</h2>
-<p>You have a machine that measures property $x$, the "transparency" of oils. You wish to discriminate between $C_1 = $ 'olive oil' and $C_2 = $ 'grape seed oil'. It is known that:</p>
-<p>
-<script type="math/tex; mode=display">p(x|C_1) = \begin{cases} -6(x-1)(x-2) & \text{if } 1 \le x \le 2 \\ 0 & \text{otherwise} \end{cases}</script>
-<script type="math/tex; mode=display">p(x|C_2) = \begin{cases} 4-2x & \text{if } 1 \le x \le 2 \\ 0 & \text{otherwise} \end{cases}</script>
-</p>
-<p>The probability that $x$ falls outside the interval $[1.0, 2.0]$ is zero. The prior class probabilities $p(C_1) = 0.4$ and $p(C_2) = 0.6$ are also known from experience.</p>
-<p><strong>2a. Compute $p(C_1|x=4/3)$.</strong>
-- a) $2/3$
-- b) $3/4$
-- c) $3/5$
-- d) $4/10$</p>
-<p><strong>2b. A "Bayes Classifier" is given by:</strong>
-<script type="math/tex; mode=display">\text{Decision} = \begin{cases} C_1 & \text{if } p(C_1|x) > p(C_2|x) \\ C_2 & \text{otherwise} \end{cases}</script>
-The Bayes classifier for this problem is given by:
-- a) $\text{Decision} = <script type="math/tex; mode=display">\begin{cases} C_1 & \text{if } 4/3 < x \le 2 \\ C_2 & \text{otherwise} \end{cases}</script>$
-- b) $\text{Decision} = <script type="math/tex; mode=display">\begin{cases} C_1 & \text{if } 3/2 < x < 2 \\ C_2 & \text{otherwise} \end{cases}</script>$
-- c) $\text{Decision} = <script type="math/tex; mode=display">\begin{cases} C_1 & \text{if } 5/3 < x \le 2 \\ C_2 & \text{otherwise} \end{cases}</script>$
-- d) $\text{Decision} = <script type="math/tex; mode=display">\begin{cases} C_1 & \text{if } 7/4 < x \le 2 \\ C_2 & \text{otherwise} \end{cases}</script>$</p>
-<p><strong>2c. Let the discrimination boundary be given by $x=a$. You make an observation and want to classify the observation. Work out the probability of making a wrong classification decision.</strong>
-- a) $0.4\int_{a}^{2}(4-2x)dx + 0.6\int_{1}^{a}6(1-x)(x-2)dx$
-- b) $0.6\int_{a}^{2}(4-2x)dx + 0.4\int_{1}^{a}6(1-x)(x-2)dx$
-- c) $a/2$
-- d) $\int_{a}^{2}(4-2x)dx + \int_{1}^{a}6(1-x)(x-2)dx$</p>
+<h2>Question 2: Model comparison</h2>
+<p>A model $m_1$ is described by a single parameter $\theta$, with $0 \le \theta \le 1$. The system can produce data $x \in {0,1}$. 
+The sampling distribution $p(x|\theta,m_1)$ and prior $p(\theta|m_1)$ are given by:
+$p(\theta|m_1) = 6\theta(1-\theta)$
+$p(x|\theta,m_1) = \theta^x(1-\theta)^{1-x}$</p>
+<p><strong>2a</strong> Determine the evidence $p(x=1|m_1)$
+a) $2/3$
+b) $1/6$
+c) $1/3$
+d) $1/2$</p>
+<p><strong>2b</strong> Determine the posterior probability $p(\theta|x=1,m_1)$
+a) $6\frac{\theta^2}{1-\theta}$
+b) $12\theta^2(1-\theta)$
+c) $6\theta^2(1-\theta)$
+d) $12\frac{\theta^2}{1-\theta}$</p>
+<p>Consider a second model $m_2$ with the following sampling distribution and prior on $0 \le \theta \le 1$:
+$p(\theta|m_2) = 1$
+$p(x|\theta,m_2) = (1-\theta)^x\theta^{1-x}$</p>
+<p>The model priors are given by $p(m_1) = 2/3$ and $p(m_2) = 1/3$.</p>
+<p><strong>2c</strong> Determine the ratio of posterior model probabilities $\frac{p(m_1|x=1)}{p(m_2|x=1)}$.
+a) $1/3$
+b) $1/2$
+c) $2/3$
+d) $2$</p>
 <hr />
-<h2>3. Coin Toss Prediction</h2>
-<p>Consider a coin with outcomes:
-<script type="math/tex; mode=display">x_n = \begin{cases} 0 & \text{if tails is observed} \\ 1 & \text{if heads is observed} \end{cases}</script>
-</p>
-<p>We assume that the data-generating process is governed by a Bernoulli distribution,
-<script type="math/tex; mode=display">p(x_n|\mu) = \mu^{x_n}(1-\mu)^{(1-x_n)}</script>
-and we assume a Beta distribution for the prior on $\mu$:
-<script type="math/tex; mode=display">p(\mu) = Beta(\mu|\alpha=3, \beta=2)</script>
-</p>
-<p>We throw the coin 5 times and observe outcomes $D = {0, 1, 1, 0, 1}$.
-<strong>(Consult the Formula sheet in the preamble of the exam for Beta distribution rules).</strong></p>
-<p><strong>3a. Work out the likelihood function $p(D|\mu)$ for $\mu$.</strong>
-- a) $p(D|\mu) = \mu^3(1-\mu)^2$
-- b) $p(D|\mu) = \binom{5}{3} \cdot \mu^2(1-\mu)^3$
-- c) $p(D|\mu) = \binom{5}{2} \cdot \mu^3(1-\mu)^2$
-- d) $p(D|\mu) = \binom{3}{2} \cdot \mu^3(1-\mu)^2$</p>
-<p><strong>3b. Compute the posterior distribution $p(\mu|D)$.</strong>
-- a) $p(\mu|D) = \binom{5}{2} \cdot \mu^3(1-\mu)^2$
-- b) $p(\mu|D) = Beta(\mu|6, 4)$
-- c) $p(\mu|D) = Beta(\mu|5, 5)$
-- d) $p(\mu|D) = \mu^3(1-\mu)^2 \cdot Beta(\mu|\alpha=3, \beta=2)$</p>
-<p><strong>3c. Compute the evidence $p(D)$.</strong>
-- a) $p(D) = \frac{\Gamma(4)\Gamma(6)}{\Gamma(10)}$
-- b) $p(D) = \frac{\Gamma(4)\Gamma(5)\Gamma(6)}{\Gamma(2)\Gamma(3)\Gamma(10)}$
-- c) $p(D) = \frac{\Gamma(5)}{\Gamma(2)\Gamma(3)}$
-- d) $p(D) = \frac{\Gamma(5)\Gamma(10)}{\Gamma(2)\Gamma(3)\Gamma(4)\Gamma(6)}$</p>
-<p><strong>3d. Now compute the probability for throwing heads after the data set has been absorbed in the model.</strong>
-- a) $p(x_{n+1}=1|D) = Beta(0.6|6, 4)$
-- b) $p(x_{n+1}=1|D) = 0.6$
-- c) $p(x_{n+1}=1|D) = 0.7$
-- d) $p(x_{n+1}=1|D) = 0.4$</p>
+<h2>Question 3: Recursive Bayesian Filtering</h2>
+<p>We observe a process $x_t = \theta + \epsilon_t$ with $\epsilon_t \sim \mathcal{N}(0, \sigma_\epsilon^2)$.
+We are interested in recursively updating estimates for $\theta$ from observations $x_1, x_2, \dots$. The estimate for $\theta$ after $k$ observations $D_k = {x_1, x_2, \dots, x_k}$ is written as:
+$p(\theta|D_k) = \mathcal{N}(\theta|\mu_k, \sigma_k^2)$.
+The prior for $\theta$ (after zero observations) is given by $p(\theta) = p(\theta|D_0) = \mathcal{N}(\theta|\mu_0, \sigma_0^2)$.</p>
+<p><strong>3a</strong> Which is a correct expression for the likelihood $p(x_k|\theta)$?
+a) $p(x_k|\theta) = \mathcal{N}(x_k|\mu_k, \sigma_\epsilon^2 + \sigma_\theta^2)$
+b) $p(x_k|\theta) = \mathcal{N}(x_k|\theta, \sigma_\epsilon^2)$
+c) $p(x_k|\theta) = \mathcal{N}(x_k|0, \sigma_\epsilon^2 + \sigma_\theta^2)$
+d) $p(x_k|\theta) = \mathcal{N}(x_k|\theta, \sigma_\theta^2)$</p>
+<p><strong>3b</strong> Next, you are asked to work out the recursive update formula for posterior $p(\theta|D_k) = \mathcal{N}(\theta|\mu_k, \sigma_k^2)$. Basically this is a derivation of a very simple Kalman filter.
+In this derivation you may want to use the formula for Gaussian multiplication:
+$\mathcal{N}(x|\mu_a, \sigma_a^2)\mathcal{N}(x|\mu_b, \sigma_b^2) \propto \mathcal{N}(x|\mu_c, \sigma_c^2)$ with $\frac{1}{\sigma_c^2} = \frac{1}{\sigma_a^2} + \frac{1}{\sigma_b^2}$ and $\frac{1}{\sigma_c^2}\mu_c = \frac{1}{\sigma_a^2}\mu_a + \frac{1}{\sigma_b^2}\mu_b$.</p>
+<p>I will start the derivation here:
+$p(\theta|D_k) = p(\theta|x_k, D_{k-1})$
+$\propto p(\theta, x_k|D_{k-1})$
+$= p(x_k|\theta)p(\theta|D_{k-1})$
+$= \dots$</p>
+<p>Now you complete this and derive expressions for $\mu_k$ and $\sigma_k^2$:</p>
+<p>a)
+$<script type="math/tex; mode=display">\begin{cases} K_k &= \frac{\sigma_\epsilon^2}{\sigma_{k-1}^2+\sigma_\epsilon^2} \\ \mu_k &= \mu_{k-1} + K_k\cdot(x_k-\mu_{k-1}) \\ \sigma_k^2 &= (1-K_k)\cdot\sigma_{k-1}^2 + \sigma_\epsilon^2 \end{cases}</script>$</p>
+<p>b)
+$<script type="math/tex; mode=display">\begin{cases} K_k &= \frac{\sigma_{k-1}^2}{\sigma_{k-1}^2+\sigma_\epsilon^2} \\ \mu_k &= \mu_{k-1} + K_k\cdot(x_k-\mu_{k-1}) \\ \sigma_k^2 &= \sigma_{k-1}^2 + K_k\cdot(\sigma_\epsilon^2-\sigma_{k-1}^2) \end{cases}</script>$</p>
+<p>c)
+$<script type="math/tex; mode=display">\begin{cases} K_k &= \frac{\sigma_{k-1}^2}{\sigma_{k-1}^2+\sigma_\epsilon^2} \\ \mu_k &= \frac{1}{2}\mu_{k-1} + \frac{1}{2}K_k\cdot(x_k-\mu_{k-1}) \\ \sigma_k^2 &= (1-K_k)\cdot\sigma_{k-1}^2 + \sigma_\epsilon^2 \end{cases}</script>$</p>
+<p>d)
+$<script type="math/tex; mode=display">\begin{cases} K_k &= \frac{\sigma_{k-1}^2}{\sigma_{k-1}^2+\sigma_\epsilon^2} \\ \mu_k &= \mu_{k-1} + K_k\cdot(x_k-\mu_{k-1}) \\ \sigma_k^2 &= (1-K_k)\cdot\sigma_{k-1}^2 \end{cases}</script>$</p>
+<p><strong>3c</strong> What happens for $k \rightarrow \infty$ (# observations goes to infinity).
+a) $\sigma_k^2 \rightarrow \sigma_{k-1}^2$
+b) $\mu_k \approx \mu_{k-1}$ (stationarity)
+c) $\sigma_k^2 \rightarrow \sigma_\epsilon^2$
+d) $K_k \rightarrow 1$</p>
 <hr />
-<h2>4. Miscellaneous comprehension</h2>
-<p><strong>4a. Consider a state-space model-based Active Inference agent that interacts with its world. Which of the following statements about the agent's computations is most consistent with Friston's FEP?</strong>
-- a) Perception minimizes the complexity of the states.
-- b) The agent infers actions by maximizing the free energy in future states.
-- c) The agent infers actions by maximizing the expected accuracy in future states.
-- d) The agent infers actions by minimizing the expected free energy in future states.</p>
-<p><strong>4b. Overfitting occurs when a model fits too closely to a training data set, resulting in poor generalization. Why is a "Bayesian engineer" usually not very concerned about overfitting?</strong>
-- a) Bayesian modeling aims to maximize (log-) model evidence, which decomposes as "training data fit minus model complexity". The complexity term prevents overfitting on the training data.
-- b) Bayesian modeling uses a separate test data set to check the generalization properties of the model.
-- c) Bayesian modeling uses probability theory to minimize the probability of overfitting as the training data set grows.
-- d) Bayesian modeling aims to maximize (log-) model evidence, which decomposes as "training data fit minus entropy of the model parameters". The entropy term prevents overfitting on the training data.</p>
-<p><strong>4c. Consider a data set ${x_n | n=1,2,...,N}$ with $x_n \in \mathbb{R}^M$ and a set of latent one-hot coded variables $z_n = (z_{n1}, z_{n2}, ..., z_{nK})$, i.e., $z_{nk} \in {0, 1}$ and $\sum_{k=1}^{K} z_{nk} = 1$. Which of the following is a correct specification for a Gaussian Mixture Model?</strong>
-- a) $p(x_n, z_n) = \prod_{k=1}^{K} \pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k)$
-- b) $p(x_n, z_n) = \prod_{k=1}^{K} (\pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k))^{z_{nk}}$
-- c) $p(x_n, z_n) = \prod_{k=1}^{K} \pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k)^{z_{nk}}$
-- d) $p(x_n, z_n) = \prod_{k=1}^{K} (\pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k))^{z_n}$</p>
-<p><strong>4d. A dark bag contains five red balls and seven green ones. Balls are not returned to the bag after each draw. If you know that on the last draw the ball was a green one, what is the probability of drawing a red ball on the first draw?</strong>
-- a) $4/11$
-- b) $5/11$
-- c) $5/12$
-- d) $6/11$</p>
-<p><strong>4e. Consider a (so-called Factor Analysis) model with specification:</strong>
-<script type="math/tex; mode=display">x_n = \Lambda z_n + v_n</script>
-<script type="math/tex; mode=display">z_n \sim \mathcal{N}(0, I)</script>
-<script type="math/tex; mode=display">v_n \sim \mathcal{N}(0, \Psi)</script>
-<strong>Furthermore, we assume that $\mathbb{E}[z_n v_n^T] = 0$. Evaluate $p(x_n)$.</strong>
-- a) $p(x_n) \sim \mathcal{N}(0, \Lambda\Lambda^T + \Psi)$
-- b) $p(x_n) \sim \mathcal{N}(0, \Lambda\Lambda^T + \Psi^T)$
-- c) $p(x_n) \sim \mathcal{N}(1, \Lambda + \Psi)$
-- d) $p(x_n) \sim \mathcal{N}(0, \Lambda + \Psi)$</p>
-<p><strong>4f. Why can Variational Free Energy (VFE) minimization be interpreted as an approximation to Bayesian inference?</strong>
-- a) VFE minimization is a model for Bayesian inference plus a little bit of Gaussian noise.
-- b) VFE minimization minimizes the KL-divergence between the variational distribution and Bayesian evidence. Furthermore, the VFE itself is an upper bound on the Bayesian posterior distribution. Therefore, VFE minimization identifies approximations to both the posterior over latent variables and model evidence.
-- c) VFE minimization minimizes Bayesian evidence by optimizing the variational posterior. Therefore, VFE minimization identifies approximations to both the posterior over latent variables and model evidence.
-- d) VFE minimization minimizes the KL-divergence between the variational and Bayesian posterior distributions. Furthermore, the VFE itself is an upper bound to (negative log-) evidence. Therefore, VFE minimization identifies approximations to both the posterior over latent variables and model evidence.</p>
+<h2>Question 4: Comprehension</h2>
+<p><strong>4a</strong> Which of the following statements is most consistent with Friston's Free Energy Principle?
+a) Actions aim to minimize the free energy of future states of the world.
+b) Actions aim to minimize the complexity of future states of the world.
+c) Intelligent decision making requires minimization of a functional of beliefs about future states of the world.
+d) Intelligent decision making requires minimization of a cost function of future states of the world.</p>
+<p><strong>4b</strong> Which of the following statements is most accurate about Bayesian vs Maximum Likelihood-based estimation?
+a) The ML estimate tends to become a better approximation to the Bayesian estimate as the data size grows, since the prior distribution in Bayesian estimation tends to become wider with more data.
+b) The ML estimate tends to become a worse approximation to the Bayesian estimate as the data size grows, since both the likelihood function and prior distribution tend to become wider with more data.
+c) The ML estimate tends to become a better approximation to the Bayesian estimate as the data size grows, since the likelihood function tends to become wider with more data while the prior distribution in Bayesian estimation does not depend on the data set size.
+d) The ML estimate tends to become a better approximation to the Bayesian estimate as the data size grows, since the likelihood function tends to become narrower with more data while the prior distribution in Bayesian estimation does not depend on the data set size.</p>
+<p><strong>4c</strong> A Bayesian sticks a microphone in the air and records a signal $x = (x_1, x_2, \dots, x_T)$. She is interested in retrieving a speech signal $s = (s_1, s_2, \dots, s_T)$ from the recording. How might she proceed?
+a) She describes the recorded signal by a model $p(x,s,z) = p(s|x,z)p(x,z)$ where $z$ is a set of latent states and model parameters. Then, she will proceed to infer her beliefs about $s$ by computing $p(s|x) \propto \int p(s|x,z)dz$.
+b) She describes the recorded signal by a model $p(x,s,z) = p(s|x,z)p(x,z)$ where $z$ is a set of latent states and model parameters. Then, she will proceed to infer her beliefs about $s$ by computing $p(s|x) \propto \int p(s|x,z)p(x,z)dz$.
+c) She describes the recorded signal by a joint model $p(x,s,z) = p(x|s,z)p(s,z)$ where $z$ is a set of latent states and model parameters. Then, she will proceed to infer her beliefs about $s$ by computing $p(s|x,z) = \frac{p(x|s,z)p(s,z)}{p(x,z)}$.
+d) She describes the recorded signal by a joint model $p(x,s,z) = p(x|s,z)p(s,z)$ where $z$ is a set of latent states and model parameters. Then, she will proceed to infer her beliefs about $s$ by computing $p(s|x) \propto \int p(x|s,z)p(s,z)dz$.</p>
+<p><strong>4d</strong> Consider a data set ${x_n|n=1,2,\dots,N}$ with $x_n \in \mathbb{R}^M$ and a set of latent one-hot coded variables $z_n = (z_{n1}, z_{n2}, \dots, z_{nK})$ i.e., $z_{nk} \in {0,1}$ and $\Sigma_{k=1}^K z_{nk} = 1$. Which of the following is a correct specification for a Gaussian Mixture Model?
+a) $p(x_n, z_n) = \prod_{k=1}^K(\pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k))^{z_n}$
+b) $p(x_n, z_n) = \prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k)^{z_{nk}}$
+c) $p(x_n, z_n) = \prod_{k=1}^K \pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k)$
+d) $p(x_n, z_n) = \prod_{k=1}^K(\pi_k \cdot \mathcal{N}(x_n|\mu_k, \Sigma_k))^{z_{nk}}$</p>
+<p><strong>4e</strong> Consider a generative model $p(x,z)$ where $x$ has been observed and $z$ are latent states. We introduce a posterior distribution $q(z)$ for the latent states and define a Free Energy functional $F[q] = \int q(z)\log\frac{q(z)}{p(x,z)}dz$. Which of the following statements is true?
+a) $F[q] = -\log p(x)$ if $q(z) = 0$
+b) $F[q] \le -\log p(x)$ for any choice of $q(z)$.
+c) $F[q] \ge -\log p(x)$ for any choice of $q(z)$.
+d) $F[q] = -\log p(x)$ if $q(z) = p(z)$.</p>
+<hr />
+<h2>Question 5: Classifier Orange-ness</h2>
+<p>You have a machine that measures property $x$, the "orangeness" of liquids. You wish to discriminate between $C_1 = \text{'Fanta'}$ and $C_2 = \text{'Orangina'}$. It is known that:
+$p(x|C_1) = <script type="math/tex; mode=display">\begin{cases} 6x(1-x) & 0 \le x \le 1 \\ 0 & \text{otherwise} \end{cases}</script>$
+$p(x|C_2) = <script type="math/tex; mode=display">\begin{cases} 2x & 0 \le x \le 1 \\ 0 & \text{otherwise} \end{cases}</script>$</p>
+<p>The probability that $x$ falls outside the interval $[0.0, 1.0]$ is zero. The prior class probabilities $p(C_1) = 0.6$ and $p(C_2) = 0.4$ are also known from experience.</p>
+<p><strong>5a</strong> We want to develop a Bayesian classifier. The discrimination boundary on the interval $x \in [0.0, 1.0]$ is given by:
+a) $1 = \frac{p(x|C_1)}{p(x|C_2)} = \frac{6x(1-x)}{2x} \Rightarrow x = 2/3$
+b) $\frac{1}{2} = \frac{p(C_1|x)}{p(C_2|x)} = \frac{p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} = \frac{6x(1-x)\cdot 0.6}{2x\cdot 0.4} \Rightarrow x = 8/9$
+c) $1 = \frac{p(C_1|x)}{p(C_2|x)} = \frac{p(x|C_1)p(C_1)}{p(x|C_2)p(C_2)} = \frac{6x(1-x)\cdot 0.6}{2x\cdot 0.4} \Rightarrow x = 7/9$</p>
+<p><strong>5b</strong> Compute $p(C_1|x=0.5)$.
+a) $p(C_1|x=0.5) = \frac{p(x=0.5|C_1)p(C_1)}{p(x=0.5|C_2)p(C_2)} = \frac{\frac{6}{4}\cdot\frac{6}{10}}{1\cdot\frac{4}{10}}$
+b) $p(C_1|x=0.5) = \frac{p(x=0.5|C_1)p(C_1)}{p(x=0.5)} = \frac{\frac{6}{4}\cdot\frac{6}{10}}{\frac{6}{4}\cdot\frac{6}{10}+1\cdot\frac{4}{10}}$
+c) $p(C_1|x=0.5) = p(x=0.5|C_1)p(C_1) = \frac{6}{4}\cdot\frac{6}{10}$</p>
+<p><strong>5c</strong> Now assume that the prior probabilities $p(C_1)$ and $p(C_2)$ are not known and you have a data set of correctly labeled samples $D={(x_1,y_1), (x_2,y_2), \dots, (x_N,y_N)}$. How would a Bayesian approach proceed to classify a new sample $x_\bullet$?
+a) Assume parameterized prior class probabilities, e.g., $p(C_1|\theta)=\theta$ and $p(C_2|\theta)=1-\theta$, with a Gaussian prior on $\theta$. Then absorb the data in the model by Bayes rule to get $p(\theta|D)$ and classify $x_\bullet$ by $p(C_1|x_\bullet,D) \propto \int p(x_\bullet|C_1,\theta)p(\theta|D)d\theta$.
+b) Assume $p(C_1)=p(C_2)=0.5$ and use Bayes rule to compute $p(C_1|x_\bullet)$.
+c) Assume parameterized prior class probabilities, e.g., $p(C_1|\theta)=\theta$ and $p(C_2|\theta)=1-\theta$, with a Beta prior on $\theta$. Then absorb the data in the model by Bayes rule to get $p(\theta|D)$ and $p(C_1|x_\bullet,D) \propto \int p(x_\bullet|C_1)p(C_1|\theta)p(\theta|D)d\theta$.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../../../../script.js"></script>
+    <script src="../../../../../script.js"></script>
 
     <script>
         // Note navigation functionality
@@ -875,7 +874,7 @@ and we assume a Beta distribution for the prior on $\mu$:
                 relativePath = decodeURIComponent(relativePath);
                 
                 // Load navigation data
-                const response = await fetch('../../../../notes_navigation.json');
+                const response = await fetch('../../../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
@@ -906,7 +905,7 @@ and we assume a Beta distribution for the prior on $\mu$:
                 const prevButton = document.getElementById('prevButton');
                 
                 if (currentNav.previous) {
-                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.href = '../../../../../' + currentNav.previous;
                     prevButton.title = 'Previous: ' + currentNav.previous_title;
                     prevButton.style.visibility = 'visible';
                 } else {
@@ -917,7 +916,7 @@ and we assume a Beta distribution for the prior on $\mu$:
                 const nextButton = document.getElementById('nextButton');
                 
                 if (currentNav.next) {
-                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.href = '../../../../../' + currentNav.next;
                     nextButton.title = 'Next: ' + currentNav.next_title;
                     nextButton.style.visibility = 'visible';
                 } else {
@@ -929,9 +928,9 @@ and we assume a Beta distribution for the prior on $\mu$:
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
                     
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
-                        window.location.href = '../../../../' + currentNav.previous;
+                        window.location.href = '../../../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
-                        window.location.href = '../../../../' + currentNav.next;
+                        window.location.href = '../../../../../' + currentNav.next;
                     }
                 });
                 

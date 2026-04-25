@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="2022 - MSc AI & Engineering Systems Notes">
-    <title>2022 - MSc AIES</title>
-    <link rel="icon" href="../../../../assets/svg/favicon.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../../../../styles.css">
+    <meta name="description" content="2021 Part A - MSc AI & Engineering Systems Notes">
+    <title>2021 Part A - MSc AIES</title>
+    <link rel="icon" href="../../../../../assets/svg/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../../../../../styles.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css" crossorigin="anonymous">
     <script defer src="https://cdn.jsdelivr.net/npm/katex/dist/katex.min.js" crossorigin="anonymous"></script>
@@ -662,30 +662,25 @@
                 <span></span>
             </div>
             <ul class="nav-links" id="navLinks">
-                <li><a href="../../../../index.html">About</a></li>
-                <li><a href="../../../../journey.html">My Life</a></li>
-                <li><a href="../../../../projects.html">Projects</a></li>
-                <li><a href="../../../../blogs.html">Blog</a></li>
-                <li><a href="../../../../notes.html">MSc AIES</a></li>
-                <li><a href="https://dailyclips.es/" target="_blank">Daily Clips</a></li>
-                <li><a href="https://https://dkealvaro.github.io//ufc-predictions/" target="_blank">UFC Predictions</a></li>
-                <li><a href="../../../../acknowledgments.html">Acknowledgments</a></li>
-                <li><a href="../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
+                <li><a href="../../../../../index.html">About</a></li>
+                <li><a href="../../../../../blogs.html">Blog</a></li>
+                <li><a href="../../../../../notes.html">MSc AIES</a></li>
+                <li><a href="../../../../../assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>
             </ul>
             <div class="nav-right">
                 <div class="social-links">
                     <a href="https://github.com/DKeAlvaro" target="_blank" aria-label="GitHub">
-                        <img src="../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
+                        <img src="../../../../../assets/svg/github.svg" alt="GitHub" class="social-icon">
                     </a>
                     <a href="https://www.linkedin.com/in/alvaromenendezros" target="_blank" aria-label="LinkedIn">
-                        <img src="../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
+                        <img src="../../../../../assets/svg/linkedin.svg" alt="LinkedIn" class="social-icon">
                     </a>
                     <a href="mailto:alvaro.mrgr@gmail.com" aria-label="Email">
-                        <img src="../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
+                        <img src="../../../../../assets/svg/gmail.svg" alt="Email" class="social-icon">
                     </a>
                 </div>
                 <div class="theme-toggle" id="themeToggle" aria-label="Toggle theme" role="button" tabindex="0">
-                    <img src="../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
+                    <img src="../../../../../assets/svg/moon.svg" alt="Toggle theme" class="theme-icon" id="themeIcon">
                 </div>
             </div>
         </nav>
@@ -697,11 +692,11 @@
                 <div class="navigation-header">
                     <div class="nav-left">
                         <div class="breadcrumb-section">
-                            <a href="../../../../notes.html" class="back-link">
+                            <a href="../../../../../notes.html" class="back-link">
                                 <span>←</span>
                                 <span>Back to Notes</span>
                             </a>
-                            <span class="folder-path">Year_1 / Q2</span>
+                            <span class="folder-path">Year_1 / Q2 / Bayesian ML</span>
                         </div>
                         <div class="current-page-title" id="currentPageTitle"></div>
                     </div>
@@ -726,180 +721,100 @@
                 
                 <div class="note-content">
                     <h3>Question 1</h3>
-<p><strong>1a</strong> Below are four statements about the Bayesian approach to machine learning. Which of the below statements is false?
-a) The Bayesian approach does not require splitting the data set into a training and test set. All data can be used for training.
-b) The Bayesian approach is a fundamentally sound approach to optimal processing of incomplete information sources such as a data set, since it is based on probability theory.
-c) The Bayesian approach to machine learning requires upfront to state all model assumptions explicitly in the model specification. Alternative approaches may hide these assumptions in various ways through cost functions, learning rates, etc.
-d) The Bayesian approach to machine learning is a fast alternative to the more fundamental maximum likelihood method.
-<strong>Answer:</strong> d</p>
-<p><strong>1b</strong> Which of the following statements is NOT a property of the Variational Bayesian (VB) approach to machine learning?
-a) The VB approach transfers Bayesian ML to an optimization problem.
-b) VB finds posterior distributions by maximizing Bayesian model evidence.
-c) Minimization of Variational Free Energy leads both to (possibly approximate) results for (1) the posterior distribution over the latent variables, and (2) Bayesian model evidence.
-d) Global optimization of Variational Free Energy leads to the realization of Bayes rule.
-<strong>Answer:</strong> b</p>
-<p><strong>1c</strong> Consider two model specifications $p(x, \theta, m_k) = p(x | \theta, m_k) p(\theta | m_k) p(m_k)$ for $k = {1, 2}$. After training both models on the same data set $D = {x_1, x_2, ..., x_N}$, you want to use the Bayes Factor (BF) to select the best model for this data set. The BF can be expressed as follows:
-a) $B_{12} = \frac{p(D|m_1)}{p(D|m_2)} = \frac{p(m_1|D)}{p(m_2|D)} \cdot \frac{p(m_1)}{p(m_2)}$
-b) $B_{12} = \frac{p(D|m_1)}{p(D|m_2)} = \frac{p(m_1|D)}{p(m_2|D)} \cdot \frac{p(m_2)}{p(m_1)}$
-c) $B_{12} = \frac{p(m_1|D)}{p(m_2|D)} = \frac{p(D|m_1)}{p(D|m_2)} \cdot \frac{p(m_2)}{p(m_1)}$
-d) $B_{12} = \frac{p(m_1|D)}{p(m_2|D)} = \frac{p(D|m_1)}{p(D|m_2)} \cdot \frac{p(m_1)}{p(m_2)}$
-<strong>Answer:</strong> c</p>
-<p><strong>1d</strong> In the Free Energy Principle approach to designing an intelligent agent, which of the following statements describes most accurately how to equip the agent with goal-driven behavior?
-a) Specify a cost function of future states and choose actions to minimize future costs.
-b) Extend the generative model with target priors for future observations. Then choose actions that minimize Free Energy in the extended model.
-c) Specify a cost function of actions and choose actions that minimize the cost function.
-d) Extend the generative model with a posterior distribution for actions and choose the action that maximizes this posterior distribution.
-<strong>Answer:</strong> b</p>
+<p>Which of the following statements are true?</p>
+<ul>
+<li><strong>1a</strong> It is more appropriate to say "the likelihood of the parameters", than "the likelihood of the data".<ul>
+<li>a) true</li>
+<li>b) false</li>
+</ul>
+</li>
+<li><strong>1b</strong> If X and Y are independent Gaussian distributed variables, then $Z=3X-XY$ is also a Gaussian distributed variable.<ul>
+<li>a) true</li>
+<li>b) false</li>
+</ul>
+</li>
+<li><strong>1c</strong> For a given Linear Gaussian Dynamical System with observations ${x_{t}}$ and latent states ${z_{t}}$ the Kalman filter is a recursive solution to the inference problem $p(z_{t}|x_{1:t})$ based on a state estimate at the previous time step $p(z_{t-1}|x_{1:t-1})$ and a new observation $x_{t}.$<ul>
+<li>a) true</li>
+<li>b) false</li>
+</ul>
+</li>
+<li><strong>1d</strong> In the context of parameter estimation, maximum likelihood estimation always selects the parameter values where the Bayesian posterior distribution is maximal.<ul>
+<li>a) true</li>
+<li>b) false</li>
+</ul>
+</li>
+<li><strong>1e</strong> Bayes rule is inconsistent with the Method of Maximum Relative Entropy as a method of inference.<ul>
+<li>a) true</li>
+<li>b) false</li>
+</ul>
+</li>
+</ul>
+<hr />
 <h3>Question 2</h3>
-<p>Consider a two-class classification problem with data set $D = {(x_1, y_1), (x_2, y_2), ..., (x_N, y_N)}$, where $x_n \in \mathbb{R}^{2 \times 1}$ are observed features (note that $x_n$ is a two-dimensional column vector) and $y_n \in {(1,0), (0,1)}$ is a one-hot coded class identifier. We define a data generating distribution by:
-<script type="math/tex; mode=display">p(x_n | y_{n1}=1)p(y_{n1}=1) = \mathcal{N}(x_n | \mu_1, \Sigma_1) \cdot \pi_1</script>
-<script type="math/tex; mode=display">p(x_n | y_{n2}=1)p(y_{n2}=1) = \mathcal{N}(x_n | \mu_2, \Sigma_2) \cdot \pi_2</script>
-where $\theta = {\pi_1, \pi_2, \mu_1, \mu_2, \Sigma_1, \Sigma_2}$ are the model parameters.</p>
-<p><strong>2a</strong> What is the expression for the "generative model" $p(x_n, y_n)$?
-a) $p(x_n, y_n) = \prod_{k=1}^2 \pi_k \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k)^{y_{nk}}$
-b) $p(x_n, y_n) = \prod_{k=1}^2 (\pi_k \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k))^{y_{nk}}$
-c) $p(x_n, y_n) = \prod_{k=1}^2 \pi_k^{y_{nk}} \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k)$
-d) $p(x_n, y_n) = \sum_{k=1}^2 y_{nk} \log(\pi_k \cdot \mathcal{N}(x_n | \mu_k, \Sigma_k))$
-<strong>Answer:</strong> b</p>
-<p><strong>2b</strong> The posterior class distribution $p(y_{n1}=1 | x_n)$ for a given input $x_n$ is given by:
-a) $p(y_{n1}=1 | x_n) = \frac{\mathcal{N}(x_n | \mu_1, \Sigma_1)}{\mathcal{N}(x_n | \mu_1, \Sigma_1) + \mathcal{N}(x_n | \mu_2, \Sigma_2)}$
-b) $p(y_{n1}=1 | x_n) = \frac{\pi_1}{\pi_1 + \pi_2}$
-c) $p(y_{n1}=1 | x_n) = \frac{\pi_2 \cdot \mathcal{N}(x_n | \mu_2, \Sigma_2)}{\pi_1 \mathcal{N}(x_n | \mu_1, \Sigma_1) + \pi_2 \mathcal{N}(x_n | \mu_2, \Sigma_2)}$
-d) $p(y_{n1}=1 | x_n) = \frac{\pi_1 \cdot \mathcal{N}(x_n | \mu_1, \Sigma_1)}{\pi_1 \mathcal{N}(x_n | \mu_1, \Sigma_1) + \pi_2 \cdot \mathcal{N}(x_n | \mu_2, \Sigma_2)}$
-<strong>Answer:</strong> d</p>
-<p><strong>2c</strong> The log-likelihood $\log p(D | \theta)$ can be worked out to:
-a) $\log p(D | \theta) = \sum_k y_{nk} \log \mathcal{N}(x_n | \mu_k, \Sigma_k) + \sum_k y_{nk} \log \pi_k$
-b) $\log p(D | \theta) = \sum_n \sum_k y_{nk} \log \mathcal{N}(x_n | \mu_k, \Sigma_k) + \sum_n \sum_k \log \pi_k$
-c) $\log p(D | \theta) = \sum_n \sum_k y_{nk} \log \mathcal{N}(x_n | \mu_k, \Sigma_k) + \sum_n \sum_k y_{nk} \log \pi_k$
-d) $\log p(D | \theta) = \sum_k y_{nk} \log (\pi_k \mathcal{N}(x_n | \mu_k, \Sigma_k))$
-<strong>Answer:</strong> c</p>
-<p><strong>2d</strong> Let $\hat{\mu}<em n2="n2">2$ be the maximum likelihood estimate for $\mu_2$. The maximum likelihood estimate $\hat{\Sigma}_2$ for the variance parameter $\Sigma_2$ is given by:
-a) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n (x_n - \hat{\mu}_2)(x_n - \hat{\mu}_2)^T$
-b) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n y</em>} (x_n - \hat{\mu<em n2="n2">2)(x_n - \hat{\mu}_2)^T$
-c) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n y</em>} (x_n - \hat{\mu<em n2="n2">2)^T (x_n - \hat{\mu}_2)$
-d) $\hat{\Sigma}_2 = \frac{1}{N} \sum_n y</em>_2)^2$
-} (x_n - \hat{\mu<strong>Answer:</strong> b</p>
-<p><strong>2e</strong> Aside from degenerative cases, the discrimination boundary between the two classes will be given by a:
-a) straight line
-b) parabola
-c) square
-d) triangle
-<strong>Answer:</strong> b</p>
+<p>Let $x_{n}\in\mathbb{R}^{N}$ and $z_{n}\in\mathbb{R}^{M}$ with $M&lt;&lt;N.$ Given is a model</p>
+<p>
+<script type="math/tex; mode=display">x_{n}=Wz_{n}+\epsilon_{n}</script>
+<script type="math/tex; mode=display">z_{n}\sim\mathcal{N}(0,I)</script>
+<script type="math/tex; mode=display">\epsilon_{n}\sim\mathcal{N}(0,\Psi)</script>
+</p>
+<p>where $\mathcal{N}(m,V)$ is a Gaussian distribution with mean m and covariance matrix V.</p>
+<ul>
+<li><strong>2a</strong> Work out an equivalent expression for this model as a joint probability distribution over $x_{n}$ and $z_{n}$.<ul>
+<li>a) $p(x_{n},z_{n})=\frac{\mathcal{N}(x_{n}|Wz_{n},\epsilon_{n})}{\mathcal{N}(z_{n}|0,I)}$</li>
+<li>b) $p(x_{n},z_{n})=\mathcal{N}(x_{n}|Wz_{n},\Psi)$</li>
+<li>c) $p(x_{n},z_{n})=\mathcal{N}(x_{n}|Wz_{n},\epsilon_{n})\mathcal{N}(z_{n}|0,I)$</li>
+<li>d) $p(x_{n},z_{n})=\mathcal{N}(x_{n}|Wz_{n},\Psi)\mathcal{N}(z_{n}|0,I)$</li>
+</ul>
+</li>
+<li><strong>2b</strong> Work out an expression for $p(x_{n})$<ul>
+<li>a) $p(x_{n})=\mathcal{N}(x_{n}|0,WW^{T}+\Psi)$</li>
+<li>b) $p(x_{n})=\mathcal{N}(x_{n}|Wz_{n},WW^{T}+\Psi)$</li>
+<li>c) $p(x_{n})=\mathcal{N}(x_{n}|0,W^{T}W+\Psi)$</li>
+<li>d) $p(x_{n})=\mathcal{N}(x_{n}|Wz_{n},\epsilon_{n})$</li>
+</ul>
+</li>
+<li><strong>2c</strong> This model is known as a "factor analysis" model and is commonly used to compress observations $x_{n}$ into lower dimensional variables $z_{n}$. Before we can make use of this model, we will need to train the parameters W. Let's start by adding a prior $W\sim\mathcal{N}(0,I)$. Consider an observed data set $X={x_{n}|n=1,2,...,N}$. How would you train the parameters W for this application?<ul>
+<li>a) Compute a posterior $p(W|{x_{n}},{z_{n}})$. This is easy because the joint is a Gaussian system so we can do this analytically with sum and product rules.</li>
+<li>b) Compute a posterior $p(W|{x_{n}},{z_{n}})$. This is hard because ${z_{n}}$ is unobserved. Consider variational Bayesian approach.</li>
+<li>c) Compute a posterior $p(W|{x_{n}})$. This is hard because both ${z_{n}}$ and W are unobserved. Consider a variational Bayesian approach.</li>
+<li>d) Compute a posterior $p(W|{x_{n}})$ through Bayes rule. This is easy because the joint is a Gaussian system so we can do this analytically with sum and product rules.</li>
+</ul>
+</li>
+</ul>
+<hr />
 <h3>Question 3</h3>
-<p>Consider a biased coin with outcomes:
-<script type="math/tex; mode=display">x_n = \begin{cases} 0 & (heads) \\ 1 & (tails) \end{cases}</script>
-We assume that the data generating process is governed by a Bernoulli distribution,
-<script type="math/tex; mode=display">p(x_n | \mu) = \mu^{x_n} (1-\mu)^{(1-x_n)}</script>
-and we assume a Beta distribution for the prior on $\mu$:
-<script type="math/tex; mode=display">p(\mu) = \text{Beta}(\mu | \alpha=3, \beta=2)</script>
-Note that the Beta distribution is given by $\text{Beta}(x | \alpha, \beta) = \frac{\Gamma(\alpha+\beta)}{\Gamma(\alpha)\Gamma(\beta)} x^{\alpha-1} (1-x)^{\beta-1}$, where $\Gamma(\cdot)$ is the gamma function. The mean of the Beta distribution is given by $E[x] = \frac{\alpha}{\alpha+\beta}$.</p>
-<p>We throw the coin 7 times and observe outcomes $D = {0, 1, 0, 0, 1, 0, 0}$.</p>
-<p><strong>3a</strong> Which of the following interpretations of the choice $\alpha=3$, $\beta=2$ is most valid?
-a) We assume 5 "pseudo" coin tosses with outcomes 2 tails and 3 heads.
-b) We assume 3 "pseudo" coin tosses with outcomes 2 tails and 1 heads.
-c) We assume that the probability of throwing tails is 2/3 times the probability of throwing heads.
-d) We assume 5 "pseudo" coin tosses with outcomes 3 tails and 2 heads.
-<strong>Answer:</strong> d</p>
-<p><strong>3b</strong> Work out the likelihood function $p(D | \mu)$ for $\mu$.
-a) $p(D | \mu) = \binom{5}{2} \cdot \mu^5 (1-\mu)^2$
-b) $p(D | \mu) = \mu^5 (1-\mu)^2$
-c) $p(D | \mu) = \mu^2 (1-\mu)^5$
-d) $p(D | \mu) = \mu^1 (1-\mu)^4$
-<strong>Answer:</strong> c</p>
-<p><strong>3c</strong> Compute the posterior distribution $p(\mu | D)$.
-a) $p(\mu | D) = \text{Beta}(\mu | 4, 6)$
-b) $p(\mu | D) = \mu^4 (1-\mu)^6$
-c) $p(\mu | D) = \mu^5 (1-\mu)^7$
-d) $p(\mu | D) = \text{Beta}(\mu | 5, 7)$
-<strong>Answer:</strong> d</p>
-<p><strong>3d</strong> Now compute the probability for throwing tails after the data set has been absorbed in the model.
-a) $p(x_{n+1}=1 | D) = 4/11$
-b) $p(x_{n+1}=1 | D) = 3/5$
-c) $p(x_{n+1}=1 | D) = 1/2$
-d) $p(x_{n+1}=1 | D) = 5/12$
-<strong>Answer:</strong> d</p>
-<h3>Question 4</h3>
-<p>A model $m_1$ is described by a single parameter $\theta$, with $0 \le \theta \le 1$. The system can produce data $x \in {0, 1}$.
-The sampling distribution $p(x | \theta, m_1)$ and prior $p(\theta | m_1)$ are given by:
-<script type="math/tex; mode=display">p(x | \theta, m_1) = \theta^x (1-\theta)^{(1-x)}</script>
-<script type="math/tex; mode=display">p(\theta | m_1) = 6\theta(1-\theta)</script>
+<p>You have a machine that measures property, the "orangeness" of liquids. You wish to discriminate between $C_{1}=$ 'Fanta' and $C_{2}=$ 'Orangina'. It is known that</p>
+<p>
+<script type="math/tex; mode=display">p(x|C_{1})=\begin{cases}1&1.0\le x\le2.0\\ 0&otherwise\end{cases}</script>
+<script type="math/tex; mode=display">p(x|C_{2})=\begin{cases}2\cdot(x-1)&1.0\le x\le2.0\\ 0&otherwise\end{cases}</script>
 </p>
-<p><strong>4a</strong> Work out the probability $p(x=1 | m_1)$.
-a) $1/4$
-b) $1/2$
-c) $\theta / (1+\theta)$
-d) $3/4$
-<strong>Answer:</strong> b</p>
-<p><strong>4b</strong> Determine the posterior $p(\theta | x=1, m_1)$.
-a) $6\theta^2 (1-\theta)$
-b) $12\theta (1-\theta)^2$
-c) $12\theta^2 (1-\theta)$
-d) $6\theta (1-\theta)^2$
-<strong>Answer:</strong> c</p>
-<p>Consider a second model $m_2$ with the following sampling distribution and prior on $0 \le \theta \le 1$:
-<script type="math/tex; mode=display">p(x | \theta, m_2) = (1-\theta)^x \theta^{(1-x)}</script>
-<script type="math/tex; mode=display">p(\theta | m_2) = 2\theta</script>
-</p>
-<p><strong>4c</strong> Determine the probability $p(x=1 | m_2)$.
-a) $2/3$
-b) $1/4$
-c) $1/2$
-d) $1/3$
-<strong>Answer:</strong> d</p>
-<p><strong>4d</strong> Now assume that the model priors are given by $p(m_1) = 1/3$ and $p(m_2) = 2/3$. Compute the probability $p(x=1)$ by "Bayesian model averaging", i.e., by weighing the predictions of both models appropriately.
-a) $7/18$
-b) $1/2$
-c) $4/9$
-d) $8/18$
-<strong>Answer:</strong> a</p>
-<p><strong>4e</strong> Compute the fraction of posterior model probabilities $\frac{p(m_1 | x=1)}{p(m_2 | x=1)}$.
-a) $3/4$
-b) $4/9$
-c) $5/9$
-d) $2/3$
-<strong>Answer:</strong> a</p>
-<h3>Question 5</h3>
-<p><strong>5a</strong> For a state space model with given process model $p(z_t | z_{t-1})$ and observation model $p(x_t | z_t)$, write out how to recursively update the latent state estimate $p(z_t | x_{1:t})$.
-a) $p(z_t | x_{1:t}) = p(x_t | z_t) \sum_{z_{t-1}} p(z_t | z_{t-1}) p(z_{t-1} | x_{1:t-1})$
-b) $p(z_t | x_{1:t}) \propto p(x_t | z_t) \sum_{z_{t-1}} p(z_t | z_{t-1}) p(z_{t-1} | x_{1:t-1})$
-c) $p(z_t | x_{1:t}) = \sum_{x_t} p(x_t | z_t) p(z_t | x_{1:t-1})$
-d) $p(z_t | x_{1:t}) \propto p(z_t, x_{1:t})$
-<strong>Answer:</strong> b</p>
-<p><strong>5b</strong> Which of the following statements are consistent with the Free Energy Principle:
-(a) An active inference agent holds a generative model for its sensory inputs.
-(b) Actions are inferred from differences between the predicted and desired future observations.
-(c) Actions are inferred from differences between the predicted and actual future observations.
-(d) An active inference agent focuses on explorative behavior only.
-a) (a) and (b)
-b) (a)
-c) (b) and (d)
-d) (c) and (d)
-<strong>Answer:</strong> a</p>
-<p><strong>5c</strong> Given is a model:
-<script type="math/tex; mode=display">p(z) = \mathcal{N}(z | 0, I)</script>
-<script type="math/tex; mode=display">p(x | z) = \mathcal{N}(x | Wz, \Sigma)</script>
-Work out an expression for the marginal $p(x)$.
-a) $p(x) = \mathcal{N}(x | 0, W^T W + \Sigma)$
-b) $p(x) = \mathcal{N}(x | Wz, \Sigma)$
-c) $p(x) = \mathcal{N}(x | 0, W \Sigma W^T)$
-d) $p(x) = \mathcal{N}(x | 0, W W^T + \Sigma)$
-<strong>Answer:</strong> d</p>
-<p><strong>5d</strong> Which of the following statements are true?
-(a) If X and Y are independent Gaussian-distributed variables, then $Z=XY$ is also Gaussian distributed.
-(b) If X and Y are independent Gaussian-distributed variables, then $Z=3X-Y$ is also Gaussian distributed.
-(c) The sum of two Gaussian distributions is always also a Gaussian distribution.
-(d) Discriminative classification is more similar to regression than to density estimation.
-a) (b) and (c)
-b) (a) and (d)
-c) (b) and (d)
-d) (b) and (c)
-<strong>Answer:</strong> c</p>
+<p>The probability that falls outside the interval [1.0, 2.0] is zero. The prior class probabilities $p(C_{1})=0.6$ and $p(C_{2})=0.4$ are also known from experience.</p>
+<ul>
+<li><strong>3a</strong> We want to develop a Bayesian classifier. The discrimination boundary on the interval $x\in[1.0,2.0]$ is given by<ul>
+<li>a) $1=\frac{p(x|C_{2})}{p(x|C_{1})}\cdot\frac{p(C_{1})}{p(C_{2})}=\frac{1}{2(x-1)}\cdot\frac{0.4}{0.6}\Rightarrow x=5/3$</li>
+<li>b) $1=\frac{p(x|C_{2})}{p(x|C_{1})}=\frac{1}{2(x-1)}\Rightarrow x=3/2$</li>
+<li>c) $1=\frac{p(C_{2}|x)}{p(C_{1}|x)}=\frac{1.0.6}{2(x-1)\cdot0.4}\Rightarrow x=7/4$</li>
+</ul>
+</li>
+<li><strong>3b</strong> Compute $p(C_{1}|x=1.3)$<ul>
+<li>a) $p(C_{1}|x=1.3)=\frac{p(x=1.3|C_{1})p(C_{1})}{p(x=1.3|C_{2})p(C_{2})}=\frac{1.0.6}{2(1.3-1)\cdot0.4}$</li>
+<li>b) $p(C_{1}|x=1.3)=p(x=1.3|C_{1})p(C_{1})=1\cdot0.6$</li>
+<li>c) $p(C_{1}|x=1.3)=\frac{p(x=1.3|C_{1})p(C_{1})}{p(x=1.3)}=\frac{1.0.6}{1.0.6+2(1.3-1)\cdot0.4}$</li>
+</ul>
+</li>
+<li><strong>3c</strong> Let the discrimination boundary be given by $x=a$. Work out the total probability of a false classification:<ul>
+<li>a) $\int_{1.0}^{a}p(x|C_{2})p(C_{2})dx+\int_{a}^{2}p(x|C_{1})p(C_{1})dx$</li>
+<li>b) $\int_{1.0}^{a}p(C_{1}|x)p(x)dx+\int_{a}^{2}p(C_{2}|x)p(x)dx$</li>
+<li>c) $\int_{1.0}^{a}p(C_{2}|x)dx+\int_{a}^{2}p(C_{1}|x)dx$</li>
+</ul>
+</li>
+</ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <script src="../../../../script.js"></script>
+    <script src="../../../../../script.js"></script>
 
     <script>
         // Note navigation functionality
@@ -927,7 +842,7 @@ d) (b) and (c)
                 relativePath = decodeURIComponent(relativePath);
                 
                 // Load navigation data
-                const response = await fetch('../../../../notes_navigation.json');
+                const response = await fetch('../../../../../notes_navigation.json');
                 if (!response.ok) {
                     console.log('Navigation data not found');
                     return;
@@ -958,7 +873,7 @@ d) (b) and (c)
                 const prevButton = document.getElementById('prevButton');
                 
                 if (currentNav.previous) {
-                    prevButton.href = '../../../../' + currentNav.previous;
+                    prevButton.href = '../../../../../' + currentNav.previous;
                     prevButton.title = 'Previous: ' + currentNav.previous_title;
                     prevButton.style.visibility = 'visible';
                 } else {
@@ -969,7 +884,7 @@ d) (b) and (c)
                 const nextButton = document.getElementById('nextButton');
                 
                 if (currentNav.next) {
-                    nextButton.href = '../../../../' + currentNav.next;
+                    nextButton.href = '../../../../../' + currentNav.next;
                     nextButton.title = 'Next: ' + currentNav.next_title;
                     nextButton.style.visibility = 'visible';
                 } else {
@@ -981,9 +896,9 @@ d) (b) and (c)
                     if (e.ctrlKey || e.metaKey) return; // Don't interfere with browser shortcuts
                     
                     if (e.key === 'ArrowLeft' && currentNav.previous) {
-                        window.location.href = '../../../../' + currentNav.previous;
+                        window.location.href = '../../../../../' + currentNav.previous;
                     } else if (e.key === 'ArrowRight' && currentNav.next) {
-                        window.location.href = '../../../../' + currentNav.next;
+                        window.location.href = '../../../../../' + currentNav.next;
                     }
                 });
                 
