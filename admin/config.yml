@@ -6,8 +6,7 @@ backend:
   repo: DKeAlvaro/DKeAlvaro.github.io
   branch: main
   site_domain: dkealvaro.github.io
-  base_url: https://decap-oauth.alvaro-mrgr.workers.dev
-  auth_endpoint: /auth
+  base_url: https://auth.decapcms.org
 
 publish_mode: editorial_workflow
 
