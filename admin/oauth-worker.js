@@ -14,11 +14,11 @@ export default {
     }
 
     if (path === '/auth') {
-      const redirectUri = url.origin + '/callback';
       const params = new URLSearchParams({
         client_id: env.GITHUB_CLIENT_ID,
-        redirect_uri: redirectUri,
-        scope: 'repo,user',
+        redirect_uri: url.origin + '/callback',
+        scope: 'repo',
+        response_type: 'code',
       });
       const githubUrl = 'https://github.com/login/oauth/authorize?' + params.toString();
       return new Response('', {
@@ -30,10 +30,13 @@ export default {
     if (path === '/callback') {
       const code = url.searchParams.get('code');
       if (!code) {
-        return new Response('Missing code', { status: 400, headers: corsHeaders });
+        return new Response('<html><body>No code</body></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html', ...corsHeaders },
+        });
       }
 
-      const tokenRes = await fetch('https://github.com/login/oauth/access_token', {
+      const r = await fetch('https://github.com/login/oauth/access_token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -43,23 +46,17 @@ export default {
         }),
       });
 
-      const data = await tokenRes.json();
-      const token = data.access_token;
+      const j = await r.json();
 
-      if (!token) {
-        return new Response(JSON.stringify(data), {
-          status: 400,
-          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      if (!j.access_token) {
+        return new Response('<html><body><h1>Error</h1><pre>' + JSON.stringify(j) + '</pre></body></html>', {
+          status: 200,
+          headers: { 'Content-Type': 'text/html', ...corsHeaders },
         });
       }
 
-      const encoded = btoa(JSON.stringify({ token, provider: 'github' }));
-      const html = `<!DOCTYPE html><html><body><script>
-        opener.postMessage("authorization:github:success:" + atob("${encoded}"), "*");
-        close();
-      <\/script></body></html>`;
-
-      return new Response(html, {
+      const token = JSON.stringify(j.access_token).slice(1, -1);
+      return new Response('<!DOCTYPE html><html><body><script>opener.postMessage("authorization:github:success:"+JSON.stringify({token:"' + token + '",provider:"github"}),"*");close();\x3c/script></body></html>', {
         status: 200,
         headers: { 'Content-Type': 'text/html; charset=utf-8', ...corsHeaders },
       });
