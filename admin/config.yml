@@ -8,8 +8,6 @@ backend:
   site_domain: dkealvaro.github.io
   base_url: https://decap-oauth.alvaro-mrgr.workers.dev
 
-publish_mode: editorial_workflow
-
 media_folder: blog/media          # Images uploaded via CMS go here
 public_folder: blog/media
 
