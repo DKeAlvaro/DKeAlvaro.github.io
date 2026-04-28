@@ -64,6 +64,7 @@ collections:
     folder: notes
     create: true
     delete: true
+    identifier_field: date
     nested:
       depth: 100
       summary: '{{dirname}}/{{filename}}'
@@ -73,10 +74,10 @@ collections:
     editor:
       preview: false
     fields:
-      - label: Title (used in filename only)
+      - label: Title
         name: title
-        widget: hidden
-        default: ''
+        widget: string
+        required: false
       - label: Date
         name: date
         widget: datetime
