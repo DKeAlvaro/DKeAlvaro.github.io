@@ -1,5 +1,6 @@
 import os
 import re
+import yaml
 from datetime import datetime
 import markdown
 from pathlib import Path
@@ -23,28 +24,50 @@ def find_md_files_in_blog_folders():
     return md_files
 
 def extract_metadata_from_md(md_file_path):
-    """Extract Date, Overview, and Private from markdown file and return cleaned content"""
+    """Extract Date, Overview, Private, and Title from markdown file, supporting both
+    YAML frontmatter (--- delimited) and legacy inline format. Returns cleaned content."""
     with open(md_file_path, 'r', encoding='utf-8') as f:
         content = f.read()
-    
-    # Extract Date, Overview, and Private
-    date_match = re.search(r'^Date:\s*(.+)$', content, re.MULTILINE)
-    overview_match = re.search(r'^Overview:\s*(.+)$', content, re.MULTILINE)
-    private_match = re.search(r'^Private:\s*(.+)$', content, re.MULTILINE)
-    
-    date = date_match.group(1).strip() if date_match else "Unknown Date"
-    overview = overview_match.group(1).strip() if overview_match else "No description available"
-    is_private = private_match.group(1).strip().lower() == 'true' if private_match else False
-    
-    # Remove Date, Overview, and Private lines from content
+
+    date = None
+    overview = None
+    is_private = False
+    title = None
+
+    # Try YAML frontmatter first
+    yaml_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
+    if yaml_match:
+        try:
+            frontmatter = yaml.safe_load(yaml_match.group(1))
+            if frontmatter:
+                date = str(frontmatter.get('date', date)) if frontmatter.get('date') else date
+                overview = frontmatter.get('overview', overview) or frontmatter.get('description', overview)
+                is_private = frontmatter.get('private', is_private) or frontmatter.get('draft', is_private)
+                title = frontmatter.get('title', title)
+            content = content[yaml_match.end():]
+        except yaml.YAMLError:
+            pass
+
+    # Fall back to legacy inline format
+    if not date:
+        date_match = re.search(r'^Date:\s*(.+)$', content, re.MULTILINE)
+        date = date_match.group(1).strip() if date_match else "Unknown Date"
+    if not overview:
+        overview_match = re.search(r'^Overview:\s*(.+)$', content, re.MULTILINE)
+        overview = overview_match.group(1).strip() if overview_match else "No description available"
+    if not is_private:
+        private_match = re.search(r'^Private:\s*(.+)$', content, re.MULTILINE)
+        is_private = private_match.group(1).strip().lower() == 'true' if private_match else False
+
+    # Remove legacy Date, Overview, Private lines (already removed from frontmatter)
     content = re.sub(r'^Date:\s*.+$', '', content, flags=re.MULTILINE)
     content = re.sub(r'^Overview:\s*.+$', '', content, flags=re.MULTILINE)
     content = re.sub(r'^Private:\s*.+$', '', content, flags=re.MULTILINE)
-    
+
     # Clean up extra newlines
     content = re.sub(r'\n\s*\n\s*\n', '\n\n', content)
-    
-    return date, overview, is_private, content.strip()
+
+    return date, overview, is_private, content.strip(), title
 
 def convert_md_to_html(md_content, title):
     """Convert markdown content to HTML"""
@@ -362,14 +385,19 @@ def main():
         print(f"Processing {md_file}...")
         
         # Extract metadata and clean content
-        date, overview, is_private, cleaned_content = extract_metadata_from_md(md_file)
-        
-        # Get title from first line (assuming it's # Title)
-        title_match = re.search(r'^#\s*(.+)$', cleaned_content, re.MULTILINE)
-        title = title_match.group(1).strip() if title_match else md_file.stem
-        
-        # Remove the title line from content to avoid duplication
-        if title_match:
+        date, overview, is_private, cleaned_content, frontmatter_title = extract_metadata_from_md(md_file)
+
+        # Get title: from frontmatter first, then from # Heading, then from filename
+        title_from_heading = None
+        if frontmatter_title:
+            title = frontmatter_title
+        else:
+            title_match = re.search(r'^#\s*(.+)$', cleaned_content, re.MULTILINE)
+            title_from_heading = title_match.group(1).strip() if title_match else None
+            title = title_from_heading if title_from_heading else md_file.stem
+
+        # Remove the title line from content to avoid duplication (only if it came from heading)
+        if title_from_heading:
             cleaned_content = re.sub(r'^#\s*.+$', '', cleaned_content, count=1, flags=re.MULTILINE)
             cleaned_content = cleaned_content.strip()
         

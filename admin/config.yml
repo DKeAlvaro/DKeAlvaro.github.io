@@ -1,0 +1,92 @@
+# Decap CMS Configuration
+# See https://decapcms.org/docs/configuration-options/
+
+backend:
+  name: github
+  repo: DKeAlvaro/DKeAlvaro.github.io
+  branch: main
+  site_domain: dkealvaro.github.io
+  base_url: https://decap-oauth.DKeAlvaro.workers.dev
+  auth_endpoint: /auth
+
+publish_mode: editorial_workflow
+
+media_folder: blog/media          # Images uploaded via CMS go here
+public_folder: blog/media
+
+collections:
+  ##########################################
+  # BLOG POSTS
+  ##########################################
+  - name: blog
+    label: Blog Posts
+    label_singular: Blog Post
+    folder: blog
+    create: true
+    delete: true
+    path: '{{slug}}/{{slug}}'
+    media_folder: ''
+    public_folder: ''
+    slug: '{{slug}}'
+    summary: '{{title}} — {{date}}'
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - label: Title
+        name: title
+        widget: string
+      - label: Date
+        name: date
+        widget: datetime
+        format: 'DD MMM YYYY'
+        date_format: 'DD MMM YYYY'
+        time_format: false
+      - label: Overview
+        name: overview
+        widget: text
+        required: false
+      - label: Private
+        name: private
+        widget: boolean
+        default: false
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
+
+  ##########################################
+  # MSc NOTES (nested folder structure)
+  ##########################################
+  - name: notes
+    label: MSc Notes
+    label_singular: Note
+    folder: notes
+    create: true
+    delete: true
+    nested:
+      depth: 100
+      summary: '{{dirname}}/{{filename}}'
+    slug: '{{slug}}'
+    summary: '{{filename}}'
+    format: frontmatter
+    editor:
+      preview: false
+    fields:
+      - label: Title (used in filename only)
+        name: title
+        widget: hidden
+        default: ''
+      - label: Date
+        name: date
+        widget: datetime
+        format: 'DD MMM YYYY'
+        date_format: 'DD MMM YYYY'
+        time_format: false
+      - label: Overview
+        name: overview
+        widget: text
+        required: false
+      - label: Body
+        name: body
+        widget: markdown
