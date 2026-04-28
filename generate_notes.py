@@ -1,5 +1,6 @@
 import os
 import re
+import yaml
 import subprocess
 import sys
 import json
@@ -49,18 +50,36 @@ def parse_date_string(date_str):
     return datetime.max
 
 def extract_overview_and_date(md_file_path):
-    """Extract the overview text and date from a markdown file."""
+    """Extract the overview text and date from a markdown file.
+    Supports both YAML frontmatter (--- delimited) and legacy inline format."""
     try:
         with open(md_file_path, 'r', encoding='utf-8') as file:
             content = file.read()
-            
-            overview_match = re.search(r'Overview:\s*(.+?)(?=\n\n|\n#|\nDate:|$)', content, re.DOTALL)
-            overview = overview_match.group(1).strip() if overview_match else None
-            
-            date_match = re.search(r'Date:\s*(.+?)(?=\n\n|\n#|$)', content, re.DOTALL)
-            date = date_match.group(1).strip() if date_match else None
-            
-            return overview, date
+
+        overview = None
+        date = None
+
+        # Try YAML frontmatter first
+        yaml_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', content, re.DOTALL)
+        if yaml_match:
+            try:
+                frontmatter = yaml.safe_load(yaml_match.group(1))
+                if frontmatter:
+                    date = str(frontmatter.get('date', date)) if frontmatter.get('date') else date
+                    overview = frontmatter.get('overview', overview) or frontmatter.get('description', overview)
+                if overview and date:
+                    return overview, date
+            except yaml.YAMLError:
+                pass
+
+        # Fall back to legacy inline format
+        overview_match = re.search(r'Overview:\s*(.+?)(?=\n\n|\n#|\nDate:|$)', content, re.DOTALL)
+        overview = overview_match.group(1).strip() if overview_match else None
+
+        date_match = re.search(r'Date:\s*(.+?)(?=\n\n|\n#|$)', content, re.DOTALL)
+        date = date_match.group(1).strip() if date_match else None
+
+        return overview, date
     except Exception as e:
         print(f"Error reading {md_file_path}: {e}")
     return None, None

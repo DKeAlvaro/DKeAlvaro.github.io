@@ -1,5 +1,6 @@
 import os
 import re
+import yaml
 import json
 from pathlib import Path
 from datetime import datetime
@@ -42,7 +43,12 @@ def convert_md_to_html(md_file_path, output_dir, path_prefix, folder_path=None):
         
         # Extract title from filename
         title = md_file_path.stem.replace('_', ' ').replace('-', ' ').title()
-        
+
+        # Strip YAML frontmatter if present
+        yaml_match = re.match(r'^---\s*\n(.*?)\n---\s*\n', md_content, re.DOTALL)
+        if yaml_match:
+            md_content = md_content[yaml_match.end():]
+
         # Remove overview and date lines from content
         md_content = re.sub(r'^Overview:.*$', '', md_content, flags=re.MULTILINE)
         md_content = re.sub(r'^Date:.*$', '', md_content, flags=re.MULTILINE)
