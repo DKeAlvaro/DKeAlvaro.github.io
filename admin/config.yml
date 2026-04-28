@@ -4,7 +4,7 @@
 backend:
   name: github
   repo: DKeAlvaro/DKeAlvaro.github.io
-  branch: main
+  branch: master
   site_domain: dkealvaro.github.io
   base_url: https://decap-oauth.alvaro-mrgr.workers.dev
 
