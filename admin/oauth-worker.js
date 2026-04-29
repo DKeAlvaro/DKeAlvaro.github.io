@@ -29,14 +29,34 @@ export default {
       });
       const j = await r.json();
 
-      let payload;
+      let status;
+      let msgContent;
       if (j.error || !j.access_token) {
-        payload = 'authorization:github:error:' + JSON.stringify({ error: j.error || 'no token', provider: 'github' });
+        status = 'error';
+        msgContent = { error: j.error || 'no token', provider: 'github' };
       } else {
-        payload = 'authorization:github:success:' + JSON.stringify({ token: j.access_token, provider: 'github' });
+        status = 'success';
+        msgContent = { token: j.access_token, provider: 'github' };
       }
 
-      const html = '<html><body><script>opener.postMessage(' + JSON.stringify(payload) + ',"*");close();\x3c/script></body></html>';
+      const safeMsgContent = JSON.stringify(msgContent);
+
+      const html = `<!DOCTYPE html><html><body><script>
+        (function() {
+          function receiveMessage(e) {
+            // Send token back to the main CMS window securely
+            window.opener.postMessage(
+              "authorization:github:${status}:" + JSON.stringify(${safeMsgContent}),
+              e.origin
+            );
+            window.removeEventListener("message", receiveMessage, false);
+          }
+          window.addEventListener("message", receiveMessage, false);
+          // Notify the CMS that authorization is starting
+          window.opener.postMessage("authorizing:github", "*");
+        })();
+      </script></body></html>`;
+
       return new Response(html, { headers: { 'Content-Type': 'text/html' } });
     }
 
