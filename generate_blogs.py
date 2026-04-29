@@ -410,6 +410,7 @@ def main():
         })
     
     # Clean up stale blog folders (no .md file, only index.html + leftovers)
+    blog_dir = Path('blog')
     for folder in blog_dir.iterdir():
         if folder.is_dir() and folder.name != '__pycache__':
             has_md = any(f.suffix == '.md' for f in folder.iterdir())
