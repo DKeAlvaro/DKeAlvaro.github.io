@@ -313,58 +313,45 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
     return html_output
 
 def update_blogs_html(blog_entries):
-    """Update blogs.html with new blog entries"""
+    """Rebuild blogs.html with all blog entries from scratch."""
     with open('blogs.html', 'r', encoding='utf-8') as f:
         content = f.read()
-    
-    # Find the content div where blog entries are added
+
+    # Find the content div boundaries
     content_start = content.find('<div class="content">')
-    content_end = content.find('</div>\n    </div>\n    <script')
-    
-    if content_start == -1 or content_end == -1:
-        # Try another common pattern
-        content_end = content.find('</div>\n    </div>\n\n    <script')
-        
-    if content_start == -1 or content_end == -1:
+    # Find where the first script tag after content starts
+    rest_start = content.find('\n    <script', content_start)
+
+    if content_start == -1 or rest_start == -1:
+        # Fallback patterns
+        rest_start = content.find('\n\n    <script', content_start)
+    if content_start == -1 or rest_start == -1:
         print("Could not find content section in blogs.html")
         return
-    
-    # Extract existing entries to avoid duplicates
-    existing_content = content[content_start:content_end]
-    
-    # Build new entries HTML
-    new_entries_html = ''
-    for entry in blog_entries:
+
+    # Build all entry HTML sorted by date (newest first)
+    sorted_entries = sorted(blog_entries, key=lambda e: e['date'] or '', reverse=True)
+    entries_html = ''
+    for entry in sorted_entries:
         folder_name = entry['folder_name']
         title = entry['title']
         date = entry['date']
         overview = entry['overview']
-        
-        # Check if entry already exists
-        if f'href="blog/{folder_name}/index.html"' not in existing_content:
-            entry_html = f'''            <article class="blog-preview">
+        entries_html += f'''            <article class="blog-preview">
                 <h2><a href="blog/{folder_name}/index.html">{title}</a></h2> 
                 <div class="post-meta">{date}</div>
                 <p>{overview}</p>
             </article>
 
 '''
-            new_entries_html += entry_html
-    
-    if new_entries_html:
-        # Insert new entries at the beginning of content
-        insertion_point = content_start + len('<div class="content">\n')
-        new_content = (content[:insertion_point] + 
-                      new_entries_html + 
-                      content[insertion_point:])
-        
-        # Write updated content
-        with open('blogs.html', 'w', encoding='utf-8') as f:
-            f.write(new_content)
-        
-        print(f"Added {len(blog_entries)} new blog entries to blogs.html")
-    else:
-        print("No new entries to add to blogs.html")
+
+    insertion_point = content_start + len('<div class="content">\n')
+    new_content = (content[:insertion_point] + entries_html + content[rest_start:])
+
+    with open('blogs.html', 'w', encoding='utf-8') as f:
+        f.write(new_content)
+
+    print(f"Regenerated blogs.html with {len(blog_entries)} entries")
 
 def main():
     """Main function to process all markdown files"""
@@ -422,6 +409,17 @@ def main():
             'overview': overview
         })
     
+    # Clean up stale blog folders (no .md file, only index.html + leftovers)
+    for folder in blog_dir.iterdir():
+        if folder.is_dir() and folder.name != '__pycache__':
+            has_md = any(f.suffix == '.md' for f in folder.iterdir())
+            if has_md:
+                continue  # Valid blog post, keep it
+            # Stale folder — remove it
+            import shutil
+            shutil.rmtree(folder)
+            print(f"Removed stale blog folder: {folder.name}")
+
     # Update blogs.html
     if blog_entries:
         update_blogs_html(blog_entries)
