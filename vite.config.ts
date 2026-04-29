@@ -8,9 +8,6 @@ export default defineConfig({
     server: {
       watch: {
         usePolling: true,
-      },
-      fs: {
-        allow: ['src']
       }
     },
   });
