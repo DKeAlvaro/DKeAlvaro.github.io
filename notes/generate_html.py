@@ -923,6 +923,7 @@ def generate_complete_html(title, content, path_prefix, folder_path=None):
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="{path_prefix}index.html">About</a></li>
+                <li><a href="{path_prefix}projects.html">Built by me</a></li>
                 <li><a href="{path_prefix}blogs.html">Blog</a></li>
                 <li><a href="{path_prefix}notes.html">MSc AIES</a></li>
                 <li><a href="{path_prefix}assets/Alvaro_Menendez_CV_March_2026.pdf" target="_blank">CV</a></li>

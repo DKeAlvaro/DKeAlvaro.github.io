@@ -491,6 +491,7 @@ def generate_notes_html(tree):
             </div>
             <ul class="nav-links" id="navLinks">
                 <li><a href="./index.html">About</a></li>
+                <li><a href="./projects.html">Built by me</a></li>
                 <li><a href="./blogs.html">Blog</a></li>
                 <li><a href="./notes.html">MSc AIES</a></li>
                 <li><a href="./assets/Alvaro_Menendez_CV_March_2026.pdf" download>CV</a></li>
