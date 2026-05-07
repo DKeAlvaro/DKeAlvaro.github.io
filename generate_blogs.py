@@ -401,11 +401,20 @@ def read_existing_blogs_html():
             continue
         block = block[:end]
 
-        # Extract folder name from href
-        href_m = re.search(r'href="blog/([^"]+)/index\.html"', block)
+        # Extract folder name from href (blog/.../index.html or external LinkedIn URL)
+        href_m = re.search(r'href="(blog/([^"]+)/index\.html|https://www\.linkedin\.com/[^"]+)"', block)
         if not href_m:
             continue
-        folder_name = href_m.group(1).strip()
+        if href_m.group(1).startswith('http'):
+            # External LinkedIn link — derive key from title text
+            title_m = re.search(r'<a[^>]*>\s*(.+?)\s*</a>', block, re.DOTALL)
+            if title_m:
+                folder_name = title_m.group(1).strip()
+                folder_name = re.sub(r'\s+', ' ', folder_name)
+            else:
+                continue
+        else:
+            folder_name = href_m.group(2).strip()
 
         # Extract title between <a> tags
         title_m = re.search(r'<a[^>]*>\s*(.+?)\s*</a>', block, re.DOTALL)
@@ -427,6 +436,10 @@ def read_existing_blogs_html():
             'date': date,
             'overview': overview,
         }
+        # Preserve external LinkedIn URL if present
+        ext_m = re.search(r'href="(https://www\.linkedin\.com/[^"]+)"', block)
+        if ext_m:
+            existing[folder_name]['external_url'] = ext_m.group(1)
 
     return existing
 
@@ -479,13 +492,16 @@ def scan_blog_html_files():
             date = meta['date']
             title = meta['title']
             overview = meta['overview']
-            entries.append({
+            entry = {
                 'folder_name': fn,
                 'title': title,
                 'date': date,
                 'overview': overview,
                 'date_obj': try_parse_date(date),
-            })
+            }
+            if 'external_url' in meta:
+                entry['external_url'] = meta['external_url']
+            entries.append(entry)
             continue
 
         # 2. Extract from HTML
@@ -545,8 +561,13 @@ def update_blogs_html(blog_entries):
         title = entry['title']
         date = entry['date']
         overview = entry['overview']
+        external_url = entry.get('external_url', '')
+        if external_url:
+            href = f'{external_url}" target="_blank" rel="noopener'
+        else:
+            href = f'blog/{folder_name}/index.html'
         entries_html += f'''            <article class="blog-preview">
-                <h2><a href="blog/{folder_name}/index.html">{title}</a></h2> 
+                <h2><a href="{href}">{title}</a></h2> 
                 <div class="post-meta">{date}</div>
                 <p>{overview}</p>
             </article>
