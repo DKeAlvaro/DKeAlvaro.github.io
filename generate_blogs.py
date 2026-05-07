@@ -409,18 +409,6 @@ def main():
             'overview': overview
         })
     
-    # Clean up stale blog folders (no .md file, only index.html + leftovers)
-    blog_dir = Path('blog')
-    for folder in blog_dir.iterdir():
-        if folder.is_dir() and folder.name != '__pycache__':
-            has_md = any(f.suffix == '.md' for f in folder.iterdir())
-            if has_md:
-                continue  # Valid blog post, keep it
-            # Stale folder — remove it
-            import shutil
-            shutil.rmtree(folder)
-            print(f"Removed stale blog folder: {folder.name}")
-
     # Update blogs.html
     if blog_entries:
         update_blogs_html(blog_entries)
