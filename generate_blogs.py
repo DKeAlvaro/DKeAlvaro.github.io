@@ -2,8 +2,14 @@ import os
 import re
 import yaml
 from datetime import datetime
-import markdown
 from pathlib import Path
+
+try:
+    import markdown
+    HAS_MARKDOWN = True
+except ImportError:
+    HAS_MARKDOWN = False
+    markdown = None
 
 def find_md_files_in_blog_folders():
     """Find all .md files in blog subfolders"""
@@ -71,7 +77,8 @@ def extract_metadata_from_md(md_file_path):
 
 def convert_md_to_html(md_content, title):
     """Convert markdown content to HTML"""
-    # Convert markdown to HTML
+    if not HAS_MARKDOWN:
+        return f"<pre>{md_content}</pre>"
     html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'admonition', 'sane_lists'])
     return html_content
 
@@ -312,6 +319,203 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
     
     return html_output
 
+
+# ─── Blog listing helpers ───────────────────────────────────────────────
+
+def extract_title_from_html(html_content):
+    """Extract blog title from an index.html file."""
+    # Try <h1> first (most specific)
+    h1_match = re.search(r'<h1[^>]*>\s*(.+?)\s*</h1>', html_content, re.DOTALL)
+    if h1_match:
+        return h1_match.group(1).strip()
+    # Fall back to <title> tag
+    title_match = re.search(r'<title>\s*(.+?)\s*</title>', html_content, re.DOTALL)
+    if title_match:
+        title = title_match.group(1).strip()
+        title = re.sub(r'\s*-\s*Álvaro Menéndez.*$', '', title).strip()
+        return title
+    return "Untitled"
+
+
+def extract_date_from_html(html_content):
+    """Extract date from HTML meta or content."""
+    date_match = re.search(r'<meta name="date" content="([^"]+)"', html_content)
+    if date_match:
+        return date_match.group(1).strip()
+    pm_match = re.search(r'class="post-meta"[^>]*>\s*(.+?)\s*</div>', html_content, re.DOTALL)
+    if pm_match:
+        return pm_match.group(1).strip()
+    return None
+
+
+def extract_description_from_html(html_content):
+    """Extract description from HTML."""
+    desc_match = re.search(r'<meta name="description" content="([^"]+)"', html_content)
+    if desc_match and desc_match.group(1).strip():
+        return desc_match.group(1).strip()
+    p_match = re.search(r'</h1>\s*<p[^>]*>\s*(.+?)\s*</p>', html_content, re.DOTALL)
+    if p_match:
+        desc = re.sub(r'<[^>]+>', '', p_match.group(1)).strip()
+        if len(desc) > 200:
+            desc = desc[:197] + '...'
+        return desc if desc else None
+    return None
+
+
+def try_parse_date(date_str):
+    """Try to parse a date string into a datetime object for sorting.
+    Returns the datetime or None."""
+    if not date_str or date_str == 'Unknown Date':
+        return None
+    formats = [
+        '%d %b %Y',      # 29 Apr 2026
+        '%b %d, %Y',     # Mar 31, 2026 / Sep 2, 2025
+        '%B %d, %Y',     # March 31, 2026
+        '%Y-%m-%d',      # 2026-04-29
+        '%d/%m/%Y',      # 29/04/2026
+        '%d-%m-%Y',      # 29-04-2026
+    ]
+    for fmt in formats:
+        try:
+            return datetime.strptime(date_str.strip(), fmt)
+        except ValueError:
+            continue
+    return None
+
+
+def read_existing_blogs_html():
+    """Parse existing blogs.html to extract per-folder metadata (title, date, overview)."""
+    existing = {}
+    blogs_path = Path('blogs.html')
+    if not blogs_path.exists():
+        return existing
+
+    with open(blogs_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+
+    # Find all blog-preview blocks
+    blocks = re.split(r'<article class="blog-preview">', content)[1:]
+    for block in blocks:
+        end = block.find('</article>')
+        if end == -1:
+            continue
+        block = block[:end]
+
+        # Extract folder name from href
+        href_m = re.search(r'href="blog/([^"]+)/index\.html"', block)
+        if not href_m:
+            continue
+        folder_name = href_m.group(1).strip()
+
+        # Extract title between <a> tags
+        title_m = re.search(r'<a[^>]*>\s*(.+?)\s*</a>', block, re.DOTALL)
+        title = title_m.group(1).strip() if title_m else 'Untitled'
+        # Collapse whitespace in multi-line titles
+        title = re.sub(r'\s+', ' ', title)
+
+        # Extract date from post-meta
+        date_m = re.search(r'<div class="post-meta">(.+?)</div>', block, re.DOTALL)
+        date = date_m.group(1).strip() if date_m else 'Unknown Date'
+
+        # Extract overview from <p>
+        overview_m = re.search(r'<p>(.*?)</p>', block, re.DOTALL)
+        overview = overview_m.group(1).strip() if overview_m else 'No description available'
+        overview = re.sub(r'\s+', ' ', overview)
+
+        existing[folder_name] = {
+            'title': title,
+            'date': date,
+            'overview': overview,
+        }
+
+    return existing
+
+
+def scan_blog_html_files():
+    """Scan all blog/*/index.html files and extract metadata.
+    Preserves existing metadata from blogs.html; falls back to .md / HTML extraction."""
+    blog_dir = Path('blog')
+    entries = []
+
+    if not blog_dir.exists():
+        print("Blog directory not found!")
+        return entries
+
+    # Read existing blogs.html to preserve manually curated metadata
+    existing_meta = read_existing_blogs_html()
+
+    # Collect dates/descriptions/titles from .md files (YAML frontmatter)
+    md_dates = {}
+    md_descriptions = {}
+    md_titles = {}
+    for folder in blog_dir.iterdir():
+        if not folder.is_dir() or folder.name == '__pycache__':
+            continue
+        for file in folder.iterdir():
+            if file.suffix == '.md':
+                date, overview, _, _, frontmatter_title = extract_metadata_from_md(file)
+                if date and date != 'Unknown Date':
+                    md_dates[folder.name] = date
+                if overview and overview != 'No description available':
+                    md_descriptions[folder.name] = overview
+                if frontmatter_title:
+                    md_titles[folder.name] = frontmatter_title
+                break
+
+    # Scan all index.html files
+    for folder in sorted(blog_dir.iterdir()):
+        if not folder.is_dir() or folder.name == '__pycache__':
+            continue
+
+        index_path = folder / 'index.html'
+        if not index_path.exists():
+            continue
+
+        fn = folder.name
+
+        # 1. Prefer existing blogs.html data (manually curated)
+        if fn in existing_meta:
+            meta = existing_meta[fn]
+            date = meta['date']
+            title = meta['title']
+            overview = meta['overview']
+            entries.append({
+                'folder_name': fn,
+                'title': title,
+                'date': date,
+                'overview': overview,
+                'date_obj': try_parse_date(date),
+            })
+            continue
+
+        # 2. Extract from HTML
+        with open(index_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+
+        title = md_titles.get(fn) or extract_title_from_html(html_content)
+        date = extract_date_from_html(html_content)
+        if not date or date == 'Unknown Date':
+            date = md_dates.get(fn, 'Unknown Date')
+        if not date:
+            date = 'Unknown Date'
+
+        description = extract_description_from_html(html_content)
+        if not description or description == 'No description available':
+            description = md_descriptions.get(fn, 'No description available')
+        if not description:
+            description = 'No description available'
+
+        entries.append({
+            'folder_name': fn,
+            'title': title,
+            'date': date,
+            'overview': description,
+            'date_obj': try_parse_date(date),
+        })
+
+    return entries
+
+
 def update_blogs_html(blog_entries):
     """Rebuild blogs.html with all blog entries from scratch."""
     with open('blogs.html', 'r', encoding='utf-8') as f:
@@ -319,18 +523,22 @@ def update_blogs_html(blog_entries):
 
     # Find the content div boundaries
     content_start = content.find('<div class="content">')
-    # Find where the first script tag after content starts
     rest_start = content.find('\n    <script', content_start)
 
     if content_start == -1 or rest_start == -1:
-        # Fallback patterns
         rest_start = content.find('\n\n    <script', content_start)
     if content_start == -1 or rest_start == -1:
         print("Could not find content section in blogs.html")
         return
 
-    # Build all entry HTML sorted by date (newest first)
-    sorted_entries = sorted(blog_entries, key=lambda e: e['date'] or '', reverse=True)
+    # Sort by date: newest first, Unknown Date at end
+    def sort_key(entry):
+        dt = entry.get('date_obj')
+        if dt:
+            return (0, dt)
+        return (1, datetime.min)
+
+    sorted_entries = sorted(blog_entries, key=sort_key, reverse=True)
     entries_html = ''
     for entry in sorted_entries:
         folder_name = entry['folder_name']
@@ -353,67 +561,56 @@ def update_blogs_html(blog_entries):
 
     print(f"Regenerated blogs.html with {len(blog_entries)} entries")
 
+
+# ─── Main ────────────────────────────────────────────────────────────────
+
 def main():
-    """Main function to process all markdown files"""
+    """Main function: process .md files → index.html, then rebuild blogs.html."""
     print("Starting blog generation process...")
-    
-    # Find all markdown files
+
+    # Step 1: Process markdown files (regenerate index.html for posts with .md source)
     md_files = find_md_files_in_blog_folders()
-    
-    if not md_files:
+    if md_files:
+        print(f"Found {len(md_files)} markdown files to process.")
+        for md_file in md_files:
+            print(f"Processing {md_file}...")
+
+            date, overview, is_private, cleaned_content, frontmatter_title = extract_metadata_from_md(md_file)
+
+            # Get title: from frontmatter first, then from # Heading, then from filename
+            title_from_heading = None
+            if frontmatter_title:
+                title = frontmatter_title
+            else:
+                title_match = re.search(r'^#\s*(.+)$', cleaned_content, re.MULTILINE)
+                title_from_heading = title_match.group(1).strip() if title_match else None
+                title = title_from_heading if title_from_heading else md_file.stem
+
+            if title_from_heading:
+                cleaned_content = re.sub(r'^#\s*.+$', '', cleaned_content, count=1, flags=re.MULTILINE)
+                cleaned_content = cleaned_content.strip()
+
+            html_content = convert_md_to_html(cleaned_content, title)
+            html_output = create_html_from_template(title, html_content, md_file.parent.name, is_private)
+
+            output_path = md_file.parent / 'index.html'
+            with open(output_path, 'w', encoding='utf-8') as f:
+                f.write(html_output)
+
+            print(f"Generated {output_path}")
+    else:
         print("No markdown files found in blog folders.")
-        return
-    
-    print(f"Found {len(md_files)} markdown files to process.")
-    
-    blog_entries = []
-    
-    for md_file in md_files:
-        print(f"Processing {md_file}...")
-        
-        # Extract metadata and clean content
-        date, overview, is_private, cleaned_content, frontmatter_title = extract_metadata_from_md(md_file)
 
-        # Get title: from frontmatter first, then from # Heading, then from filename
-        title_from_heading = None
-        if frontmatter_title:
-            title = frontmatter_title
-        else:
-            title_match = re.search(r'^#\s*(.+)$', cleaned_content, re.MULTILINE)
-            title_from_heading = title_match.group(1).strip() if title_match else None
-            title = title_from_heading if title_from_heading else md_file.stem
-
-        # Remove the title line from content to avoid duplication (only if it came from heading)
-        if title_from_heading:
-            cleaned_content = re.sub(r'^#\s*.+$', '', cleaned_content, count=1, flags=re.MULTILINE)
-            cleaned_content = cleaned_content.strip()
-        
-        # Convert to HTML
-        html_content = convert_md_to_html(cleaned_content, title)
-        
-        # Create HTML file using template
-        html_output = create_html_from_template(title, html_content, md_file.parent.name, is_private)
-        
-        # Write HTML file
-        output_path = md_file.parent / 'index.html'
-        with open(output_path, 'w', encoding='utf-8') as f:
-            f.write(html_output)
-        
-        print(f"Generated {output_path}")
-        
-        # Add to blog entries list
-        blog_entries.append({
-            'folder_name': md_file.parent.name,
-            'title': title,
-            'date': date,
-            'overview': overview
-        })
-    
-    # Update blogs.html
+    # Step 2: Scan all blog index.html files and rebuild blogs.html
+    print("\nScanning blog HTML files to rebuild blogs.html...")
+    blog_entries = scan_blog_html_files()
     if blog_entries:
         update_blogs_html(blog_entries)
-    
+    else:
+        print("No blog entries found.")
+
     print("Blog generation completed!")
+
 
 if __name__ == "__main__":
     main()
