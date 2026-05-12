@@ -128,7 +128,7 @@ Firstly, for the IDE I use [Antigravity](https://antigravity.google/). In case y
 
 
 I use **pi.dev** as my main AI harness. Pi is an open-source coding agent that takes a minimalist approach. The creator, [Mario Zechner](https://mariozechner.at/), designed it under the philosophy that modern LLMs are already trained to be coding agents and don't need massive, 10,000+ token system prompts explaining how to do their jobs. Here is the default System prompt pi agent receives when you initialize it:
-```
+```text
 You are an expert coding assistant operating inside pi, a coding agent harness. You help users by reading files, executing commands, editing code, and writing new files.
 
 Available tools:
@@ -183,6 +183,8 @@ To set it up youjust have to open a terminal as admin and type: wsl --install. T
 Once inside, to install pi: npm install -g @earendil-works/pi-coding-agent
 
 After this, you are free to explore the exciting world of agentic AI, and just maybe, exit the permanent underclass
+
+<img src="setup.jpeg" alt="My coding setup" style="max-width: 400px; display: block; margin: 1.5rem auto; border-radius: 12px;">
 
 ## TLDR (Written by Pi)
 
