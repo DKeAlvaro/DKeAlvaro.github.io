@@ -23,7 +23,7 @@
     <script>
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                inlineMath: [],
                 displayMath: [['$$', '$$'], ['\\[', '\\]']],
                 processEscapes: true,
                 processEnvironments: true
@@ -230,6 +230,43 @@
             font-size: 0.9rem !important;
             color: #666 !important;
             font-style: normal !important;
+        }
+        
+        /* Code blocks */
+        .codehilite {
+            max-width: 100%;
+            max-height: 500px;
+            overflow: auto;
+            border: 1px solid var(--border-color, #ddd);
+            border-radius: 8px;
+            padding: 0;
+            margin: 1.5rem 0;
+        }
+        .codehilite pre {
+            margin: 0;
+            padding: 1rem;
+        }
+        
+        /* Blockquotes as admonition boxes */
+        .page-body blockquote {
+            border-left: 4px solid var(--accent-color, #007bff);
+            padding: 1rem 1.5rem;
+            margin: 2rem 0;
+            background: rgba(0, 123, 255, 0.05);
+            border-radius: 0 8px 8px 0;
+            font-style: normal;
+        }
+        .page-body blockquote p:last-child {
+            margin-bottom: 0;
+        }
+        
+        /* Images */
+        .page-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            display: block;
+            margin: 1.5rem auto;
         }
     </style>
 
