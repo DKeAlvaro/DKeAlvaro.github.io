@@ -82,7 +82,7 @@ def convert_md_to_html(md_content, title):
     html_content = markdown.markdown(md_content, extensions=['extra', 'codehilite', 'admonition', 'sane_lists'])
     return html_content
 
-def create_html_from_template(title, html_content, folder_name, is_private=False):
+def create_html_from_template(title, html_content, folder_name, is_private=False, date=None, overview=None):
     """Create HTML file using template"""
     # Read template
     with open('blog/template.html', 'r', encoding='utf-8') as f:
@@ -90,6 +90,14 @@ def create_html_from_template(title, html_content, folder_name, is_private=False
     
     # Replace placeholders
     html_output = template.replace('Add your title here', title)
+    
+    # Inject metadata for date and description so extract_date_from_html can find them
+    if date and date != 'Unknown Date':
+        html_output = html_output.replace('<meta charset="UTF-8">',
+            f'<meta charset="UTF-8">\n    <meta name="date" content="{date}">')
+    if overview and overview != 'No description available':
+        html_output = html_output.replace('<meta charset="UTF-8">',
+            f'<meta charset="UTF-8">\n    <meta name="description" content="{overview}">')
     
     # Create password protection if private
     if is_private:
@@ -473,6 +481,12 @@ def scan_blog_html_files():
                     md_descriptions[folder.name] = overview
                 if frontmatter_title:
                     md_titles[folder.name] = frontmatter_title
+                else:
+                    # Fall back to # Heading in the file
+                    with open(file, 'r', encoding='utf-8') as mdf:
+                        head_match = re.search(r'^#\s*(.+)$', mdf.read(), re.MULTILINE)
+                        if head_match:
+                            md_titles[folder.name] = head_match.group(1).strip()
                 break
 
     # Scan all index.html files
@@ -487,11 +501,27 @@ def scan_blog_html_files():
         fn = folder.name
 
         # 1. Prefer existing blogs.html data (manually curated)
-        if fn in existing_meta:
-            meta = existing_meta[fn]
+        # Also try matching without " (Linkedin)" suffix for external posts
+        matched_key = fn
+        if fn not in existing_meta:
+            fn_clean = re.sub(r'\s*\(Linkedin.*?\)$', '', fn).strip()
+            for key in existing_meta:
+                key_clean = re.sub(r'\s*\(Linkedin.*?\)$', '', key).strip()
+                if key_clean == fn_clean:
+                    matched_key = key
+                    break
+        if matched_key in existing_meta:
+            meta = existing_meta[matched_key]
             date = meta['date']
             title = meta['title']
             overview = meta['overview']
+            # Override stale/empty metadata with fresh .md data when available
+            if (date == 'Unknown Date' or not date) and fn in md_dates:
+                date = md_dates[fn]
+            if (overview == 'No description available' or not overview) and fn in md_descriptions:
+                overview = md_descriptions[fn]
+            if fn in md_titles:
+                title = md_titles[fn]
             entry = {
                 'folder_name': fn,
                 'title': title,
@@ -612,7 +642,7 @@ def main():
                 cleaned_content = cleaned_content.strip()
 
             html_content = convert_md_to_html(cleaned_content, title)
-            html_output = create_html_from_template(title, html_content, md_file.parent.name, is_private)
+            html_output = create_html_from_template(title, html_content, md_file.parent.name, is_private, date, overview)
 
             output_path = md_file.parent / 'index.html'
             with open(output_path, 'w', encoding='utf-8') as f:
