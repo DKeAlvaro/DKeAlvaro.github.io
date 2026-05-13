@@ -208,4 +208,4 @@ Here's the reality of coding in 2026:
 The bottom line: you don't need a $5,000/month API bill to escape the permanent underclass. With open-weight models, open-source harnesses, and a bit of setup, you can get **90% of the way there for 0.03% of the cost**.
 
 Date: May 7, 2026
-Overview: The tools I use to code in 2026
+Overview: Why your cheap AI plan is holding you back, and how open source lets you escape the permanent underclass for $1.51
