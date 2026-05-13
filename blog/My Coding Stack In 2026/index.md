@@ -16,7 +16,7 @@ First we need to know what the permanent underclass is. Here is a [great post](h
 
 > The permanent underclass are the people without access to the best AI tools, giving them a huge productivity disadvantage compared to those who do. 
 
-What makes the permanent underclass truly permanent is ignorance. If you've only used the free or cheap AI plans from OpenAI or Google, your experience with AI has likely been frustrating: opaque behavior (not knowing how AI works, what it can and cannot do), and many times, dissapointing results.
+What makes the permanent underclass truly permanent is ignorance. If you've only used the free or cheap AI plans from OpenAI or Google, your experience with AI has likely been frustrating: opaque behavior (not knowing how AI works, what it can and cannot do), and many times, disappointing results.
 
 So you dismiss AI as overhyped. Why would you pay $200/month for something that already let you down at $20? 
 

@@ -552,10 +552,10 @@ def scan_blog_html_files():
             date = meta['date']
             title = meta['title']
             overview = meta['overview']
-            # Override stale/empty metadata with fresh .md data when available
-            if (date == 'Unknown Date' or not date) and fn in md_dates:
+            # Override with fresh .md data when available
+            if fn in md_dates:
                 date = md_dates[fn]
-            if (overview == 'No description available' or not overview) and fn in md_descriptions:
+            if fn in md_descriptions:
                 overview = md_descriptions[fn]
             if fn in md_titles:
                 title = md_titles[fn]
