@@ -158,23 +158,24 @@ if (themeToggle) {
 }
 // Example JavaScript for a simple carousel
 document.addEventListener('DOMContentLoaded', () => {
-  const carouselItems = document.querySelectorAll('.carousel-item');
-  let currentIndex = 0;
+  const carousels = document.querySelectorAll('.image-carousel');
 
-  function showCarouselItem(index) {
-    carouselItems.forEach((item, i) => {
-      if (i === index) {
-        item.classList.add('active');
+  carousels.forEach((carousel) => {
+    const items = carousel.querySelectorAll('.carousel-item');
+    if (items.length === 0) return;
+
+    let activeFound = false;
+    items.forEach((item) => {
+      if (item.classList.contains('active')) {
+        activeFound = true;
       } else {
         item.classList.remove('active');
       }
     });
-  }
-
-  // Show the first item initially
-  if (carouselItems.length > 0) {
-    showCarouselItem(currentIndex);
-  }
+    if (!activeFound) {
+      items[0].classList.add('active');
+    }
+  });
 
   // Example: Add navigation buttons (you'd need to add these buttons in your HTML)
   // const nextButton = document.getElementById('next-button');
