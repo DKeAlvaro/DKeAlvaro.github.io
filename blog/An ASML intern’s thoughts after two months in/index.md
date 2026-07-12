@@ -9,7 +9,7 @@ I started my four-month internship on **February 2nd, 2026**. In this post, I wi
 
 ### The Setup
 
-In the team I joined — **Tribology Research Department** — they use several machines that simulate real environment conditions of their EUV systems to do all kinds of experiments on them. Each machine is different from each other, and they generate enormous amounts of data.
+In the team I joined - **Tribology Research Department** - they use several machines that simulate real environment conditions of their EUV systems to do all kinds of experiments on them. Each machine is different from each other, and they generate enormous amounts of data.
 
 My internship assignment - a very specific one - revolves all around one of these machines, called the **"BIT" machine**.
 
