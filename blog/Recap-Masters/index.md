@@ -21,11 +21,11 @@ The house was a complete disaster. Everything was messy and dirty: kitchen, bath
 
 Out of the 16 people living there, around half were Dutch. There were 2 Indians, 2 Italians, 2 Ukrainians, 1 French and me. I didn't make any friends there. I would occasionally talk to one of the Ukrainian guys, Zhenia. He was the only one who would eat in the living room, the rest had lunch in their rooms.
 
-Zhenia was smart as fuck. He was doing a Bachelor's in Math in TU/e and I could see he worked super hard all the time. He was a heavy linux user and was deep into the quant trading world. He made one of those Tiktok accounts with AI generated content millions of visualizations - all automated.
+Zhenia was smart as fuck. He was doing a Bachelor's in Math in TU/e and I could see he worked super hard all the time. He was a heavy linux user and was deep into the quant trading world. He made one of those Tiktok accounts with AI generated content with millions of views - all automated.
 
 I respected him, but deep down we could never be friends, we had opposing views about life. I think war affected him a lot. He had very strong opinions: you should die for your country, and guns should be legal.
 
-I had to commute daily for 2h to uni (1h per trip) and it wasn't the greatest thing. I could sometimes make use of the morning trips with uni assignments, but when I was in Eindhoven I had nowhere to go apart from being at uni. That was mentally tiring. There were some days where I would just deambulate with no clear goal. Plus the tickets were expensive, 7.80€ per round trip. I started collecting the tickets.
+I had to commute daily for 2h to uni (1h per trip) and it wasn't the greatest thing. I could sometimes make use of the morning trips with uni assignments, but when I was in Eindhoven I had nowhere to go apart from being at uni. That was mentally tiring. There were some days where I would just wander with no clear goal. Plus the tickets were expensive, 7.80€ per round trip. I started collecting the tickets.
 
 I was completely isolated in Den Bosch. It is not as open to internationals as other cities in NL, and I had all my life in Eindhoven, uni and friends mostly. I thought a good way to fill in my time was to get a job so I started looking for one. But no one would reply to my online applications. I even got rejected by the local supermarkets because I didn't speak Dutch (understandable).
 
@@ -65,7 +65,7 @@ Regarding the internship, the motivation slowly started to go down. After the in
 
 And also I felt, and still feel, like an outlier there. I am in a research team whose aim is to improve the EUV machines using Tribology - the study of friction for interacting surfaces, super important to ASML's machines - All the researchers in my team are physicists, Chemists or Mechanical engineers.
 
-I am the only one with a different background. I have a BSc in Data Science and am now doing an MSc in AI, completely unrelated to what they are doing. Data is not the moat of what they do. I am missing domain expertise. I learned about presliding and lifetime experiments but it's not something that excites me too much.
+I am the only one with a different background. I have a BSc in Data Science and am now doing an MSc in AI, completely unrelated to what they are doing. Data is not the core of what they do. I am missing domain expertise. I learned about presliding and lifetime experiments but it's not something that excites me too much.
 
 However, Cristobal was very happy with what I built and told me that he and his colleagues, even from the US, use it weekly. That made me so proud! He still had in mind some improvements to the GUI. I extended the internship until the end of July for 2 days a week.
 
@@ -90,7 +90,7 @@ Even though I am working 5 or 6 days a week, I am doing it for a good cause and 
 During all this time I have barely talked about my Master's even though I am enrolled fulltime. The reason is mostly that I am not interested in it. I don't like academia. I started the year very motivated but I quickly figured it is always the same, or at least the unis I have been to:
 In uni they do a bottom up approach which is counter intuitive: for a certain topic they teach you all the tools you can use without context and information on why you are even learning it.
 
-Then if you are lucky you can get to practice the learned topics on a project, but turns out the goal is not to solve a problem or reach a goal, but to submit a report, make a bullshit presentation and tick off some rubric guides.
+Then if you are lucky you can get to practice the learned topics on a project, but turns out the goal is not to solve a problem or reach a goal, but to submit a report, make a bullshit presentation and tick off some rubric requirements.
 
 And you can literally feel this feeling among students because that's what uni rewards. I'll give two examples of this in two recent projects I had:
 
@@ -100,7 +100,7 @@ Another example. When I make presentations, I prefer to add many slides with lit
 
 The common point across these examples is that what uni encourages is not to have critical thought but rather to learn how to follow the rules. And I don't like that.
 
-Another important point on why I didn't like uni is because I chose the healthcare specialisation in the master's. Yep. I have a Bachelor's in Data Science and now I am specializing in AI in healthcare. I am an illiterate in that field so it is much harder for me.
+Another important point on why I didn't like uni is because I chose the healthcare specialisation in the master's. Yep. I have a Bachelor's in Data Science and now I am specializing in AI in healthcare. I am completely clueless in that field so it is much harder for me.
 
 ### What's ahead
 Wellp. I have one more year for my master's degree. I soon have to decide what my thesis will be, which I would love to do in a different country btw. If I have to stay in Eindhoven, I want to get a working student position as a founding engineer at a startup. I want to have a fast-paced role with both ability to build and sell. A versatile position.
