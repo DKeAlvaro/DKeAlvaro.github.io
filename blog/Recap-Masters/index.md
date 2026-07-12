@@ -53,6 +53,10 @@ I liked that both were about building stuff that had actual impact. In the first
 
 In the second one I had to make a presentation about a past project I had worked on and I presented the following pdf. They liked it and sent me the offer, starting on February 2nd, ending the 1st of June. (4 months initially that would later extend into 6)
 
+<div class="pdf-container" style="margin: 2rem 0; text-align: center;">
+    <iframe src="asml-presentation.pdf" width="100%" height="600px" style="border: 1px solid var(--border-color, #e0e0e0); border-radius: 8px;"></iframe>
+</div>
+
 Managing uni with the internship was not that hard in the beginning. I decided not to enroll in two courses so I could do the 32 agreed weekly hours for the internship. I usually have three courses in uni, but for the first 3 months of the internship I had only one.
 
 My uni academic years are divided by 4 quarters. At the beginning of May we would switch to the fourth quarter, meaning I had to pick new courses. I decided to pick the usual 3 courses because I didn't want to delay my studies.
