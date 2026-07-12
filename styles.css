@@ -687,7 +687,7 @@ figcaption {
     .page-container,
     .journey-container,
     .blog-container {
-        padding: var(--spacing-unit);
+        padding: var(--spacing-unit) 1.25rem;
     }
 }
 
@@ -1485,7 +1485,7 @@ figcaption {
 }
 
 .project-text li::before {
-    content: '•';
+    content: 'ï¿½';
     position: absolute;
     left: 0;
     color: var(--accent-color);
