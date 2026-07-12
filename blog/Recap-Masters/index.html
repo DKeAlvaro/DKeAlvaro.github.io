@@ -243,7 +243,7 @@
             border-radius: 0 0 12px 12px;
         }
         .carousel-description {
-            padding: 0.8rem 1.2rem;
+            padding: 0.8rem 1.2rem 1.8rem;
             font-size: 0.9rem;
             color: #666;
             font-style: normal;
@@ -274,7 +274,7 @@
 
         .carousel-dots {
             position: absolute;
-            bottom: 60px;
+            bottom: 6px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -285,15 +285,15 @@
             width: 9px;
             height: 9px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.55);
+            background: rgba(0, 0, 0, 0.4);
             cursor: pointer;
             transition: background 0.25s, transform 0.25s;
             border: none;
             padding: 0;
         }
-        .carousel-dot:hover { background: rgba(255, 255, 255, 0.85); }
+        .carousel-dot:hover { background: rgba(0, 0, 0, 0.7); }
         .carousel-dot.active {
-            background: #fff;
+            background: var(--accent-color, #0066cc);
             transform: scale(1.25);
         }
 
@@ -303,13 +303,21 @@
         .dark-theme .image-caption {
             color: #aaa;
         }
+        .dark-theme .carousel-dot {
+            background: rgba(255, 255, 255, 0.55);
+        }
+        .dark-theme .carousel-dot:hover {
+            background: rgba(255, 255, 255, 0.85);
+        }
+        .dark-theme .carousel-dot.active {
+            background: #fff;
+        }
         @media (max-width: 600px) {
             .carousel-item img { height: 240px; }
             .carousel-arrow { width: 34px; height: 34px; font-size: 1.05rem; }
-            .carousel-dots { bottom: 80px; }
-            .image-row { gap: 0.5rem; }
-            .image-row-item { width: calc(50% - 0.25rem); }
-            .page-body .image-row img { width: calc(50% - 0.25rem); }
+            .image-row { flex-direction: column; gap: 1rem; }
+            .image-row-item { width: 100%; }
+            .page-body .image-row img { width: 100%; }
         }
 
         /* Images */
