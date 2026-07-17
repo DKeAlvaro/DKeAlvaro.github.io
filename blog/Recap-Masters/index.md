@@ -9,31 +9,34 @@ In this blog post, I am going to reflect on how I got here, how the academic yea
 
 Let's start at the beginning: Last year, around these dates I had just signed the contract for a room in a student house in Den Bosch. Although I was going to attend TU/Eindhoven, I could not find a place there.
 
-I still had a full month to enjoy my summer before I would move there in September. It's funny that during that time I met a couple of people who would later become good friends of mine in Eindhoven.
+I still had a full month to enjoy my summer before I would move there in September. It's funny that during that time I met Diego and Pablo, two people that would later become good friends of mine in Eindhoven.
 
 Fast forward to September, I landed in the Netherlands. The first arc of the year started.
 
 ### The 'Den Bosch' Arc (Sep-Dec)
 
-The place I was living in turned out to be *hell*. It was a one-floor, students-only house packed with individual rooms — more of a small business than a home. Rent was high for what you got, and it was clear someone was doing very well out of it.
+The place I was living in turned out to be *hell*. It was a one-floor, students-only house with a ton of individual rooms. The owners were making a juicy business out of it - high rent, packed house, not bad for them.
 
-The house was a complete disaster. Everything was messy and dirty: kitchen, bathrooms, hallways and living room. The owner arrived more than 1h late to the check-in, and after telling him the house needed proper cleaning he backfired at me saying that if I didn't like it I could leave.
+The house was a complete disaster. Everything was messy and dirty: kitchen, bathrooms, hallways and living room. The owner arrived more than 1h later to the check-in, and after telling him the house needed proper cleaning he backfired at me saying that if I didn't like it I could leave.
 
-The house was full of internationals and Dutch students. I didn't make any friends there. I would occasionally talk to one roommate — driven, always working, clearly smart — but we never really clicked. Opposing views about life. Respect, not friendship.
+There were a lot of people living there, mix of Dutch and internationals. I didn't make any friends there. I would occasionally talk to one of the guys. He was smart as fuck. I could see he worked super hard all the time.
 
-I had to commute daily for 2h to uni (1h per trip) and it wasn't the greatest thing. I could sometimes make use of the morning trips with uni assignments, but when I was in Eindhoven I had nowhere to go apart from being at uni. That was mentally tiring. There were some days where I would just wander with no clear goal. Plus the tickets were expensive. I started collecting them.
+I respected him, but deep down we could never be friends, we had opposing views about life.
+
+I had to commute daily for 2h to uni (1h per trip) and it wasn't the greatest thing. I could sometimes make use of the morning trips with uni assignments, but when I was in Eindhoven I had nowhere to go apart from being at uni. That was mentally tiring. There were some days where I would just wander with no clear goal. Plus the tickets were expensive, around 8€ per round trip. I started collecting the tickets.
 
 I was completely isolated in Den Bosch. It is not as open to internationals as other cities in NL, and I had all my life in Eindhoven, uni and friends mostly. I thought a good way to fill in my time was to get a job so I started looking for one. But no one would reply to my online applications. I even got rejected by the local supermarkets because I didn't speak Dutch (understandable).
 
 But I was determined.
 
-One day I went out for a walk and I stopped by every establishment I could find, asking for a job. I stopped by around 10. Out of those, only a couple of places said I could have an interview — including a small sushi restaurant.
+One day I went out for a walk and I stopped by every establishment I could find, asking for a job. I stopped by around 10. Out of those, only McDonalds and a small sushi restaurant told me I could have an interview with them.
 
-I gave the sushi place a try. The owner was friendly and also cooked. After the first day we still hadn't discussed the salary. We negotiated it in the back — a bit sketchy, I have to say — and I ended up on a low hourly rate. Pretty low, but I wasn't in the position to reject it.
+I gave the sushi place a try. The owner was a friendly guy who was also the cook.
+After the first day we still hadn't discussed the salary. He brought me to the back of the bar (a bit sketchy I have to say) and we had to negotiate it. I ended up getting a pretty low hourly rate, but I wasn't in the position to reject it.
 
-The job itself was amazing. I had to deliver sushi to customers by car or scooter. I had never driven a scooter before that and it was cool as hell, fuck yeah. The downside: traffic fines stacked up over the weeks and wiped out whatever I might have saved. Made me so angry...
+The job was amazing. I had to deliver sushi to customers by car or scooter. I had never driven a scooter before that and it was cool as hell, fuck yeah. Unfortunately, I got a bunch of traffic fines that raised up to hundreds of euros in total, making it impossible for me to save anything. Made me so angry...
 
-A friend from Eindhoven told me there were rooms available in a student house, I immediately booked one for December.
+A friend from Eindhoven told me there were rooms available in a student room, I immediately booked one for December.
 
 My time in Den Bosch would come to an end, and things would drastically improve from there. The thing I loved the most about it was a cat from one of the people living in the house. So cute!!! 😍
 
@@ -56,32 +59,32 @@ Managing uni with the internship was not that hard in the beginning. I decided n
 
 My uni academic years are divided by 4 quarters. At the beginning of May we would switch to the fourth quarter, meaning I had to pick new courses. I decided to pick the usual 3 courses because I didn't want to delay my studies.
 
-During the internship I really set my studies aside, they were not my priority. And it showed. Out of the 3 courses I took during the internship (one course was shared across Quartiles), I passed one (a computational biology project), failed one exam (medical image analysis), and am still waiting for the results of the last one (Decision making with AI) which I think I passed.
+During the internship I really set my studies aside, they were not my priority. And it showed. Out of the 3 courses I took during the internship (one course was shared across Quartiles), I passed one (a project about Computational biology), failed one (about medical image analysis), and am still waiting for the results of the last one (Decision making with AI) which I think I passed.
 
 Well, not that bad actually, especially considering the time I spent on them.
 
-Regarding the internship, the motivation slowly started to go down. After the initial two months I already had most of the GUI built and my supervisor was already impressed by it. So my urgency was not there anymore.
+Regarding the internship, the motivation slowly started to go down. After the initial two months I already had 90% of the GUI built and my supervisor was already impressed by it. So my urgency was not there anymore.
 
-And also I felt, and still feel, like an outlier there. I am in a research team far from pure software — most people around me come from physics, chemistry or mechanical engineering.
+And also I felt, and still feel, like an outlier there. I am in a research team - all the researchers in my team are physicists, Chemists or Mechanical engineers.
 
-I am the only one with a different background. I have a BSc in Data Science and am now doing an MSc in AI, pretty unrelated to the core of what they do. I am missing domain expertise. I learned enough of the domain to be useful, but it's not something that excites me too much.
+I am the only one with a different background. I have a BSc in Data Science and am now doing an MSc in AI, completely unrelated to what they are doing. Data is not the core of what they do. I am missing domain expertise. I learned some of the domain stuff but it's not something that excites me too much.
 
-However, my supervisor was very happy with what I built and told me that he and his colleagues use it regularly. That made me so proud! He still had in mind some improvements to the GUI. I extended the internship until the end of July for 2 days a week.
+However, my supervisor was very happy with what I built and told me that he and his colleagues use it weekly. That made me so proud! He still had in mind some improvements to the GUI. I extended the internship until the end of July for 2 days a week.
 
-### The logistics arc (Jun-Now)
-Because I was going to stay until the end of July here, I wanted to make some money. I looked online for some temporary jobs, and called a staffing agency about a logistics position I had seen on their website. Calling them was the best thing I could have done. The person I talked with was very friendly and told me I could start working the day after!
+### The slavery arc (Jun-Now)
+Because I was going to stay until the end of July here, I wanted to make some money. I looked online for some temporary jobs, and called a staffing agency asking about an advertisement I had seen in their website about a logistics position. Calling them was the best thing I could have done. The girl who I talked with was very friendly and told me I could start working the day after!
 
-I did, I went to the agency office to arrange the contract and get the working shoes, then went straight to a warehouse job.
+I did, I went to the agency office to arrange the contract and get the working shoes, then went straight to a warehouse.
 
 I had a great time there the first day. My position there was going to be "Orderpicker" - basically getting all the order items from the different aisles into containers.
 
-I am still there at the time and my experience is being very nice so far: good working conditions, nice job and decent pay. I will write a more detailed post about it because I was amazed by how optimized logistics is!😱
+I am still there at the time and my experience is being very nice so far: good working conditions, nice job and pay. I will write a more detailed post about it because I was amazed by how optimized logistics is!😱
 
 The reasons behind wanting money instead of spending a nice summer were two:
 
 First, I don't want my parents to subsidize my existence. I am 22 years old and I should be old enough to pay for my stuff. I don't want to be a financial burden to my parents. Secondly, I wanted to do a solo trip to the US, especially to San Francisco, to see with my own eyes the startup ecosystem that's there.
 
-I don't think I'll be able to save enough to do the trip, but at least I'll be able to pay for the rent and uni for a couple of months. Rent in Eindhoven is no joke, fuuuuck.
+I don't think I'll be able to save enough to do the trip, but at least I'll be able to pay for the rent and uni for a couple of months. Rent's expensive as fuck, fuuuuck.
 
 Even though I am working 5 or 6 days a week, I am doing it for a good cause and I have been through worse situations. And I'll have some time in August to chill
 
