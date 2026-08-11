@@ -3,7 +3,7 @@
 I started my four-month internship on **February 2nd, 2026**. In this post, I will share some personal reflections, technical notes, and my view of the corporate world at one of the leading tech giants of our time.
 
 <div class="image">
-    <img src="../../images/selfie-asml.jpg" alt="Selfie at ASML" style="width: 100%; max-width: 400px; border-radius: 12px;">
+    <img src="../../images/selfie-asml.webp" alt="Selfie at ASML" style="width: 100%; max-width: 400px; border-radius: 12px;">
     <p class="carousel-description">Building Plaza, where I have lunch every day</p>
 </div>
 

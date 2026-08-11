@@ -4,11 +4,11 @@
 
 Below is the degree structure:
 
-<div style="text-align: center;"><img src="msc-overview.png" style="width:70%;"/></div>
+<div style="text-align: center;"><img src="msc-overview.webp" style="width:70%;"/></div>
 
 As we can see, the master lasts 2 years and each year has 4 quartiles (Q1, Q2, Q3, Q4). In total, there are **6 core courses**. All the core courses are:
 
-<div style="text-align: center;"><img src="core-courses.png" style="width:70%;"/></div>
+<div style="text-align: center;"><img src="core-courses.webp" style="width:70%;"/></div>
 
 Out of the 6 core courses, the first three **are mandatory in Q1** 
 1. *Data Analysis and Learning Methods*

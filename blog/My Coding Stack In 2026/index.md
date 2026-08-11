@@ -6,7 +6,7 @@ Looking back, the girl was right.
 AI created *the permanent underclass*.
 
 <div align="center">
-  <img src="permanent-underclass.jpeg" alt="Permanent Underclass" width="400">
+  <img src="permanent-underclass.webp" alt="Permanent Underclass" width="400">
 </div>
 
 The good news is: this is about to change in 2026, and in this post I will explain WHY, and how to escape from it.
@@ -76,7 +76,7 @@ On top of it, the very best models are only available in the top tier plans, suc
 If you don't have access to the best AI tools, you won't realize how powerful AI is right now and will fall into the "permanent underclass"
 
 <div align="center">
-  <img src="permanent-underclass-twitter.png" alt="Permanent Underclass" width="400">
+  <img src="permanent-underclass-twitter.webp" alt="Permanent Underclass" width="400">
 </div>
 
 The takeaway and TLDR from this is:
@@ -88,14 +88,14 @@ Clement Delangue, Co-founder & CEO at Hugging Face - one of the most important c
 
 <div align="center">
   <a href="https://x.com/ClementDelangue/status/2053825719587815711">
-    <img src="clem-delangue.png" alt="Open Source Intelligence" width="400">
+    <img src="clem-delangue.webp" alt="Open Source Intelligence" width="400">
   </a>
 </div>
 
 The current state of open source models already opened a huge world of possibilities on what can be done TODAY. The following image shows AI models and their [intelligence index](https://artificialanalysis.ai/) in May 2026. The score is calculated by averaging the model's performance across 10 well-known benchmarks such as GPDval, Tau-2 Bench...
 
 <div align="center">
-  <img src="Artificial Analysis Intelligence Index (7 May '26).png" alt="Open Source Intelligence" width="700">
+  <img src="Artificial Analysis Intelligence Index (7 May '26).webp" alt="Open Source Intelligence" width="700">
 </div>
 
 GPT 5.5 xhigh takes the lead with a score of 60. Two models are highlighted, Deepseek V4 Pro and Qwen 3.6 27b, with scores of 52 and 46.
@@ -171,7 +171,7 @@ I will continue using Deepseek V4 Pro until the discount finishes in the end of 
 
 I use deepseek directly from their official api provider. To do so, I created an account in platform.deepseek.com, got an api key and added 10€. Over the last 10 days I burned **42 million** tokens (Although only 0.1% of them being output tokens) for the price of **$1.41**
 <div align="center">
-  <img src="deepseek-usage.png" alt="Open Source Intelligence" width="400">
+  <img src="deepseek-usage.webp" alt="Open Source Intelligence" width="400">
 </div>
 
 Occasionally, if I need subagents I use [OpenCode](https://opencode.ai/). It is Pi's big brother. It has more functionalities and the solution is more mature. They are currently offering a 10/mo plan with very generous limits and access to powerful models such as Kimi K2 (score of 54 in artificialanalysis.ai) - I haven't personally tried that plan but will probably do in the future.
@@ -184,7 +184,7 @@ Once inside, to install pi: npm install -g @earendil-works/pi-coding-agent
 
 After this, you are free to explore the exciting world of agentic AI, and just maybe, exit the permanent underclass
 
-<img src="setup.jpeg" alt="My coding setup" style="max-width: 350px; display: block; margin: 1.5rem auto; border-radius: 12px;">
+<img src="setup.webp" alt="My coding setup" style="max-width: 350px; display: block; margin: 1.5rem auto; border-radius: 12px;">
 
 ## Conclusion
 I haven't seen the Italian girl since 2024. If I did, I would tell her she was right - AI did create inequalities, and most people didn't even realize they were on the losing side - But thanks to open source, that reality will change in the near future.
