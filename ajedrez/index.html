@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Informe Chess.com · alvaromros / bettanzzos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0b0c0f;
+      --bg2: #12141a;
+      --panel: #161922;
+      --line: #2a2e3a;
+      --gold: #d7b15a;
+      --gold2: #f3dd9a;
+      --cream: #efe6d2;
+      --muted: #9aa1b2;
+      --win: #3ecf8e;
+      --loss: #ef5d5d;
+      --draw: #8b93a7;
+      --chip: #1e2230;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--cream); }
+    body {
+      font-family: "IBM Plex Sans", system-ui, sans-serif;
+      line-height: 1.5;
+      background-image:
+        linear-gradient(180deg, rgba(11,12,15,.92), rgba(11,12,15,.97)),
+        repeating-conic-gradient(#14161c 0% 25%, #101218 0% 50%);
+      background-size: auto, 28px 28px;
+    }
+    a { color: var(--gold2); }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 28px 20px 80px; }
+    header.hero {
+      display: grid;
+      grid-template-columns: 88px 1fr;
+      gap: 22px;
+      align-items: center;
+      padding: 8px 0 28px;
+      border-bottom: 1px solid var(--line);
+    }
+    header.hero img {
+      width: 88px; height: 88px; border-radius: 50%;
+      object-fit: cover; border: 2px solid var(--gold);
+    }
+    h1 {
+      font-family: Fraunces, Georgia, serif;
+      font-size: clamp(1.8rem, 4vw, 2.7rem);
+      font-weight: 650;
+      letter-spacing: -.03em;
+      margin: 0 0 6px;
+    }
+    .sub { color: var(--muted); margin: 0; }
+    .sub b { color: var(--cream); font-weight: 600; }
+    .ratings {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin: 22px 0 8px;
+    }
+    .rate {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 14px 16px;
+    }
+    .rate .k { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
+    .rate .v { font-family: Fraunces, serif; font-size: 1.7rem; margin-top: 2px; }
+    .rate .b { color: var(--muted); font-size: 12px; }
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 10px;
+      margin: 18px 0 36px;
+    }
+    .kpi {
+      background: var(--bg2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+    }
+    .kpi .k { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .07em; }
+    .kpi .v { font-size: 1.25rem; font-weight: 600; }
+    h2 {
+      font-family: Fraunces, serif;
+      font-size: 1.55rem;
+      margin: 42px 0 6px;
+      letter-spacing: -.02em;
+    }
+    .lead { color: var(--muted); margin: 0 0 16px; max-width: 70ch; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+    .card .tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold);
+      background: #2a2414;
+      border: 1px solid #4a3d16;
+      border-radius: 999px;
+      padding: 2px 8px;
+      margin-bottom: 8px;
+    }
+    .card h3 { margin: 0 0 6px; font-size: 1.05rem; }
+    .card p { margin: 0; color: #c9cdd8; font-size: .95rem; }
+    .grid2 { display: grid; grid-template-columns: 1.3fr .7fr; gap: 12px; }
+    .grid2eq { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 16px;
+    }
+    .panel h3 { margin: 0 0 10px; font-size: 14px; color: var(--muted); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 7px 6px; border-bottom: 1px solid #232734; }
+    th { color: var(--muted); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+    .bar {
+      height: 6px; background: #232734; border-radius: 99px; overflow: hidden; min-width: 70px;
+    }
+    .bar > i { display: block; height: 100%; background: linear-gradient(90deg, #8b6914, var(--gold)); }
+    .pill { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 12px; }
+    .up { color: var(--win); }
+    .dn { color: var(--loss); }
+    .mid { color: var(--gold2); }
+    .heat {
+      display: grid;
+      grid-template-columns: 46px repeat(24, 1fr);
+      gap: 2px;
+      font-size: 10px;
+      color: var(--muted);
+    }
+    .heat .cell {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: #1a1d26;
+    }
+    .heat .lab { display: flex; align-items: center; }
+    footer {
+      margin-top: 56px;
+      color: var(--muted);
+      font-size: 13px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+    .tabs {
+      display: flex;
+      gap: 8px;
+      margin: 0 0 22px;
+    }
+    .tab {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: var(--chip);
+      color: var(--muted);
+      font: 600 14px "IBM Plex Sans", system-ui, sans-serif;
+      padding: 8px 16px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .tab.on {
+      background: #2a2414;
+      border-color: #4a3d16;
+      color: var(--gold2);
+    }
+    .tab:hover { color: var(--cream); }
+    @media (max-width: 900px) {
+      header.hero { grid-template-columns: 72px 1fr; }
+      .ratings, .kpis, .cards, .grid2, .grid2eq { grid-template-columns: 1fr; }
+      .heat { grid-template-columns: 28px repeat(24, 10px); overflow-x: auto; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="tabs" id="tabs">
+      <button class="tab on" type="button" data-user="alvaromros">alvaromros</button>
+      <button class="tab" type="button" data-user="bettanzzos">bettanzzos</button>
+    </nav>
+    <header class="hero">
+      <img id="heroAvatar" src="avatar-alvaromros.jpg" alt="Avatar" />
+      <div>
+        <h1 id="heroName">—</h1>
+        <p class="sub" id="heroSub">
+          <b id="heroUser">—</b> · Chess.com · liga <span id="heroLeague">—</span> · España<br />
+          Informe agregado de <b id="nchess">—</b> partidas clásicas
+          (más <span id="nother">—</span> de variantes) · <span id="heroSpan">—</span>
+        </p>
+      </div>
+    </header>
+
+    <section class="ratings" id="ratings"></section>
+    <section class="kpis" id="kpis"></section>
+
+    <h2>Lo que dicen los números</h2>
+    <p class="lead" id="leadInsights">Patrones sacados del archivo completo, no de mirar una a una. Fuente: API pública de Chess.com.</p>
+    <div class="cards" id="insights"></div>
+
+    <h2>Evolución de Elo</h2>
+    <p class="lead" id="leadRating">Rating almacenado en cada partida ranked.</p>
+    <div class="panel"><canvas id="ratingChart" height="110"></canvas></div>
+
+    <h2>Actividad mensual</h2>
+    <p class="lead" id="leadMonth">Volumen por cadencia.</p>
+    <div class="panel"><canvas id="monthChart" height="110"></canvas></div>
+
+    <h2>Blancas, negras y cadencia</h2>
+    <div class="grid2">
+      <div class="panel"><canvas id="colorChart" height="180"></canvas></div>
+      <div class="panel" id="tcTable"></div>
+    </div>
+
+    <h2>Repertorio con blancas</h2>
+    <p class="lead" id="leadWhite">Primeras jugadas y familias ECO con blancas.</p>
+    <div class="grid2">
+      <div class="panel" id="openW"></div>
+      <div class="panel">
+        <h3>Primer movimiento</h3>
+        <canvas id="firstW" height="220"></canvas>
+      </div>
+    </div>
+
+    <h2>Repertorio con negras</h2>
+    <p class="lead" id="leadBlack">Respuestas a 1.e4 y 1.d4, y familias ECO con negras.</p>
+    <div class="grid2eq">
+      <div class="panel" id="openB"></div>
+      <div class="panel">
+        <h3>Respuesta a 1.e4 / 1.d4</h3>
+        <div id="replies"></div>
+      </div>
+    </div>
+
+    <h2>Cómo ganas y cómo pierdes</h2>
+    <p class="lead" id="leadTerm">Mate, rendición, tiempo y abandono.</p>
+    <div class="grid2eq">
+      <div class="panel"><canvas id="termWin" height="200"></canvas></div>
+      <div class="panel"><canvas id="termLoss" height="200"></canvas></div>
+    </div>
+
+    <h2>El reloj que queda</h2>
+    <p class="lead" id="leadClock">Puntuación según los segundos que te quedan al acabar.</p>
+    <div class="panel" id="clkTable"></div>
+
+    <h2>Cuándo juegas (hora de Madrid)</h2>
+    <p class="lead" id="leadHours">Puntuación por hora y por día de la semana.</p>
+    <div class="grid2eq">
+      <div class="panel"><canvas id="hourChart" height="200"></canvas></div>
+      <div class="panel"><canvas id="wdChart" height="200"></canvas></div>
+    </div>
+    <div class="panel" style="margin-top:12px">
+      <h3>Mapa día × hora · intensidad = partidas, tono = puntuación</h3>
+      <div class="heat" id="heat"></div>
+    </div>
+
+    <h2>Sesiones</h2>
+    <p class="lead" id="leadSess">Nueva sesión si pasan 45 minutos.</p>
+    <div class="grid2">
+      <div class="panel"><canvas id="sessChart" height="180"></canvas></div>
+      <div class="panel" id="sessMeta"></div>
+    </div>
+
+    <h2>Rivales y diferencia de Elo</h2>
+    <p class="lead" id="leadOpp">Chess.com guarda el rating después de la partida, así que el gradiente se exagera un poco.</p>
+    <div class="grid2eq">
+      <div class="panel" id="oppBuckets"></div>
+      <div class="panel" id="oppList"></div>
+    </div>
+
+    <h2>Duración</h2>
+    <p class="lead" id="leadLen">Distribución de plies (semimovimientos) y puntuación.</p>
+    <div class="panel"><canvas id="lenChart" height="120"></canvas></div>
+
+    <footer>
+      Generado el <span id="gen"></span> ·
+      datos: Chess.com Published Data API ·
+      análisis agregado (aperturas ECO, resultados, relojes PGN, precisión de Game Review cuando existe) ·
+      no se ha pasado Stockfish partida a partida ·
+      URL temporal, no indexar.
+      Perfil: <a id="footerProfile" href="https://www.chess.com/member/alvaromros" target="_blank" rel="noopener">chess.com/member/alvaromros</a>
+    </footer>
+  </div>
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const es = (n) => n.toLocaleString("es-ES");
+    const pct = (n) => (n == null ? "—" : String(n).replace(".", ",") + "%");
+    const scoreClass = (s) => s >= 55 ? "up" : s < 48 ? "dn" : "mid";
+    const PLAYERS = {
+      alvaromros: { file: "stats-alvaromros.json", avatar: "avatar-alvaromros.jpg" },
+      bettanzzos: { file: "stats-bettanzzos.json", avatar: "avatar-bettanzzos.jpg" },
+    };
+    const cache = {};
+    const charts = [];
+
+    Chart.defaults.color = "#9aa1b2";
+    Chart.defaults.borderColor = "#2a2e3a";
+    Chart.defaults.font.family = "IBM Plex Sans, system-ui, sans-serif";
+
+    function table(cols, rows, htmlId) {
+      const head = cols.map(c => `<th class="${c.num ? "num" : ""}">${c.h}</th>`).join("");
+      const body = rows.map(r => "<tr>" + cols.map(c => {
+        const v = c.fmt ? c.fmt(r) : r[c.k];
+        return `<td class="${c.num ? "num" : ""}">${v}</td>`;
+      }).join("") + "</tr>").join("");
+      $(htmlId).innerHTML = `<h3>${$(htmlId).dataset.title || ""}</h3><table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+    }
+
+    function barCell(score) {
+      const w = Math.max(0, Math.min(100, score));
+      return `<div class="bar"><i style="width:${w}%"></i></div>`;
+    }
+
+    function doughnut(ctx, labels, values, colors, title) {
+      return keep(new Chart(ctx, {
+        type: "doughnut",
+        data: { labels, datasets: [{ data: values, backgroundColor: colors, borderWidth: 0 }] },
+        options: { plugins: { legend: { position: "bottom" }, title: { display: true, text: title, color: "#efe6d2" } } }
+      }));
+    }
+
+    function keep(c) { charts.push(c); return c; }
+    function wipeCharts() {
+      while (charts.length) {
+        const c = charts.pop();
+        try { c.destroy(); } catch (e) {}
+      }
+    }
+
+    function monthLabel(ts) {
+      if (!ts) return "—";
+      return new Date(ts * 1000).toLocaleDateString("es-ES", { month: "short", year: "numeric" });
+    }
+
+    async function loadUser(user) {
+      if (!cache[user]) {
+        const r = await fetch(PLAYERS[user].file);
+        if (!r.ok) throw new Error("HTTP " + r.status + " " + PLAYERS[user].file);
+        cache[user] = await r.json();
+      }
+      return cache[user];
+    }
+
+    function render(s, user) {
+      wipeCharts();
+      $("heroAvatar").src = PLAYERS[user].avatar;
+      $("heroAvatar").alt = "Avatar de " + user;
+      $("heroName").textContent = s.player.name || user;
+      $("heroUser").textContent = s.player.username || user;
+      $("heroLeague").textContent = s.player.league || "—";
+      $("nchess").textContent = es(s.n_chess);
+      $("nother").textContent = es(s.n_other);
+      $("heroSpan").textContent = monthLabel(s.span.first) + " – " + monthLabel(s.span.last);
+      $("gen").textContent = s.generated_at;
+      const url = s.player.url || ("https://www.chess.com/member/" + user);
+      $("footerProfile").href = url;
+      $("footerProfile").textContent = "chess.com/member/" + (s.player.username || user);
+
+      const order = ["blitz", "rapid", "bullet", "daily"];
+      const names = { blitz: "Blitz", rapid: "Rápidas", bullet: "Bullet", daily: "Diarias" };
+      $("ratings").innerHTML = order.map(k => {
+        const r = (s.player.ratings || {})[k] || {};
+        return `<div class="rate"><div class="k">${names[k]}</div><div class="v">${r.last ?? "—"}</div><div class="b">techo ${r.best ?? "—"} · ${r.win ?? 0}/${r.loss ?? 0}/${r.draw ?? 0}</div></div>`;
+      }).join("");
+
+      const o = s.overall;
+      const kpis = [
+        ["Partidas", es(o.n)],
+        ["Puntuación", pct(o.score)],
+        ["Victorias", `${es(o.win)} (${pct(o.winrate)})`],
+        ["Precisión", s.accuracy.mine != null ? pct(s.accuracy.mine) : "—"],
+        ["vs esperado", o.perf_vs_expected == null ? "—" : ((o.perf_vs_expected >= 0 ? "+" : "") + String(o.perf_vs_expected).replace(".", ",") + " pp")],
+        ["Plies medios", o.avg_plies ?? "—"],
+      ];
+      $("kpis").innerHTML = kpis.map(([k,v]) => `<div class="kpi"><div class="k">${k}</div><div class="v">${v}</div></div>`).join("");
+
+      $("insights").innerHTML = (s.insights || []).map(c =>
+        `<article class="card"><div class="tag">${c.tag}</div><h3>${c.title}</h3><p>${c.body}</p></article>`
+      ).join("");
+
+      $("leadInsights").textContent = `Patrones sacados de ${es(s.n_chess)} partidas de ajedrez estándar. Fuente: API pública de Chess.com (PGN, ECO, relojes, precisiones).`;
+      const br = (s.player.ratings || {}).bullet || {};
+      $("leadRating").textContent = br.best && br.last
+        ? `Rating en cada partida ranked. Bullet: techo ${br.best}, ahora ${br.last}.`
+        : "Rating almacenado en cada partida ranked.";
+      const peakMonth = (s.monthly || []).slice().sort((a,b) => (b.n||0)-(a.n||0))[0];
+      $("leadMonth").textContent = peakMonth
+        ? `Volumen por cadencia. El mes más cargado: ${peakMonth.name} (${es(peakMonth.n)} partidas).`
+        : "Volumen por cadencia.";
+      const fw = (s.first_moves_white || [])[0];
+      const sic = (s.openings_white || []).find(x => /Sicilian/i.test(x.name));
+      $("leadWhite").textContent = fw
+        ? `1.${fw.name} es lo más habitual (${es(fw.n)} partidas, ${pct(fw.score)}).` + (sic ? ` Contra la Siciliana: ${pct(sic.score)} en ${es(sic.n)}.` : "")
+        : "Primeras jugadas y familias ECO con blancas.";
+      const e4 = (s.black_vs_e4 || [])[0];
+      $("leadBlack").textContent = e4
+        ? `Contra 1.e4 la respuesta más repetida es ${e4.name} (${es(e4.n)}, ${pct(e4.score)}).`
+        : "Respuestas a 1.e4 y 1.d4.";
+      const tw = s.termination.timeout_win, tl = s.termination.timeout_loss;
+      $("leadTerm").textContent = `${es(tw)} flags a favor vs ${es(tl)} en contra. Rendiciones: ${es(s.termination.resign_loss)} propias / ${es(s.termination.resign_win)} del rival.`;
+      const clk5 = (s.clocks || []).find(x => x.name === "<5s");
+      $("leadClock").textContent = clk5
+        ? `Con menos de 5 s al final puntúas ${pct(clk5.score)} (${es(clk5.n)} partidas).`
+        : "Puntuación según los segundos que te quedan al acabar.";
+      const hoursOk = (s.hours || []).filter(h => h.n >= 40);
+      if (hoursOk.length) {
+        const best = hoursOk.reduce((a,b) => a.score > b.score ? a : b);
+        const worst = hoursOk.reduce((a,b) => a.score < b.score ? a : b);
+        $("leadHours").textContent = `Mejor franja ${best.name}: ${pct(best.score)}. Peor ${worst.name}: ${pct(worst.score)}.`;
+      }
+      const sm0 = s.session_meta;
+      $("leadSess").textContent = `${es(sm0.n_sessions)} sesiones, mediana ${sm0.median_len}, máximo ${sm0.max_len}. Tras perder: ${pct(s.after_loss.score)}.`;
+      $("leadOpp").textContent = "Chess.com guarda el rating después de la partida, así que el gradiente se exagera un poco.";
+      $("leadLen").textContent = `Media ${s.length.avg_plies} plies (mediana ${s.length.median_plies}). Derrotas en ≤10 jugadas: ${es(s.length.loss_under_20)}.`;
+
+      const seriesColor = { blitz: "#d7b15a", rapid: "#6cb6ff", bullet: "#ef5d5d" };
+      const allR = ["blitz","rapid","bullet"].flatMap(k => (s.rating_series[k] || []).map(p => p.r)).filter(Boolean);
+      const ymin = allR.length ? Math.max(100, Math.floor((Math.min(...allR) - 80) / 50) * 50) : 600;
+      const ymax = allR.length ? Math.ceil((Math.max(...allR) + 40) / 50) * 50 : 1500;
+      keep(new Chart($("ratingChart"), {
+        type: "line",
+        data: {
+          datasets: ["blitz", "rapid", "bullet"].map(k => ({
+            label: names[k],
+            data: (s.rating_series[k] || []).map(p => ({ x: p.t, y: p.r })),
+            borderColor: seriesColor[k],
+            backgroundColor: seriesColor[k],
+            pointRadius: 0,
+            borderWidth: 1.7,
+            tension: 0.15
+          }))
+        },
+        options: {
+          parsing: false,
+          interaction: { mode: "nearest", intersect: false },
+          plugins: { legend: { position: "bottom" } },
+          scales: {
+            x: {
+              type: "linear",
+              ticks: { callback: v => new Date(v).toLocaleDateString("es-ES", { month: "short", year: "2-digit" }), maxTicksLimit: 10 }
+            },
+            y: { suggestedMin: ymin, suggestedMax: ymax }
+          }
+        }
+      }));
+
+      keep(new Chart($("monthChart"), {
+        type: "bar",
+        data: {
+          labels: s.monthly.map(m => m.name),
+          datasets: [
+            { label: "Blitz", data: s.monthly.map(m => m.blitz), backgroundColor: "#d7b15a", stack: "a" },
+            { label: "Rápidas", data: s.monthly.map(m => m.rapid), backgroundColor: "#6cb6ff", stack: "a" },
+            { label: "Bullet", data: s.monthly.map(m => m.bullet), backgroundColor: "#ef5d5d", stack: "a" },
+          ]
+        },
+        options: {
+          plugins: { legend: { position: "bottom" } },
+          scales: { x: { stacked: true, ticks: { maxRotation: 90, minRotation: 60, autoSkip: true, maxTicksLimit: 16 } }, y: { stacked: true } }
+        }
+      }));
+
+      doughnut($("colorChart"),
+        ["Blancas victorias", "Blancas derrotas", "Blancas tablas", "Negras victorias", "Negras derrotas", "Negras tablas"],
+        [s.by_color.white.win, s.by_color.white.loss, s.by_color.white.draw, s.by_color.black.win, s.by_color.black.loss, s.by_color.black.draw],
+        ["#3ecf8e", "#ef5d5d", "#8b93a7", "#2ea36f", "#c44a4a", "#6c7384"],
+        `Blancas ${pct(s.by_color.white.score)} · Negras ${pct(s.by_color.black.score)}`
+      );
+
+      $("tcTable").dataset.title = "Por cadencia";
+      table(
+        [
+          { h: "Cadencia", k: "name" },
+          { h: "N", k: "n", num: true, fmt: r => es(r.n) },
+          { h: "Score", k: "score", num: true, fmt: r => `<span class="${scoreClass(r.score)}">${pct(r.score)}</span>` },
+          { h: "Precisión", k: "accuracy", num: true, fmt: r => r.accuracy == null ? "—" : pct(r.accuracy) },
+        ],
+        order.filter(k => s.by_time_class[k]).map(k => ({ name: names[k], ...s.by_time_class[k] })),
+        "tcTable"
+      );
+
+      function openTable(el, rows, title) {
+        el.innerHTML = `<h3>${title}</h3><table><thead><tr>
+          <th>Apertura</th><th class="num">N</th><th class="num">Score</th><th></th></tr></thead><tbody>` +
+          rows.map(r => `<tr><td>${r.name}</td><td class="num">${es(r.n)}</td>
+            <td class="num"><span class="${scoreClass(r.score)}">${pct(r.score)}</span></td>
+            <td>${barCell(r.score)}</td></tr>`).join("") + "</tbody></table>";
+      }
+      openTable($("openW"), s.openings_white, "Familias ECO con blancas (mín. 8 partidas)");
+      openTable($("openB"), s.openings_black, "Familias ECO con negras (mín. 8 partidas)");
+
+      keep(new Chart($("firstW"), {
+        type: "bar",
+        data: {
+          labels: s.first_moves_white.map(x => "1." + x.name),
+          datasets: [{
+            label: "Puntuación %",
+            data: s.first_moves_white.map(x => x.score),
+            backgroundColor: s.first_moves_white.map(x => x.score >= 53 ? "#3ecf8e" : x.score < 48 ? "#ef5d5d" : "#d7b15a")
+          }]
+        },
+        options: {
+          indexAxis: "y",
+          plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => es(s.first_moves_white[ctx.dataIndex].n) + " partidas" } } },
+          scales: { x: { suggestedMin: 30, suggestedMax: 70 } }
+        }
+      }));
+
+      function replyBlock(title, rows) {
+        return `<h3 style="margin-top:12px">${title}</h3><table><thead><tr><th>Jugada</th><th class="num">N</th><th class="num">Score</th></tr></thead><tbody>` +
+          rows.map(r => `<tr><td>${r.name}</td><td class="num">${es(r.n)}</td><td class="num"><span class="${scoreClass(r.score)}">${pct(r.score)}</span></td></tr>`).join("") +
+          "</tbody></table>";
+      }
+      $("replies").innerHTML = replyBlock("Si el rival abre 1.e4", s.black_vs_e4) + replyBlock("Si el rival abre 1.d4", s.black_vs_d4);
+
+      doughnut($("termWin"), s.termination.win.map(x => x.name), s.termination.win.map(x => x.n),
+        ["#3ecf8e", "#62d9a4", "#d7b15a", "#8b93a7"], "Cómo ganas");
+      doughnut($("termLoss"), s.termination.loss.map(x => x.name), s.termination.loss.map(x => x.n),
+        ["#ef5d5d", "#c44a4a", "#d7b15a", "#8b93a7"], "Cómo pierdes");
+
+      $("clkTable").dataset.title = "Puntuación según el tiempo que te queda al final";
+      table(
+        [
+          { h: "Reloj final", k: "name" },
+          { h: "N", k: "n", num: true, fmt: r => es(r.n) },
+          { h: "Score", k: "score", num: true, fmt: r => `<span class="${scoreClass(r.score)}">${pct(r.score)}</span>` },
+          { h: "Flags a favor / en contra", k: "timeout_win", num: true, fmt: r => `${es(r.timeout_win)} / ${es(r.timeout_loss)}` },
+        ],
+        s.clocks,
+        "clkTable"
+      );
+
+      keep(new Chart($("hourChart"), {
+        type: "bar",
+        data: {
+          labels: s.hours.map(h => h.name),
+          datasets: [{
+            label: "Puntuación %",
+            data: s.hours.map(h => h.n >= 20 ? h.score : null),
+            backgroundColor: s.hours.map(h => h.score >= 54 ? "#3ecf8e" : h.score < 48 ? "#ef5d5d" : "#d7b15a")
+          }]
+        },
+        options: { plugins: { legend: { display: false }, tooltip: { callbacks: { afterLabel: ctx => es(s.hours[ctx.dataIndex].n) + " partidas" } } }, scales: { y: { suggestedMin: 35, suggestedMax: 65 } } }
+      }));
+      keep(new Chart($("wdChart"), {
+        type: "bar",
+        data: {
+          labels: s.weekdays.map(h => h.name),
+          datasets: [{ label: "Puntuación %", data: s.weekdays.map(h => h.score), backgroundColor: "#6cb6ff" }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { suggestedMin: 40, suggestedMax: 60 } } }
+      }));
+
+      const wdShort = ["L", "M", "X", "J", "V", "S", "D"];
+      const heatMap = {};
+      (s.heatmap || []).forEach(c => { heatMap[c.weekday + "-" + c.hour] = c; });
+      let heat = `<div></div>`;
+      for (let h = 0; h < 24; h++) heat += `<div class="lab" style="justify-content:center">${h}</div>`;
+      for (let d = 0; d < 7; d++) {
+        heat += `<div class="lab">${wdShort[d]}</div>`;
+        for (let h = 0; h < 24; h++) {
+          const c = heatMap[d + "-" + h];
+          if (!c || !c.n) { heat += `<div class="cell" title="${wdShort[d]} ${h}:00 — sin partidas"></div>`; continue; }
+          const t = Math.max(0, Math.min(1, (c.score - 35) / 30));
+          const col = `hsl(${Math.round(8 + t * 120)} 70% ${18 + t * 22}%)`;
+          const op = 0.35 + Math.min(1, c.n / 40) * 0.65;
+          heat += `<div class="cell" style="background:${col};opacity:${op}" title="${wdShort[d]} ${String(h).padStart(2,"0")}:00 · ${c.n} partidas · ${pct(c.score)}"></div>`;
+        }
+      }
+      $("heat").innerHTML = heat;
+
+      keep(new Chart($("sessChart"), {
+        type: "bar",
+        data: {
+          labels: s.session_index.map(x => x.name),
+          datasets: [{ label: "Puntuación %", data: s.session_index.map(x => x.score), backgroundColor: "#d7b15a" }]
+        },
+        options: { plugins: { legend: { display: false } }, scales: { y: { suggestedMin: 40, suggestedMax: 60 } } }
+      }));
+      const sm = s.session_meta;
+      $("sessMeta").innerHTML = `<h3>Hábitos de sesión</h3>
+        <table><tbody>
+          <tr><td>Sesiones</td><td class="num">${es(sm.n_sessions)}</td></tr>
+          <tr><td>Media de partidas</td><td class="num">${String(sm.avg_len).replace(".", ",")}</td></tr>
+          <tr><td>Mediana</td><td class="num">${sm.median_len}</td></tr>
+          <tr><td>Más larga</td><td class="num">${sm.max_len}</td></tr>
+          <tr><td>Tras perder</td><td class="num">${pct(s.after_loss.score)} (${es(s.after_loss.n)})</td></tr>
+          <tr><td>Tras ganar</td><td class="num">${pct(s.after_win.score)} (${es(s.after_win.n)})</td></tr>
+        </tbody></table>`;
+
+      $("oppBuckets").dataset.title = "Según Elo del rival (rating post-partida)";
+      table(
+        [
+          { h: "Franja", k: "name" },
+          { h: "N", k: "n", num: true, fmt: r => es(r.n) },
+          { h: "Score", k: "score", num: true, fmt: r => `<span class="${scoreClass(r.score)}">${pct(r.score)}</span>` },
+        ],
+        s.opp_rating_buckets,
+        "oppBuckets"
+      );
+      $("oppList").dataset.title = "Rivales más repetidos (mín. 4)";
+      table(
+        [
+          { h: "Rival", k: "name" },
+          { h: "N", k: "n", num: true, fmt: r => es(r.n) },
+          { h: "Score", k: "score", num: true, fmt: r => `<span class="${scoreClass(r.score)}">${pct(r.score)}</span>` },
+        ],
+        s.opponents,
+        "oppList"
+      );
+
+      keep(new Chart($("lenChart"), {
+        type: "bar",
+        data: {
+          labels: s.length.bins.map(x => x.name + " mov."),
+          datasets: [
+            { label: "Partidas", data: s.length.bins.map(x => x.n), backgroundColor: "#2a3144", yAxisID: "y" },
+            { label: "Puntuación %", data: s.length.bins.map(x => x.score), backgroundColor: "#d7b15a", yAxisID: "y1" },
+          ]
+        },
+        options: {
+          plugins: { legend: { position: "bottom" } },
+          scales: { y: { position: "left" }, y1: { position: "right", suggestedMin: 30, suggestedMax: 70, grid: { drawOnChartArea: false } } }
+        }
+      }));
+    }
+
+    async function showUser(user) {
+      if (!PLAYERS[user]) user = "alvaromros";
+      document.querySelectorAll(".tab").forEach(b => b.classList.toggle("on", b.dataset.user === user));
+      if (location.hash.replace("#","") !== user) history.replaceState(null, "", "#" + user);
+      try {
+        const s = await loadUser(user);
+        render(s, user);
+      } catch (err) {
+        document.body.insertAdjacentHTML("afterbegin", "<p style='padding:20px;color:#ef5d5d'>No pude cargar " + user + ": " + err + "</p>");
+      }
+    }
+
+    document.getElementById("tabs").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-user]");
+      if (b) showUser(b.dataset.user);
+    });
+    window.addEventListener("hashchange", () => showUser(location.hash.replace("#","") || "alvaromros"));
+    showUser(location.hash.replace("#","") || "alvaromros");
+  </script>
+</body>
+</html>
