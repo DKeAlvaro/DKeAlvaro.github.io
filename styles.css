@@ -1611,18 +1611,43 @@ figcaption {
 }
 
 .artifacts-group li {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 0.55rem 0;
+    display: grid;
+    grid-template-columns: 4.6rem 1fr auto;
+    grid-template-areas:
+        "thumb copy time"
+        "preview preview preview";
+    column-gap: 0.85rem;
+    row-gap: 0;
+    align-items: start;
+    padding: 0.65rem 0;
     border-bottom: 1px solid var(--border-color);
-    position: relative;
+}
+
+.artifacts-thumb {
+    grid-area: thumb;
+    width: 4.6rem;
+    height: 2.85rem;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    background: var(--light-gray);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.artifacts-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top center;
+    display: block;
+    border-radius: 0;
 }
 
 .artifacts-copy {
+    grid-area: copy;
     min-width: 0;
-    flex: 1;
 }
 
 .artifacts-group a {
@@ -1649,7 +1674,7 @@ figcaption {
 }
 
 .artifacts-group time {
-    flex: 0 0 auto;
+    grid-area: time;
     font-size: 0.78rem;
     color: var(--text-color);
     opacity: 0.45;
@@ -1659,18 +1684,13 @@ figcaption {
 }
 
 .artifacts-preview {
+    grid-area: preview;
     display: none;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: calc(100% + 8px);
-    z-index: 40;
-    pointer-events: none;
+    margin-top: 0.65rem;
     background: var(--background-color);
     border: 1px solid var(--border-color);
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.16);
 }
 
 .artifacts-preview img {
@@ -1680,35 +1700,19 @@ figcaption {
     border-radius: 0;
 }
 
-.dark-theme .artifacts-preview {
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55);
+.artifacts-group li.is-open .artifacts-preview {
+    display: block;
 }
 
-@media (hover: hover) {
-    .artifacts-group li:hover,
-    .artifacts-group li:focus-within {
-        z-index: 41;
-    }
-
-    .artifacts-group li:hover .artifacts-preview,
-    .artifacts-group li:focus-within .artifacts-preview {
-        display: block;
-    }
-}
-
-@media (min-width: 1200px) {
-    .artifacts-preview {
-        left: calc(100% + 1.1rem);
-        right: auto;
-        top: -0.4rem;
-        width: 22rem;
-    }
+.artifacts-group li.is-open .artifacts-thumb {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 1px;
 }
 
 @media (max-width: 768px) {
     .artifacts-group li {
-        padding: 0.7rem 0;
-        gap: 0.75rem;
+        padding: 0.75rem 0;
+        column-gap: 0.7rem;
     }
 
     .artifacts-copy p {

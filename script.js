@@ -328,3 +328,32 @@ function toggleQA(qaId) {
         question.classList.add('active');
     }
 }
+
+document.querySelectorAll('.artifacts-group li').forEach((item) => {
+    const thumb = item.querySelector('.artifacts-thumb');
+    if (!thumb) return;
+
+    const toggle = () => {
+        const open = item.classList.contains('is-open');
+        document.querySelectorAll('.artifacts-group li.is-open').forEach((other) => {
+            if (other !== item) {
+                other.classList.remove('is-open');
+                const t = other.querySelector('.artifacts-thumb');
+                if (t) t.setAttribute('aria-expanded', 'false');
+            }
+        });
+        item.classList.toggle('is-open', !open);
+        thumb.setAttribute('aria-expanded', String(!open));
+    };
+
+    thumb.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggle();
+    });
+
+    item.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        if (e.target.closest('.artifacts-thumb')) return;
+        toggle();
+    });
+});
