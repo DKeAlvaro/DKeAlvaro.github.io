@@ -831,6 +831,11 @@ figcaption {
     align-self: center;
 }
 
+.about-content-wrapper .hero-title {
+    margin-top: 0;
+    margin-bottom: calc(var(--spacing-unit) * 1.5);
+}
+
 .about-image-desktop {
     flex: 1;
     max-width: 300px;
