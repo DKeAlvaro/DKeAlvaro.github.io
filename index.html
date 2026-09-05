@@ -18,6 +18,42 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+    <link rel="preload" href="images/pfp-edited.webp" as="image">
+    <link rel="preload" href="https://fonts.gstatic.com/s/googlesans/v62/4UabrENHsxJlUMuIn0tGmKukG4tLZf9.woff2" as="font" type="font/woff2" crossorigin>
+    <style>
+        /* Hide page until hero image + font are ready (max 2.5s safety fallback) */
+        html:not(.page-ready) body {
+            visibility: hidden;
+        }
+        html.page-ready body {
+            visibility: visible;
+            animation: pageFadeIn 0.4s ease;
+        }
+        @keyframes pageFadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+    <script>
+        (function () {
+            var done = false;
+            function reveal() {
+                if (done) return;
+                done = true;
+                document.documentElement.classList.add('page-ready');
+            }
+            function whenFontReady(cb) {
+                if (document.fonts && document.fonts.ready) {
+                    document.fonts.ready.then(cb);
+                } else { cb(); }
+            }
+            var img = new Image();
+            img.onload = img.onerror = function () { whenFontReady(reveal); };
+            img.src = 'images/pfp-edited.webp';
+            // Safety fallback: never hide the page for more than 2.5s
+            setTimeout(reveal, 2500);
+        })();
+    </script>
     <link rel="stylesheet" href="styles.css">
 </head>
 
