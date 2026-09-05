@@ -1589,6 +1589,15 @@ figcaption {
     margin: calc(var(--spacing-unit) * 1.5) auto calc(var(--spacing-unit) * 4);
 }
 
+.artifacts h1 {
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
+}
+
+.artifacts-intro {
+    color: var(--color-text-muted, #666);
+    margin-bottom: calc(var(--spacing-unit) * 2);
+}
+
 .artifacts-group {
     margin: 0 0 calc(var(--spacing-unit) * 2.2);
 }
