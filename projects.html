@@ -58,6 +58,67 @@
         <main class="content projects-narrative">
             <section class="project-item">
                 <div class="project-text">
+                    <h2><a href="https://useflowlet.com" target="_blank">Flowlet</a></h2>
+                    <p>
+                        Android dictation bubble: a floating mascot over any text field. Tap, speak, and your
+                        words are inserted where you were typing.
+                    </p>
+                    <ol class="project-features">
+                        <li>Overlay window plus an AccessibilityService that inserts text with <code>ACTION_PASTE</code> at the cursor, with read-back verification and a double-insertion guard.</li>
+                        <li>One audio-to-LLM call per dictation instead of a local ASR chain (~1.5&ndash;2.5 s per take); I benchmarked whisper.cpp on-device and removed it.</li>
+                        <li>Every dictation logged with latency, tokens and its real cost, plus credits and a monthly plan through Google Play Billing.</li>
+                        <li>Dev loop without Gradle (aapt2 + javac + d8) for phone builds, separate signed AAB for the store.</li>
+                    </ol>
+                </div>
+                <div class="project-visual vertical-image">
+                    <a href="https://useflowlet.com" target="_blank">
+                        <img src="images/flowlet.webp" alt="Flowlet dictation bubble over a text field">
+                    </a>
+                </div>
+            </section>
+
+            <section class="project-item">
+                <div class="project-text">
+                    <h2><a href="https://useflowlet.com/lift" target="_blank">Pagelift</a></h2>
+                    <p>
+                        Store-page reports for game developers. A dev pastes a Steam URL and the page is scored
+                        with the same 46-question rubric I used to judge 30,924 store pages, then placed against
+                        that benchmark.
+                    </p>
+                    <ol class="project-features">
+                        <li>Free preview with score, percentile and top 3 fixes; 15 &euro; unlocks the full ranked list and all 46 questions against p25/median/p75.</li>
+                        <li>Built on demand and cached: two LLM calls, ~8 s per report, ~$0.0006 of cost.</li>
+                        <li>Stripe checkout and webhook, per-IP limits on the paid pipeline, and a weekly job that scores new store pages and queues the weakest ones as prospects.</li>
+                    </ol>
+                </div>
+                <div class="project-visual">
+                    <a href="https://useflowlet.com/lift" target="_blank">
+                        <img src="images/pagelift.webp" alt="Pagelift report showing store page score against the 30,924-game benchmark">
+                    </a>
+                </div>
+            </section>
+
+            <section class="project-item">
+                <div class="project-text">
+                    <h2>termhome</h2>
+                    <p>
+                        An Android home screen that is a terminal. Install the APK and set it as the default
+                        launcher: no Termux, no setup scripts.
+                    </p>
+                    <ol class="project-features">
+                        <li>Type part of an app name and it opens (asks when ambiguous); anything else runs as a local shell command.</li>
+                        <li><code>ssh user@host</code> drops you on a server with a trust-on-first-use key check; commands are logged and app usage comes from UsageStats.</li>
+                        <li>A watchdog enforces your own daily and nonstop limits and only then asks an LLM for a one-line nag; with no key it falls back to local messages.</li>
+                        <li>Everything lives in the APK, BYOK, no keys shipped (v0.11).</li>
+                    </ol>
+                </div>
+                <div class="project-visual logo-image">
+                    <img src="images/termhome.svg" alt="termhome terminal launcher logo">
+                </div>
+            </section>
+
+            <section class="project-item">
+                <div class="project-text">
                     <h2><a href="https://dkealvaro.github.io/selectividad-mates-tierlist" target="_blank">Selectividad Mates Tierlist</a></h2>
                     <p>
                         Comparing the difficulty of 297 real Spanish university entrance exams (EvAU) across 16 years and 17 regions.

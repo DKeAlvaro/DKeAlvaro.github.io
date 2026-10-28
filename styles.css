@@ -1389,8 +1389,15 @@ figcaption {
     flex-direction: row-reverse;
 }
 
-.project-text {
+.project-text,
+.project-visual {
     flex: 1;
+    min-width: 0;
+}
+
+.project-visual > a {
+    display: block;
+    width: 100%;
 }
 
 .project-text h2 {
