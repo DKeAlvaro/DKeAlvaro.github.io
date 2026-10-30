@@ -1744,3 +1744,42 @@ figcaption {
         -webkit-box-orient: vertical;
     }
 }
+
+
+/* Flowlet logo + site, termhome annotated screenshot */
+.project-visual.logo-image.logo-site a {
+    flex-direction: column;
+    gap: 16px;
+    text-decoration: none;
+}
+
+.project-visual.logo-image.logo-site img {
+    width: 55%;
+    height: auto;
+    border-radius: 22%;
+}
+
+.project-visual.logo-image.logo-site span {
+    font-weight: 600;
+    color: inherit;
+}
+
+.project-visual.phone-image {
+    flex: 0 0 340px;
+    box-shadow: none;
+}
+
+.project-visual.phone-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    .project-visual.phone-image {
+        flex: 1;
+        width: 100%;
+        max-width: 340px;
+        margin: 0 auto;
+    }
+}

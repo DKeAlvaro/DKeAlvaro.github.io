@@ -60,19 +60,18 @@
                 <div class="project-text">
                     <h2><a href="https://useflowlet.com" target="_blank">Flowlet</a></h2>
                     <p>
-                        Android dictation bubble: a floating mascot over any text field. Tap, speak, and your
-                        words are inserted where you were typing.
+                        Android dictation bubble: tap, speak, and the text lands at your cursor in any app.
                     </p>
                     <ol class="project-features">
-                        <li>Overlay window plus an AccessibilityService that inserts text with <code>ACTION_PASTE</code> at the cursor, with read-back verification and a double-insertion guard.</li>
-                        <li>One audio-to-LLM call per dictation instead of a local ASR chain (~1.5&ndash;2.5 s per take); I benchmarked whisper.cpp on-device and removed it.</li>
-                        <li>Every dictation logged with latency, tokens and its real cost, plus credits and a monthly plan through Google Play Billing.</li>
-                        <li>Dev loop without Gradle (aapt2 + javac + d8) for phone builds, separate signed AAB for the store.</li>
+                        <li>One audio-to-LLM call per dictation (~1.5&ndash;2.5 s) instead of a local ASR chain; I benchmarked whisper.cpp on-device and dropped it.</li>
+                        <li>Inserts through an AccessibilityService with read-back verification and a double-insertion guard.</li>
+                        <li>Every dictation logged with latency and real cost; credits and a monthly plan via Google Play Billing.</li>
                     </ol>
                 </div>
-                <div class="project-visual vertical-image">
+                <div class="project-visual logo-image logo-site">
                     <a href="https://useflowlet.com" target="_blank">
-                        <img src="images/flowlet.webp" alt="Flowlet dictation bubble over a text field">
+                        <img src="images/flowlet-logo.webp" alt="Flowlet logo">
+                        <span>useflowlet.com</span>
                     </a>
                 </div>
             </section>
@@ -102,18 +101,17 @@
                 <div class="project-text">
                     <h2>termhome</h2>
                     <p>
-                        An Android home screen that is a terminal. Install the APK and set it as the default
-                        launcher: no Termux, no setup scripts.
+                        An Android home screen that is a terminal. Install the APK, set it as the default
+                        launcher, done: no Termux, no setup scripts.
                     </p>
                     <ol class="project-features">
-                        <li>Type part of an app name and it opens (asks when ambiguous); anything else runs as a local shell command.</li>
-                        <li><code>ssh user@host</code> drops you on a server with a trust-on-first-use key check; commands are logged and app usage comes from UsageStats.</li>
-                        <li>A watchdog enforces your own daily and nonstop limits and only then asks an LLM for a one-line nag; with no key it falls back to local messages.</li>
-                        <li>Everything lives in the APK, BYOK, no keys shipped (v0.11).</li>
+                        <li>Type part of an app name and it opens; anything else runs as a local shell command, and <code>ssh</code> works out of the box.</li>
+                        <li>A watchdog enforces your own daily screen-time limits and nags you with a one-line LLM message (local fallback with no key).</li>
+                        <li>Everything lives in the APK, bring your own key, nothing shipped.</li>
                     </ol>
                 </div>
-                <div class="project-visual logo-image">
-                    <img src="images/termhome.svg" alt="termhome terminal launcher logo">
+                <div class="project-visual phone-image">
+                    <img src="images/termhome-annotated.webp" alt="termhome screenshot annotated with red arrows: command cheatsheet, shell prompt, app match, A-Z rail and extra keys">
                 </div>
             </section>
 
