@@ -1783,3 +1783,21 @@ figcaption {
         margin: 0 auto;
     }
 }
+
+.project-title-logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.project-title-logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 22%;
+}
+
+.project-title-logo .project-site {
+    font-size: 0.6em;
+    font-weight: 400;
+    opacity: 0.7;
+}
