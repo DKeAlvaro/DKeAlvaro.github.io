@@ -61,6 +61,7 @@
                     <h2 class="project-title-logo"><img src="images/flowlet-logo.webp" alt="Flowlet logo"><a href="https://useflowlet.com" target="_blank">Flowlet</a></h2>
                     <ol class="project-features">
                         <li>Flowlet is a production-grade voice dictation app: Google auth, billing, ASR and LLM models.</li>
+                        <li>The app is written in Java. A Python server on my VPS receives the requests and forwards them to the AI providers.</li>
                         <li>My first published Play Store app!</li>
                         <li>Read more at <a href="https://useflowlet.com" target="_blank">useflowlet.com</a>.</li>
                     </ol>
@@ -76,9 +77,10 @@
                 <div class="project-text">
                     <h2><a href="https://useflowlet.com/lift" target="_blank">Pagelift</a></h2>
                     <p>
-                        Store-page reports for game developers. A dev pastes a Steam URL and the page is scored
-                        with the same 46-question rubric I used in <a href="https://dkealvaro.github.io/steam-good-games/" target="_blank">my study of 30,924 Steam store pages</a>, then placed against
-                        that benchmark.
+                        Store-page reports for game developers. I first ran
+                        <a href="https://dkealvaro.github.io/steam-good-games/" target="_blank">a study of 30,924 Steam games</a>
+                        with Jev, a new AI model, scoring every store page on a 46-question rubric. Page score vs reviews gives
+                        R&sup2; = 0.16 (log reviews). Pagelift scores any dev's page with that same rubric and places it against the benchmark.
                     </p>
                     <ol class="project-features">
                         <li>Free preview with score, percentile and top 3 fixes; 15 &euro; unlocks the full ranked list and all 46 questions against p25/median/p75.</li>
