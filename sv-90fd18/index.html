@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Supervisores · tesis</title>
+<style>
+:root{--ac:#1d5fd1;--fg:#1c2330;--mu:#6b7280;--bg:#fafaf8;--bd:#e3e3df}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:3.5rem}
+body{margin:0;background:var(--bg);color:var(--fg);font:1rem/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;overflow-wrap:anywhere}
+main{max-width:46rem;margin:0 auto;padding:0 1rem 4rem}
+a{color:var(--ac)}
+nav{position:sticky;top:0;z-index:5;background:rgba(250,250,248,.96);border-bottom:1px solid var(--bd)}
+nav div{max-width:46rem;margin:0 auto;padding:.55rem 1rem;display:flex;flex-wrap:wrap;gap:.3rem .9rem;align-items:center;font-size:.9rem}
+nav .cnt{margin-left:auto;color:var(--mu);font-variant-numeric:tabular-nums}
+h1{font-size:1.7rem;line-height:1.25;margin:1.5rem 0 .2rem}
+h2{font-size:1.3rem;margin:2.5rem 0 .8rem;padding-bottom:.3rem;border-bottom:2px solid var(--ac)}
+h3.tier{font-size:1.05rem;color:var(--ac);margin:1.8rem 0 .7rem;text-transform:uppercase;letter-spacing:.04em}
+.upd{color:var(--mu);margin:0 0 .5rem}
+header ul{padding-left:1.2rem} header li{margin:.5rem 0}
+.card{background:#fff;border:1px solid var(--bd);border-radius:10px;padding:1rem;margin:0 0 1rem;transition:opacity .2s}
+.card.done{opacity:.45}
+.card p{margin:.5rem 0}
+.top{display:flex;justify-content:space-between;gap:.8rem;align-items:flex-start}
+.card h3{margin:0;font-size:1.2rem;line-height:1.3}
+.dots{display:flex;gap:3px;padding-top:.5rem;flex:none}
+.dots i{width:.65rem;height:.65rem;border-radius:50%;border:1.5px solid var(--ac)}
+.dots i.on{background:var(--ac)}
+.meta{color:var(--mu);font-size:.92rem}
+.cc{font-size:.7rem;border:1px solid var(--bd);border-radius:4px;padding:0 .3rem;margin-left:.3rem;color:var(--fg);background:#f1f1ee;vertical-align:1px}
+.papers{margin:.5rem 0;padding-left:1.2rem;font-size:.95rem} .papers li{margin:.25rem 0}
+.foot{display:flex;flex-wrap:wrap;gap:.3rem 1rem;font-size:.9rem;margin-top:.7rem;padding-top:.6rem;border-top:1px solid var(--bd)}
+.muted{color:var(--mu)}
+.note{font-size:.85rem;color:var(--mu)}
+.chk{display:inline-flex;align-items:center;gap:.5rem;margin-top:.4rem;padding:.3rem 0;font-size:.95rem;cursor:pointer}
+.chk input{width:1.2rem;height:1.2rem;accent-color:var(--ac)}
+details{margin:1rem 0;background:#fff;border:1px solid var(--bd);border-radius:10px;padding:.7rem 1rem}
+summary{cursor:pointer;font-weight:600;color:var(--ac)}
+details ul{padding-left:1.2rem} details li{margin:.5rem 0}
+</style>
+</head>
+<body>
+<nav><div><a href="#tue">TU/e</a> <a href="#max">Encaje máximo</a> <a href="#muy">Muy bueno</a> <a href="#parcial">Parcial</a> <span class="cnt"><span id="n">0</span>/29 contactados</span></div></nav>
+<main>
+<header>
+<h1>Supervisores para la tesis</h1>
+<p class="upd">actualizado 19 nov 2026 · <a href="https://useflowlet.com/tesis/menendez-ros-thesis-proposal.pdf" target="_blank" rel="noopener">Proposal (PDF)</a></p>
+<ul><li>Orden: primero cierra el supervisor de la TU/e (tiene que ser staff TU/e con examination authority). El externo entra como co-supervisor y lo aprueba el Examination Committee con un formulario.</li><li>En la TU/e nadie hace ASR ni NLP de verdad: los candidatos cubren on-device, compresión o evaluación. El hueco de speech/NLP lo pone el externo. Pareja natural: Meratnia (on-device) + Van hamme o Knill/Gales (speech y cleanup).</li><li>La TU/e abrió en junio de 2026 dos plazas de Assistant Professor y una de Associate/Full Professor en Language and AI Engineering (Data &amp; AI cluster). Si ya han entrado, son los mejores candidatos internos y tendrán hueco. Pregunta los nombres a Pechenizkiy o Vanschoren.</li><li>Todos los papers enlazados están comprobados (títulos y autores contra arXiv). Los emails solo aparecen si salen en una página oficial.</li></ul>
+</header>
+<h2 id="tue">TU/e: supervisor responsable</h2>
+<article class="card" data-key="sv:nirvana-meratnia">
+<div class="top"><h3>Nirvana Meratnia</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Full Professor · TU/e · M&amp;CS</p>
+<p>Edge AI y embedded AI: cubre la parte on-phone (latencia, memoria, energía, compresión). Es full professor, así que puede ser la responsable sin más trámites.</p>
+<p><b>Gancho:</b> Su paper de 2026 sobre weight sharing por capas para transformers en SoCs (comprime sin añadir latencia).</p>
+<ul class="papers"><li><a href="https://research.tue.nl/p/en/research-outputs/layer-wise-weight-sharing-for-efficient-transformer-on-socs" target="_blank" rel="noopener">Layer-Wise Weight Sharing for Efficient Transformer on SoCs (2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:n.meratnia@tue.nl">n.meratnia@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/nirvana-meratnia" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/computer-science/interconnected-resource-aware-intelligent-systems" target="_blank" rel="noopener">IRIS (Interconnected Resource-aware Intelligent Systems)</a></span></div>
+<p class="note">No es de NLP ni speech: emparejar con un externo de speech.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:aaqib-saeed">
+<div class="top"><h3>Aaqib Saeed</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Assistant Professor · TU/e · Industrial Design</p>
+<p>El más cercano a audio + LLMs en la TU/e: modelos audio-lenguaje, fine-tuning de modelos pequeños (LoRA, DPO), audio on-device y federado. Viene de Philips Research y Google.</p>
+<p><b>Gancho:</b> StethoLM, un modelo audio-lenguaje pequeño afinado con LoRA y DPO.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2603.00355" target="_blank" rel="noopener">StethoLM: Audio Language Model for Cardiopulmonary Analysis (TMLR 2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:a.saeed@tue.nl">a.saeed@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/aaqib-saeed" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/researchers/aaqib-saeed" target="_blank" rel="noopener">Computational Design Systems</a></span></div>
+<p class="note">Confirma con el programa AIES que alguien de Industrial Design puede ser supervisor responsable.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:mykola-pechenizkiy">
+<div class="top"><h3>Mykola Pechenizkiy</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Full Professor · TU/e · M&amp;CS</p>
+<p>Su grupo hace casi todo el trabajo de LLMs eficientes de la TU/e (sparsity, sparse fine-tuning). Encaja con el lado de modelos pequeños y compresión de RQ1.</p>
+<p><b>Gancho:</b> Sparse fine-tuning para reparar LLMs podados (SEFT).</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2505.24037" target="_blank" rel="noopener">Leave it to the Specialist: Repair Sparse LLMs with Sparse Fine-Tuning (2025-26)</a></li></ul>
+<div class="foot"><span><a href="mailto:m.pechenizkiy@tue.nl">m.pechenizkiy@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/mykola-pechenizkiy" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/computer-science/data-mining" target="_blank" rel="noopener">Data Mining (chair)</a></span></div>
+<p class="note">Muy senior, tiene muchos estudiantes. Meng Fang (NLP/LLMs, ahora en Liverpool y visiting en la TU/e) podría ser el co-supervisor.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:manil-dev-gomony">
+<div class="top"><h3>Manil Dev Gomony</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Assistant Professor · TU/e · Electrical Engineering</p>
+<p>Su perfil dice literalmente que trabaja en &#x27;efficient large language model inference&#x27; en el edge. Le interesaría la energía por dictado y la latencia en un SoC real.</p>
+<p><b>Gancho:</b> Inferencia eficiente de LLMs en el edge. Ofrécele medidas de energía y latencia del copy-aware decoding en un móvil.</p>
+<ul class="papers"><li><a href="https://research.tue.nl/en/persons/manil-d-gomony/" target="_blank" rel="noopener">Perfil con publicaciones (DREAM-CIM, HW/SW co-design en el edge)</a></li></ul>
+<div class="foot"><span><a href="mailto:m.gomony@tue.nl">m.gomony@tue.nl</a></span> <span><a href="https://research.tue.nl/en/persons/manil-d-gomony/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/electronic-systems" target="_blank" rel="noopener">Electronic Systems · ASIC Lab</a></span></div>
+<p class="note">Va más por el lado hardware. También es Senior Researcher en Nokia Bell Labs.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:joaquin-vanschoren">
+<div class="top"><h3>Joaquin Vanschoren</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Associate Professor · TU/e · M&amp;CS</p>
+<p>Fundó el track de Datasets &amp; Benchmarks de NeurIPS, además de OpenML y MLCommons. Encaja con la contribución 1 (benchmark abierto con taxonomía de edits) y con validar el LLM judge.</p>
+<p><b>Gancho:</b> El benchmark abierto de ASR cleanup como contribución tipo D&amp;B track.</p>
+<ul class="papers"><li><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">Perfil TU/e</a></li></ul>
+<div class="foot"><span><a href="mailto:j.vanschoren@tue.nl">j.vanschoren@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">Data Mining · AutoML</a></span></div>
+<p class="note">Su perfil dice &#x27;always eager to collaborate. Do reach out!&#x27;. No es de NLP ni on-device. Muy ocupado (Education Director de Data Science).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<details><summary>Más en la TU/e</summary><ul><li><a href="https://www.tue.nl/en/research/researchers/tanir-ozcelebi" target="_blank" rel="noopener">Tanir Ozcelebi</a>, Associate Professor, IRIS. IoT y gestión de recursos. Co-autor de audio federado on-device. Va bien junto a Meratnia.</li><li><a href="https://www.tue.nl/en/research/researchers/mike-holenderski" target="_blank" rel="noopener">Mike Holenderski</a>, Assistant Professor, IRIS. Reliable ML: saber cuándo una predicción falla. Encaja con el router (RQ4).</li><li><a href="https://www.tue.nl/en/research/researchers/bert-de-vries" target="_blank" rel="noopener">Bert de Vries</a>, Full Professor, EE, BIASlab. Modelos que caben en audífonos (GN Hearing) e incertidumbre bayesiana. Encaje temático débil.</li></ul></details>
+<h2 id="ext">Fuera: co-supervisor externo</h2>
+<h3 class="tier" id="max">Encaje máximo</h3>
+<article class="card" data-key="sv:kate-knill-mark-gales">
+<div class="top"><h3>Kate Knill &amp; Mark Gales</h3><span class="dots" role="img" aria-label="Encaje 5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+<p class="meta">Research Professor · Professor of Information Engineering · University of Cambridge <span class="cc">UK</span></p>
+<p>Lo más cercano a tu tesis en Europa: corrección de errores de ASR con LLMs, spoken GEC con detección de disfluencias, y datos sintéticos metiendo disfluencias en texto limpio, igual que tu pipeline.</p>
+<p><b>Gancho:</b> Su paper de data augmentation que inyecta disfluencias en texto limpio. Tu tesis hace la misma pregunta de cascada, pero con modelos pequeños en el móvil.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2409.09554" target="_blank" rel="noopener">ASR Error Correction using Large Language Models</a></li><li><a href="https://arxiv.org/abs/2507.19374" target="_blank" rel="noopener">Data Augmentation for Spoken Grammatical Error Correction</a></li><li><a href="https://arxiv.org/abs/2506.18532" target="_blank" rel="noopener">End-to-End Spoken Grammatical Error Correction</a></li></ul>
+<div class="foot"><span><a href="mailto:mjfg@eng.cam.ac.uk">mjfg@eng.cam.ac.uk</a></span> <span><a href="http://mi.eng.cam.ac.uk/~mjfg/" target="_blank" rel="noopener">perfil</a></span> <span><a href="http://mi.eng.cam.ac.uk/~mjfg/" target="_blank" rel="noopener">Machine Intelligence Lab, Speech Group + ALTA Institute</a></span></div>
+<p class="note">Escribe primero a Knill y pon a Gales en copia. Gales estuvo de sabático en 2024/25. Si quieres el lado de eficiencia, en Cambridge también está Nic Lane (CaMLSys, small LMs en el edge).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:hugo-van-hamme">
+<div class="top"><h3>Hugo Van hamme</h3><span class="dots" role="img" aria-label="Encaje 5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+<p class="meta">Full Professor · KU Leuven <span class="cc">BE</span></p>
+<p>ASR basado en LLMs, estimación de confianza por palabra (justo lo que pide RQ3 y lo que necesita el router de RQ4) y corrección de errores con speech-LLMs. Y Lovaina está cerca.</p>
+<p><b>Gancho:</b> Su paper SR-CEM de confianza por palabra en ASR end-to-end. Tú quieres meter esas confianzas en el cleaner y en el router.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2606.10838" target="_blank" rel="noopener">Towards Deep Contextual Reasoning ... for ASR with Speech-LLM (Interspeech 2026)</a></li><li><a href="https://arxiv.org/abs/2606.10864" target="_blank" rel="noopener">Phoneme-First Prediction for LLM-Based Speech Recognition (2026)</a></li><li><a href="https://doi.org/10.1109/ojsp.2026.3657286" target="_blank" rel="noopener">Leveraging Beam Search Information for Confidence Estimation in E2E ASR (OJSP 2026)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://www.esat.kuleuven.be/psi/members/00040707" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.esat.kuleuven.be/psi/" target="_blank" rel="noopener">ESAT-PSI, speech</a></span></div>
+<p class="note">Su email no está en la página: usa el formulario de contacto del perfil. El grupo es de speech, así que la parte de texto (edit tagging) la cubre la TU/e.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:petr-motlicek">
+<div class="top"><h3>Petr Motlicek</h3><span class="dots" role="img" aria-label="Encaje 5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+<p class="meta">Senior Research Scientist, group leader · Idiap Research Institute (EPFL) <span class="cc">CH</span></p>
+<p>Acaban de publicar post-edición generativa de ASR desde N-best con fine-tuning, y les sale que ayuda a partir de unos 3B parámetros. Tu tesis pregunta si baja a 2B en un móvil. También trabajan adaptación de dominio en ASR con LLMs, que va con RQ3 (vocabulario, nombres).</p>
+<p><b>Gancho:</b> &#x27;Select or Rewrite&#x27; (oct 2026): su resultado de que el post-editing solo compensa desde unos 3B es justo el umbral que quieres atacar.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2610.15056" target="_blank" rel="noopener">Select or Rewrite: Oracle-Guided Fine-Tuning for Generative ASR Post-Editing (2026)</a></li><li><a href="https://arxiv.org/abs/2604.06487" target="_blank" rel="noopener">Closing the Speech-Text Gap ... Domain Adaptation in LLM-Based ASR (2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:petr.motlicek@idiap.ch">petr.motlicek@idiap.ch</a></span> <span><a href="https://www.idiap.ch/~pmotlic/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.idiap.ch/en/research/groups/speech-audio-processing" target="_blank" rel="noopener">Speech &amp; Audio Processing</a></span></div>
+<p class="note">Idiap es un instituto, no una universidad. Puede co-supervisar como external teacher de EPFL o como associate professor en Brno, pero confírmalo. Colega: Mathew Magimai-Doss.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:andr-f-t-martins">
+<div class="top"><h3>André F. T. Martins</h3><span class="dots" role="img" aria-label="Encaje 5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+<p class="meta">Associate Professor · Instituto Superior Técnico, Univ. de Lisboa <span class="cc">PT</span></p>
+<p>Construye speech-LLMs sobre LLMs de menos de 2B precisamente por eficiencia. Su trabajo de quality estimation (xCOMET) sirve como señal para el router (RQ4) y para el judge. Además es VP de AI Research en Unbabel.</p>
+<p><b>Gancho:</b> Su paper de IWSLT 2025 dice que los modelos de menos de 2B &#x27;are often overlooked&#x27;. Tu tesis es lo mismo para la etapa de cleanup, con QE para el router.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2506.17019" target="_blank" rel="noopener">IT at IWSLT 2025: Aligning Small-Scale Speech and Language Models</a></li><li><a href="https://arxiv.org/abs/2503.10620" target="_blank" rel="noopener">From TOWER to SPIRE: Adding the Speech Modality to a Translation LLM</a></li></ul>
+<div class="foot"><span><a href="mailto:andre.t.martins@tecnico.ulisboa.pt">andre.t.martins@tecnico.ulisboa.pt</a></span> <span><a href="https://andre-martins.github.io/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://andre-martins.github.io/" target="_blank" rel="noopener">SARDINE Lab · Unbabel</a></span></div>
+<p class="note">Muy ocupado (ERC + startup). Para disfluencias, pon en copia a Isabel Trancoso (INESC-ID).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:antal-van-den-bosch">
+<div class="top"><h3>Antal van den Bosch</h3><span class="dots" role="img" aria-label="Encaje 5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+<p class="meta">Professor of Language and Communication · Universiteit Utrecht <span class="cc">NL</span></p>
+<p>Sus dos papers de este mes van de speculative decoding con el propio prompt como draft (prompt lookup decoding, tu referencia [7]). Es RQ2 tal cual. También ha hecho fine-tuning de Whisper. Utrecht queda cerca.</p>
+<p><b>Gancho:</b> &#x27;Text Speeding Itself Up&#x27; (nov 2026). En cleanup la salida copia la entrada, así que la entrada es un draft buenísimo. Tú lo probarías en una tarea real y en un móvil.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2611.19455" target="_blank" rel="noopener">Text Speeding Itself Up: Recency and Restraint in Session-Local Drafting (nov 2026)</a></li><li><a href="https://arxiv.org/abs/2611.16714" target="_blank" rel="noopener">Towards Green Text Generation: Memory-Based Speculative Decoding (nov 2026)</a></li><li><a href="https://arxiv.org/abs/2502.17284" target="_blank" rel="noopener">Improving Inclusivity of Dutch ASR by Fine-tuning Whisper</a></li></ul>
+<div class="foot"><span><a href="mailto:a.p.j.vandenbosch@uu.nl">a.p.j.vandenbosch@uu.nl</a></span> <span><a href="https://www.uu.nl/staff/APJvandenBosch" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.uu.nl/staff/APJvandenBosch" target="_blank" rel="noopener">Language and Communication</a></span></div>
+<p class="note">Es Vice Dean de Humanities, así que puede ir justo de tiempo. Encaja fuerte en RQ2 y menos en speech.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<h3 class="tier" id="muy">Muy buen encaje</h3>
+<article class="card" data-key="sv:peter-bell">
+<div class="top"><h3>Peter Bell</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Personal Chair of Speech Technology · University of Edinburgh <span class="cc">UK</span></p>
+<p>Es co-autor del paper de GenSEC, tu referencia [2], y tiene más trabajo sobre corrección de errores de ASR con LLMs. Cubre ASR y confianzas (RQ3).</p>
+<p><b>Gancho:</b> Co-autor de GenSEC (SLT 2024). Le preguntas si un modelo de 2B puede hacer esa corrección en un móvil.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2409.15551" target="_blank" rel="noopener">Revise, Reason, and Recognize: LLM-Based ... ASR Error Correction (ICASSP 2025)</a></li><li><a href="https://arxiv.org/abs/2501.19321" target="_blank" rel="noopener">Language Bias in SSL for ASR</a></li></ul>
+<div class="foot"><span><a href="mailto:peter.bell@ed.ac.uk">peter.bell@ed.ac.uk</a></span> <span><a href="https://www.research.ed.ac.uk/en/persons/peter-bell/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.cstr.ed.ac.uk/" target="_blank" rel="noopener">CSTR (Centre for Speech Technology Research)</a></span></div>
+<p class="note">Pon en copia a Catherine Lai (co-autora de su trabajo de error correction).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:jan-niehues">
+<div class="top"><h3>Jan Niehues</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Professor, head of AI4LT · Karlsruhe Institute of Technology (KIT) <span class="cc">DE</span></p>
+<p>Hace cascadas de ASR + LLM con post-edición del ASR con LLMs (N-best, terminología) sobre habla espontánea real de clases. Encaja con RQ1 y RQ3 (nombres y términos). Antes estaba en Maastricht, tu universidad del grado.</p>
+<p><b>Gancho:</b> El post-editing de KIT en IWSLT ayudaba solo en parte con los errores de ASR. Tú lo desglosas por tipo de edit con modelos pequeños.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2505.13036" target="_blank" rel="noopener">KIT&#x27;s Offline ST and Instruction Following Submission for IWSLT 2025</a></li><li><a href="https://arxiv.org/abs/2406.16777" target="_blank" rel="noopener">Blending LLMs into Cascaded Speech Translation (IWSLT 2024)</a></li></ul>
+<div class="foot"><span><a href="mailto:jan.niehues@kit.edu">jan.niehues@kit.edu</a></span> <span><a href="https://ai4lt.iar.kit.edu/english/team.php" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://ai4lt.iar.kit.edu/english/" target="_blank" rel="noopener">AI for Language Technologies</a></span></div>
+<p class="note">Si te dio clase en Maastricht, empieza el email por ahí. Colega: Sai Koneru.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:martijn-wieling">
+<div class="top"><h3>Martijn Wieling</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Associate Professor · Rijksuniversiteit Groningen <span class="cc">NL</span></p>
+<p>Tiene un estudio de corrección generativa de errores de ASR con LLMs con un diseño que controla la contaminación del test, que es el setup de RQ1. También ASR con datos sintéticos.</p>
+<p><b>Gancho:</b> Su paper contamination-aware de GER (Interspeech 2026). Tu mezcla de datos sintéticos y dictados reales protege igual contra la contaminación.</p>
+<ul class="papers"><li><a href="https://doi.org/10.21437/interspeech.2026-1659" target="_blank" rel="noopener">Can LLMs Reliably Correct Errors in Low-Resource ASR? (Interspeech 2026)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://www.rug.nl/staff/m.b.wieling/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.rug.nl/staff/m.b.wieling/" target="_blank" rel="noopener">Information Science</a></span></div>
+<p class="note">Su email no está en la página. Trabaja en frisón y neerlandés, no en inglés ni on-device. Colegas de NLP: Wietse de Vries y Rik van Noord.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:alessio-brutti">
+<div class="top"><h3>Alessio Brutti</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Head of Unit, SpeechTek · Fondazione Bruno Kessler (Trento) · Univ. Padova <span class="cc">IT</span></p>
+<p>Hace modelos de speech compactos y dinámicos (early exit, layer dropping, ASR en el edge). El cómputo adaptativo es la misma idea que tu router (RQ4) y que el copy-aware decoding (RQ2).</p>
+<p><b>Gancho:</b> Splitformer, early exit para ASR en dispositivos edge.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2506.18035" target="_blank" rel="noopener">Splitformer: early-exit architecture for ASR on edge devices (EUSIPCO 2025)</a></li><li><a href="https://arxiv.org/abs/2505.22759" target="_blank" rel="noopener">FAMA: open-science speech foundation model</a></li></ul>
+<div class="foot"><span><a href="mailto:brutti@fbk.eu">brutti@fbk.eu</a></span> <span><a href="https://speechtek.fbk.eu/author/speechtek_admin/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://speechtek.fbk.eu/" target="_blank" rel="noopener">SpeechTek</a></span></div>
+<p class="note">FBK es una fundación, no una universidad: confirma cómo encaja como co-supervisor. Colega: Daniele Falavigna.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:dan-alistarh">
+<div class="top"><h3>Dan Alistarh</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Professor · Institute of Science and Technology Austria (ISTA) <span class="cc">AT</span></p>
+<p>Lo mejor del mundo en cuantización de LLMs (GPTQ, SparseGPT, QuEST). Cubre el &#x27;cuantizar a 4 bits sin perder calidad&#x27; y la frontera tamaño/calidad de RQ1.</p>
+<p><b>Gancho:</b> Cuantización a 4 bits de un modelo de 1.7-2B en una tarea donde la salida copia la entrada, un caso raro para la cuantización.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2507.18553" target="_blank" rel="noopener">The Geometry of LLM Quantization: GPTQ as Babai&#x27;s Nearest Plane (ICLR 2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:Dan.Alistarh@ist.ac.at">Dan.Alistarh@ist.ac.at</a></span> <span><a href="https://ist.ac.at/en/research/alistarh-group/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://ist.ac.at/en/research/alistarh-group/" target="_blank" rel="noopener">DASLab</a></span></div>
+<p class="note">Solo compresión, nada de speech ni NLP. Sus kernels son para GPU, no para móvil. Mejor escribir primero a alguien del grupo (Eldar Kurtic, Jiale Chen).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:inma-hern-ez">
+<div class="top"><h3>Inma Hernáez</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Catedrática · Universidad del País Vasco (UPV/EHU) · HiTZ <span class="cc">ES</span></p>
+<p>La opción española fuerte: ASR abierto para castellano y euskera, modelos de lenguaje encima de Whisper, y un corpus nuevo de habla espontánea con autocorrecciones y muletillas. Te sirve para el experimento de transferencia al español.</p>
+<p><b>Gancho:</b> Whisper-LM y su corpus de habla espontánea con disfluencias. Ofrécele el experimento en español como trabajo conjunto.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2503.23542" target="_blank" rel="noopener">Whisper-LM: Improving ASR Models with LMs for Low-Resource Languages</a></li><li><a href="https://zenodo.org/records/20638013" target="_blank" rel="noopener">HiTZ-Aholab re-enacted spontaneous speech corpus</a></li></ul>
+<div class="foot"><span><a href="mailto:inma.hernaez@ehu.eus">inma.hernaez@ehu.eus</a></span> <span><a href="https://aholab.ehu.eus/aholab/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://aholab.ehu.eus/aholab/" target="_blank" rel="noopener">Aholab / HiTZ</a></span></div>
+<p class="note">El email sale de un resultado de búsqueda, no de una página oficial. No tienen nada on-device. En HiTZ también está la gente de NLP (Eneko Agirre).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:santosh-kesiraju-luk-burget">
+<div class="top"><h3>Santosh Kesiraju · Lukáš Burget</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Researcher · Associate Professor · Brno University of Technology <span class="cc">CZ</span></p>
+<p>Uno de los mejores grupos de speech de Europa. Kesiraju trabaja en speech-LLMs (encoder de habla + LLM) y ASR. Burget es el senior.</p>
+<p><b>Gancho:</b> Su trabajo de encoder de habla + LLM. Tu tesis mira el extremo opuesto: un LLM diminuto detrás de un ASR pequeño.</p>
+<ul class="papers"><li><a href="https://doi.org/10.21437/interspeech.2026-2769" target="_blank" rel="noopener">Joint Speech and Text Training for LLM-Based Spoken DST (Interspeech 2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:kesiraju@fit.vut.cz">kesiraju@fit.vut.cz</a></span> <span><a href="https://www.fit.vut.cz/person/kesiraju/.en" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://speech.fit.vut.cz/" target="_blank" rel="noopener">Speech@FIT</a></span></div>
+<p class="note">Kesiraju no es profesor: escribe a los dos y pon a Burget (burget@fit.vut.cz) en copia.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<h3 class="tier" id="parcial">Encaje parcial (cubren una pata)</h3>
+<article class="card" data-key="sv:edoardo-ponti">
+<div class="top"><h3>Edoardo Ponti</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Associate Professor in NLP · Imperial College London <span class="cc">UK</span></p>
+<p>LLMs eficientes y destilación, incluida la destilación entre tokenizers distintos, que es tu caso: un teacher de la nube y tres alumnos con tokenizers diferentes.</p>
+<p><b>Gancho:</b> Cross-tokenizer distillation.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2503.20083" target="_blank" rel="noopener">Universal Cross-Tokenizer Distillation via Approximate Likelihood Matching</a></li></ul>
+<div class="foot"><span><a href="mailto:eponti@ic.ac.uk">eponti@ic.ac.uk</a></span> <span><a href="https://ducdauge.github.io/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://ducdauge.github.io/" target="_blank" rel="noopener">ERC AToM (efficient models)</a></span></div>
+<p class="note">Se acaba de mudar de Edinburgh a Imperial y está contratando gente para su ERC, así que puede ir saturado. No hace speech.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:ond-ej-du-ek">
+<div class="top"><h3>Ondřej Dušek</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Assistant Professor (puede que ya sea más senior) · Charles University, Prague <span class="cc">CZ</span></p>
+<p>Hace span labeling con LLMs con decoding restringido a la entrada (LogitMatch), muy cerca del lado de texto de RQ2 (etiquetar en vez de reescribir). También LLMs como anotadores, que te sirve para el judge.</p>
+<p><b>Gancho:</b> LogitMatch, generación forzada a alinearse con el input.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2601.16946" target="_blank" rel="noopener">Strategies for Span Labeling with Large Language Models (2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:odusek@ufal.mff.cuni.cz">odusek@ufal.mff.cuni.cz</a></span> <span><a href="https://ufal.mff.cuni.cz/ondrej-dusek" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://ufal.mff.cuni.cz/ondrej-dusek" target="_blank" rel="noopener">ÚFAL · ERC NG-NLG</a></span></div>
+<p class="note">No hace ASR. En ÚFAL hay gente de speech (Dominik Macháček).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:thomas-demeester">
+<div class="top"><h3>Thomas Demeester</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Associate Professor · Ghent University · imec <span class="cc">BE</span></p>
+<p>NLP y LMs eficientes: tiene un análisis de speculative decoding con drafts sacados del contexto, con un diagnóstico para predecir cuándo compensa (RQ2).</p>
+<p><b>Gancho:</b> Hybrid speculative decoding y su diagnóstico de cuándo compensa usar el contexto como draft.</p>
+<ul class="papers"><li><a href="https://doi.org/10.1109/access.2026.3737178" target="_blank" rel="noopener">Hybrid Speculative Decoding in RAG: When Do the Pros Outweigh the Cons? (IEEE Access 2026)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://research.ugent.be/web/person/thomas-demeester-0/en" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://research.ugent.be/web/person/thomas-demeester-0/en" target="_blank" rel="noopener">IDLab, NLP</a></span></div>
+<p class="note">No hace speech. El email está oculto tras &#x27;Show email address&#x27; en su perfil.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:qinyu-chen">
+<div class="top"><h3>Qinyu Chen</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Assistant Professor · Universiteit Leiden (LIACS) <span class="cc">NL</span></p>
+<p>Inferencia de LLMs en móvil medida por etapas, CPU vs NPU: justo las medidas on-phone de tu tesis (prefill vs decode en una tarea que copia mucho).</p>
+<p><b>Gancho:</b> &#x27;When NPUs Are Not Always Faster&#x27;, su análisis por etapas de la inferencia de LLMs en móvil.</p>
+<ul class="papers"><li><a href="https://doi.org/10.1109/aicas69579.2026.11762122" target="_blank" rel="noopener">When NPUs Are Not Always Faster: Stage-Level Analysis of Mobile LLM Inference (AICAS 2026)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://www.universiteitleiden.nl/en/staffmembers/qinyu-chen" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.universiteitleiden.nl/en/staffmembers/qinyu-chen" target="_blank" rel="noopener">Efficient Intelligence group</a></span></div>
+<p class="note">Solo cubre sistemas, nada de NLP ni speech. Tiene una Veni de NWO.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:alfons-juan">
+<div class="top"><h3>Alfons Juan</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Catedrático, director MLLP · Universitat Politècnica de València <span class="cc">ES</span></p>
+<p>Lleva años con ASR y transcripción (transLectures). En 2025 usaron LLMs en cascada como transcriptor, traductor y re-scorer, y dicen que el límite es el coste de cómputo, que es tu motivación.</p>
+<p><b>Gancho:</b> Su conclusión de que las cascadas con LLM funcionan pero cuestan demasiado cómputo. Tú mueves el LLM al móvil.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2606.17255" target="_blank" rel="noopener">MLLP-VRAIN UPV system for IWSLT 2026 Simultaneous ST</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://www.mllp.upv.es/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.mllp.upv.es/" target="_blank" rel="noopener">MLLP · VRAIN</a></span></div>
+<p class="note">Van más a traducción simultánea que a on-device. Colega: Jorge Civera.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:luca-benini-michele-magno">
+<div class="top"><h3>Luca Benini · Michele Magno</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Professor · Senior Scientist · ETH Zürich <span class="cc">CH</span></p>
+<p>Edge AI eficiente en energía: small language models en microcontroladores (Deeploy) y cuantización mixta de LLMs. Cubre las medidas de energía.</p>
+<p><b>Gancho:</b> Deeploy (SLMs en el edge). Tu tarea es una carga de SLM real, que copia mucho, en SoCs de móvil.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2408.04413" target="_blank" rel="noopener">Deeploy: Small Language Models on Heterogeneous Microcontrollers</a></li><li><a href="https://arxiv.org/abs/2405.14917" target="_blank" rel="noopener">SliM-LLM: Salience-Driven Mixed-Precision Quantization (ICML 2025)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://www.iis.ee.ethz.ch/people/person-detail.luca-benini.html" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.iis.ee.ethz.ch/" target="_blank" rel="noopener">Integrated Systems Laboratory (IIS)</a></span></div>
+<p class="note">Va por hardware y RISC-V, no Android. Magno es probablemente más accesible que Benini.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:thomas-hain">
+<div class="top"><h3>Thomas Hain</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Professor of Speech and Audio Technology · University of Sheffield <span class="cc">UK</span></p>
+<p>Grupo fuerte de ASR. Su trabajo de estimación de WER sirve para RQ3 y RQ4: decidir qué salidas son difíciles.</p>
+<p><b>Gancho:</b> Estimación de WER. Tú usas la confianza por palabra para enrutar y para proteger nombres.</p>
+<ul class="papers"><li><a href="https://sheffield.ac.uk/cs/research/groups/spandh" target="_blank" rel="noopener">Grupo SpandH</a></li></ul>
+<div class="foot"><span><a href="mailto:t.hain@sheffield.ac.uk">t.hain@sheffield.ac.uk</a></span> <span><a href="https://sheffield.ac.uk/cs/people/academic/thomas-hain" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://sheffield.ac.uk/cs/research/groups/spandh" target="_blank" rel="noopener">SpandH (Speech and Hearing)</a></span></div>
+<p class="note">Dirige el CDT en Speech and Language Technologies. No tiene trabajo directo de post-edición con LLMs.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:jos-cano">
+<div class="top"><h3>José Cano</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Reader (Associate Professor) · University of Glasgow <span class="cc">UK</span></p>
+<p>Hace co-diseño HW/SW para inferencia de LLMs en el edge sobre llama.cpp cuantizado. Cubre la frontera tamaño/calidad/latencia medida en el móvil.</p>
+<p><b>Gancho:</b> SECDA-LLM, construido sobre llama.cpp en el edge.</p>
+<ul class="papers"><li><a href="https://eprints.gla.ac.uk/354498/1/354498.pdf" target="_blank" rel="noopener">Designing Efficient LLM Accelerators for Edge Devices (SECDA-LLM)</a></li></ul>
+<div class="foot"><span><a href="mailto:Jose.CanoReyes@glasgow.ac.uk">Jose.CanoReyes@glasgow.ac.uk</a></span> <span><a href="https://www.gla.ac.uk/schools/computing/staff/josecanoreyes" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.gla.ac.uk/schools/computing/staff/josecanoreyes" target="_blank" rel="noopener">gicLAB</a></span></div>
+<p class="note">Solo cubre eficiencia: el NLP lo pone la TU/e.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:ralf-schl-ter">
+<div class="top"><h3>Ralf Schlüter</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Academic Director, Privatdozent, ASR group lead · RWTH Aachen <span class="cc">DE</span></p>
+<p>Grupo de ASR de primer nivel (RETURNN/RASR). Le interesan las medidas de confianza y la compresión de modelos de ASR, que conecta con RQ3.</p>
+<p><b>Gancho:</b> Su paper de 2026 sobre la relación entre perplejidad del LM y WER.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2607.05612" target="_blank" rel="noopener">Revisiting the Relation Between LM Perplexity and ASR WER (2026)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://www-i6.informatik.rwth-aachen.de/~schluter/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www-i6.informatik.rwth-aachen.de/~schluter/" target="_blank" rel="noopener">Informatik 6 (HLT &amp; Pattern Recognition)</a></span></div>
+<p class="note">Es Privatdozent, no profesor: confirma que puede co-supervisar. Aachen está al lado de Eindhoven.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:mikko-kurimo">
+<div class="top"><h3>Mikko Kurimo</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Professor · Aalto University <span class="cc">FI</span></p>
+<p>Grupo veterano de ASR. Hace evaluación y análisis de errores de ASR, e incertidumbre al usar LLMs sobre transcripciones (RQ1, RQ3).</p>
+<p><b>Gancho:</b> Su uso de la incertidumbre del ASR al puntuar con LLMs.</p>
+<ul class="papers"><li><a href="https://aclanthology.org/2025.aaas-1.2.pdf" target="_blank" rel="noopener">Leveraging Uncertainty for Finnish L2 Speech Scoring with LLMs (2025)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://research.aalto.fi/en/persons/mikko-kurimo/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.aalto.fi/en/department-of-information-and-communications-engineering/speech-recognition" target="_blank" rel="noopener">Speech recognition group</a></span></div>
+<p class="note">La única opción nórdica: no encontré ningún grupo nórdico que haga post-corrección de ASR con LLMs.</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:odette-scharenborg">
+<div class="top"><h3>Odette Scharenborg</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Full Professor of Inclusive Speech Communication · TU Delft <span class="cc">NL</span></p>
+<p>Referente del ASR en Holanda (presidenta de ISCA 2023-25). Te sirve para la taxonomía de errores de ASR y para diseñar el test real con varios grupos de hablantes.</p>
+<p><b>Gancho:</b> Su benchmark de ASR humano vs automático con hablantes diversos.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2607.19049" target="_blank" rel="noopener">Benchmarking Human and Automatic Speech Recognition of Diverse Speech (2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:O.E.Scharenborg@tudelft.nl">O.E.Scharenborg@tudelft.nl</a></span> <span><a href="https://www.tudelft.nl/en/staff/o.e.scharenborg/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tudelft.nl/en/staff/o.e.scharenborg/" target="_blank" rel="noopener">Multimedia Computing · DISC lab</a></span></div>
+<p class="note">Nada de LLMs ni on-device. En Delft, para el edge: Chang Gao (Microelectronics).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+<article class="card" data-key="sv:christof-monz">
+<div class="top"><h3>Christof Monz</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Chair of Language Technology · Universiteit van Amsterdam <span class="cc">NL</span></p>
+<p>Inferencia eficiente y destilación: speculative decoding guiado por reward (decide cuándo llamar al modelo grande, como tu router) y destilación on-policy.</p>
+<p><b>Gancho:</b> Reward-guided speculative decoding: el mismo trade-off que tu router de RQ4.</p>
+<ul class="papers"><li><a href="https://arxiv.org/abs/2501.19324" target="_blank" rel="noopener">Reward-Guided Speculative Decoding for Efficient LLM Reasoning</a></li><li><a href="https://arxiv.org/abs/2607.04763" target="_blank" rel="noopener">Multi-Turn On-Policy Distillation with Prefix Replay (2026)</a></li></ul>
+<div class="foot"><span><span class="muted">email no público</span></span> <span><a href="https://staff.fnwi.uva.nl/c.monz/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://staff.fnwi.uva.nl/c.monz/" target="_blank" rel="noopener">Language Technology Lab</a></span></div>
+<p class="note">Su web dice que el email es inicial.apellido@uva.nl. No hace speech. Alternativa en la UvA: Ivan Titov (destilación, incertidumbre).</p>
+<label class="chk"><input type="checkbox"> Contactado</label>
+</article>
+
+</main>
+<script>
+(function(){
+var cards=document.querySelectorAll('.card'),n=document.getElementById('n');
+function upd(){var c=0;cards.forEach(function(x){if(x.querySelector('input').checked)c++});n.textContent=c}
+cards.forEach(function(card){
+var i=card.querySelector('input'),k=card.getAttribute('data-key');
+try{if(localStorage.getItem(k)==='1'){i.checked=true;card.classList.add('done')}}catch(e){}
+i.addEventListener('change',function(){
+card.classList.toggle('done',i.checked);
+try{if(i.checked)localStorage.setItem(k,'1');else localStorage.removeItem(k)}catch(e){}
+upd()});
+});
+upd();
+})();
+</script>
+</body>
+</html>
