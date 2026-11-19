@@ -46,61 +46,61 @@ details ul{padding-left:1.2rem} details li{margin:.5rem 0}
 <main>
 <header>
 <h1>Supervisores para la tesis</h1>
-<p class="upd">actualizado 19 nov 2026 · <a href="https://useflowlet.com/tesis/menendez-ros-thesis-proposal.pdf" target="_blank" rel="noopener">Proposal (PDF)</a></p>
-<ul><li>Orden: primero cierra el supervisor de la TU/e (tiene que ser staff TU/e con examination authority). El externo entra como co-supervisor y lo aprueba el Examination Committee con un formulario.</li><li>En la TU/e nadie hace ASR ni NLP de verdad: los candidatos cubren on-device, compresión o evaluación. El hueco de speech/NLP lo pone el externo. Pareja natural: Meratnia (on-device) + Van hamme o Knill/Gales (speech y cleanup).</li><li>La TU/e abrió en junio de 2026 dos plazas de Assistant Professor y una de Associate/Full Professor en Language and AI Engineering (Data &amp; AI cluster). Si ya han entrado, son los mejores candidatos internos y tendrán hueco. Pregunta los nombres a Pechenizkiy o Vanschoren.</li><li>Todos los papers enlazados están comprobados (títulos y autores contra arXiv). Los emails solo aparecen si salen en una página oficial.</li></ul>
+<p class="upd">actualizado 19 nov 2026 (TU/e revisada con enfoque LLM) · <a href="https://useflowlet.com/tesis/menendez-ros-thesis-proposal.pdf" target="_blank" rel="noopener">Proposal (PDF)</a></p>
+<ul><li>Enfoque: la tesis es de LLMs on-device (destilación, cuantización, copy-aware decoding, router). El ASR viene dado (Whisper u otros), así que los grupos de solo speech encajan menos de lo que dicen sus puntos.</li><li>Regla AI&amp;ES: el supervisor responsable tiene que ser assistant, associate o full professor de un grupo que salga en el overview oficial (versión agosto 2026), o alguien que nombre el Examination Committee. En M&amp;CS solo salen IRIS y Process Analytics. Data Mining (Vanschoren, Pechenizkiy) e Industrial Design NO salen. En EE sí sale Electronic Systems (Gomony).</li><li>Plan recomendado: Meratnia (IRIS, cumple la regla) como responsable y Vanschoren (el que mejor encaja) como segundo supervisor TU/e. O pregunta al Education Coordinator de AI&amp;ES si Vanschoren puede ser el responsable: la lista &#x27;no es exhaustiva&#x27; y el comité puede nombrar a cualquiera.</li><li>Tesis fuera: permitido. La guía dice que el proyecto puede hacerse en &#x27;another university or research institute in the Netherlands or abroad&#x27;, con un supervisor diario externo y el de la TU/e como responsable. Son 32 semanas (+2 de vacaciones). Hay que registrarse en Mobility Online 4-6 semanas antes. Erasmus+ Placement si la universidad es partner de la UE.</li><li>La TU/e abrió en junio de 2026 plazas de Language and AI Engineering, pero no encontré a nadie contratado aún.</li><li>Los papers enlazados están comprobados contra arXiv o ACL Anthology. Los emails solo aparecen si salen en una página oficial.</li></ul>
 </header>
 <h2 id="tue">TU/e: supervisor responsable</h2>
-<article class="card" data-key="sv:nirvana-meratnia">
-<div class="top"><h3>Nirvana Meratnia</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
-<p class="meta">Full Professor · TU/e · M&amp;CS</p>
-<p>Edge AI y embedded AI: cubre la parte on-phone (latencia, memoria, energía, compresión). Es full professor, así que puede ser la responsable sin más trámites.</p>
-<p><b>Gancho:</b> Su paper de 2026 sobre weight sharing por capas para transformers en SoCs (comprime sin añadir latencia).</p>
-<ul class="papers"><li><a href="https://research.tue.nl/p/en/research-outputs/layer-wise-weight-sharing-for-efficient-transformer-on-socs" target="_blank" rel="noopener">Layer-Wise Weight Sharing for Efficient Transformer on SoCs (2026)</a></li></ul>
-<div class="foot"><span><a href="mailto:n.meratnia@tue.nl">n.meratnia@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/nirvana-meratnia" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/computer-science/interconnected-resource-aware-intelligent-systems" target="_blank" rel="noopener">IRIS (Interconnected Resource-aware Intelligent Systems)</a></span></div>
-<p class="note">No es de NLP ni speech: emparejar con un externo de speech.</p>
+<article class="card" data-key="sv:joaquin-vanschoren">
+<div class="top"><h3>Joaquin Vanschoren</h3><span class="dots" role="img" aria-label="Encaje 5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+<p class="meta">Associate Professor · TU/e · M&amp;CS · Data Mining</p>
+<p>El que mejor encaja con tu tema. En EACL 2026 publicó un estudio de speculative decoding en modelos de 1-2B: los drafters tipo retrieval, casi sin coste, son los que ganan. Usar la entrada como draft es el siguiente paso natural. Además hace benchmarks (fundó el track de Datasets &amp; Benchmarks de NeurIPS) y adaptación de LLMs.</p>
+<p><b>Gancho:</b> Su paper de EACL 2026 sobre speculative decoding en modelos pequeños. En tu tarea la propia transcripción es el draft perfecto.</p>
+<ul class="papers"><li><a href="https://aclanthology.org/2026.eacl-long.255/" target="_blank" rel="noopener">An Empirical Study of Speculative Decoding for Small Language Models (EACL 2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:j.vanschoren@tue.nl">j.vanschoren@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">Data Mining / AMORE</a></span></div>
+<p class="note">Data Mining no sale en el overview de AI&amp;ES: confirma con el coordinador que puede ser responsable o ponle como segundo supervisor. Su perfil dice &#x27;always eager to collaborate. Do reach out!&#x27;. Va muy ocupado (Education Director de Data Science). El primer autor del paper (Luca Mainardi) tiene relación con NXP.</p>
 <label class="chk"><input type="checkbox"> Contactado</label>
 </article>
-<article class="card" data-key="sv:aaqib-saeed">
-<div class="top"><h3>Aaqib Saeed</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
-<p class="meta">Assistant Professor · TU/e · Industrial Design</p>
-<p>El más cercano a audio + LLMs en la TU/e: modelos audio-lenguaje, fine-tuning de modelos pequeños (LoRA, DPO), audio on-device y federado. Viene de Philips Research y Google.</p>
-<p><b>Gancho:</b> StethoLM, un modelo audio-lenguaje pequeño afinado con LoRA y DPO.</p>
-<ul class="papers"><li><a href="https://arxiv.org/abs/2603.00355" target="_blank" rel="noopener">StethoLM: Audio Language Model for Cardiopulmonary Analysis (TMLR 2026)</a></li></ul>
-<div class="foot"><span><a href="mailto:a.saeed@tue.nl">a.saeed@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/aaqib-saeed" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/researchers/aaqib-saeed" target="_blank" rel="noopener">Computational Design Systems</a></span></div>
-<p class="note">Confirma con el programa AIES que alguien de Industrial Design puede ser supervisor responsable.</p>
+<article class="card" data-key="sv:nirvana-meratnia">
+<div class="top"><h3>Nirvana Meratnia</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Full Professor · TU/e · M&amp;CS · IRIS</p>
+<p>Edge AI y transformers eficientes en SoCs: cubre la parte on-phone (latencia, memoria, energía, compresión). IRIS sí está en el overview de AI&amp;ES y ella es full professor, así que es la responsable más segura.</p>
+<p><b>Gancho:</b> Su paper de 2026 sobre weight sharing por capas para transformers en SoCs.</p>
+<ul class="papers"><li><a href="https://research.tue.nl/p/en/research-outputs/layer-wise-weight-sharing-for-efficient-transformer-on-socs" target="_blank" rel="noopener">Layer-Wise Weight Sharing for Efficient Transformer on SoCs (2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:n.meratnia@tue.nl">n.meratnia@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/nirvana-meratnia" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/computer-science/interconnected-resource-aware-intelligent-systems" target="_blank" rel="noopener">IRIS (Interconnected Resource-aware Intelligent Systems)</a></span></div>
+<p class="note">No es de NLP: el lado de LLMs lo cubren Vanschoren o el externo. Cumple la regla de AI&amp;ES.</p>
 <label class="chk"><input type="checkbox"> Contactado</label>
 </article>
 <article class="card" data-key="sv:mykola-pechenizkiy">
-<div class="top"><h3>Mykola Pechenizkiy</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
-<p class="meta">Full Professor · TU/e · M&amp;CS</p>
-<p>Su grupo hace casi todo el trabajo de LLMs eficientes de la TU/e (sparsity, sparse fine-tuning). Encaja con el lado de modelos pequeños y compresión de RQ1.</p>
-<p><b>Gancho:</b> Sparse fine-tuning para reparar LLMs podados (SEFT).</p>
-<ul class="papers"><li><a href="https://arxiv.org/abs/2505.24037" target="_blank" rel="noopener">Leave it to the Specialist: Repair Sparse LLMs with Sparse Fine-Tuning (2025-26)</a></li></ul>
-<div class="foot"><span><a href="mailto:m.pechenizkiy@tue.nl">m.pechenizkiy@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/mykola-pechenizkiy" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/computer-science/data-mining" target="_blank" rel="noopener">Data Mining (chair)</a></span></div>
-<p class="note">Muy senior, tiene muchos estudiantes. Meng Fang (NLP/LLMs, ahora en Liverpool y visiting en la TU/e) podría ser el co-supervisor.</p>
+<div class="top"><h3>Mykola Pechenizkiy</h3><span class="dots" role="img" aria-label="Encaje 4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i></span></div>
+<p class="meta">Full Professor · TU/e · M&amp;CS · Data Mining (chair)</p>
+<p>Su grupo es el que más LLMs hace en la TU/e: destilación a modelos pequeños, LLMs sparse y benchmarks multilingües (con Meng Fang). Cubre la parte de destilación y la de benchmark.</p>
+<p><b>Gancho:</b> &#x27;Distill Not Only Data but Also Rewards&#x27;: destilar un LLM grande en uno pequeño, que es justo lo que harías con el cleaner de la nube.</p>
+<ul class="papers"><li><a href="https://doi.org/10.48550/arxiv.2502.19557" target="_blank" rel="noopener">Distill Not Only Data but Also Rewards: Can Smaller LMs Surpass Larger Ones?</a></li><li><a href="https://arxiv.org/abs/2505.24037" target="_blank" rel="noopener">Leave it to the Specialist: Repair Sparse LLMs with Sparse Fine-Tuning</a></li></ul>
+<div class="foot"><span><a href="mailto:m.pechenizkiy@tue.nl">m.pechenizkiy@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/mykola-pechenizkiy" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/computer-science/data-mining" target="_blank" rel="noopener">Data Mining</a></span></div>
+<p class="note">Data Mining no sale en el overview de AI&amp;ES (mismo caso que Vanschoren). Muy senior: el día a día lo llevaría un PhD o postdoc del grupo.</p>
 <label class="chk"><input type="checkbox"> Contactado</label>
 </article>
 <article class="card" data-key="sv:manil-dev-gomony">
 <div class="top"><h3>Manil Dev Gomony</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
-<p class="meta">Assistant Professor · TU/e · Electrical Engineering</p>
-<p>Su perfil dice literalmente que trabaja en &#x27;efficient large language model inference&#x27; en el edge. Le interesaría la energía por dictado y la latencia en un SoC real.</p>
-<p><b>Gancho:</b> Inferencia eficiente de LLMs en el edge. Ofrécele medidas de energía y latencia del copy-aware decoding en un móvil.</p>
-<ul class="papers"><li><a href="https://research.tue.nl/en/persons/manil-d-gomony/" target="_blank" rel="noopener">Perfil con publicaciones (DREAM-CIM, HW/SW co-design en el edge)</a></li></ul>
+<p class="meta">Assistant Professor · TU/e · EE · Electronic Systems</p>
+<p>El único fuera de M&amp;CS con trabajo real de inferencia de LLMs (2026), además de compute-in-memory para attention. Cubre latencia, energía y cuantización en el dispositivo. Electronic Systems sí está en el overview de AI&amp;ES.</p>
+<p><b>Gancho:</b> Su modelo de rendimiento de inferencia de LLMs en CGRAs. Ofrécele medidas reales de un 2B a 4 bits en un SoC móvil.</p>
+<ul class="papers"><li><a href="https://doi.org/10.4230/oasics.parma-ditam.2026.8" target="_blank" rel="noopener">Performance Modeling &amp; Mapping of LLM Inference on Heterogeneous Vectorized CGRAs (2026)</a></li></ul>
 <div class="foot"><span><a href="mailto:m.gomony@tue.nl">m.gomony@tue.nl</a></span> <span><a href="https://research.tue.nl/en/persons/manil-d-gomony/" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/research-groups/electronic-systems" target="_blank" rel="noopener">Electronic Systems · ASIC Lab</a></span></div>
-<p class="note">Va más por el lado hardware. También es Senior Researcher en Nokia Bell Labs.</p>
+<p class="note">Va más por hardware: no está claro que acepte una tesis solo de software. También es Senior Researcher en Nokia Bell Labs.</p>
 <label class="chk"><input type="checkbox"> Contactado</label>
 </article>
-<article class="card" data-key="sv:joaquin-vanschoren">
-<div class="top"><h3>Joaquin Vanschoren</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
-<p class="meta">Associate Professor · TU/e · M&amp;CS</p>
-<p>Fundó el track de Datasets &amp; Benchmarks de NeurIPS, además de OpenML y MLCommons. Encaja con la contribución 1 (benchmark abierto con taxonomía de edits) y con validar el LLM judge.</p>
-<p><b>Gancho:</b> El benchmark abierto de ASR cleanup como contribución tipo D&amp;B track.</p>
-<ul class="papers"><li><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">Perfil TU/e</a></li></ul>
-<div class="foot"><span><a href="mailto:j.vanschoren@tue.nl">j.vanschoren@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/researchers/joaquin-vanschoren" target="_blank" rel="noopener">Data Mining · AutoML</a></span></div>
-<p class="note">Su perfil dice &#x27;always eager to collaborate. Do reach out!&#x27;. No es de NLP ni on-device. Muy ocupado (Education Director de Data Science).</p>
+<article class="card" data-key="sv:mike-holenderski">
+<div class="top"><h3>Mike Holenderski</h3><span class="dots" role="img" aria-label="Encaje 3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class=""></i><i class=""></i></span></div>
+<p class="meta">Assistant Professor · TU/e · M&amp;CS · IRIS</p>
+<p>Reliable ML (saber cuándo falla una predicción) y LLMs aplicados en industria. Encaja con el router calibrado (RQ4). Está en IRIS, que cumple la regla de AI&amp;ES.</p>
+<p><b>Gancho:</b> Detectar cuándo la salida del modelo pequeño no es fiable y hay que mandarla a la nube.</p>
+<ul class="papers"><li><a href="https://doi.org/10.36244/icj.2026.5.6" target="_blank" rel="noopener">Large Language Models in Industry 5.0 (AIMS5.0, 2026)</a></li></ul>
+<div class="foot"><span><a href="mailto:m.holenderski@tue.nl">m.holenderski@tue.nl</a></span> <span><a href="https://www.tue.nl/en/research/researchers/mike-holenderski" target="_blank" rel="noopener">perfil</a></span> <span><a href="https://www.tue.nl/en/research/researchers/mike-holenderski" target="_blank" rel="noopener">IRIS</a></span></div>
+<p class="note">Buena opción como responsable junto a Meratnia si ella no tiene hueco.</p>
 <label class="chk"><input type="checkbox"> Contactado</label>
 </article>
-<details><summary>Más en la TU/e</summary><ul><li><a href="https://www.tue.nl/en/research/researchers/tanir-ozcelebi" target="_blank" rel="noopener">Tanir Ozcelebi</a>, Associate Professor, IRIS. IoT y gestión de recursos. Co-autor de audio federado on-device. Va bien junto a Meratnia.</li><li><a href="https://www.tue.nl/en/research/researchers/mike-holenderski" target="_blank" rel="noopener">Mike Holenderski</a>, Assistant Professor, IRIS. Reliable ML: saber cuándo una predicción falla. Encaja con el router (RQ4).</li><li><a href="https://www.tue.nl/en/research/researchers/bert-de-vries" target="_blank" rel="noopener">Bert de Vries</a>, Full Professor, EE, BIASlab. Modelos que caben en audífonos (GN Hearing) e incertidumbre bayesiana. Encaje temático débil.</li></ul></details>
+<details><summary>Más en la TU/e</summary><ul><li><a href="https://research.tue.nl/en/persons/maryam-tavakol/" target="_blank" rel="noopener">Maryam Tavakol</a>, Assistant Professor, Uncertainty in AI. Activation sparsity para LLMs eficientes en el edge (AICAS 2025) e incertidumbre para el router. Su grupo no sale en el overview de AI&amp;ES.</li><li><a href="https://research.tue.nl/en/persons/amy-deng" target="_blank" rel="noopener">Songgaojun (Amy) Deng</a>, Assistant Professor, Data Mining. Fiabilidad y benchmarks de LLMs: sirve para validar el LLM judge. Entró en 2025 y busca estudiantes. Data Mining no sale en el overview.</li><li><a href="https://www.tue.nl/en/research/researchers/tanir-ozcelebi" target="_blank" rel="noopener">Tanir Ozcelebi</a>, Associate Professor, IRIS. IoT y gestión de recursos. Cumple la regla de AI&amp;ES; va bien junto a Meratnia.</li><li><a href="https://www.tue.nl/en/research/researchers/federico-corradi" target="_blank" rel="noopener">Federico Corradi</a>, Associate Professor, EE Electronic Systems. Edge computing eficiente (neuromórfico, sin LLMs). Cumple la regla de AI&amp;ES, pero solo como supervisor formal.</li><li><a href="https://www.tue.nl/en/research/researchers/aaqib-saeed" target="_blank" rel="noopener">Aaqib Saeed</a>, Assistant Professor, Industrial Design. Lo quito de la lista principal: trabaja en audio, e Industrial Design no sale en el overview de AI&amp;ES.</li></ul></details>
 <h2 id="ext">Fuera: co-supervisor externo</h2>
 <h3 class="tier" id="max">Encaje máximo</h3>
 <article class="card" data-key="sv:kate-knill-mark-gales">
